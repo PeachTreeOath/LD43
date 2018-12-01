@@ -22,6 +22,11 @@ public class PrayerMeter : MonoBehaviour {
     private float _prayerCount = 0;
     private Vector2 _prayerMeterLocation = Vector2.zero;
 
+    public GameObject GetProgressBar()
+    {
+        return ProgressBar;
+    }
+
 	// Use this for initialization
 	void Start () {
 
@@ -61,15 +66,14 @@ public class PrayerMeter : MonoBehaviour {
         }
 	}
 
-    public void AddPrayer(float prayerValue, Vector3 vehicleLocation)
+    public void AddPrayer(float prayerValue)
     {
-        //Instantiate this prayer.
-        var prayer = Instantiate(PrayerPrefab, vehicleLocation, new Quaternion(), GameObject.Find("PrayerSpace").transform);
-        prayer.GetComponent<Prayer>().Initialize(vehicleLocation);
-        Destroy(prayer, PrayerLifeTime);
-
         //Increment the prayer count.
         _prayerCount += prayerValue;
+        if(_prayerCount > MaximumPrayers)
+        {
+            _prayerCount = MaximumPrayers;
+        }
 
         //Update the Ui.
         UpdateUi();

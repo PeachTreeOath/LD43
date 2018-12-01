@@ -17,7 +17,7 @@ public class VehicleStats : MonoBehaviour
     public float speed;
 
     [Tooltip("How much time given at a check point.")]
-    public float prayerValue;
+    public int prayerValue;
 
 	[Tooltip("How likely they are to fall asleep - 1 (low) to 3 (high).")]
     public float sleepChance;
