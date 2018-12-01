@@ -89,6 +89,9 @@ public class VehicleController : MonoBehaviour
         if (currState != State.DRIVING) return;
 
         isSleeping = true;
+
+        //Display Sleep Caption
+
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
         switch (driftDirection)
         {
