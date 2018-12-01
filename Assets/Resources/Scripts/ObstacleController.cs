@@ -11,7 +11,7 @@ public class ObstacleController : MonoBehaviour
 	[Tooltip("How long to wait before dropping.")]
 	public float dropTimer;
 
-    [HideInInspector]
+	[Tooltip("'Final position. Afterwards its drop speed matches the road speed.")]
 	public Vector3 endPosition;
 
     [HideInInspector]

@@ -18,14 +18,16 @@ public class CarPool : MonoBehaviour
     public void AddNewCar(float xPosition)
     {
         GameObject car = Instantiate(ResourceLoader.instance.car, new Vector3(xPosition, 0, 0), Quaternion.identity);
+        car.transform.SetParent(transform);
         cars.Add(car);
+        car.GetComponent<CarController>().id = cars.Count;
     }
 
     public void SelectCar(int selectedCarId)
     {
         foreach (GameObject car in cars)
         {
-            CarController carController = GetComponent<CarController>();
+            CarController carController = car.GetComponent<CarController>();
             carController.isSelected = carController.id == selectedCarId;
         }
     }
