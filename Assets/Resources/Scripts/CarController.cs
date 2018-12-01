@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-
+    public int id;
     public bool isSelected; // This is how a user selects which car to move
+    public GameObject carSprite; // Contains both sprite and collider and are separate from the actual GameObject
+    private Rigidbody2D rbody;
     public float moveSpeed;
     public float rotateSpeed;
     public float angledMovementPower;
     public float driftPower;
-    public GameObject carSprite; // Contains both sprite and collider and are separate from the actual GameObject
-
-    private Rigidbody2D rbody;
+    public float weight;
+    public float prayerValue;
+    public float sleepChance;
+    public float sleepSeverity;
+    public float awakeGracePeriod;
 
     // Use this for initialization
     void Start()
@@ -39,8 +43,6 @@ public class CarController : MonoBehaviour
         float vDelta = moveSpeed * Input.GetAxisRaw("Vertical");
         Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vDelta + driftDelta.y);
         rbody.MovePosition(newPosition);
-
-
     }
 
     private float GetHorizontalDeltaFromRotation(float eulerAngle)
