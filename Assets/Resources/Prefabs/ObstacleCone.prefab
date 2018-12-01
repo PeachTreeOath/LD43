@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c57bf4b37577f14694932ae668fc7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropSpeed: 1
-  dropTimer: 5
   endPosition: {x: 0, y: 0, z: 0}
+  moveTimer: 0
   obstacleState: 0
+  scrollSpeed: 0
+  obstacleStats: {fileID: 0}
+  telegraph: {fileID: 0}
 --- !u!212 &212264294970962642
 SpriteRenderer:
   m_ObjectHideFlags: 1

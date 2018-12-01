@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     public Vector2 upperLeftBound;
     public Vector2 bottomRightBound;
-	public float defaultDeltaFromTopForWarnings = 0.3f;
+	public float defaultDeltaFromTopForWarnings = 5f;
 	public float defaultDeltaFromRightForWarnings = 1;
 
     public GameObject lightShaftsFab;
@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
     PrayerMeter prayerMeter;
 
     private float curPos = 0;
-    private float nextCheckpointPos = 110; //TODO relocate to Level object
+    private float nextCheckpointPos = 15; //TODO relocate to Level object
     private bool isPausedForCheckpoint = false;
 
     private int dbgCount = 0;
@@ -53,12 +53,12 @@ public class GameManager : Singleton<GameManager>
         float curPos = getCurrentMapPos();
         float distToNextCheckpoint = getNextCheckpointPos() - curPos;
         if (dbgCount++ % 120 == 0) {
-            //Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
+            Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
         }
         if (distToNextCheckpoint <= 0) {
             Debug.Log("CHECKPOINT BABY");
             hitCheckpoint();
-            nextCheckpointPos += 110; //TODO remove this, for debugging only
+            nextCheckpointPos += 40; //TODO remove this, for debugging only
         }
     }
 

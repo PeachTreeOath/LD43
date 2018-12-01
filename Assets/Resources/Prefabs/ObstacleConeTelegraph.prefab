@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2886a1d2f4c75a54abc9e7aa8d7abc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstacleType: 0
   AudioClip: {fileID: 0}
-  TelegraphHeight: 1
 --- !u!212 &212158449180551534
 SpriteRenderer:
   m_ObjectHideFlags: 1
