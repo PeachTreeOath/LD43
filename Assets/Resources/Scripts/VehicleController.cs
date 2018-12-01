@@ -110,8 +110,8 @@ public class VehicleController : MonoBehaviour
         if(isSelected)
         {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .82f)) * Time.deltaTime;
-            vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
-        }else if(!isSleeping) {
+            vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
+        } else if(!isSleeping) {
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
