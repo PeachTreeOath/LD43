@@ -23,7 +23,7 @@ using UnityEngine.EventSystems;
 /// is placed.
 ///
 /// The data cards (CheckpointCard) are stored per checkpoint.  A checkpoint will have
-/// between 0 and max (4) number of cards associated with it.  When the checkpoint is
+/// between 0 and max (2) number of cards associated with it.  When the checkpoint is
 /// hit it will load the cards into the UI which will convert the data to a visual.
 /// If there are less than max cards to display, the empty spots will be filled with a
 /// blank looking card (specific in the CheckpointUiManager)
@@ -73,16 +73,20 @@ public class CheckpointManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (showingCheckpointUi) {
-            uiManager.clearHighlights();
-            updateWithMousePos();
+            Vector2 mousePos = Input.mousePosition;
+            if (Input.GetMouseButtonDown(0)) {
+                updateWithMouseClick(mousePos);
+            } else {
+                uiManager.clearHighlights();
+                updateWithMousePos(mousePos);
+            }
         }		
 	}
 
     //highlight cards that have the mouse over them
-    private void updateWithMousePos() {
-        Vector2 mousePos = Input.mousePosition;
+    private void updateWithMousePos(Vector2 mouseScreenPos) {
         PointerEventData ped = new PointerEventData(eventSystem);
-        ped.position = mousePos;
+        ped.position = mouseScreenPos;
         List<RaycastResult> result = new List<RaycastResult>();
 
         graycast.Raycast(ped, result);
@@ -90,6 +94,28 @@ public class CheckpointManager : MonoBehaviour {
             if (rr.gameObject.CompareTag("ItemHighlight")) {
                 uiManager.highlightCard(rr.gameObject, true);
             }
+        }
+    }
+    
+    //highlight cards that have been clicked
+    private void updateWithMouseClick(Vector2 mouseScreenPos) {
+        PointerEventData ped = new PointerEventData(eventSystem);
+        ped.position = mouseScreenPos;
+        List<RaycastResult> result = new List<RaycastResult>();
+
+        bool isSelected = false;
+        graycast.Raycast(ped, result);
+        foreach (RaycastResult rr in result) {
+            if (rr.gameObject.CompareTag("ItemHighlight")) {
+                isSelected = uiManager.selectCard(rr.gameObject);
+            }
+        }
+
+        if (isSelected) {
+            CheckpointCard cc = uiManager.getSelectedCard();
+            Debug.Log("You selected " + cc.gameObject.name);
+            //TODO should pause for selection display for a second or so
+            GameManager.instance.resumeCheckpoint();
         }
     }
 
@@ -149,7 +175,9 @@ public class CheckpointManager : MonoBehaviour {
 
     /// <summary>
     /// Should be called when the current checkpoint resume
-    /// has been requested. 
+    /// has been requested.  If you called this directly instead
+    /// of calling GameManager resumeCheckpoint then you are
+    /// probably wondering why everything didn't resume.
     /// </summary>
     public void resumeCheckpoint() {
         Debug.Log("Resume checkpoint");
