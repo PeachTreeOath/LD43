@@ -5,7 +5,7 @@ using UnityEngine;
 public class Scroller : MonoBehaviour {
     // Scroll main texture based on time
 
-    float scrollSpeed = 0.5f;
+    public float scrollSpeed;
     Renderer rend;
 
     void Start()
