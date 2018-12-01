@@ -59,6 +59,12 @@ public class GameManager : Singleton<GameManager>
         return nextCheckpointPos;
     }
 
+    public void resumeCheckpoint() {
+        checkpointManager.resumeCheckpoint();
+    }
+        
+
+
     public void hitCheckpoint() {
         checkpointManager.hitCheckpoint();
     }

@@ -5,14 +5,26 @@ using UnityEngine;
 public class CheckpointManager : MonoBehaviour {
 
     [SerializeField]
+    private Canvas checkpointUi;
+
+    [SerializeField]
     private List<Checkpoint> checkpoints;
 
     [SerializeField]
     private int curCheckpoint = -1;
 
+    private bool showingCheckpointUi = false;
+
 	// Use this for initialization
 	void Start () {
-		
+        if (checkpointUi == null) {
+            Debug.LogError("Missing checkpoint UI");
+        }
+        if (checkpoints == null || checkpoints.Count == 0) {
+            Debug.LogError("Missing # of checkpoints");
+        }
+
+        hideCheckpointUi();
 	}
 	
 	// Update is called once per frame
@@ -29,8 +41,45 @@ public class CheckpointManager : MonoBehaviour {
             return;  //do nothing
         }
 
+        //TODO pause gameplay
+        showCheckpointUi();
+
+    }
+
+    /// <summary>
+    /// Shows the checkpoint ui for the current checkpoint
+    /// </summary>
+    private void showCheckpointUi() {
+        Debug.Log("Show checkpoint UI");
+        //TODO tie in with curCheckpoint index
+        //to load proper card choices
+        CanvasGroup cpCanvasGroup = checkpointUi.GetComponent<CanvasGroup>();
+        cpCanvasGroup.alpha = 1;
+        cpCanvasGroup.interactable = true;
+        cpCanvasGroup.blocksRaycasts = true;
+    }
+
+    /// <summary>
+    /// Hide the canvas for the checkpoint
+    /// </summary>
+    private void hideCheckpointUi() {
+        CanvasGroup cpCanvasGroup = checkpointUi.GetComponent<CanvasGroup>();
+        cpCanvasGroup.alpha = 0;
+        cpCanvasGroup.interactable = false;
+        cpCanvasGroup.blocksRaycasts = false;
+    }
+
+    /// <summary>
+    /// Should be called when the current checkpoint resume
+    /// has been requested. 
+    /// </summary>
+    public void resumeCheckpoint() {
+        Debug.Log("Resume checkpoint");
+
+        hideCheckpointUi();
+
         //TODO make this great
-        dbgLoadUpJesusVanPool(cp);
+        dbgLoadUpJesusVanPool(curCheckpoint);
     }
 
 

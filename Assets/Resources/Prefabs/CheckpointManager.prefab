@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebd384180e48ca4594b11099739e2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointUi: {fileID: 223946125188577604, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
+    type: 2}
   checkpoints:
   - {fileID: 0}
   - {fileID: 0}

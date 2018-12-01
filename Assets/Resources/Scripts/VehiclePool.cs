@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class VehiclePool : Singleton<VehiclePool>
+public class VehiclePool : MonoBehaviour
 {
     public const float finalSpawnYPosition = 0;
 
