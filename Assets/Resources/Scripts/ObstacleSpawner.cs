@@ -31,7 +31,7 @@ public class ObstacleSpawner : MonoBehaviour
 				obstacleStats.obstacleHeight = obstacleGO.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
 			}
 
-			obstacleStats.spawnTimer = obstacleStats.spawnInterval;
+			obstacleStats.spawnTimer = obstacleStats.firstSpawnTime;
 		}
 	}
 	
