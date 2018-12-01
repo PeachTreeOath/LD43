@@ -22,28 +22,28 @@ public class VehicleController : MonoBehaviour
 
     #region Vehicle Stats
 
-	[Tooltip("How much it knocks other cars around & how much it gets knocked around.")]
+    [Tooltip("How much it knocks other cars around & how much it gets knocked around.")]
     public float weight;
 
-	[Tooltip("How quickly and easily it handles - i.e. the rotate speed.")]
+    [Tooltip("How quickly and easily it handles - i.e. the rotate speed.")]
     public float control;
 
-	[Tooltip("How quicly it moves forward.")]
+    [Tooltip("How quicly it moves forward.")]
     public float speed;
 
-	[Tooltip("How much time given at a check point.")]
+    [Tooltip("How much time given at a check point.")]
     public float prayerValue;
 
-	[Tooltip("How likely they are to fall asleep - 0 (low) to 3 (high).")]
+    [Tooltip("How likely they are to fall asleep - 0 (low) to 3 (high).")]
     public float sleepChance;
 
-	[Tooltip("How violently the car will swerve.")]
+    [Tooltip("How violently the car will swerve.")]
     public float sleepSeverity;
 
     public float awakeGracePeriod;
 
     #endregion
-    
+
     private bool isSleeping;
     private float nextSleepTime;
     private float sleepTimeElapsed;
@@ -70,8 +70,8 @@ public class VehicleController : MonoBehaviour
         float vInput = 0;
         if (isSelected)
         {
-            hInput = control * Input.GetAxisRaw("Horizontal");
-            vInput = speed * Input.GetAxisRaw("Vertical");
+            hInput = control * 0.0428f * Input.GetAxisRaw("Horizontal");
+            vInput = speed * 0.0029f * Input.GetAxisRaw("Vertical");
         }
 
         // Movement from input
