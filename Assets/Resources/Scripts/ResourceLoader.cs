@@ -7,6 +7,10 @@ public class ResourceLoader : Singleton<ResourceLoader>
     [HideInInspector]
     public GameObject obstacleConePrefab;
 
+    public GameObject obstaclePedestrianPrefab;
+
+    public GameObject obstacleCyclistPrefab;
+
     #region Vehicles
 
     [HideInInspector]
@@ -41,6 +45,8 @@ public class ResourceLoader : Singleton<ResourceLoader>
     private void LoadResources()
     {
         obstacleConePrefab = Resources.Load<GameObject>("Prefabs/ObstacleCone");
+        obstaclePedestrianPrefab = Resources.Load<GameObject>("Prefabs/ObstaclePedestrian");
+        obstacleCyclistPrefab = Resources.Load<GameObject>("Prefabs/ObstacleCyclist");
 
         // Vehicles
         bus = Resources.Load<GameObject>("Prefabs/Bus");

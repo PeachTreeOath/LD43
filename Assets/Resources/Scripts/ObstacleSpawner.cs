@@ -21,7 +21,13 @@ public class ObstacleSpawner : MonoBehaviour
 				case ObstacleTypeEnum.CONE:
 					obstacleGO = ResourceLoader.instance.obstacleConePrefab;
 					break;
-				default:
+                case ObstacleTypeEnum.PEDESTRIAN:
+                    obstacleGO = ResourceLoader.instance.obstaclePedestrianPrefab;
+                    break;
+                case ObstacleTypeEnum.CYCLIST:
+                    obstacleGO = ResourceLoader.instance.obstacleCyclistPrefab;
+                    break;
+                default:
 					Debug.LogWarning("Couldn't find matching GameObject in ResourceLoader for obstacle of type " + obstacleStats.obstacleType);
 					break;
 			}
