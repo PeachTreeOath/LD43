@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ResourceLoader : Singleton<ResourceLoader>
 {
-    //[HideInInspector]
-    //public Sprite timeIcon;
+    [HideInInspector]
+    public GameObject obstacleConePrefab;
 
     protected override void Awake()
     {
@@ -15,6 +15,6 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
     private void LoadResources()
     {
-    //timeIcon = Resources.Load<Sprite>("Textures/icons_v2/white_time");
+        obstacleConePrefab = Resources.Load<GameObject>("Prefabs/ObstacleCone");
     }
 }
