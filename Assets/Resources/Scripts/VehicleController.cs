@@ -29,6 +29,7 @@ public class VehicleController : MonoBehaviour
     private static float LANE_CORRECTION_ANGLE_DELTA = 2;
 
     public bool isSleeping;
+    public float nextSleepTime;
     public float nextWakeTime;
     private float timeElapsed;
     private Vector2 sleepVector;
@@ -74,20 +75,24 @@ public class VehicleController : MonoBehaviour
     void UpdateDriving()
     {
         timeElapsed += Time.deltaTime;
-        if (timeElapsed > nextWakeTime && !isSleeping)
+        if (timeElapsed > nextSleepTime && !isSleeping)
         {
             if (isSelected)
             {
-                timeElapsed = 0;
-                nextWakeTime = GetNextSleepOrWakeTime();
+                resetSleepTime();
             }
-            StartDrifting();
-            //Debug.Log(Time.time + " StartDrifting: " + gameObject.name);
+            onDriverSleep();
         }
-        else if (isSelected && isSleeping && timeElapsed > nextWakeTime)
+        else if (isSleeping && timeElapsed > nextWakeTime)
         {
-            //Debug.Log(Time.time + " StopDrifting: " + gameObject.name);
-            StopDrifting();
+            if (isSelected)
+            {
+                onDriverWake();
+            }
+            else
+            {
+                resetWakeTime();
+            }
         }
 
         float hInput = 0;
@@ -100,11 +105,6 @@ public class VehicleController : MonoBehaviour
             vInput = vehicleStats.speed * 0.0012f * Input.GetAxisRaw("Vertical");
         }
 
-        if (isSelected)
-        {
-            // Debug.Log("isSleeping: " + isSleeping);
-        }
-
         // Movement from input
         float rotateDelta;
         if (isSleeping)
@@ -113,7 +113,7 @@ public class VehicleController : MonoBehaviour
 
             vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
         }
-        else
+        else // Autocorrect
         {
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
@@ -145,8 +145,6 @@ public class VehicleController : MonoBehaviour
     public void StartDrifting()
     {
         if (currState != State.DRIVING) return;
-
-        isSleeping = true;
 
         //Display Sleep Caption
         RenderSleepCaption();
@@ -208,10 +206,35 @@ public class VehicleController : MonoBehaviour
 
     private void StopDrifting()
     {
-        isSleeping = false;
+        Destroy(caption);
+    }
+
+    private void onDriverSleep()
+    {
+        StartDrifting();
+        isSleeping = true;
+        resetWakeTime();
+    }
+
+    private void resetWakeTime()
+    {
+        // Schedule next wake
         timeElapsed = 0;
         nextWakeTime = GetNextSleepOrWakeTime();
+    }
+
+    private void onDriverWake()
+    {
+        isSleeping = false;
         Destroy(caption);
+        resetSleepTime();
+    }
+
+    private void resetSleepTime()
+    {
+        // Schedule next wake
+        timeElapsed = 0;
+        nextSleepTime = GetNextSleepOrWakeTime();
     }
 
     private float GetNextSleepOrWakeTime()
