@@ -89,6 +89,7 @@ public class VehicleController : MonoBehaviour
         if (currState != State.DRIVING) return;
 
         isSleeping = true;
+        // Only pick from top 6 drift directions - don't want to drift north or south.
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
         switch (driftDirection)
         {
