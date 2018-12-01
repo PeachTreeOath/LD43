@@ -19,8 +19,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4518201288442506}
-  - component: {fileID: 114296195488312792}
-  - component: {fileID: 114542422120833676}
+  - component: {fileID: 114159070662340710}
+  - component: {fileID: 114371813261019162}
+  - component: {fileID: 114116232590491852}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -41,19 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114296195488312792
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1438342812020930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81e96d08e8c9ca442be556e554b7f839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  car: {fileID: 0}
---- !u!114 &114542422120833676
+--- !u!114 &114116232590491852
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,3 +53,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd50a83c486b5346913d51379bbfc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114159070662340710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1438342812020930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930eedbbfa3b9624baab23c8545b9226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coneSpawnInterval: 3
+  coneSpawnTimer: 0
+--- !u!114 &114371813261019162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1438342812020930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e96d08e8c9ca442be556e554b7f839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleConePrefab: {fileID: 0}
+  car: {fileID: 0}
