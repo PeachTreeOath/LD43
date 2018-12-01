@@ -52,9 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointUi: {fileID: 0}
-  checkpoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  checkpoint: {fileID: 114738531540576802, guid: 7e31bbd46b48d554b926063f4c11f734,
+    type: 2}
   curCheckpoint: -1
   prayerHandsFab: {fileID: 1915286090572582, guid: 0bd30cc0227c53742aba6a0a57d61e67,
     type: 2}

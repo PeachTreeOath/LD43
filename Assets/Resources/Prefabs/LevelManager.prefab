@@ -84,6 +84,7 @@ MonoBehaviour:
   spawnTelegraph: {fileID: 1777406086461410, guid: cc4454d85b108bd42a6525c72d03bef3,
     type: 2}
   verticalSpeed: 5
+  verticalRange: 2
   horizontalSpeed: 0
   moveWaitTime: 1
   directionObstacleComingFrom: 6
@@ -138,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c7f7157cd3ff0499994d79bd151283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsBetweenCheckpoints: 15
+  distanceBetweenCheckpoints: 40
   scrollSpeed: 5
   spawnRateInSeconds: 5
   rateOfPrayerDecay: 5
