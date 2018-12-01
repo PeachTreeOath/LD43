@@ -5,6 +5,7 @@ using UnityEngine;
 public class CarController : MonoBehaviour
 {
 
+    public bool isSelected; // This is how a user selects which car to move
     public float moveSpeed;
     public float rotateSpeed;
     public float angledMovementPower;
@@ -21,6 +22,12 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Apply random drift
+        // TODO
+
+        if (!isSelected)
+            return;
+
         // Movement from input
         float rotateDelta = rotateSpeed * Input.GetAxisRaw("Horizontal");
         carSprite.transform.Rotate(Vector3.back, rotateDelta);
@@ -32,8 +39,7 @@ public class CarController : MonoBehaviour
         Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vDelta);
         rbody.MovePosition(newPosition);
 
-        // Apply random drift
-        // TODO
+
     }
 
     private float GetHorizontalDeltaFromRotation(float eulerAngle)
@@ -41,17 +47,13 @@ public class CarController : MonoBehaviour
         if (eulerAngle < 180)
         {
             float angle = 0 - eulerAngle;
-			Debug.Log("angle " + angle + " euler " + eulerAngle);
             float angleSeverity = Mathf.Pow(angle, 2);
-			Debug.Log("angle sev " + angleSeverity);
             return -angleSeverity * angledMovementPower;
         }
         else
         {
-            float angle = 360-eulerAngle;
-			Debug.Log("dangle " + angle + " euler " + eulerAngle);
+            float angle = 360 - eulerAngle;
             float angleSeverity = Mathf.Pow(angle, 2);
-			Debug.Log("dangle sev " + angleSeverity);
             return angleSeverity * angledMovementPower;
         }
     }
