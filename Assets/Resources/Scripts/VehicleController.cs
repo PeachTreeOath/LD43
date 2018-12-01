@@ -81,13 +81,10 @@ public class VehicleController : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if (timeElapsed > nextSleepTime && !isSleeping)
         {
-            if (isSelected)
+            onDriverSleep();
+            if(isSelected)
             {
-                resetSleepTime();
-            }
-            else
-            {
-                onDriverSleep();
+                resetWakeTime();
             }
         }
         else if (isSleeping && timeElapsed > nextWakeTime)
@@ -95,10 +92,6 @@ public class VehicleController : MonoBehaviour
             if (isSelected)
             {
                 onDriverWake();
-            }
-            else
-            {
-                resetWakeTime();
             }
         }
 
@@ -114,7 +107,11 @@ public class VehicleController : MonoBehaviour
 
         // Movement from input
         float rotateDelta;
-        if(!isSleeping) {
+        if(isSelected)
+        {
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .82f)) * Time.deltaTime;
+            vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
+        }else if(!isSleeping) {
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
@@ -246,7 +243,6 @@ public class VehicleController : MonoBehaviour
         isSleeping = true;
         RenderSleepCaption();
         StartDrifting();
-        resetWakeTime();
     }
 
     private void resetWakeTime()
@@ -314,8 +310,7 @@ public class VehicleController : MonoBehaviour
         if (!IsCrashed)
         {
             vehiclePool.SelectVehicle(this);
-            timeElapsed = 0;
-            nextWakeTime = WAKE_TIME;
+            resetWakeTime();
             //Debug.Log(Time.time  + " reset timeElapsed nextSleepTime " + nextWakeTime);
         }
     }
