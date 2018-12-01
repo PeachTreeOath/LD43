@@ -9,6 +9,8 @@ public class GameManager : Singleton<GameManager>
 
     public float roadSpeed;
 
+    public GameObject lightShaftsFab;
+
     private CheckpointManager checkpointManager;
     private VehiclePool vehiclePool;
 

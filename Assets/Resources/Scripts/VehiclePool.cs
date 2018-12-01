@@ -90,6 +90,10 @@ public class VehiclePool : MonoBehaviour
         VehicleController vehicleController = vehicleGO.GetComponent<VehicleController>();
         vehicleController.vehicleStats = matchingStat[0];
 
+        Rigidbody2D rb2d = vehicleGO.GetComponent<Rigidbody2D>();
+        rb2d.mass = matchingStat[0].weight * 50;
+        rb2d.drag = matchingStat[0].weight * 10f;
+
         vehicles.Add(vehicleController);
     }
 
