@@ -28,6 +28,7 @@ public class VehiclePool : MonoBehaviour
     }
 
     public void AddNewVehicle(VehicleTypeEnum vehicleType) {
+        Debug.Log("Add vehicle: " + vehicleType);
         GameObject prefab = null;
         int pos = 0; //TODO pos should be provided by caller
         switch (vehicleType) {

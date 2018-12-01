@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class VehicleController : MonoBehaviour
 {
+    public enum State { ENTERING_STAGE, DRIVING, CRASHING, CRASHED }
+    public State currState;
+
     [Tooltip("The pool the vehicle belongs to.")]
     public VehiclePool vehiclePool;
 
@@ -33,18 +36,30 @@ public class VehicleController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        currState = State.DRIVING;  // this is temporary...
         rbody = GetComponent<Rigidbody2D>();
         nextSleepTime = GetNextSleepTime();
         vehiclePool = GameManager.instance.getVehiclePool();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
+        switch(currState) {
+            case State.DRIVING:
+                UpdateDriving();
+                break;
+        }
+    }
+
+    void UpdateDriving() { 
         sleepTimeElapsed += Time.deltaTime;
         if (sleepTimeElapsed > nextSleepTime && !isSleeping)
         {
-            StartDrifting();
+            if(!isSelected) {
+                StartDrifting();
+            } else {
+                GetNextSleepTime();
+            }
         }
 
         float hInput = 0;
@@ -71,6 +86,8 @@ public class VehicleController : MonoBehaviour
 
     public void StartDrifting()
     {
+        if (currState != State.DRIVING) return;
+
         isSleeping = true;
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
         switch (driftDirection)
@@ -96,12 +113,19 @@ public class VehicleController : MonoBehaviour
         }
     }
 
+    public void OnCollideWithWalls(Vector2 normal) {
+        //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
+
+
+    }
+
     private void StopDrifting()
     {
         isSleeping = false;
         sleepTimeElapsed = 0;
         nextSleepTime = GetNextSleepTime();
     }
+
 
     private float GetNextSleepTime()
     {

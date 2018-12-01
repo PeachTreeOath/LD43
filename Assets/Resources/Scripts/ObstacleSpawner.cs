@@ -8,6 +8,8 @@ public class ObstacleSpawner : MonoBehaviour
 	[Tooltip("All the different types of obstacles to spawn - loaded from LevelManager.")]
 	public ObstacleStats[] allObstacleTypes;
 
+    private bool isPaused = false;
+
 	public void Start ()
 	{
 		allObstacleTypes = LevelManager.instance.GetComponents<ObstacleStats>();
@@ -21,7 +23,13 @@ public class ObstacleSpawner : MonoBehaviour
 				case ObstacleTypeEnum.CONE:
 					obstacleGO = ResourceLoader.instance.obstacleConePrefab;
 					break;
-				default:
+                case ObstacleTypeEnum.PEDESTRIAN:
+                    obstacleGO = ResourceLoader.instance.obstaclePedestrianPrefab;
+                    break;
+                case ObstacleTypeEnum.CYCLIST:
+                    obstacleGO = ResourceLoader.instance.obstacleCyclistPrefab;
+                    break;
+                default:
 					Debug.LogWarning("Couldn't find matching GameObject in ResourceLoader for obstacle of type " + obstacleStats.obstacleType);
 					break;
 			}
@@ -34,8 +42,22 @@ public class ObstacleSpawner : MonoBehaviour
 			obstacleStats.spawnTimer = obstacleStats.firstSpawnTime;
 		}
 	}
-	
-	public void Update ()
+
+    public void Update() {
+        if (!isPaused) {
+            UpdateObstacles();
+        }
+    }
+
+    public void pause() {
+        isPaused = true;
+    }
+
+    public void resume() {
+        isPaused = false;
+    }
+
+	public void UpdateObstacles ()
 	{
 		foreach (ObstacleStats obstacleStats in allObstacleTypes)
 		{
@@ -49,6 +71,12 @@ public class ObstacleSpawner : MonoBehaviour
 
 				GameObject cone = Instantiate(ResourceLoader.instance.obstacleConePrefab, startPosition, Quaternion.identity);
 				cone.GetComponent<ObstacleController>().endPosition = endPosition;
+
+                // Spawn new obstacle telegraph (visual indicator and audio) near top of the stage.
+			    float telegraphHeight = obstacleStats.spawnTelegraph.GetComponent<ObstacleTelegraph>().TelegraphHeight;
+                Vector3 telegraphPosition = new Vector3(randomX, GameManager.instance.upperLeftBound.y - telegraphHeight, 0);
+			    GameObject telegraph = Instantiate(obstacleStats.spawnTelegraph, telegraphPosition, Quaternion.identity);
+                Destroy(telegraph, 3f);
 			
 				obstacleStats.spawnTimer = obstacleStats.spawnInterval;
 			}

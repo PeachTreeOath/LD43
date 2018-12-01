@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Controls obstacles like cones on the road. Assumes obstacles only move downward in the y direction.
+// Controls obstacles like cones on the road.
 public class ObstacleController : MonoBehaviour
 {
 	[Tooltip("How fast the obstacle should drop. E.g. if bird fell from the sky it could drop very fast.")]
 	public float dropSpeed;
 
-	[Tooltip("How long to wait before dropping.")]
+    [Tooltip("How fast the obstacle should walk across the road.")]
+    public float horizontalSpeed;
+
+    [Tooltip("How long to wait before dropping.")]
 	public float dropTimer;
 
 	[Tooltip("'Final position. Afterwards its drop speed matches the road speed.")]
@@ -32,8 +35,14 @@ public class ObstacleController : MonoBehaviour
 			Debug.LogWarning("Set end position for obstacle before start!!");
 		}
 	}
-	
-	public void Update ()
+
+    public void Update() {
+        if (!GameManager.instance.isPaused()) {
+            UpdatePos();
+        }
+    }
+
+	public void UpdatePos ()
 	{
 		// Update state.
 		if (dropTimer <= 0)
@@ -55,7 +64,7 @@ public class ObstacleController : MonoBehaviour
 				dropTimer -= Time.deltaTime;
 				break;
 			case ObstacleStateEnum.DROPPING:
-				transform.position = new Vector3(transform.position.x, transform.position.y - (dropSpeed * Time.deltaTime), transform.position.z);
+				transform.position = new Vector3(transform.position.x + (horizontalSpeed * Time.deltaTime), transform.position.y - (dropSpeed * Time.deltaTime), transform.position.z);
 				break;
 			case ObstacleStateEnum.PLACED:
 				transform.position = new Vector3(transform.position.x, transform.position.y - (GameManager.instance.roadSpeed * Time.deltaTime), transform.position.z);
@@ -63,6 +72,10 @@ public class ObstacleController : MonoBehaviour
 				{
 					Destroy(gameObject);
 				}
+                if (transform.position.x <= GameManager.instance.upperLeftBound.x || transform.position.x >= GameManager.instance.bottomRightBound.x)
+                {
+                    Destroy(gameObject);
+                }
 				break;
 		}
 	}
