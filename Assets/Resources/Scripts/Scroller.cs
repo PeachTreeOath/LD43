@@ -5,7 +5,7 @@ using UnityEngine;
 public class Scroller : MonoBehaviour
 {
     // Scroll main texture based on time
-
+    [HideInInspector]
     public float scrollSpeed;
     Renderer rend;
 
@@ -14,7 +14,7 @@ public class Scroller : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
-        scrollSpeed = GameManager.instance.roadSpeed;
+        //scrollSpeed = GameManager.instance.roadSpeed;
         lastScrollSpeed = scrollSpeed;
 
     }

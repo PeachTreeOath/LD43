@@ -25,20 +25,35 @@ public class VehicleController : MonoBehaviour
 
     //Cap on how fast the car can move on the x-axis per update
     private float maxHSpeedConst = 0.17f;
+    private static float WAKE_CONTROL_LOWER_BOUND = 5;
+    private static float LANE_CORRECTION_ANGLE_DELTA = 2;
 
-    private bool isSleeping;
-    private float nextSleepTime;
-    private float sleepTimeElapsed;
+    public bool isSleeping;
+    public float nextSleepTime;
+    public float nextWakeTime;
+    private float timeElapsed;
     private Vector2 sleepVector;
 
     GameObject lightShaft;
+
+    public bool IsCrashed {
+        get {
+            switch(currState) {
+                case State.CRASHING:
+                case State.CRASHED:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
 
     // Use this for initialization
     void Start()
     {
         currState = State.DRIVING;  // this is temporary...
         rbody = GetComponent<Rigidbody2D>();
-        nextSleepTime = GetNextSleepTime();
+        nextSleepTime = GetNextSleepOrWakeTime();
         vehiclePool = GameManager.instance.getVehiclePool();
     }
 
@@ -52,14 +67,18 @@ public class VehicleController : MonoBehaviour
     }
 
     void UpdateDriving() { 
-        sleepTimeElapsed += Time.deltaTime;
-        if (sleepTimeElapsed > nextSleepTime && !isSleeping)
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed > nextSleepTime && !isSleeping)
         {
-            if(!isSelected) {
-                StartDrifting();
+            if (isSelected) {
+                timeElapsed = 0;
+                nextSleepTime = GetNextSleepOrWakeTime();
             } else {
-                GetNextSleepTime();
+                StartDrifting();
             }
+        } else if (isSleeping && timeElapsed > nextWakeTime) 
+        {
+            StopDrifting();
         }
 
         float hInput = 0;
@@ -73,8 +92,29 @@ public class VehicleController : MonoBehaviour
         }
 
         // Movement from input
-        float rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
-        vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
+        float rotateDelta;
+        if (isSleeping) {
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
+            if (isSelected)
+            {
+                Debug.Log("hInput: " + hInput + " sleepVector.x " + sleepVector.x + " vehicleStats.sleepSeverity " + vehicleStats.sleepSeverity + " rotateDelta " + rotateDelta);
+            }
+            vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
+        } else {
+            rbody.rotation = 0;
+            // North is 0 or 360
+            // if less than 10 or more than 350, do nothing
+            // if less than 180, reduce, if more than 180, increase
+            float angle = vehicleSprite.transform.eulerAngles.z;
+            if (angle < 0+WAKE_CONTROL_LOWER_BOUND || angle > 360-WAKE_CONTROL_LOWER_BOUND) { // do nothing
+                rotateDelta = 0f;
+            } else if (angle < 180) { // reduce angle
+                rotateDelta = -1f * LANE_CORRECTION_ANGLE_DELTA;
+            } else { // angle > 180
+                rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
+            }
+            vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
+        }
 
         // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
@@ -89,6 +129,10 @@ public class VehicleController : MonoBehaviour
         if (currState != State.DRIVING) return;
 
         isSleeping = true;
+
+        //Display Sleep Caption
+
+        // Only pick from top 6 drift directions - don't want to drift north or south.
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
         switch (driftDirection)
         {
@@ -120,16 +164,21 @@ public class VehicleController : MonoBehaviour
     }
 
     private void StartFatalCrash() {
-        vehiclePool.SelectVehicle(null);
 
-        currState = State.CRASHING;
+        if(vehiclePool == null)
+        {
+            Start();
+        }
+
+        vehiclePool.OnVehicleCrash(this);
+
+        currState = State.CRASHED;
 
         gameObject.layer = LayerMask.NameToLayer("Terrain");
 
         rbody.bodyType = RigidbodyType2D.Kinematic;
         rbody.angularVelocity = 0f;
-        rbody.velocity = new Vector2(0, -GameManager.instance.roadSpeed);
-
+        rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
 
         //TODO crash effect
         //TODO crash sound
@@ -139,33 +188,47 @@ public class VehicleController : MonoBehaviour
     private void StopDrifting()
     {
         isSleeping = false;
-        sleepTimeElapsed = 0;
-        nextSleepTime = GetNextSleepTime();
+        timeElapsed = 0;
+        nextSleepTime = GetNextSleepOrWakeTime();
     }
 
-
-    private float GetNextSleepTime()
+    private float GetNextSleepOrWakeTime()
     {
-        return 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
+        float ret = 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
+        //Debug.Log("GetNextSleepOrWakeTime: " + ret);
+        return ret;
     }
 
-    public void CheckSelected(GameObject selected)
-    {
-        if(selected.GetInstanceID() != gameObject.GetInstanceID())
-        {
-            Destroy(lightShaft);
+    public void SetSelected(bool selected) {
+        if (selected == isSelected) return;
+
+        isSelected = selected;
+        if (isSelected) {
+            AddLight();
+        }
+        else {
+            RemoveLight();
+        }
+    }
+
+    private void AddLight() {
+        if (lightShaft != null) return;
+
+        lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
+        lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
+        lightShaft.transform.SetParent(gameObject.transform);
+    }
+
+    private void RemoveLight() {
+        if(lightShaft != null) {
+            Destroy(lightShaft); 
         }
     }
 
     public void OnMouseDown()
     {
-        lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
-        lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
-        lightShaft.transform.SetParent(gameObject.transform);
-        vehiclePool.SelectVehicle(this);
-        for(int i = 0; i < vehiclePool.vehicles.Count; i++)
-        {
-            vehiclePool.vehicles[i].CheckSelected(gameObject);
+        if(!IsCrashed) {
+            vehiclePool.SelectVehicle(this);
         }
     }
 

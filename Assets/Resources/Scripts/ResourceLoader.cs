@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ResourceLoader : Singleton<ResourceLoader>
 {
+    #region Obstacles
     [HideInInspector]
     public GameObject obstacleConePrefab;
 
@@ -11,8 +12,10 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
     public GameObject obstacleCyclistPrefab;
 
-    #region Vehicles
+    public GameObject vehicleSleepCaption;
+    #endregion
 
+    #region Vehicles
     [HideInInspector]
     public GameObject bus;
 
@@ -44,9 +47,13 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
     private void LoadResources()
     {
+        // Obstacles
         obstacleConePrefab = Resources.Load<GameObject>("Prefabs/ObstacleCone");
         obstaclePedestrianPrefab = Resources.Load<GameObject>("Prefabs/ObstaclePedestrian");
         obstacleCyclistPrefab = Resources.Load<GameObject>("Prefabs/ObstacleCyclist");
+
+        // Ui Elements
+        vehicleSleepCaption = Resources.Load<GameObject>("Prefabs/VehicleSleepCaption");
 
         // Vehicles
         bus = Resources.Load<GameObject>("Prefabs/Vehicles/Bus");

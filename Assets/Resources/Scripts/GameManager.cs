@@ -6,24 +6,27 @@ public class GameManager : Singleton<GameManager>
 {
     public Vector2 upperLeftBound;
     public Vector2 bottomRightBound;
-
-    public float roadSpeed;
+	public float defaultDeltaFromTopForWarnings = 0.3f;
+	public float defaultDeltaFromRightForWarnings = 1;
 
     public GameObject lightShaftsFab;
 
     private Scroller scroller;
+    public float scrollSpeedMultiplier;
     private ObstacleSpawner obstacleSpawner;
     private CheckpointManager checkpointManager;
     private VehiclePool vehiclePool;
     PrayerMeter prayerMeter;
 
     private float curPos = 0;
-    private float nextCheckpointPos = 11; //TODO relocate to Level object
+    private float nextCheckpointPos = 110; //TODO relocate to Level object
     private bool isPausedForCheckpoint = false;
 
     private int dbgCount = 0;
 
     void Start() {
+
+        //Loading managers, spawners, and UIElements
         vehiclePool = FindObjectOfType<VehiclePool>();
         Debug.Log("Loaded VehiclePool: " + vehiclePool.gameObject.name);
         checkpointManager = FindObjectOfType<CheckpointManager>();
@@ -33,6 +36,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Loaded Scroller: " + scroller.gameObject.name);
         obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
         Debug.Log("Loaded Obstacle Spawner: " + obstacleSpawner);
+
+        scroller.scrollSpeed = LevelManager.instance.scrollSpeed * scrollSpeedMultiplier;
 
         //start'er up
         hitCheckpoint();
@@ -53,7 +58,7 @@ public class GameManager : Singleton<GameManager>
         if (distToNextCheckpoint <= 0) {
             Debug.Log("CHECKPOINT BABY");
             hitCheckpoint();
-            nextCheckpointPos += 11; //TODO remove this, for debugging only
+            nextCheckpointPos += 110; //TODO remove this, for debugging only
         }
     }
 

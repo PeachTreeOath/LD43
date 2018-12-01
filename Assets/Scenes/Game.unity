@@ -437,6 +437,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 224920753186783296, guid: fb23efab91621ca408c141a99cd326e7,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 13.516875
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb23efab91621ca408c141a99cd326e7, type: 2}
   m_IsPrefabAsset: 0
@@ -499,12 +504,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &231484064 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114529227554898904, guid: cb2bb60a1e4186e44977d4db0d6f5cb2,
-    type: 2}
-  m_PrefabInternal: {fileID: 231484063}
-  m_Script: {fileID: 11500000, guid: 9a27ee1fad44cb94885ebda9ae9979ef, type: 3}
 --- !u!1001 &242902329
 Prefab:
   m_ObjectHideFlags: 0
@@ -675,6 +674,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
+        type: 2}
+      propertyPath: checkpoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4401931590760154, guid: e8bcab70b925d1a43b4540edabbe034a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -709,19 +713,25 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
         type: 2}
-      propertyPath: checkpointUi
-      value: 
-      objectReference: {fileID: 309107341}
-    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
-        type: 2}
       propertyPath: checkpoints.Array.data[0]
       value: 
       objectReference: {fileID: 502789341}
     - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
         type: 2}
-      propertyPath: checkpoints.Array.data[1]
+      propertyPath: prayerHandsFab
       value: 
-      objectReference: {fileID: 231484064}
+      objectReference: {fileID: 1915286090572582, guid: 0bd30cc0227c53742aba6a0a57d61e67,
+        type: 2}
+    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
+        type: 2}
+      propertyPath: checkpointUi
+      value: 
+      objectReference: {fileID: 309107341}
+    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8bcab70b925d1a43b4540edabbe034a, type: 2}
   m_IsPrefabAsset: 0
@@ -862,6 +872,14 @@ Prefab:
     - target: {fileID: 4582216336483684, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678813905486490, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -7.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246350827260476, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
@@ -1046,6 +1064,16 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083851956731554, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223946125188577604, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1, type: 2}

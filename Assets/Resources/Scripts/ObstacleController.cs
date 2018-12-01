@@ -5,21 +5,22 @@ using UnityEngine;
 // Controls obstacles like cones on the road.
 public class ObstacleController : MonoBehaviour
 {
-	[Tooltip("How fast the obstacle should drop. E.g. if bird fell from the sky it could drop very fast.")]
-	public float dropSpeed;
-
-    [Tooltip("How fast the obstacle should walk across the road.")]
-    public float horizontalSpeed;
-
-    [Tooltip("How long to wait before dropping.")]
-	public float dropTimer;
-
-	[Tooltip("'Final position. Afterwards its drop speed matches the road speed.")]
+	[Tooltip("'Final position - logic being if you want the obstacle to stop for a moment somewhere or move faster/slower getting to said position.")]
 	public Vector3 endPosition;
+
+	public float moveTimer;
 
     [HideInInspector]
 
 	public ObstacleStateEnum obstacleState;
+
+    [HideInInspector]
+    public float scrollSpeed;
+
+	public ObstacleStats obstacleStats;
+
+    [Tooltip("Warning indicator object, show display while obstacle is waiting to move into the map.")]
+	public GameObject telegraph;
 
 	public void SetEndLocation(Vector2 endPosition)
 	{
@@ -29,6 +30,27 @@ public class ObstacleController : MonoBehaviour
 	public void Start () 
 	{
 		obstacleState = ObstacleStateEnum.WAITING;
+		moveTimer = obstacleStats.moveWaitTime;
+
+		// Spawn telegraph (visual & audio indicator) based off of obstacle position.
+		ObstacleTelegraph obstacleTelegraph = obstacleStats.spawnTelegraph.GetComponent<ObstacleTelegraph>();
+		Vector3 obstacleSize = obstacleStats.spawnTelegraph.GetComponent<SpriteRenderer>().sprite.bounds.size;
+		Vector3 obstaclePosition = transform.position;
+		Vector3 telegraphPosition = Vector3.zero;
+		switch (obstacleStats.directionObstacleComingFrom)
+		{
+			case DirectionEnum.N:
+				telegraphPosition = new Vector3(obstaclePosition.x, GameManager.instance.upperLeftBound.y - (obstacleSize.y / 2) - GameManager.instance.defaultDeltaFromTopForWarnings, 0);
+				break;
+			case DirectionEnum.E:
+				telegraphPosition = new Vector3(GameManager.instance.bottomRightBound.x + (obstacleSize.x / 2) + GameManager.instance.defaultDeltaFromRightForWarnings, obstaclePosition.y, 0);
+				break;
+			default:
+				Debug.LogWarning("Unhandled obstacle dirction - update me!");
+				break;
+		}
+		telegraph = Instantiate(obstacleStats.spawnTelegraph, telegraphPosition, Quaternion.identity);
+		telegraph.transform.SetParent(transform);
 
 		if (endPosition.Equals(Vector2.zero))
 		{
@@ -45,7 +67,7 @@ public class ObstacleController : MonoBehaviour
 	public void UpdatePos ()
 	{
 		// Update state.
-		if (dropTimer <= 0)
+		if (moveTimer <= 0)
 		{
 			if (transform.position.y <= endPosition.y)
 			{
@@ -53,7 +75,7 @@ public class ObstacleController : MonoBehaviour
 			}
 			else
 			{
-				obstacleState = ObstacleStateEnum.DROPPING;
+				obstacleState = ObstacleStateEnum.MOVING;
 			}
 		}
 
@@ -61,13 +83,20 @@ public class ObstacleController : MonoBehaviour
 		switch (obstacleState)
 		{
 			case ObstacleStateEnum.WAITING:
-				dropTimer -= Time.deltaTime;
+				moveTimer -= Time.deltaTime;
 				break;
-			case ObstacleStateEnum.DROPPING:
-				transform.position = new Vector3(transform.position.x + (horizontalSpeed * Time.deltaTime), transform.position.y - (dropSpeed * Time.deltaTime), transform.position.z);
+			case ObstacleStateEnum.MOVING:
+				// Delete telegraph.
+				if (telegraph != null)
+				{
+					Destroy(telegraph);
+				}
+				
+				transform.position = new Vector3(transform.position.x + (obstacleStats.horizontalSpeed * Time.deltaTime), transform.position.y - (obstacleStats.verticalSpeed * Time.deltaTime), transform.position.z);
 				break;
 			case ObstacleStateEnum.PLACED:
-				transform.position = new Vector3(transform.position.x, transform.position.y - (GameManager.instance.roadSpeed * Time.deltaTime), transform.position.z);
+				// Continue moving - potentially in a different way (or add logic to pause depending on obstacle?)
+				transform.position = new Vector3(transform.position.x, transform.position.y - (LevelManager.instance.scrollSpeed * Time.deltaTime), transform.position.z);
 				if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y)
 				{
 					Destroy(gameObject);
