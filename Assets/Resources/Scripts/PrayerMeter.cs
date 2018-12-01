@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 
 public class PrayerMeter : MonoBehaviour {
 
     //Prayer Meter Serialized Fields
-    [SerializeField] private long DecayTimer = 500;
+    [SerializeField] private float DecayTimer = .5f;
     [SerializeField] private int DecayValue = 10;
     [SerializeField] private int MaximumPrayers = 1000;
     [SerializeField] private float PrayerLifeTime = .75F;
@@ -16,7 +14,7 @@ public class PrayerMeter : MonoBehaviour {
     [SerializeField] private GameObject PrayerPrefab;
 
     //Prayer Meter Private Variables
-    private Stopwatch _prayerMeterDecayTimer;
+    private float _prayerMeterDecayTimer;
     private float _maxPrayerMeterProgressSize = 0;
     private RectTransform _prayerMeterProgressSize;
     private float _prayerCount = 0;
@@ -41,15 +39,14 @@ public class PrayerMeter : MonoBehaviour {
 	    _prayerMeterLocation = new Vector2(ProgressBar.transform.position.x, ProgressBar.transform.position.y);
 
         //Initialize and start the Prayer Meter Decay Timer
-        _prayerMeterDecayTimer = new Stopwatch();
-        _prayerMeterDecayTimer.Start();
+        _prayerMeterDecayTimer = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
         //Decrement the prayer meter based on decay timer.
-	    if (_prayerMeterDecayTimer.ElapsedMilliseconds >= DecayTimer)
+        if (Time.time - _prayerMeterDecayTimer >= DecayTimer)
 	    {
             //Decrement the prayer meter.
 	        _prayerCount -= DecayValue;
@@ -61,8 +58,7 @@ public class PrayerMeter : MonoBehaviour {
 	        UpdateUi();
 
             //Reset the decay timer.
-            _prayerMeterDecayTimer.Reset();
-	        _prayerMeterDecayTimer.Start();
+            _prayerMeterDecayTimer = Time.time;
         }
 	}
 
