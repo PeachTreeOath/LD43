@@ -103,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4545752879541996}
   - component: {fileID: 212556694387976120}
+  - component: {fileID: 114861846662731310}
   m_Layer: 0
   m_Name: JesusBody
   m_TagString: Untagged
@@ -266,6 +267,20 @@ MonoBehaviour:
   epsilon: 0.1
   currState: 4
   vehicleToGuide: {fileID: 0}
+--- !u!114 &114861846662731310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1997664613544256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0acb2ac231118e4abacf58e8a695d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neutralFace: {fileID: 21300000, guid: 0a8a4a3df68816e4ba13116ed4ee5e35, type: 3}
+  winceFace: {fileID: 21300000, guid: c0d09d542efe95245b11b4ca15161b8b, type: 3}
+  winceDuration: 1
 --- !u!120 &120165491489029946
 LineRenderer:
   m_ObjectHideFlags: 1
