@@ -23,9 +23,6 @@ public class JesusArmBezier : MonoBehaviour {
 	void Start () {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = NUM_ARM_POINTS;
-       /* lineRenderer.sortingLayerName = ResourceLoader.instance.car.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName;
-        lineRenderer.sortingLayerID = ResourceLoader.instance.car.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerID;
-        lineRenderer.sortingOrder = ResourceLoader.instance.car.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder;*/
     }
 	
 	// Update is called once per frame
