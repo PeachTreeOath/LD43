@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 /// <summary>
 /// HTF does this work?  You ask?  Its easy:
@@ -29,6 +30,8 @@ using UnityEngine.EventSystems;
 /// blank looking card (specific in the CheckpointUiManager)
 /// </summary>
 public class CheckpointManager : MonoBehaviour {
+
+    public const string distanceOnSign = "MI";
 
     [SerializeField]
     private Canvas checkpointUi;
@@ -77,6 +80,12 @@ public class CheckpointManager : MonoBehaviour {
             updateWithMousePos();
         }		
 	}
+
+    public void UpdateCheckpointSignDistance(int distance)
+    {
+        TextMeshProUGUI textMesh = GetComponentInChildren<TextMeshProUGUI>();
+        textMesh.SetText((int) distance + " " + distanceOnSign);
+    }
 
     //highlight cards that have the mouse over them
     private void updateWithMousePos() {
