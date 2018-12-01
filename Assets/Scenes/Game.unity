@@ -152,6 +152,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114541618118497832, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: spawnTelegraph
+      value: 
+      objectReference: {fileID: 1777406086461410, guid: cc4454d85b108bd42a6525c72d03bef3,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12216c880e2c1f54b9c87d949cf3e49c, type: 2}
   m_IsPrefabAsset: 0

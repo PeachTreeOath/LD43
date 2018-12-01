@@ -49,6 +49,12 @@ public class ObstacleSpawner : MonoBehaviour
 
 				GameObject cone = Instantiate(ResourceLoader.instance.obstacleConePrefab, startPosition, Quaternion.identity);
 				cone.GetComponent<ObstacleController>().endPosition = endPosition;
+
+                // Spawn new obstacle telegraph (visual indicator and audio) near top of the stage.
+			    float telegraphHeight = obstacleStats.spawnTelegraph.GetComponent<ObstacleTelegraph>().TelegraphHeight;
+                Vector3 telegraphPosition = new Vector3(randomX, GameManager.instance.upperLeftBound.y - telegraphHeight, 0);
+			    GameObject telegraph = Instantiate(obstacleStats.spawnTelegraph, telegraphPosition, Quaternion.identity);
+                Destroy(telegraph, 3f);
 			
 				obstacleStats.spawnTimer = obstacleStats.spawnInterval;
 			}
