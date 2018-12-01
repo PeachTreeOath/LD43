@@ -128,9 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04a277c1422bf149bf5bfa1aa36400e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSelected: 0
   moveSpeed: 0.02
   rotateSpeed: 0.3
   angledMovementPower: 0.0001
+  driftPower: 5
   carSprite: {fileID: 1432520764680442}
 --- !u!212 &212843768548449604
 SpriteRenderer:
