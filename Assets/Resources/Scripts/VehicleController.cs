@@ -53,7 +53,7 @@ public class VehicleController : MonoBehaviour
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
-        nextSleepTime = 8 - sleepChance + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-8 seconds (sleepSeverity currently can be between 1 and 6)
+        nextSleepTime = 8 - sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
         vehiclePool = GetComponentInParent<VehiclePool>();
     }
 
