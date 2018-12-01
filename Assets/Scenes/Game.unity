@@ -674,11 +674,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
-        type: 2}
-      propertyPath: checkpoints.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4401931590760154, guid: e8bcab70b925d1a43b4540edabbe034a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -713,25 +708,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
         type: 2}
-      propertyPath: checkpoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 502789341}
-    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
-        type: 2}
-      propertyPath: prayerHandsFab
-      value: 
-      objectReference: {fileID: 1915286090572582, guid: 0bd30cc0227c53742aba6a0a57d61e67,
-        type: 2}
-    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
-        type: 2}
       propertyPath: checkpointUi
       value: 
       objectReference: {fileID: 309107341}
     - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
         type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: checkpoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 502789341}
+    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
+        type: 2}
+      propertyPath: checkpoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1196977197}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8bcab70b925d1a43b4540edabbe034a, type: 2}
   m_IsPrefabAsset: 0
@@ -884,6 +873,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1196977197 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114529227554898904, guid: cb2bb60a1e4186e44977d4db0d6f5cb2,
+    type: 2}
+  m_PrefabInternal: {fileID: 231484063}
+  m_Script: {fileID: 11500000, guid: 9a27ee1fad44cb94885ebda9ae9979ef, type: 3}
 --- !u!1001 &1828017288
 Prefab:
   m_ObjectHideFlags: 0
