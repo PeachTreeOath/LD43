@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4334359465681472}
   - component: {fileID: 212587939603990218}
   - component: {fileID: 61987685270157600}
+  - component: {fileID: 114482442816267248}
   m_Layer: 0
   m_Name: SemiTruckSprite
   m_TagString: Untagged
@@ -128,19 +129,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4b0e6f95a403f42b92978bf8ed57d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
   vehiclePool: {fileID: 0}
   isSelected: 0
   vehicleSprite: {fileID: 1188216238650630}
   angledMovementPower: 0.0001
   driftPower: 5
-  weight: 11
-  control: 2
-  speed: 4
-  prayerValue: 20
-  sleepChance: 3
-  sleepSeverity: 11
-  awakeGracePeriod: 0
+  vehicleStats: {fileID: 0}
+--- !u!114 &114482442816267248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1188216238650630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26854f66d3d5ee34a957d748790b96d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212587939603990218
 SpriteRenderer:
   m_ObjectHideFlags: 1
