@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4582850328294782}
-  - component: {fileID: 114514250947216610}
+  - component: {fileID: 114444364736515146}
   m_Layer: 0
   m_Name: RightArmEndPoint
   m_TagString: Untagged
@@ -52,6 +52,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4787784611455726}
+  - component: {fileID: 114822496975235066}
   m_Layer: 0
   m_Name: LeftArmEndPoint
   m_TagString: Untagged
@@ -85,6 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4030915165681062}
   - component: {fileID: 212427119602148270}
+  - component: {fileID: 114056826590515224}
   m_Layer: 0
   m_Name: Jesus
   m_TagString: Untagged
@@ -191,6 +193,19 @@ Transform:
   m_Father: {fileID: 4030915165681062}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114056826590515224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985779953154390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ad5eba092336640befc5b007fcc4db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHand: {fileID: 114822496975235066}
+  rightHand: {fileID: 114444364736515146}
 --- !u!114 &114317850422071966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,10 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRightArm: 0
-  armStartPosition: {x: -0.5, y: -4.5, z: 0}
   armEndPosition: {fileID: 4787784611455726}
   currentArmEndTangent: 0
-  lineRenderer: {fileID: 120165491489029946}
 --- !u!114 &114348849703092814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,11 +232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRightArm: 1
-  armStartPosition: {x: 0.5, y: -4.5, z: 0}
   armEndPosition: {fileID: 4582850328294782}
   currentArmEndTangent: 0
-  lineRenderer: {fileID: 120571305455485404}
---- !u!114 &114514250947216610
+--- !u!114 &114444364736515146
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,9 +242,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1034312643669522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3216395265fa140498bb5d2e6d3e1147, type: 3}
+  m_Script: {fileID: 11500000, guid: d692334b9bee5224c89ea784db0d9ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToSnap: 0.25
+  maxSpeed: 30
+  epsilon: 0.1
+  currState: 0
+  vehicleToGuide: {fileID: 0}
+--- !u!114 &114822496975235066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1125876748623044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d692334b9bee5224c89ea784db0d9ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToSnap: 0.25
+  maxSpeed: 30
+  epsilon: 0.1
+  currState: 4
+  vehicleToGuide: {fileID: 0}
 --- !u!120 &120165491489029946
 LineRenderer:
   m_ObjectHideFlags: 1
