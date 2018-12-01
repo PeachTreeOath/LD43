@@ -83,8 +83,13 @@ public class VehicleController : MonoBehaviour
         float rotateDelta;
         if (isSleeping) {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
+            if (isSelected)
+            {
+                Debug.Log("hInput: " + hInput + " sleepVector.x " + sleepVector.x + " vehicleStats.sleepSeverity " + vehicleStats.sleepSeverity + " rotateDelta " + rotateDelta);
+            }
             vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
         } else {
+            rbody.rotation = 0;
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
@@ -146,6 +151,10 @@ public class VehicleController : MonoBehaviour
     }
 
     private void StartFatalCrash() {
+        if(vehiclePool == null)
+        {
+            Start();
+        }
         vehiclePool.SelectVehicle(null);
 
         currState = State.CRASHING;
@@ -172,7 +181,9 @@ public class VehicleController : MonoBehaviour
 
     private float GetNextSleepOrWakeTime()
     {
-        return 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
+        float ret = 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
+        //Debug.Log("GetNextSleepOrWakeTime: " + ret);
+        return ret;
     }
 
     public void CheckSelected(GameObject selected)
