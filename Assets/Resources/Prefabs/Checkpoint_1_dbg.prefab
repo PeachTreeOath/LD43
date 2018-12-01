@@ -52,3 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availVehicles: 0100000000000000
+  cardsForThisCheckpoint:
+  - {fileID: 114754292073353320, guid: 6993147661fdeb446a468fe0ff7633b4, type: 2}
