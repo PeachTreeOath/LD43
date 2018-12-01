@@ -7,10 +7,10 @@ public class VehicleController : MonoBehaviour
 {
     public int id;
 
-    [Tooltip("The pool the car belongs to.")]
+    [Tooltip("The pool the vehicle belongs to.")]
     public VehiclePool vehiclePool;
 
-    public bool isSelected; // This is how a user selects which car to move
+    public bool isSelected; // This is how a user selects which vehicle to move
 
     public GameObject vehicleSprite; // Contains both sprite and collider and are separate from the actual GameObject
 
@@ -46,7 +46,7 @@ public class VehicleController : MonoBehaviour
 
         float hInput = 0;
         float vInput = 0;
-        if (isSelected) // Only apply input if car is selected, otherwise just continue with drift logic alone
+        if (isSelected) // Only apply input if vehicle is selected, otherwise just continue with drift logic alone
         {
             // Feel free to adjust these magic numbers to make the movement feel better, the current
             // numbers are balanced around the default car model
@@ -58,7 +58,7 @@ public class VehicleController : MonoBehaviour
         float rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity)) * Time.deltaTime;
         vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
 
-        // Drift car left/right based on how much rotation applied
+        // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
 
         Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
@@ -106,7 +106,7 @@ public class VehicleController : MonoBehaviour
 
     public void OnMouseDown()
     {
-        vehiclePool.SelectCar(id);
+        vehiclePool.SelectVehicle(id);
     }
 
     private float GetHorizontalDeltaFromRotation(float eulerAngle)
