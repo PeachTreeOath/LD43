@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4922612615169768}
   - component: {fileID: 114689537756300686}
   m_Layer: 0
-  m_Name: CarPool
+  m_Name: VehiclePool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,3 +51,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df32f3e414c39f418eb1913637a58b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cars: []

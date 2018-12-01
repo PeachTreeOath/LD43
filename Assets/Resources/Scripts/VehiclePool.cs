@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarPool : MonoBehaviour
+public class VehiclePool : MonoBehaviour
 {
     public const float finalSpawnYPosition = 0;
 
-	[Tooltip("All of the Jesus cars.")]
-    public List <GameObject> cars;
+	[Tooltip("All of the Jesus vehicles.")]
+    public List <GameObject> vehicles;
 
     // Use this for initialization
     void Start()
     {
         AddNewCar(0);
-        cars[0].GetComponent<CarController>().isSelected = true;
+        vehicles[0].GetComponent<VehicleController>().Select();
         AddNewCar(-2);
     }
 
@@ -21,16 +21,16 @@ public class CarPool : MonoBehaviour
     {
         GameObject car = Instantiate(ResourceLoader.instance.car, new Vector3(xPosition, finalSpawnYPosition, 0), Quaternion.identity);
         car.transform.SetParent(transform);
-        cars.Add(car);
-        car.GetComponent<CarController>().id = cars.Count;
+        vehicles.Add(car);
+        car.GetComponent<VehicleController>().id = vehicles.Count;
     }
 
     public void SelectCar(int selectedCarId)
     {
-        foreach (GameObject car in cars)
+        foreach (GameObject car in vehicles)
         {
-            CarController carController = car.GetComponent<CarController>();
-            carController.isSelected = carController.id == selectedCarId;
+            VehicleController vehicleController = car.GetComponent<VehicleController>();
+            vehicleController.isSelected = vehicleController.id == selectedCarId;
         }
     }
 }

@@ -9,76 +9,76 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1083264443897212}
+  m_RootGameObject: {fileID: 1848397587880352}
   m_IsPrefabAsset: 1
---- !u!1 &1083264443897212
+--- !u!1 &1742625837728122
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4878654349794216}
-  - component: {fileID: 114196414232543960}
-  - component: {fileID: 50145836901427690}
+  - component: {fileID: 4118468831470854}
+  - component: {fileID: 212023259479527764}
+  - component: {fileID: 61276847944363770}
   m_Layer: 0
-  m_Name: Car
+  m_Name: BusSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1432520764680442
+--- !u!1 &1848397587880352
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4448034060863210}
-  - component: {fileID: 212843768548449604}
-  - component: {fileID: 61931840949521714}
+  - component: {fileID: 4331716934688912}
+  - component: {fileID: 114618020096016790}
+  - component: {fileID: 50886178116925640}
   m_Layer: 0
-  m_Name: CarSprite
+  m_Name: Bus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4448034060863210
+--- !u!4 &4118468831470854
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1432520764680442}
+  m_GameObject: {fileID: 1742625837728122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4878654349794216}
+  m_Father: {fileID: 4331716934688912}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4878654349794216
+--- !u!4 &4331716934688912
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1083264443897212}
+  m_GameObject: {fileID: 1848397587880352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4448034060863210}
+  - {fileID: 4118468831470854}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50145836901427690
+--- !u!50 &50886178116925640
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1083264443897212}
+  m_GameObject: {fileID: 1848397587880352}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -92,12 +92,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61931840949521714
+--- !u!61 &61276847944363770
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1432520764680442}
+  m_GameObject: {fileID: 1742625837728122}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -117,12 +117,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &114196414232543960
+--- !u!114 &114618020096016790
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1083264443897212}
+  m_GameObject: {fileID: 1848397587880352}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f4b0e6f95a403f42b92978bf8ed57d4, type: 3}
@@ -131,22 +131,22 @@ MonoBehaviour:
   id: 0
   vehiclePool: {fileID: 0}
   isSelected: 0
-  carSprite: {fileID: 1432520764680442}
+  carSprite: {fileID: 1742625837728122}
   angledMovementPower: 0.0001
   driftPower: 5
-  weight: 5
-  control: 7
-  speed: 7
-  prayerValue: 15
-  sleepChance: 2
-  sleepSeverity: 3
+  weight: 11
+  control: 5
+  speed: 6
+  prayerValue: 20
+  sleepChance: 1
+  sleepSeverity: 6
   awakeGracePeriod: 0
---- !u!212 &212843768548449604
+--- !u!212 &212023259479527764
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1432520764680442}
+  m_GameObject: {fileID: 1742625837728122}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
