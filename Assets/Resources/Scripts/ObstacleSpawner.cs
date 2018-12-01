@@ -16,23 +16,9 @@ public class ObstacleSpawner : MonoBehaviour
 
 		foreach (ObstacleStats obstacleStats in allObstacleTypes)
 		{
-			// Get obstacle heights so we can spawn them above bounds.
-			GameObject obstacleGO = null;
-			switch (obstacleStats.obstacleType)
-			{
-				case ObstacleTypeEnum.CONE:
-					obstacleGO = ResourceLoader.instance.obstacleConePrefab;
-					break;
-                case ObstacleTypeEnum.PEDESTRIAN:
-                    obstacleGO = ResourceLoader.instance.obstaclePedestrianPrefab;
-                    break;
-                case ObstacleTypeEnum.CYCLIST:
-                    obstacleGO = ResourceLoader.instance.obstacleCyclistPrefab;
-                    break;
-                default:
-					Debug.LogWarning("Couldn't find matching GameObject in ResourceLoader for obstacle of type " + obstacleStats.obstacleType);
-					break;
-			}
+            // Get obstacle heights so we can spawn them above bounds.
+            GameObject obstacleGO = null;
+            obstacleGO = GetPrefab(obstacleStats);
 
 			if (obstacleGO != null)
 			{
@@ -42,6 +28,26 @@ public class ObstacleSpawner : MonoBehaviour
 			obstacleStats.spawnTimer = obstacleStats.firstSpawnTime;
 		}
 	}
+
+    private GameObject GetPrefab(ObstacleStats stats)
+    {
+        GameObject obstacleGO = null;
+        switch (stats.obstacleType) {
+            case ObstacleTypeEnum.CONE:
+                obstacleGO = ResourceLoader.instance.obstacleConePrefab;
+                break;
+            case ObstacleTypeEnum.PEDESTRIAN:
+                obstacleGO = ResourceLoader.instance.obstaclePedestrianPrefab;
+                break;
+            case ObstacleTypeEnum.CYCLIST:
+                obstacleGO = ResourceLoader.instance.obstacleCyclistPrefab;
+                break;
+            default:
+                Debug.LogWarning("Couldn't find matching GameObject in ResourceLoader for obstacle of type " + stats.obstacleType);
+                break;
+        }
+        return obstacleGO;
+    }
 
     public void Update() {
         if (!isPaused) {
@@ -69,7 +75,10 @@ public class ObstacleSpawner : MonoBehaviour
 				Vector3 startPosition = new Vector3(randomX, GameManager.instance.upperLeftBound.y + obstacleStats.obstacleHeight, 0);
 				Vector3 endPosition = new Vector3(randomX, randomY, 0);
 
-				GameObject obstacle = Instantiate(ResourceLoader.instance.obstacleConePrefab, startPosition, Quaternion.identity);
+                GameObject obstacleGO = null;
+                obstacleGO = GetPrefab(obstacleStats);
+
+                GameObject obstacle = Instantiate(obstacleGO, startPosition, Quaternion.identity);
 				obstacle.GetComponent<ObstacleController>().endPosition = endPosition;
 				obstacle.GetComponent<ObstacleController>().obstacleStats = obstacleStats;
 			
