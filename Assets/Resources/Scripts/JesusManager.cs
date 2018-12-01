@@ -13,15 +13,20 @@ public class JesusManager : Singleton<JesusManager> {
     }
 
     public void SelectAVehicle(VehicleController vehicleController) {
-        if(rightHand.IsFollowingMouse) {
-            rightHand.GuideVehicle(vehicleController);
-            leftHand.FollowMouse();
-        } else if(leftHand.IsFollowingMouse) {
-            leftHand.GuideVehicle(vehicleController);
-            rightHand.FollowMouse();
+        if(vehicleController != null) {
+            if(rightHand.IsFollowingMouse) {
+                rightHand.GuideVehicle(vehicleController);
+                leftHand.FollowMouse();
+            } else if(leftHand.IsFollowingMouse) {
+                leftHand.GuideVehicle(vehicleController);
+                rightHand.FollowMouse();
+            } else {
+                rightHand.FollowMouse();
+                SelectAVehicle(vehicleController);
+            }
         } else {
-            rightHand.FollowMouse();
-            SelectAVehicle(vehicleController);
+            if (rightHand.IsGuidingCar) rightHand.Hover();
+            if (leftHand.IsGuidingCar) leftHand.Hover();
         }
     }
 }

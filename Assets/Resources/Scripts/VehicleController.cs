@@ -117,7 +117,24 @@ public class VehicleController : MonoBehaviour
     public void OnCollideWithWalls(Vector2 normal) {
         //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
 
+        StartFatalCrash();
+    }
 
+    private void StartFatalCrash() {
+        vehiclePool.SelectVehicle(null);
+
+        currState = State.CRASHING;
+
+        gameObject.layer = LayerMask.NameToLayer("Terrain");
+
+        rbody.bodyType = RigidbodyType2D.Kinematic;
+        rbody.angularVelocity = 0f;
+        rbody.velocity = new Vector2(0, -GameManager.instance.roadSpeed);
+
+
+        //TODO crash effect
+        //TODO crash sound
+        //TODO screen shake
     }
 
     private void StopDrifting()
