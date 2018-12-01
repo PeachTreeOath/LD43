@@ -143,6 +143,7 @@ MonoBehaviour:
   scrollSpeed: 5
   spawnRateInSeconds: 5
   rateOfPrayerDecay: 5
+  headOnCrashThreshold: 15
 --- !u!114 &114690844724259488
 MonoBehaviour:
   m_ObjectHideFlags: 1
