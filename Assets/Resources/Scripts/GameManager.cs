@@ -8,4 +8,6 @@ public class GameManager : Singleton<GameManager>
     public Vector2 bottomRightBound;
 
     public float roadSpeed;
+
+    public GameObject lightShaftsFab;
 }

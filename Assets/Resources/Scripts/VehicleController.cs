@@ -28,6 +28,8 @@ public class VehicleController : MonoBehaviour
     private float sleepTimeElapsed;
     private Vector2 sleepVector;
 
+    GameObject lightShaft;
+
     // Use this for initialization
     void Start()
     {
@@ -56,7 +58,7 @@ public class VehicleController : MonoBehaviour
         }
 
         // Movement from input
-        float rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity)) * Time.deltaTime;
+        float rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
         vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
 
         // Drift vehicle left/right based on how much rotation applied
@@ -106,9 +108,24 @@ public class VehicleController : MonoBehaviour
         return 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
     }
 
+    public void CheckSelected(GameObject selected)
+    {
+        if(selected.GetInstanceID() != gameObject.GetInstanceID())
+        {
+            Destroy(lightShaft);
+        }
+    }
+
     public void OnMouseDown()
     {
+        lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
+        lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
+        lightShaft.transform.SetParent(gameObject.transform);
         vehiclePool.SelectVehicle(this);
+        for(int i = 0; i < VehiclePool.instance.vehicles.Count; i++)
+        {
+            VehiclePool.instance.vehicles[i].CheckSelected(gameObject);
+        }
     }
 
     private float GetHorizontalDeltaFromRotation(float eulerAngle)
