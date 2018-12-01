@@ -31,7 +31,7 @@ public class VehicleController : MonoBehaviour
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
-        nextSleepTime = 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
+        nextSleepTime = GetNextSleepTime();
         vehiclePool = GetComponentInParent<VehiclePool>();
     }
 
@@ -46,20 +46,22 @@ public class VehicleController : MonoBehaviour
 
         float hInput = 0;
         float vInput = 0;
-        if (isSelected)
+        if (isSelected) // Only apply input if car is selected, otherwise just continue with drift logic alone
         {
-            hInput = vehicleStats.control * 0.0428f * Input.GetAxisRaw("Horizontal");
-            vInput = vehicleStats.speed * 0.0029f * Input.GetAxisRaw("Vertical");
+            // Feel free to adjust these magic numbers to make the movement feel better, the current
+            // numbers are balanced around the default car model
+            hInput = vehicleStats.control * 1.5f * Input.GetAxisRaw("Horizontal");
+            vInput = vehicleStats.speed * 0.0012f * Input.GetAxisRaw("Vertical");
         }
 
         // Movement from input
-        float rotateDelta = hInput + (sleepVector.x * vehicleStats.sleepSeverity);
+        float rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity)) * Time.deltaTime;
         vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
 
         // Drift car left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
 
-        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f));
+        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
         rbody.MovePosition(newPosition);
     }
 
@@ -88,6 +90,18 @@ public class VehicleController : MonoBehaviour
                 sleepVector = new Vector2(-1, -1);
                 break;
         }
+    }
+
+    private void StopDrifting()
+    {
+        isSleeping = false;
+        sleepTimeElapsed = 0;
+        nextSleepTime = GetNextSleepTime();
+    }
+
+    private float GetNextSleepTime()
+    {
+        return 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
     }
 
     public void OnMouseDown()
