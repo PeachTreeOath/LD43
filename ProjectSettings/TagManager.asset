@@ -38,9 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Jesus
+    uniqueID: 2075757779
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Obstacle
-    uniqueID: 303885277
     locked: 0
