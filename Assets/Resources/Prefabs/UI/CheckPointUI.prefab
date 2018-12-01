@@ -79,7 +79,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1463062375216480
 GameObject:
   m_ObjectHideFlags: 1
@@ -511,6 +511,7 @@ MonoBehaviour:
   uiCardTemplate: {fileID: 1165453056327890, guid: 635d9f567979aba41a9066145443c28c,
     type: 2}
   blankCard: {fileID: 1605836185668634, guid: 71af30878e6554e43844bba8f29c7c6f, type: 2}
+  cardSelectedHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   cardHighlightColor: {r: 0.32697248, g: 0.7264151, b: 0.3255162, a: 1}
   cardNonHighlightColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
 --- !u!114 &114963715562671378
@@ -663,10 +664,10 @@ RectTransform:
   m_Father: {fileID: 224372171803384138}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 690.1, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 345.05, y: -37.485}
+  m_SizeDelta: {x: 690.1, y: 74.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224372171803384138
 RectTransform:
@@ -799,7 +800,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -152.38}
-  m_SizeDelta: {x: 694.6, y: 284.6}
+  m_SizeDelta: {x: 340, y: 284.6}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224895975921542390
 RectTransform:

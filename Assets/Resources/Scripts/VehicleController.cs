@@ -13,7 +13,7 @@ public class VehicleController : MonoBehaviour
 
     public bool isSelected; // This is how a user selects which vehicle to move
 
-    public GameObject vehicleSprite; // Contains both sprite and collider and are separate from the actual GameObject
+    public VehicleBody vehicleBody; // Contains both sprite and collider and are separate from the actual GameObject
 
     private Rigidbody2D rbody;
 
@@ -39,6 +39,8 @@ public class VehicleController : MonoBehaviour
     GameObject lightShaft;
     GameObject caption;
 
+    private JesusFace face;
+
     public bool IsCrashed
     {
         get
@@ -63,6 +65,7 @@ public class VehicleController : MonoBehaviour
         nextSleepTime = GetNextSleepOrWakeTime();
         nextWakeTime = float.PositiveInfinity;
         vehiclePool = GameManager.instance.getVehiclePool();
+        face = GameObject.Find("JesusBody").GetComponent<JesusFace>();
     }
 
     // Update is called once per frame
@@ -82,7 +85,7 @@ public class VehicleController : MonoBehaviour
         if (timeElapsed > nextSleepTime && !isSleeping)
         {
             onDriverSleep();
-            if(isSelected)
+            if (isSelected)
             {
                 resetWakeTime();
             }
@@ -107,15 +110,17 @@ public class VehicleController : MonoBehaviour
 
         // Movement from input
         float rotateDelta;
-        if(isSelected)
+        if (isSelected)
         {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .82f)) * Time.deltaTime;
-            vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
-        }else if(!isSleeping) {
+            vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
+        }
+        else if (!isSleeping)
+        {
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
-            float angle = vehicleSprite.transform.eulerAngles.z;
+            float angle = vehicleBody.transform.eulerAngles.z;
             if (angle < 0 + WAKE_CONTROL_LOWER_BOUND || angle > 360 - WAKE_CONTROL_LOWER_BOUND)
             { // do nothing
                 rotateDelta = 0f;
@@ -128,15 +133,16 @@ public class VehicleController : MonoBehaviour
             { // angle > 180
                 rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
             }
-            vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
+            vehicleBody.transform.Rotate(Vector3.forward, rotateDelta);
         }
-        else {
+        else
+        {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
-            vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
+            vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
 
         // Drift vehicle left/right based on how much rotation applied
-        float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
+        float hDelta = GetHorizontalDeltaFromRotation(vehicleBody.transform.eulerAngles.z);
 
         Vector2 newPosition = (Vector2)transform.position
             + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
@@ -172,21 +178,28 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    public void OnCollideWithWalls(Vector2 normal) {
+    public void OnCollideWithWalls(CollisionInfo info)
+    {
         if (!initialized) return;
 
         //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
 
         //var angle = vehicleSprite.transform.eulerAngles.z;
         //var carFacingDir = Quaternion.AngleAxis(angle, Vector3.forward) * Vector2.up;
-        switch(currState) {
+        switch (currState)
+        {
             case State.DRIVING:
-                if( IsHeadOnCrash(normal) ) {
+                if (IsHeadOnCrash(info.normal))
+                {
                     StartFatalCrash();
-                } else if( IsAtCrashSpeed() ) {
-                    StartSpinningCrash(normal);
-                } else {
-                    StartSideSwipeSwerve(normal);
+                }
+                else if (IsAtCrashSpeed())
+                {
+                    StartSpinningCrash(info);
+                }
+                else
+                {
+                    StartSideSwipeSwerve(info);
                 }
                 break;
 
@@ -196,17 +209,20 @@ public class VehicleController : MonoBehaviour
 
     }
 
-    private bool IsHeadOnCrash(Vector2 normal) {
-        var headOnCrashPercentage = Math.Abs(Vector2.Dot(normal, vehicleSprite.transform.up));
+    private bool IsHeadOnCrash(Vector2 normal)
+    {
+        var headOnCrashPercentage = Math.Abs(Vector2.Dot(normal, vehicleBody.transform.up));
         return (1 - headOnCrashPercentage) <= LevelManager.instance.headOnCrashThreshold;
     }
 
-    private bool IsAtCrashSpeed() {
+    private bool IsAtCrashSpeed()
+    {
         //TODO use vehicle stats to determine if this is a crashing speed!
         return true;
     }
 
-    private void StartFatalCrash() {
+    private void StartFatalCrash()
+    {
         vehiclePool.OnVehicleCrash(this);
 
         currState = State.CRASHED;
@@ -217,19 +233,24 @@ public class VehicleController : MonoBehaviour
         rbody.angularVelocity = 0f;
         rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
 
+        face.GotoWinceFace();
+
         //TODO crash effect
         //TODO crash sound
         //TODO screen shake
     }
 
-    private void StartSpinningCrash(Vector2 normal) {
+    private void StartSpinningCrash(CollisionInfo collisionInfo)
+    {
         currState = State.CRASHING;
 
-        var speed = rbody.velocity.magnitude;
-        rbody.velocity = normal * speed;
+
+        face.GotoWinceFace();
+        rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
     }
 
-    private void StartSideSwipeSwerve(Vector2 normal) {
+    private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
+    {
 
     }
 
@@ -339,7 +360,7 @@ public class VehicleController : MonoBehaviour
     private void RenderSleepCaption()
     {
         //Render Sleep Caption
-        caption = Instantiate(ResourceLoader.instance.vehicleSleepCaption, vehicleSprite.transform.position,
-            Quaternion.identity, vehicleSprite.transform);
+        caption = Instantiate(ResourceLoader.instance.vehicleSleepCaption, vehicleBody.transform.position,
+            Quaternion.identity, vehicleBody.transform);
     }
 }
