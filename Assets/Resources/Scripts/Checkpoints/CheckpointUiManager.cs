@@ -16,6 +16,9 @@ public class CheckpointUiManager : MonoBehaviour {
     private GameObject blankCard; //filler of empty slots, TBD
 
     [SerializeField]
+    private Color cardSelectedHighlightColor;
+
+    [SerializeField]
     private Color cardHighlightColor;
 
     [SerializeField]
@@ -115,7 +118,30 @@ public class CheckpointUiManager : MonoBehaviour {
         return template;
     }
 
-    private void highlightCard(GameObject uiCard, bool isHighlighted) {
+    public void clearHighlights() {
+        foreach (GameObject cc in currentUiCards) {
+            highlightCard(cc, false);
+        }
+    }
+
+    /// <summary>
+    /// Toggles selection on card
+    /// </summary>
+    /// <param name="uiCard"></param>
+    public void selectCard(GameObject uiCard) {
+        //TODO
+//        Color c = isHighlighted ? cardHighlightColor : cardNonHighlightColor;
+//
+//        Image highlight = uiCard.GetComponentsInChildren<Image>()
+//            .Where(r => r.tag == "ItemHighlight").ToArray()[0];
+//        if (highlight == null) {
+//            Debug.LogError("Card does not have Image for hightlight with correct tag");
+//        } else {
+//            highlight.color = c;
+//        }
+    }
+
+     public void highlightCard(GameObject uiCard, bool isHighlighted) {
         Color c = isHighlighted ? cardHighlightColor : cardNonHighlightColor;
 
         Image highlight = uiCard.GetComponentsInChildren<Image>()
@@ -125,7 +151,6 @@ public class CheckpointUiManager : MonoBehaviour {
         } else {
             highlight.color = c;
         }
-
     }
 
     private GameObject createUiCardBlank() {
