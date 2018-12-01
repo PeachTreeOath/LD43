@@ -55,7 +55,11 @@ public class VehicleController : MonoBehaviour
         sleepTimeElapsed += Time.deltaTime;
         if (sleepTimeElapsed > nextSleepTime && !isSleeping)
         {
-            StartDrifting();
+            if(!isSelected) {
+                StartDrifting();
+            } else {
+                GetNextSleepTime();
+            }
         }
 
         float hInput = 0;
