@@ -28,13 +28,13 @@ public class VehicleController : MonoBehaviour
     [Tooltip("How quickly and easily it handles - i.e. the rotate speed.")]
     public float control;
 
-	[Tooltip("How quickly it moves forward.")]
+    [Tooltip("How quickly it moves forward.")]
     public float speed;
 
     [Tooltip("How much time given at a check point.")]
     public float prayerValue;
 
-	[Tooltip("How likely they are to fall asleep - 1 (low) to 3 (high).")]
+    [Tooltip("How likely they are to fall asleep - 1 (low) to 3 (high).")]
     public float sleepChance;
 
     [Tooltip("How violently the car will swerve.")]
@@ -68,20 +68,22 @@ public class VehicleController : MonoBehaviour
 
         float hInput = 0;
         float vInput = 0;
-        if (isSelected)
+        if (isSelected) // Only apply input if car is selected, otherwise just continue with drift logic alone
         {
-            hInput = control * 0.0428f * Input.GetAxisRaw("Horizontal");
-            vInput = speed * 0.0029f * Input.GetAxisRaw("Vertical");
+            // Feel free to adjust these magic numbers to make the movement feel better, the current
+            // numbers are balanced around the default car model
+            hInput = control * 1.5f * Input.GetAxisRaw("Horizontal");
+            vInput = speed * 0.0012f * Input.GetAxisRaw("Vertical");
         }
 
         // Movement from input
-        float rotateDelta = hInput + (sleepVector.x * sleepSeverity);
+        float rotateDelta = (hInput + (sleepVector.x * sleepSeverity)) * Time.deltaTime;
         vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
 
         // Drift car left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
 
-        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vInput + (sleepVector.y * sleepSeverity * .01f));
+        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, (vInput + (sleepVector.y * sleepSeverity * .01f) * Time.deltaTime));
         rbody.MovePosition(newPosition);
     }
 
