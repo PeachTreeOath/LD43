@@ -1,8 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CheckpointUiManager : MonoBehaviour {
+
+    [SerializeField]
+    private GridLayoutGroup layoutParent;
 
     [SerializeField]
     private GameObject uiCardTemplate;
@@ -17,6 +22,11 @@ public class CheckpointUiManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (layoutParent == null) {
+            Debug.LogError("No layout group specified");
+        }
+        currentCards = new List<CheckpointCard>();
+        currentUiCards = new List<GameObject>();
 		
 	}
 	
@@ -31,6 +41,13 @@ public class CheckpointUiManager : MonoBehaviour {
     /// with new cards
     /// </summary>
     public void clearCards() {
+        Debug.Log("Clearing UI cards");
+        int numBabies = layoutParent.transform.childCount;
+        for (int k = numBabies - 1; k >= 0; k--) {
+            GameObject child = layoutParent.transform.GetChild(k).gameObject;
+            child.transform.SetParent(null);
+            Destroy(child);
+        }
         currentCards.Clear();
         currentUiCards.Clear();
     }
@@ -62,8 +79,32 @@ public class CheckpointUiManager : MonoBehaviour {
     /// <param name="cc"></param>
     /// <returns></returns>
     private GameObject createUiCard(CheckpointCard cc) {
-        //TODO
-        return null;
+        GameObject template = Instantiate(uiCardTemplate, Vector2.zero, Quaternion.identity);
+        //template expects tags for each item to fill in
+        Text itemText = template.GetComponentsInChildren<Text>().Where(r => r.tag == "ItemText").ToArray()[0]; //seems efficient
+        if (itemText == null) {
+            Debug.LogError("Card does not have Text with correct tag");
+        } else {
+            itemText.text = cc.getText();
+        }
+
+        SpriteRenderer srfg = template.GetComponentsInChildren<SpriteRenderer>()
+            .Where(r => r.tag == "ItemSprite").ToArray()[0];
+        if (srfg == null) {
+            Debug.LogError("Card does not have SpriteRenderer for foreground with correct tag");
+        } else {
+            srfg.sprite = cc.getItemSprite();
+        }
+
+        SpriteRenderer srbg = template.GetComponentsInChildren<SpriteRenderer>()
+            .Where(r => r.tag == "ItemBackgroundSprite").ToArray()[0];
+        if (srbg == null) {
+            Debug.LogError("Card does not have SpriteRenderer for background with correct tag");
+        } else {
+            srbg.sprite = cc.getBackgroundSprite();
+        }
+
+        return template;
     }
 
     private GameObject createUiCardBlank() {
@@ -73,7 +114,8 @@ public class CheckpointUiManager : MonoBehaviour {
     }
 
     private void displayCard(GameObject uiCard, int displayIdx) {
-
+        Debug.Log("Display card " + uiCard.gameObject.name + " at index " + displayIdx);
+        uiCard.transform.SetParent(layoutParent.transform); //will this work?!
     }
 
 

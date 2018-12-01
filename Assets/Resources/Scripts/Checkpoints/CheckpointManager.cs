@@ -2,6 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// HTF does this work?  You ask?  Its easy:
+/// This manager goes on a gameobject in the scene. It has a reference to the
+/// UI that will display the Checkpoint UI (a Canvas named CheckPointUi).
+/// The top level of the Checkpoint canvas (named CheckPointUI) has a CheckpointUiManager
+/// which controls how shit is added to the UI. It will find a nested CanvasGroup 
+/// called layoutParent.  LayoutParent is a GridLayoutGroup that fits the UI cards in 
+/// a grid.
+/// responsible for placing the cards in their correct spots on the screen.
+///
+/// The cards that are displayed are based on a template named CpUiCardTemplate. This
+/// template has children to display each piece of data on the card.  These children
+/// have gameObject tags that identify what type of data they display.
+///
+/// The actual data for a card is stored on an empty gameObject with a script
+/// called CheckpointCard.  This data is relayed into the ui template when the card
+/// is placed.
+///
+/// The data cards (CheckpointCard) are stored per checkpoint.  A checkpoint will have
+/// between 0 and max (4) number of cards associated with it.  When the checkpoint is
+/// hit it will load the cards into the UI which will convert the data to a visual.
+/// If there are less than max cards to display, the empty spots will be filled with a
+/// blank looking card (specific in the CheckpointUiManager)
+/// </summary>
 public class CheckpointManager : MonoBehaviour {
 
     [SerializeField]
@@ -15,6 +39,7 @@ public class CheckpointManager : MonoBehaviour {
 
     public GameObject prayerHandsFab;
 
+    private CheckpointUiManager uiManager;
     private bool showingCheckpointUi = false;
 
 
@@ -25,6 +50,10 @@ public class CheckpointManager : MonoBehaviour {
         }
         if (checkpoints == null || checkpoints.Count == 0) {
             Debug.LogError("Missing # of checkpoints");
+        }
+        uiManager = FindObjectOfType<CheckpointUiManager>();
+        if (uiManager == null) {
+            Debug.LogError("No CheckpointUiManager in the scene... it should be on a Canvas somewhere");
         }
 
         hideCheckpointUi();
@@ -64,8 +93,19 @@ public class CheckpointManager : MonoBehaviour {
     private void showCheckpointUi() {
         Time.timeScale = 0;
         Debug.Log("Show checkpoint UI");
-        //TODO tie in with curCheckpoint index
-        //to load proper card choices
+
+        Checkpoint cp = checkpoints[curCheckpoint];
+        if (cp == null) {
+            Debug.LogError("Now why did you think that would work??");
+            return;
+        }
+
+        //load the cards
+        List<CheckpointCard> cards = cp.getCards();
+        uiManager.clearCards();
+        uiManager.addCards(cards);
+
+        //show the cards
         CanvasGroup cpCanvasGroup = checkpointUi.GetComponent<CanvasGroup>();
         cpCanvasGroup.alpha = 1;
         cpCanvasGroup.interactable = true;
