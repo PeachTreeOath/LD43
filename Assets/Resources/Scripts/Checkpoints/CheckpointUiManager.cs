@@ -15,6 +15,12 @@ public class CheckpointUiManager : MonoBehaviour {
     [SerializeField]
     private GameObject blankCard; //filler of empty slots, TBD
 
+    [SerializeField]
+    private Color cardHighlightColor;
+
+    [SerializeField]
+    private Color cardNonHighlightColor;
+
     private List<CheckpointCard> currentCards;
     private List<GameObject> currentUiCards;
 
@@ -88,23 +94,38 @@ public class CheckpointUiManager : MonoBehaviour {
             itemText.text = cc.getText();
         }
 
-        SpriteRenderer srfg = template.GetComponentsInChildren<SpriteRenderer>()
+        highlightCard(template, false);
+
+        Image srfg = template.GetComponentsInChildren<Image>()
             .Where(r => r.tag == "ItemSprite").ToArray()[0];
         if (srfg == null) {
-            Debug.LogError("Card does not have SpriteRenderer for foreground with correct tag");
+            Debug.LogError("Card does not have Image for foreground with correct tag");
         } else {
             srfg.sprite = cc.getItemSprite();
         }
 
-        SpriteRenderer srbg = template.GetComponentsInChildren<SpriteRenderer>()
+        Image srbg = template.GetComponentsInChildren<Image>()
             .Where(r => r.tag == "ItemBackgroundSprite").ToArray()[0];
         if (srbg == null) {
-            Debug.LogError("Card does not have SpriteRenderer for background with correct tag");
+            Debug.LogError("Card does not have Image for background with correct tag");
         } else {
             srbg.sprite = cc.getBackgroundSprite();
         }
 
         return template;
+    }
+
+    private void highlightCard(GameObject uiCard, bool isHighlighted) {
+        Color c = isHighlighted ? cardHighlightColor : cardNonHighlightColor;
+
+        Image highlight = uiCard.GetComponentsInChildren<Image>()
+            .Where(r => r.tag == "ItemHighlight").ToArray()[0];
+        if (highlight == null) {
+            Debug.LogError("Card does not have Image for hightlight with correct tag");
+        } else {
+            highlight.color = c;
+        }
+
     }
 
     private GameObject createUiCardBlank() {

@@ -511,6 +511,8 @@ MonoBehaviour:
   uiCardTemplate: {fileID: 1165453056327890, guid: 635d9f567979aba41a9066145443c28c,
     type: 2}
   blankCard: {fileID: 1605836185668634, guid: 71af30878e6554e43844bba8f29c7c6f, type: 2}
+  cardHighlightColor: {r: 0.32697248, g: 0.7264151, b: 0.3255162, a: 1}
+  cardNonHighlightColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
 --- !u!114 &114963715562671378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -824,7 +826,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1786271983609776}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
