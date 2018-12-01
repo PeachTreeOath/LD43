@@ -4,5 +4,7 @@ using UnityEngine;
 
 public enum ObstacleTypeEnum
 {
-	CONE
+	CONE,
+    PEDESTRIAN,
+    CYCLIST
 }
