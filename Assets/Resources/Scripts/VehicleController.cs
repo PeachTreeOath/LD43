@@ -28,6 +28,7 @@ public class VehicleController : MonoBehaviour
     private float maxHSpeedConst = 0.17f;
     private static float WAKE_CONTROL_LOWER_BOUND = 5;
     private static float LANE_CORRECTION_ANGLE_DELTA = 2;
+    private static float WAKE_TIME = 1f; // 1 second before waking
 
     public bool isSleeping;
     public float nextSleepTime;
@@ -59,7 +60,8 @@ public class VehicleController : MonoBehaviour
         initialized = true;
         currState = State.DRIVING;  // this is temporary...
         rbody = GetComponent<Rigidbody2D>();
-        nextWakeTime = GetNextSleepOrWakeTime();
+        nextSleepTime = GetNextSleepOrWakeTime();
+        nextWakeTime = float.PositiveInfinity;
         vehiclePool = GameManager.instance.getVehiclePool();
     }
 
@@ -83,7 +85,10 @@ public class VehicleController : MonoBehaviour
             {
                 resetSleepTime();
             }
-            onDriverSleep();
+            else
+            {
+                onDriverSleep();
+            }
         }
         else if (isSleeping && timeElapsed > nextWakeTime)
         {
@@ -109,7 +114,7 @@ public class VehicleController : MonoBehaviour
 
         // Movement from input
         float rotateDelta;
-        if(!isSleeping && !isSelected) {
+        if(!isSleeping) {
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
@@ -144,9 +149,6 @@ public class VehicleController : MonoBehaviour
     public void StartDrifting()
     {
         if (currState != State.DRIVING) return;
-
-        //Display Sleep Caption
-        RenderSleepCaption();
 
         // Only pick from top 6 drift directions - don't want to drift north or south.
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
@@ -241,8 +243,9 @@ public class VehicleController : MonoBehaviour
 
     private void onDriverSleep()
     {
-        StartDrifting();
         isSleeping = true;
+        RenderSleepCaption();
+        StartDrifting();
         resetWakeTime();
     }
 
@@ -250,7 +253,7 @@ public class VehicleController : MonoBehaviour
     {
         // Schedule next wake
         timeElapsed = 0;
-        nextWakeTime = GetNextSleepOrWakeTime();
+        nextWakeTime = WAKE_TIME;
     }
 
     private void onDriverWake()
@@ -312,7 +315,7 @@ public class VehicleController : MonoBehaviour
         {
             vehiclePool.SelectVehicle(this);
             timeElapsed = 0;
-            nextWakeTime = GetNextSleepOrWakeTime();
+            nextWakeTime = WAKE_TIME;
             //Debug.Log(Time.time  + " reset timeElapsed nextSleepTime " + nextWakeTime);
         }
     }
@@ -340,9 +343,6 @@ public class VehicleController : MonoBehaviour
 
     private void RenderSleepCaption()
     {
-        //Toggle caption flag.
-        isSleeping = true;
-
         //Render Sleep Caption
         caption = Instantiate(ResourceLoader.instance.vehicleSleepCaption, vehicleSprite.transform.position,
             Quaternion.identity, vehicleSprite.transform);
