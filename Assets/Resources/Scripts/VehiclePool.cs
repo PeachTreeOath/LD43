@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class VehiclePool : Singleton<VehiclePool>
+public class VehiclePool : MonoBehaviour
 {
     public const float finalSpawnYPosition = 0;
 
@@ -28,6 +28,7 @@ public class VehiclePool : Singleton<VehiclePool>
     }
 
     public void AddNewVehicle(VehicleTypeEnum vehicleType) {
+        Debug.Log("Add vehicle: " + vehicleType);
         GameObject prefab = null;
         int pos = 0; //TODO pos should be provided by caller
         switch (vehicleType) {

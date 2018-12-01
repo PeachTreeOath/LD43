@@ -35,7 +35,7 @@ public class VehicleController : MonoBehaviour
     {
         rbody = GetComponent<Rigidbody2D>();
         nextSleepTime = GetNextSleepTime();
-        vehiclePool = GetComponentInParent<VehiclePool>();
+        vehiclePool = GameManager.instance.getVehiclePool();
     }
 
     // Update is called once per frame
@@ -122,9 +122,9 @@ public class VehicleController : MonoBehaviour
         lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
         lightShaft.transform.SetParent(gameObject.transform);
         vehiclePool.SelectVehicle(this);
-        for(int i = 0; i < VehiclePool.instance.vehicles.Count; i++)
+        for(int i = 0; i < vehiclePool.vehicles.Count; i++)
         {
-            VehiclePool.instance.vehicles[i].CheckSelected(gameObject);
+            vehiclePool.vehicles[i].CheckSelected(gameObject);
         }
     }
 
