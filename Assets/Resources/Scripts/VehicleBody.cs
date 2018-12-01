@@ -9,7 +9,7 @@ public class VehicleBody : MonoBehaviour {
     private VehicleController controller;
     private Rigidbody2D rbody;
 
-	void Start () {
+	void Awake() {
         TERRAIN_LAYER = LayerMask.NameToLayer("Terrain");
 
         controller = GetComponentInParent<VehicleController>();
