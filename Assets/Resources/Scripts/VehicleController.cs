@@ -104,7 +104,6 @@ public class VehicleController : MonoBehaviour
             }
             vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
         } else {
-            rbody.rotation = 0;
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
