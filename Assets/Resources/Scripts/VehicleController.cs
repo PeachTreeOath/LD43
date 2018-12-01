@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class VehicleController : MonoBehaviour
 {
-    public int id;
-
     [Tooltip("The pool the vehicle belongs to.")]
     public VehiclePool vehiclePool;
 
@@ -110,7 +108,7 @@ public class VehicleController : MonoBehaviour
 
     public void OnMouseDown()
     {
-        vehiclePool.SelectVehicle(id);
+        vehiclePool.SelectVehicle(this);
     }
 
     private float GetHorizontalDeltaFromRotation(float eulerAngle)

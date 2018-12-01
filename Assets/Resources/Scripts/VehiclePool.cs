@@ -8,7 +8,7 @@ public class VehiclePool : MonoBehaviour
     public const float finalSpawnYPosition = 0;
 
 	[Tooltip("All of the Jesus vehicles.")]
-    public List <GameObject> vehicles;
+    public List <VehicleController> vehicles;
 
     // Use this for initialization
     void Start()
@@ -24,7 +24,7 @@ public class VehiclePool : MonoBehaviour
         AddNewVehicle(VehicleTypeEnum.MOTORCYLE, ResourceLoader.instance.motorcycle, 6);
     }
 
-    public void AddNewVehicle(VehicleTypeEnum vehicleType, GameObject vehicleGO, float xPosition)
+    public void AddNewVehicle(VehicleTypeEnum vehicleType, GameObject vehiclePrefab, float xPosition)
     {
         // Get vehicle stats - if possible.
         VehicleStats[] vehicleStats = LevelManager.instance.GetComponents<VehicleStats>();
@@ -35,21 +35,21 @@ public class VehiclePool : MonoBehaviour
             return;
         }
 
-        GameObject vehicle = Instantiate(vehicleGO, new Vector3(xPosition, finalSpawnYPosition, 0), Quaternion.identity);
-        vehicle.transform.SetParent(transform);
-        vehicles.Add(vehicle);
+        GameObject vehicleGO = Instantiate(vehiclePrefab, new Vector3(xPosition, finalSpawnYPosition, 0), Quaternion.identity);
+        vehicleGO.transform.SetParent(transform);
 
-        VehicleController vehicleController = vehicle.GetComponent<VehicleController>();
-        vehicleController.id = vehicles.Count;
+        VehicleController vehicleController = vehicleGO.GetComponent<VehicleController>();
         vehicleController.vehicleStats = matchingStat[0];
+
+        vehicles.Add(vehicleController);
     }
 
-    public void SelectVehicle(int selectedVehicleId)
+    public void SelectVehicle(VehicleController controllerToSelect)
     {
-        foreach (GameObject vehicle in vehicles)
-        {
-            VehicleController vehicleController = vehicle.GetComponent<VehicleController>();
-            vehicleController.isSelected = vehicleController.id == selectedVehicleId;
+        foreach (var vehicleController in vehicles) {
+            vehicleController.isSelected = false;
         }
+
+        controllerToSelect.isSelected = true;
     }
 }
