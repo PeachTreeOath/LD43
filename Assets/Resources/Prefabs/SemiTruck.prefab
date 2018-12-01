@@ -131,7 +131,7 @@ MonoBehaviour:
   id: 0
   vehiclePool: {fileID: 0}
   isSelected: 0
-  carSprite: {fileID: 1188216238650630}
+  vehicleSprite: {fileID: 1188216238650630}
   angledMovementPower: 0.0001
   driftPower: 5
   weight: 11

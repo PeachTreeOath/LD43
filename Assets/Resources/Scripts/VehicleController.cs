@@ -12,7 +12,7 @@ public class VehicleController : MonoBehaviour
 
     public bool isSelected; // This is how a user selects which car to move
 
-    public GameObject carSprite; // Contains both sprite and collider and are separate from the actual GameObject
+    public GameObject vehicleSprite; // Contains both sprite and collider and are separate from the actual GameObject
 
     private Rigidbody2D rbody;
 
@@ -28,13 +28,13 @@ public class VehicleController : MonoBehaviour
 	[Tooltip("How quickly and easily it handles - i.e. the rotate speed.")]
     public float control;
 
-	[Tooltip("How quicly it moves forward.")]
+	[Tooltip("How quickly it moves forward.")]
     public float speed;
 
 	[Tooltip("How much time given at a check point.")]
     public float prayerValue;
 
-	[Tooltip("How likely they are to fall asleep - 0 (low) to 3 (high).")]
+	[Tooltip("How likely they are to fall asleep - 1 (low) to 3 (high).")]
     public float sleepChance;
 
 	[Tooltip("How violently the car will swerve.")]
@@ -76,10 +76,10 @@ public class VehicleController : MonoBehaviour
 
         // Movement from input
         float rotateDelta = hInput + (sleepVector.x * sleepSeverity);
-        carSprite.transform.Rotate(Vector3.back, rotateDelta);
+        vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
 
         // Drift car left/right based on how much rotation applied
-        float hDelta = GetHorizontalDeltaFromRotation(carSprite.transform.eulerAngles.z);
+        float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
 
         Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vInput + (sleepVector.y * sleepSeverity * .01f));
         rbody.MovePosition(newPosition);
@@ -112,15 +112,6 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    public void Select()
-    {
-        isSelected = true;
-    }
-
-    public void Deselect()
-    {
-        isSelected = false;
-    }
     public void OnMouseDown()
     {
         vehiclePool.SelectCar(id);
