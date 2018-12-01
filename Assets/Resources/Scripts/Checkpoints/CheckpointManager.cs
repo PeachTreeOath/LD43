@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// HTF does this work?  You ask?  Its easy:
@@ -42,6 +44,8 @@ public class CheckpointManager : MonoBehaviour {
     private CheckpointUiManager uiManager;
     private bool showingCheckpointUi = false;
 
+    private GraphicRaycaster graycast;
+    private EventSystem eventSystem;
 
 	// Use this for initialization
 	void Start () {
@@ -55,14 +59,40 @@ public class CheckpointManager : MonoBehaviour {
         if (uiManager == null) {
             Debug.LogError("No CheckpointUiManager in the scene... it should be on a Canvas somewhere");
         }
+        graycast = uiManager.GetComponentInParent<GraphicRaycaster>();
+        if (graycast == null) {
+            Debug.LogError("No GraphicRaycaster in scene... missing canvas er something?");
+        }
+        eventSystem = FindObjectOfType<EventSystem>();
+        if (eventSystem == null) {
+            Debug.LogError("No event system in scene");
+        }
 
         hideCheckpointUi();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (showingCheckpointUi) {
+            uiManager.clearHighlights();
+            updateWithMousePos();
+        }		
 	}
+
+    //highlight cards that have the mouse over them
+    private void updateWithMousePos() {
+        Vector2 mousePos = Input.mousePosition;
+        PointerEventData ped = new PointerEventData(eventSystem);
+        ped.position = mousePos;
+        List<RaycastResult> result = new List<RaycastResult>();
+
+        graycast.Raycast(ped, result);
+        foreach (RaycastResult rr in result) {
+            if (rr.gameObject.CompareTag("ItemHighlight")) {
+                uiManager.highlightCard(rr.gameObject, true);
+            }
+        }
+    }
 
     //returns true if the checkpoint was hit OK
     //returns false if there wasn't a checkpoint to hit
@@ -92,6 +122,7 @@ public class CheckpointManager : MonoBehaviour {
     /// </summary>
     private void showCheckpointUi() {
         Time.timeScale = 0;
+        showingCheckpointUi = true;
         Debug.Log("Show checkpoint UI");
 
         Checkpoint cp = checkpoints[curCheckpoint];
@@ -117,6 +148,7 @@ public class CheckpointManager : MonoBehaviour {
     /// </summary>
     private void hideCheckpointUi() {
         Time.timeScale = 1;
+        showingCheckpointUi = false;
         CanvasGroup cpCanvasGroup = checkpointUi.GetComponent<CanvasGroup>();
         cpCanvasGroup.alpha = 0;
         cpCanvasGroup.interactable = false;
