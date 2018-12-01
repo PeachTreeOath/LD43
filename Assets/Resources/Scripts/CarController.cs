@@ -9,6 +9,7 @@ public class CarController : MonoBehaviour
     public float moveSpeed;
     public float rotateSpeed;
     public float angledMovementPower;
+    public float driftPower;
     public GameObject carSprite; // Contains both sprite and collider and are separate from the actual GameObject
 
     private Rigidbody2D rbody;
@@ -23,20 +24,20 @@ public class CarController : MonoBehaviour
     void Update()
     {
         // Apply random drift
-        // TODO
+        Vector2 driftDelta = Random.insideUnitCircle * driftPower * Time.deltaTime;
 
         if (!isSelected)
             return;
 
         // Movement from input
         float rotateDelta = rotateSpeed * Input.GetAxisRaw("Horizontal");
-        carSprite.transform.Rotate(Vector3.back, rotateDelta);
+        carSprite.transform.Rotate(Vector3.back, rotateDelta + driftDelta.x);
 
         // Drift car left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(carSprite.transform.eulerAngles.z);
 
         float vDelta = moveSpeed * Input.GetAxisRaw("Vertical");
-        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vDelta);
+        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vDelta + driftDelta.y);
         rbody.MovePosition(newPosition);
 
 
