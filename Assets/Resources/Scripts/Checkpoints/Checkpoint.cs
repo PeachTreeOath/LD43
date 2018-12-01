@@ -7,6 +7,9 @@ public class Checkpoint : MonoBehaviour {
     [SerializeField]
     private List<VehicleTypeEnum> availVehicles;
 
+    [SerializeField]
+    private List<CheckpointCard> cardsForThisCheckpoint; //max of 4 by default
+
     //TODO other things might be available here,
     //stats, prayers, etc
 
@@ -24,4 +27,7 @@ public class Checkpoint : MonoBehaviour {
         return availVehicles;
     }
 
+    public List<CheckpointCard> getCards() {
+        return cardsForThisCheckpoint;
+    }
 }
