@@ -83,10 +83,10 @@ MonoBehaviour:
   spawnInterval: 3
   spawnTelegraph: {fileID: 1777406086461410, guid: cc4454d85b108bd42a6525c72d03bef3,
     type: 2}
-  verticalSpeed: 0
+  verticalSpeed: 5
   horizontalSpeed: 0
-  moveWaitTime: 0
-  directionObstacleComingFrom: 0
+  moveWaitTime: 1
+  directionObstacleComingFrom: 6
   spawnTimer: 0
   obstacleHeight: 0
 --- !u!114 &114598830207807746

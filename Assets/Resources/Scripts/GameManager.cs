@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     public Vector2 upperLeftBound;
     public Vector2 bottomRightBound;
-	public float defaultDeltaFromTopForWarnings = 0.3f;
+	public float defaultDeltaFromTopForWarnings = 5f;
 	public float defaultDeltaFromRightForWarnings = 1;
 
     public GameObject lightShaftsFab;
