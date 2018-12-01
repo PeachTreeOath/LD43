@@ -18,31 +18,18 @@ public class VehicleBody : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.layer == TERRAIN_LAYER) {
-            var dir = Vector2.zero;
+            var collisionInfo = CollisionInfo.FromCollision(collision);
 
-            //for now let's just detect left and right collisions
-            var collisionLocation = GetContactCentroid(collision);
-            if(collisionLocation.x < transform.position.x) {
-                dir = new Vector2(1, 0);
+            /*
+            if(collisionInfo.contactPoint.x < transform.position.x) {
+                collisionInfo.normal = new Vector2(1, 0);
             } else {
-                dir = new Vector2(-1, 0); 
+                collisionInfo.normal = new Vector2(-1, 0); 
             }
+            */
 
-            controller.OnCollideWithWalls(dir); 
+            controller.OnCollideWithWalls(collisionInfo); 
         }
-    }
-
-    Vector2 GetContactCentroid(Collision2D collision) {
-        Vector2 center = Vector2.zero;
-        for(var i = 0; i < collision.contactCount; i++) {
-            var contact = collision.GetContact(i);
-            
-            center += contact.point;
-        }
-
-        center.Scale(new Vector2(collision.contactCount, collision.contactCount));
-
-        return center;
     }
 
 

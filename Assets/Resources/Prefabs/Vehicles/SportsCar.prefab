@@ -129,12 +129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4b0e6f95a403f42b92978bf8ed57d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currState: 0
   vehiclePool: {fileID: 0}
   isSelected: 0
-  vehicleSprite: {fileID: 1398201381535260}
+  vehicleBody: {fileID: 114958594717554294}
   angledMovementPower: 0.0001
   driftPower: 5
   vehicleStats: {fileID: 0}
+  isSleeping: 0
+  nextSleepTime: 0
+  nextWakeTime: 0
 --- !u!114 &114958594717554294
 MonoBehaviour:
   m_ObjectHideFlags: 1
