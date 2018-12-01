@@ -13,6 +13,8 @@ public class ObstacleController : MonoBehaviour
 
 	public float moveTimer;
 
+    public float speedModifier;
+
     [HideInInspector]
 
 	public ObstacleStateEnum obstacleState;
@@ -59,6 +61,9 @@ public class ObstacleController : MonoBehaviour
 		{
 			Debug.LogWarning("Set end position for obstacle before start!!");
 		}
+
+        //Randomize vehicle speed range.
+	    speedModifier = Random.Range(-obstacleStats.verticalRange, obstacleStats.verticalRange);
 	}
 
     public void Update() {
@@ -95,11 +100,12 @@ public class ObstacleController : MonoBehaviour
 					Destroy(telegraph);
 				}
 				
-				transform.position = new Vector3(transform.position.x + (obstacleStats.horizontalSpeed * Time.deltaTime), transform.position.y - (obstacleStats.verticalSpeed * Time.deltaTime), transform.position.z);
+				transform.position = new Vector3(transform.position.x + (obstacleStats.horizontalSpeed * Time.deltaTime), transform.position.y - ((obstacleStats.verticalSpeed + speedModifier) * Time.deltaTime), transform.position.z);
 				break;
+
 			case ObstacleStateEnum.PLACED:
 				// Continue moving - potentially in a different way (or add logic to pause depending on obstacle?)
-				transform.position = new Vector3(transform.position.x, transform.position.y - (LevelManager.instance.scrollSpeed * Time.deltaTime), transform.position.z);
+				transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
 				if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y)
 				{
 					Destroy(gameObject);

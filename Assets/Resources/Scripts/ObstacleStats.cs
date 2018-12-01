@@ -9,7 +9,7 @@ public class ObstacleStats : MonoBehaviour
 	[Tooltip("How soon from start up should the first obstacle spawn - 0 means right away.")]
 	public float firstSpawnTime;
 
-	[Tooltip("How frequently cones should spawn after start.")]
+	[Tooltip("How frequently obstacles should spawn after start.")]
 	public float spawnInterval;
 
     [Tooltip("What is the visual obstacle telegraph?")]
@@ -17,6 +17,9 @@ public class ObstacleStats : MonoBehaviour
 
 	[Tooltip("How fast the obstacle should drop. E.g. if bird fell from the sky it could drop very fast.")]
 	public float verticalSpeed;
+
+    [Tooltip("Speed variation for different obstacles/vehicles (random).")]
+    public float verticalRange;
 
     [Tooltip("How fast the obstacle should walk across the road.")]
     public float horizontalSpeed;
