@@ -32,8 +32,8 @@ public class ObstacleSpawner : MonoBehaviour
 			Vector3 startPosition = new Vector3(randomX, GameManager.instance.upperLeftBound.y + coneHeight, 0);
 			Vector3 endPosition = new Vector3(randomX, randomY, 0);
 
-			GameObject cone = Instantiate(ResourceLoader.instance.obstacleConePrefab);
-			cone.transform.position = startPosition;
+			GameObject cone = Instantiate(ResourceLoader.instance.obstacleConePrefab, startPosition, Quaternion.identity);
+			cone.GetComponent<ObstacleController>().endPosition = endPosition;
 			
 			coneSpawnTimer = coneSpawnInterval;
 		}
