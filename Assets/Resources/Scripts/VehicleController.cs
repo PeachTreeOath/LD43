@@ -29,7 +29,6 @@ public class VehicleController : MonoBehaviour
     private static float LANE_CORRECTION_ANGLE_DELTA = 2;
 
     public bool isSleeping;
-    public float nextSleepTime;
     public float nextWakeTime;
     private float timeElapsed;
     private Vector2 sleepVector;
@@ -53,7 +52,7 @@ public class VehicleController : MonoBehaviour
     {
         currState = State.DRIVING;  // this is temporary...
         rbody = GetComponent<Rigidbody2D>();
-        nextSleepTime = GetNextSleepOrWakeTime();
+        nextWakeTime = GetNextSleepOrWakeTime();
         vehiclePool = GameManager.instance.getVehiclePool();
     }
 
@@ -68,16 +67,17 @@ public class VehicleController : MonoBehaviour
 
     void UpdateDriving() { 
         timeElapsed += Time.deltaTime;
-        if (timeElapsed > nextSleepTime && !isSleeping)
+        if (timeElapsed > nextWakeTime && !isSleeping)
         {
             if (isSelected) {
                 timeElapsed = 0;
-                nextSleepTime = GetNextSleepOrWakeTime();
-            } else {
-                StartDrifting();
-            }
-        } else if (isSleeping && timeElapsed > nextWakeTime) 
+                nextWakeTime = GetNextSleepOrWakeTime();
+            } 
+            StartDrifting();
+            //Debug.Log(Time.time + " StartDrifting: " + gameObject.name);
+        } else if (isSelected && isSleeping && timeElapsed > nextWakeTime) 
         {
+            //Debug.Log(Time.time + " StopDrifting: " + gameObject.name);
             StopDrifting();
         }
 
@@ -91,17 +91,18 @@ public class VehicleController : MonoBehaviour
             vInput = vehicleStats.speed * 0.0012f * Input.GetAxisRaw("Vertical");
         }
 
+        if (isSelected)
+        {
+           // Debug.Log("isSleeping: " + isSleeping);
+        }
+
         // Movement from input
         float rotateDelta;
         if (isSleeping) {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
-            if (isSelected)
-            {
-                Debug.Log("hInput: " + hInput + " sleepVector.x " + sleepVector.x + " vehicleStats.sleepSeverity " + vehicleStats.sleepSeverity + " rotateDelta " + rotateDelta);
-            }
+            
             vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
         } else {
-            rbody.rotation = 0;
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
@@ -113,7 +114,7 @@ public class VehicleController : MonoBehaviour
             } else { // angle > 180
                 rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
             }
-            vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
+           // vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
         }
 
         // Drift vehicle left/right based on how much rotation applied
@@ -189,7 +190,7 @@ public class VehicleController : MonoBehaviour
     {
         isSleeping = false;
         timeElapsed = 0;
-        nextSleepTime = GetNextSleepOrWakeTime();
+        nextWakeTime = GetNextSleepOrWakeTime();
     }
 
     private float GetNextSleepOrWakeTime()
@@ -229,6 +230,9 @@ public class VehicleController : MonoBehaviour
     {
         if(!IsCrashed) {
             vehiclePool.SelectVehicle(this);
+            timeElapsed = 0;
+            nextWakeTime = GetNextSleepOrWakeTime();
+            //Debug.Log(Time.time  + " reset timeElapsed nextSleepTime " + nextWakeTime);
         }
     }
 
