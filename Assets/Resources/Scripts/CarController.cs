@@ -38,7 +38,7 @@ public class CarController : MonoBehaviour
 
     private float GetHorizontalDeltaFromRotation(float eulerAngle)
     {
-        if (eulerAngle < 180)// && eulerAngle != 360)
+        if (eulerAngle < 180)
         {
             float angle = 0 - eulerAngle;
 			Debug.Log("angle " + angle + " euler " + eulerAngle);
