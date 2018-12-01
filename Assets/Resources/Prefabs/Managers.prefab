@@ -53,8 +53,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd50a83c486b5346913d51379bbfc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperLeftBound: {x: -8.699, y: 4.75}
-  bottomRightBound: {x: 8.699, y: -4.75}
+  upperLeftBound: {x: -6.25, y: 4.75}
+  bottomRightBound: {x: 6.25, y: -4.75}
+  defaultDeltaFromTopForWarnings: 0.3
+  defaultDeltaFromRightForWarnings: 1
   lightShaftsFab: {fileID: 1784035439255130, guid: f1ed7857eeef752448a0535314680dbe,
     type: 2}
   scrollSpeedMultiplier: 0.09
@@ -84,6 +86,7 @@ MonoBehaviour:
   obstacleConePrefab: {fileID: 0}
   obstaclePedestrianPrefab: {fileID: 0}
   obstacleCyclistPrefab: {fileID: 0}
+  vehicleSleepCaption: {fileID: 0}
   bus: {fileID: 0}
   car: {fileID: 0}
   limo: {fileID: 0}

@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
     PrayerMeter prayerMeter;
 
     private float curPos = 0;
-    private float nextCheckpointPos = 15; //TODO relocate to Level object
+    private float nextCheckpointPos = 35; //TODO relocate to Level object
     private bool isPausedForCheckpoint = false;
 
     private int dbgCount = 0;

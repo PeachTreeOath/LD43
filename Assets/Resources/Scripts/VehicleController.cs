@@ -34,10 +34,14 @@ public class VehicleController : MonoBehaviour
     private Vector2 sleepVector;
 
     GameObject lightShaft;
+    GameObject caption;
 
-    public bool IsCrashed {
-        get {
-            switch(currState) {
+    public bool IsCrashed
+    {
+        get
+        {
+            switch (currState)
+            {
                 case State.CRASHING:
                 case State.CRASHED:
                     return true;
@@ -57,25 +61,30 @@ public class VehicleController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {
-        switch(currState) {
+    void Update()
+    {
+        switch (currState)
+        {
             case State.DRIVING:
                 UpdateDriving();
                 break;
         }
     }
 
-    void UpdateDriving() { 
+    void UpdateDriving()
+    {
         timeElapsed += Time.deltaTime;
         if (timeElapsed > nextWakeTime && !isSleeping)
         {
-            if (isSelected) {
+            if (isSelected)
+            {
                 timeElapsed = 0;
                 nextWakeTime = GetNextSleepOrWakeTime();
-            } 
+            }
             StartDrifting();
             //Debug.Log(Time.time + " StartDrifting: " + gameObject.name);
-        } else if (isSelected && isSleeping && timeElapsed > nextWakeTime) 
+        }
+        else if (isSelected && isSleeping && timeElapsed > nextWakeTime)
         {
             //Debug.Log(Time.time + " StopDrifting: " + gameObject.name);
             StopDrifting();
@@ -93,34 +102,42 @@ public class VehicleController : MonoBehaviour
 
         if (isSelected)
         {
-           // Debug.Log("isSleeping: " + isSleeping);
+            // Debug.Log("isSleeping: " + isSleeping);
         }
 
         // Movement from input
         float rotateDelta;
-        if (isSleeping) {
+        if (isSleeping)
+        {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
-            
+
             vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
-        } else {
+        }
+        else
+        {
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
             float angle = vehicleSprite.transform.eulerAngles.z;
-            if (angle < 0+WAKE_CONTROL_LOWER_BOUND || angle > 360-WAKE_CONTROL_LOWER_BOUND) { // do nothing
+            if (angle < 0 + WAKE_CONTROL_LOWER_BOUND || angle > 360 - WAKE_CONTROL_LOWER_BOUND)
+            { // do nothing
                 rotateDelta = 0f;
-            } else if (angle < 180) { // reduce angle
+            }
+            else if (angle < 180)
+            { // reduce angle
                 rotateDelta = -1f * LANE_CORRECTION_ANGLE_DELTA;
-            } else { // angle > 180
+            }
+            else
+            { // angle > 180
                 rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
             }
-           // vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
+            vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
         }
 
         // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
 
-        Vector2 newPosition = (Vector2)transform.position 
+        Vector2 newPosition = (Vector2)transform.position
             + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
         rbody.MovePosition(newPosition);
     }
@@ -132,6 +149,7 @@ public class VehicleController : MonoBehaviour
         isSleeping = true;
 
         //Display Sleep Caption
+        RenderSleepCaption();
 
         // Only pick from top 6 drift directions - don't want to drift north or south.
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
@@ -158,15 +176,17 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    public void OnCollideWithWalls(Vector2 normal) {
+    public void OnCollideWithWalls(Vector2 normal)
+    {
         //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
 
         StartFatalCrash();
     }
 
-    private void StartFatalCrash() {
+    private void StartFatalCrash()
+    {
 
-        if(vehiclePool == null)
+        if (vehiclePool == null)
         {
             Start();
         }
@@ -191,6 +211,7 @@ public class VehicleController : MonoBehaviour
         isSleeping = false;
         timeElapsed = 0;
         nextWakeTime = GetNextSleepOrWakeTime();
+        Destroy(caption);
     }
 
     private float GetNextSleepOrWakeTime()
@@ -200,19 +221,23 @@ public class VehicleController : MonoBehaviour
         return ret;
     }
 
-    public void SetSelected(bool selected) {
+    public void SetSelected(bool selected)
+    {
         if (selected == isSelected) return;
 
         isSelected = selected;
-        if (isSelected) {
+        if (isSelected)
+        {
             AddLight();
         }
-        else {
+        else
+        {
             RemoveLight();
         }
     }
 
-    private void AddLight() {
+    private void AddLight()
+    {
         if (lightShaft != null) return;
 
         lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
@@ -220,15 +245,18 @@ public class VehicleController : MonoBehaviour
         lightShaft.transform.SetParent(gameObject.transform);
     }
 
-    private void RemoveLight() {
-        if(lightShaft != null) {
-            Destroy(lightShaft); 
+    private void RemoveLight()
+    {
+        if (lightShaft != null)
+        {
+            Destroy(lightShaft);
         }
     }
 
     public void OnMouseDown()
     {
-        if(!IsCrashed) {
+        if (!IsCrashed)
+        {
             vehiclePool.SelectVehicle(this);
             timeElapsed = 0;
             nextWakeTime = GetNextSleepOrWakeTime();
@@ -255,5 +283,15 @@ public class VehicleController : MonoBehaviour
         }
         //Debug.Log(gameObject.name + " hDelta for angle " + eulerAngle + " = " + result);
         return result;
+    }
+
+    private void RenderSleepCaption()
+    {
+        //Toggle caption flag.
+        isSleeping = true;
+
+        //Render Sleep Caption
+        caption = Instantiate(ResourceLoader.instance.vehicleSleepCaption, vehicleSprite.transform.position,
+            Quaternion.identity, vehicleSprite.transform);
     }
 }
