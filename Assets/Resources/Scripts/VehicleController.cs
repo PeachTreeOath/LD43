@@ -80,7 +80,6 @@ public class VehicleController : MonoBehaviour
             }
         } else if (isSleeping && timeElapsed > nextWakeTime)
         {
-            isCaptioned = false;
             StopDrifting();
         }
 
@@ -206,6 +205,7 @@ public class VehicleController : MonoBehaviour
     private void StopDrifting()
     {
         isSleeping = false;
+        isCaptioned = false;
         timeElapsed = 0;
         nextSleepTime = GetNextSleepOrWakeTime();
     }
