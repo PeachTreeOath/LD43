@@ -62,7 +62,7 @@ public class GameManager : Singleton<GameManager>
 
     private void updateAmountMoved() {
         if (!isPausedForCheckpoint) {
-            curPos += LevelManager.instance.scrollSpeed * Time.deltaTime; //TODO needs to be based on current speed
+            curPos += LevelManager.instance.scrollSpeed * Time.deltaTime; 
         }
     }
 
