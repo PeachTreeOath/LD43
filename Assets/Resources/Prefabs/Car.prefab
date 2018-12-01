@@ -128,12 +128,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04a277c1422bf149bf5bfa1aa36400e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isSelected: 0
+  carSprite: {fileID: 1432520764680442}
   moveSpeed: 0.02
   rotateSpeed: 0.3
   angledMovementPower: 0.0001
   driftPower: 5
-  carSprite: {fileID: 1432520764680442}
+  weight: 0
+  prayerValue: 0
+  sleepChance: 6
+  sleepSeverity: 0.1
+  awakeGracePeriod: 0
 --- !u!212 &212843768548449604
 SpriteRenderer:
   m_ObjectHideFlags: 1

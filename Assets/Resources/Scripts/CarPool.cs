@@ -11,7 +11,7 @@ public class CarPool : MonoBehaviour
     void Start()
     {
         AddNewCar(0);
-        cars[0].GetComponent<CarController>().isSelected = true;
+        cars[0].GetComponent<CarController>().Select();
         AddNewCar(-2);
     }
 
