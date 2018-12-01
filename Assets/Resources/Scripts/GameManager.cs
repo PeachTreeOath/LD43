@@ -89,10 +89,10 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void hitCheckpoint() {
         pauseForCheckpoint();
-        //if (!checkpointManager.hitCheckpoint()) {
+        if (!checkpointManager.hitCheckpoint()) {
             //no checkpoint, keep going
-        //    resumeForCheckpoint();
-        //}
+            resumeForCheckpoint();
+        }
     }
 
     /// <summary>

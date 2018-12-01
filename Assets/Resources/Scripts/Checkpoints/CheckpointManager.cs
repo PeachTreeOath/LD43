@@ -32,7 +32,8 @@ public class CheckpointManager : MonoBehaviour {
     private Canvas checkpointUi;
 
     [SerializeField]
-    private List<Checkpoint> checkpoints;
+    private Checkpoint checkpoint;
+
 
     [SerializeField]
     private int curCheckpoint = -1;
@@ -48,9 +49,7 @@ public class CheckpointManager : MonoBehaviour {
         if (checkpointUi == null) {
             Debug.LogError("Missing checkpoint UI");
         }
-        if (checkpoints == null || checkpoints.Count == 0) {
-            Debug.LogError("Missing # of checkpoints");
-        }
+
         uiManager = FindObjectOfType<CheckpointUiManager>();
         if (uiManager == null) {
             Debug.LogError("No CheckpointUiManager in the scene... it should be on a Canvas somewhere");
@@ -71,17 +70,11 @@ public class CheckpointManager : MonoBehaviour {
         int cp = ++curCheckpoint;
         Debug.Log("Hit checkpoint " + cp);
 
-        if (cp < 0 || cp >= checkpoints.Count) {
-            Debug.LogError("Checkpoint ID not valid: " + cp);
-            cpHit = false;
+        //TODO pause gameplay
+        if (cp > 0) {
+            showCheckpointUi();
         } else {
-
-            //TODO pause gameplay
-            if (cp > 0) {
-                showCheckpointUi();
-            } else {
-                resumeCheckpoint();
-            }
+            resumeCheckpoint();
         }
         return cpHit;
 
@@ -94,14 +87,13 @@ public class CheckpointManager : MonoBehaviour {
         Time.timeScale = 0;
         Debug.Log("Show checkpoint UI");
 
-        Checkpoint cp = checkpoints[curCheckpoint];
-        if (cp == null) {
+        if (checkpoint == null) {
             Debug.LogError("Now why did you think that would work??");
             return;
         }
 
         //load the cards
-        List<CheckpointCard> cards = cp.getCards();
+        List<CheckpointCard> cards = checkpoint.getCards();
         uiManager.clearCards();
         uiManager.addCards(cards);
 
@@ -133,7 +125,7 @@ public class CheckpointManager : MonoBehaviour {
         hideCheckpointUi();
 
         //TODO make this great
-        dbgLoadUpJesusVanPool(curCheckpoint);
+        dbgLoadUpJesusVanPool();
         GainPrayers();
     }
 
@@ -157,12 +149,11 @@ public class CheckpointManager : MonoBehaviour {
     }
 
 
-    private void dbgLoadUpJesusVanPool(int cpIdx) {
+    private void dbgLoadUpJesusVanPool() {
         Debug.Log("Debug Spawn Stuff");
-        Checkpoint cp = checkpoints[cpIdx];
         //for now we will just dump out
         //everything that is avaialable
-        List<VehicleTypeEnum> vs = cp.getAvailableVehicles();
+        List<VehicleTypeEnum> vs = checkpoint.getAvailableVehicles();
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
 

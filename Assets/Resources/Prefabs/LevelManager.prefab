@@ -84,6 +84,7 @@ MonoBehaviour:
   spawnTelegraph: {fileID: 1777406086461410, guid: cc4454d85b108bd42a6525c72d03bef3,
     type: 2}
   verticalSpeed: 5
+  verticalRange: 2
   horizontalSpeed: 0
   moveWaitTime: 1
   directionObstacleComingFrom: 6
