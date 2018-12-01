@@ -25,10 +25,13 @@ public class VehicleController : MonoBehaviour
 
     //Cap on how fast the car can move on the x-axis per update
     private float maxHSpeedConst = 0.17f;
+    private static float WAKE_CONTROL_LOWER_BOUND = 5;
+    private static float LANE_CORRECTION_ANGLE_DELTA = 2;
 
-    private bool isSleeping;
-    private float nextSleepTime;
-    private float sleepTimeElapsed;
+    public bool isSleeping;
+    public float nextSleepTime;
+    public float nextWakeTime;
+    private float timeElapsed;
     private Vector2 sleepVector;
 
     GameObject lightShaft;
@@ -38,7 +41,7 @@ public class VehicleController : MonoBehaviour
     {
         currState = State.DRIVING;  // this is temporary...
         rbody = GetComponent<Rigidbody2D>();
-        nextSleepTime = GetNextSleepTime();
+        nextSleepTime = GetNextSleepOrWakeTime();
         vehiclePool = GameManager.instance.getVehiclePool();
     }
 
@@ -52,10 +55,13 @@ public class VehicleController : MonoBehaviour
     }
 
     void UpdateDriving() { 
-        sleepTimeElapsed += Time.deltaTime;
-        if (sleepTimeElapsed > nextSleepTime && !isSleeping)
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed > nextSleepTime && !isSleeping)
         {
             StartDrifting();
+        } else if (isSleeping && timeElapsed > nextWakeTime) 
+        {
+            StopDrifting();
         }
 
         float hInput = 0;
@@ -69,8 +75,24 @@ public class VehicleController : MonoBehaviour
         }
 
         // Movement from input
-        float rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
-        vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
+        float rotateDelta;
+        if (isSleeping) {
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
+            vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
+        } else {
+            // North is 0 or 360
+            // if less than 10 or more than 350, do nothing
+            // if less than 180, reduce, if more than 180, increase
+            float angle = vehicleSprite.transform.eulerAngles.z;
+            if (angle < 0+WAKE_CONTROL_LOWER_BOUND || angle > 360-WAKE_CONTROL_LOWER_BOUND) { // do nothing
+                rotateDelta = 0f;
+            } else if (angle < 180) { // reduce angle
+                rotateDelta = -1f * LANE_CORRECTION_ANGLE_DELTA;
+            } else { // angle > 180
+                rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
+            }
+            vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
+        }
 
         // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
@@ -85,6 +107,8 @@ public class VehicleController : MonoBehaviour
         if (currState != State.DRIVING) return;
 
         isSleeping = true;
+        timeElapsed = 0;
+        nextWakeTime = GetNextSleepOrWakeTime();
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
         switch (driftDirection)
         {
@@ -118,12 +142,12 @@ public class VehicleController : MonoBehaviour
     private void StopDrifting()
     {
         isSleeping = false;
-        sleepTimeElapsed = 0;
-        nextSleepTime = GetNextSleepTime();
+        timeElapsed = 0;
+        nextSleepTime = GetNextSleepOrWakeTime();
     }
 
 
-    private float GetNextSleepTime()
+    private float GetNextSleepOrWakeTime()
     {
         return 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
     }
