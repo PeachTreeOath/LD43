@@ -8,6 +8,8 @@ public class ObstacleSpawner : MonoBehaviour
 	[Tooltip("All the different types of obstacles to spawn - loaded from LevelManager.")]
 	public ObstacleStats[] allObstacleTypes;
 
+    private bool isPaused = false;
+
 	public void Start ()
 	{
 		allObstacleTypes = LevelManager.instance.GetComponents<ObstacleStats>();
@@ -34,8 +36,22 @@ public class ObstacleSpawner : MonoBehaviour
 			obstacleStats.spawnTimer = obstacleStats.firstSpawnTime;
 		}
 	}
-	
-	public void Update ()
+
+    public void Update() {
+        if (!isPaused) {
+            UpdateObstacles();
+        }
+    }
+
+    public void pause() {
+        isPaused = true;
+    }
+
+    public void resume() {
+        isPaused = false;
+    }
+
+	public void UpdateObstacles ()
 	{
 		foreach (ObstacleStats obstacleStats in allObstacleTypes)
 		{

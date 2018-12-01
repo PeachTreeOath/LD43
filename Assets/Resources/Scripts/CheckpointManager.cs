@@ -32,21 +32,26 @@ public class CheckpointManager : MonoBehaviour {
 		
 	}
 
-    public void hitCheckpoint() {
+    //returns true if the checkpoint was hit OK
+    //returns false if there wasn't a checkpoint to hit
+    public bool hitCheckpoint() {
+        bool cpHit = true;
         int cp = ++curCheckpoint;
         Debug.Log("Hit checkpoint " + cp);
 
         if (cp < 0 || cp >= checkpoints.Count) {
             Debug.LogError("Checkpoint ID not valid: " + cp);
-            return;  //do nothing
-        }
-
-        //TODO pause gameplay
-        if (cp > 0) {
-            showCheckpointUi();
+            cpHit = false;
         } else {
-            resumeCheckpoint();
+
+            //TODO pause gameplay
+            if (cp > 0) {
+                showCheckpointUi();
+            } else {
+                resumeCheckpoint();
+            }
         }
+        return cpHit;
 
     }
 

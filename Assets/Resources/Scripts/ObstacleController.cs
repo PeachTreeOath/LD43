@@ -32,8 +32,14 @@ public class ObstacleController : MonoBehaviour
 			Debug.LogWarning("Set end position for obstacle before start!!");
 		}
 	}
-	
-	public void Update ()
+
+    public void Update() {
+        if (!GameManager.instance.isPaused()) {
+            UpdatePos();
+        }
+    }
+
+	public void UpdatePos ()
 	{
 		// Update state.
 		if (dropTimer <= 0)

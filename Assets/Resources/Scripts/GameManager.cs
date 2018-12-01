@@ -11,11 +11,14 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject lightShaftsFab;
 
+    private Scroller scroller;
+    private ObstacleSpawner obstacleSpawner;
     private CheckpointManager checkpointManager;
     private VehiclePool vehiclePool;
 
     private float curPos = 0;
     private float nextCheckpointPos = 11; //TODO relocate to Level object
+    private bool isPausedForCheckpoint = false;
 
     private int dbgCount = 0;
 
@@ -24,9 +27,14 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Loaded VehiclePool: " + vehiclePool.gameObject.name);
         checkpointManager = FindObjectOfType<CheckpointManager>();
         Debug.Log("Loaded CheckpointManager: " + checkpointManager.gameObject.name);
+        scroller = FindObjectOfType<Scroller>();
+        Debug.Log("Loaded Scroller: " + scroller.gameObject.name);
+        obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
+        Debug.Log("Loaded Obstacle Spawner: " + obstacleSpawner);
 
         //start'er up
         hitCheckpoint();
+        resumeForCheckpoint(); //For debug only
     }
 
     void Update() {
@@ -48,7 +56,9 @@ public class GameManager : Singleton<GameManager>
     }
 
     private void updateAmountMoved() {
-        curPos += 2 * Time.deltaTime; //TODO needs to be based on current speed
+        if (!isPausedForCheckpoint) {
+            curPos += 2 * Time.deltaTime; //TODO needs to be based on current speed
+        }
     }
 
     private float getCurrentMapPos() {
@@ -59,14 +69,47 @@ public class GameManager : Singleton<GameManager>
         return nextCheckpointPos;
     }
 
+    /// <summary>
+    /// Callback for an action that resumes from the checkpoint screen
+    /// </summary>
     public void resumeCheckpoint() {
         checkpointManager.resumeCheckpoint();
+        resumeForCheckpoint();
     }
         
 
 
+    /// <summary>
+    /// Triggers the checkpoint display and associated pausing actions
+    /// </summary>
     public void hitCheckpoint() {
-        checkpointManager.hitCheckpoint();
+        pauseForCheckpoint();
+        if (!checkpointManager.hitCheckpoint()) {
+            //no checkpoint, keep going
+            resumeForCheckpoint();
+        }
+    }
+
+    /// <summary>
+    /// Stops all the crap that needs to wait for a checkpoint
+    /// </summary>
+    private void pauseForCheckpoint() {
+        isPausedForCheckpoint = true;
+        scroller.pause();
+        obstacleSpawner.pause();
+    }
+
+    /// <summary>
+    /// Resumes all the crap stopped for a checkpoint
+    /// </summary>
+    private void resumeForCheckpoint() {
+        scroller.resume();
+        isPausedForCheckpoint = false;
+        obstacleSpawner.resume();
+    }
+
+    public bool isPaused() {
+        return isPausedForCheckpoint;
     }
 
     public VehiclePool getVehiclePool() {
