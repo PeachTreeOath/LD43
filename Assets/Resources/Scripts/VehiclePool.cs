@@ -110,14 +110,28 @@ public class VehiclePool : MonoBehaviour
 
     public void SelectVehicle(VehicleController controllerToSelect)
     {
-        foreach (var vehicleController in vehicles) {
-            vehicleController.isSelected = false;
+        if(controllerToSelect != null) {
+            if (controllerToSelect.IsCrashed) return;
+
+            controllerToSelect.SetSelected(true);
         }
 
-        if(controllerToSelect != null) {
-            controllerToSelect.isSelected = true;
+        foreach (var vehicleController in vehicles) {
+            if (controllerToSelect != vehicleController) {
+                vehicleController.SetSelected(false);
+            }
         }
 
         JesusManager.instance.SelectAVehicle(controllerToSelect);
+    }
+
+    public void OnVehicleCrash(VehicleController crashedVehicle) {
+        if (crashedVehicle == null) return;
+
+        if(crashedVehicle.isSelected) {
+            SelectVehicle(null);
+        }
+
+        vehicles.Remove(crashedVehicle);
     }
 }

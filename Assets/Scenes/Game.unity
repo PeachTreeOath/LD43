@@ -697,14 +697,30 @@ Prefab:
       objectReference: {fileID: 309107341}
     - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
         type: 2}
+<<<<<<< HEAD
+      propertyPath: prayerHandsFab
+      value: 
+      objectReference: {fileID: 1915286090572582, guid: 0bd30cc0227c53742aba6a0a57d61e67,
+        type: 2}
+=======
       propertyPath: checkpoints.Array.data[0]
       value: 
       objectReference: {fileID: 502789341}
+>>>>>>> 81569cd2cb7d796cd2c37b29d94599c544028a47
     - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
         type: 2}
       propertyPath: checkpoints.Array.data[1]
       value: 
+<<<<<<< HEAD
+      objectReference: {fileID: 309107341}
+    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+=======
       objectReference: {fileID: 231484064}
+>>>>>>> 81569cd2cb7d796cd2c37b29d94599c544028a47
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8bcab70b925d1a43b4540edabbe034a, type: 2}
   m_IsPrefabAsset: 0
@@ -1090,6 +1106,16 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083851956731554, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223946125188577604, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1, type: 2}
