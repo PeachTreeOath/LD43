@@ -159,13 +159,16 @@ public class VehicleController : MonoBehaviour
 
     public void OnMouseDown()
     {
-        lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
-        lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
-        lightShaft.transform.SetParent(gameObject.transform);
-        vehiclePool.SelectVehicle(this);
-        for(int i = 0; i < vehiclePool.vehicles.Count; i++)
+        if (!isSelected)
         {
-            vehiclePool.vehicles[i].CheckSelected(gameObject);
+            lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
+            lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
+            lightShaft.transform.SetParent(gameObject.transform);
+            vehiclePool.SelectVehicle(this);
+            for (int i = 0; i < vehiclePool.vehicles.Count; i++)
+            {
+                vehiclePool.vehicles[i].CheckSelected(gameObject);
+            }
         }
     }
 
