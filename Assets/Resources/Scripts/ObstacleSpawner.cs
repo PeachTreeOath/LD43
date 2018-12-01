@@ -5,41 +5,57 @@ using UnityEngine;
 // Spawns obstacles at a random location in set intervals.
 public class ObstacleSpawner : MonoBehaviour 
 {
-	[Tooltip("How frequently cones should spawn.")]
-	public float coneSpawnInterval;
-
-    [HideInInspector]
-	public float coneSpawnTimer;
-	
-    [HideInInspector]
-	public float coneHeight;
+	[Tooltip("All the different types of obstacles to spawn - loaded from LevelManager.")]
+	public ObstacleStats[] allObstacleTypes;
 
 	public void Start ()
 	{
-		coneSpawnTimer = coneSpawnInterval;
+		allObstacleTypes = LevelManager.instance.GetComponents<ObstacleStats>();
 
-		// Get obstacle heights so we can spawn them above bounds.
-		coneHeight = ResourceLoader.instance.obstacleConePrefab.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+		foreach (ObstacleStats obstacleStats in allObstacleTypes)
+		{
+			// Get obstacle heights so we can spawn them above bounds.
+			GameObject obstacleGO = null;
+			switch (obstacleStats.obstacleType)
+			{
+				case ObstacleTypeEnum.CONE:
+					obstacleGO = ResourceLoader.instance.obstacleConePrefab;
+					break;
+				default:
+					Debug.LogWarning("Couldn't find matching GameObject in ResourceLoader for obstacle of type " + obstacleStats.obstacleType);
+					break;
+			}
+
+			if (obstacleGO != null)
+			{
+				obstacleStats.obstacleHeight = obstacleGO.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+			}
+
+			obstacleStats.spawnTimer = obstacleStats.spawnInterval;
+		}
 	}
 	
 	public void Update ()
 	{
-		if (coneSpawnTimer <= 0)
+		foreach (ObstacleStats obstacleStats in allObstacleTypes)
 		{
-			// Cone spawning logic.
-			float randomX = UnityEngine.Random.Range(GameManager.instance.upperLeftBound.x, GameManager.instance.bottomRightBound.x);
-			float randomY = UnityEngine.Random.Range(GameManager.instance.upperLeftBound.y, GameManager.instance.bottomRightBound.y);
-			Vector3 startPosition = new Vector3(randomX, GameManager.instance.upperLeftBound.y + coneHeight, 0);
-			Vector3 endPosition = new Vector3(randomX, randomY, 0);
+			if (obstacleStats.spawnTimer <= 0)
+			{
+				// Spawn new obstacle at top of the stage.
+				float randomX = UnityEngine.Random.Range(GameManager.instance.upperLeftBound.x, GameManager.instance.bottomRightBound.x);
+				float randomY = UnityEngine.Random.Range(GameManager.instance.upperLeftBound.y, GameManager.instance.bottomRightBound.y);
+				Vector3 startPosition = new Vector3(randomX, GameManager.instance.upperLeftBound.y + obstacleStats.obstacleHeight, 0);
+				Vector3 endPosition = new Vector3(randomX, randomY, 0);
 
-			GameObject cone = Instantiate(ResourceLoader.instance.obstacleConePrefab, startPosition, Quaternion.identity);
-			cone.GetComponent<ObstacleController>().endPosition = endPosition;
+				GameObject cone = Instantiate(ResourceLoader.instance.obstacleConePrefab, startPosition, Quaternion.identity);
+				cone.GetComponent<ObstacleController>().endPosition = endPosition;
 			
-			coneSpawnTimer = coneSpawnInterval;
-		}
-		else
-		{
-			coneSpawnTimer -= Time.deltaTime;
+				obstacleStats.spawnTimer = obstacleStats.spawnInterval;
+			}
+			else
+			{
+				obstacleStats.spawnTimer -= Time.deltaTime;
+			}
 		}
 	}
 }
