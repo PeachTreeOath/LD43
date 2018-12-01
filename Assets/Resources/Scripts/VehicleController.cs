@@ -22,6 +22,9 @@ public class VehicleController : MonoBehaviour
 
     public VehicleStats vehicleStats;
 
+    //Cap on how fast the car can move on the x-axis per update
+    private float maxHSpeedConst = 0.17f;
+
     private bool isSleeping;
     private float nextSleepTime;
     private float sleepTimeElapsed;
@@ -61,7 +64,8 @@ public class VehicleController : MonoBehaviour
         // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
 
-        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
+        Vector2 newPosition = (Vector2)transform.position 
+            + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
         rbody.MovePosition(newPosition);
     }
 
@@ -111,17 +115,22 @@ public class VehicleController : MonoBehaviour
 
     private float GetHorizontalDeltaFromRotation(float eulerAngle)
     {
+        float result = 0;
         if (eulerAngle < 180)
         {
             float angle = 0 - eulerAngle;
             float angleSeverity = Mathf.Pow(angle, 2);
-            return -angleSeverity * angledMovementPower;
+            result = -angleSeverity * angledMovementPower;
+            result = Math.Max(result, -maxHSpeedConst);
         }
         else
         {
             float angle = 360 - eulerAngle;
             float angleSeverity = Mathf.Pow(angle, 2);
-            return angleSeverity * angledMovementPower;
+            result = angleSeverity * angledMovementPower;
+            result = Math.Min(result, maxHSpeedConst);
         }
+        //Debug.Log(gameObject.name + " hDelta for angle " + eulerAngle + " = " + result);
+        return result;
     }
 }
