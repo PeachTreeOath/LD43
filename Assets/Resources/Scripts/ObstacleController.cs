@@ -96,7 +96,7 @@ public class ObstacleController : MonoBehaviour
 				break;
 			case ObstacleStateEnum.PLACED:
 				// Continue moving - potentially in a different way (or add logic to pause depending on obstacle?)
-				transform.position = new Vector3(transform.position.x, transform.position.y - (GameManager.instance.roadSpeed * Time.deltaTime), transform.position.z);
+				transform.position = new Vector3(transform.position.x, transform.position.y - (LevelManager.instance.scrollSpeed * Time.deltaTime), transform.position.z);
 				if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y)
 				{
 					Destroy(gameObject);
