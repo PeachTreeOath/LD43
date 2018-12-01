@@ -42,7 +42,9 @@ public class CheckpointManager : MonoBehaviour {
         }
 
         //TODO pause gameplay
-        showCheckpointUi();
+        if (cp > 0) {
+            showCheckpointUi();
+        }
 
     }
 
