@@ -52,8 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c57bf4b37577f14694932ae668fc7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropSpeed: 0
-  dropTimer: 0
+  dropSpeed: 1
+  horizontalSpeed: 2
+  dropTimer: 5
   endPosition: {x: 0, y: 0, z: 0}
   obstacleState: 0
 --- !u!212 &212336355094667264
