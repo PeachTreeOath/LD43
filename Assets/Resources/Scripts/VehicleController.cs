@@ -167,7 +167,7 @@ public class VehicleController : MonoBehaviour
 
         rbody.bodyType = RigidbodyType2D.Kinematic;
         rbody.angularVelocity = 0f;
-        rbody.velocity = new Vector2(0, -GameManager.instance.roadSpeed);
+        rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
 
         //TODO crash effect
         //TODO crash sound

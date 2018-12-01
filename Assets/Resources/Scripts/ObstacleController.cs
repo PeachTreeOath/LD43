@@ -17,7 +17,12 @@ public class ObstacleController : MonoBehaviour
 	[Tooltip("'Final position - logic being if you want the obstacle to stop for a moment somewhere or move faster/slower getting to said position.")]
 	public Vector3 endPosition;
 
+    [HideInInspector]
+
 	public ObstacleStateEnum obstacleState;
+
+    [HideInInspector]
+    public float scrollSpeed;
 
 	public ObstacleStats obstacleStats;
 
