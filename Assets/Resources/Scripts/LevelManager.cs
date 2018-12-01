@@ -8,4 +8,5 @@ public class LevelManager : Singleton<LevelManager>
     public float scrollSpeed;
     public float spawnRateInSeconds;
     public float rateOfPrayerDecay;
+    public float headOnCrashThreshold;
 }

@@ -24,6 +24,7 @@ public class VehicleController : MonoBehaviour
     public VehicleStats vehicleStats;
 
     //Cap on how fast the car can move on the x-axis per update
+    private bool initialized = false;
     private float maxHSpeedConst = 0.17f;
     private static float WAKE_CONTROL_LOWER_BOUND = 5;
     private static float LANE_CORRECTION_ANGLE_DELTA = 2;
@@ -55,6 +56,7 @@ public class VehicleController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        initialized = true;
         currState = State.DRIVING;  // this is temporary...
         rbody = GetComponent<Rigidbody2D>();
         nextWakeTime = GetNextSleepOrWakeTime();
@@ -107,14 +109,7 @@ public class VehicleController : MonoBehaviour
 
         // Movement from input
         float rotateDelta;
-        if (isSleeping)
-        {
-            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
-
-            vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
-        }
-        else // Autocorrect
-        {
+        if(!isSleeping && !isSelected) {
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
@@ -132,6 +127,10 @@ public class VehicleController : MonoBehaviour
                 rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
             }
             vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
+        }
+        else {
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
+            vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
         }
 
         // Drift vehicle left/right based on how much rotation applied
@@ -174,21 +173,41 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    public void OnCollideWithWalls(Vector2 normal)
-    {
+    public void OnCollideWithWalls(Vector2 normal) {
+        if (!initialized) return;
+
         //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
 
-        StartFatalCrash();
-    }
+        //var angle = vehicleSprite.transform.eulerAngles.z;
+        //var carFacingDir = Quaternion.AngleAxis(angle, Vector3.forward) * Vector2.up;
+        switch(currState) {
+            case State.DRIVING:
+                if( IsHeadOnCrash(normal) ) {
+                    StartFatalCrash();
+                } else if( IsAtCrashSpeed() ) {
+                    StartSpinningCrash(normal);
+                } else {
+                    StartSideSwipeSwerve(normal);
+                }
+                break;
 
-    private void StartFatalCrash()
-    {
-
-        if (vehiclePool == null)
-        {
-            Start();
+            case State.CRASHING:
+                break;
         }
 
+    }
+
+    private bool IsHeadOnCrash(Vector2 normal) {
+        var headOnCrashPercentage = Math.Abs(Vector2.Dot(normal, vehicleSprite.transform.up));
+        return (1 - headOnCrashPercentage) <= LevelManager.instance.headOnCrashThreshold;
+    }
+
+    private bool IsAtCrashSpeed() {
+        //TODO use vehicle stats to determine if this is a crashing speed!
+        return true;
+    }
+
+    private void StartFatalCrash() {
         vehiclePool.OnVehicleCrash(this);
 
         currState = State.CRASHED;
@@ -202,6 +221,17 @@ public class VehicleController : MonoBehaviour
         //TODO crash effect
         //TODO crash sound
         //TODO screen shake
+    }
+
+    private void StartSpinningCrash(Vector2 normal) {
+        currState = State.CRASHING;
+
+        var speed = rbody.velocity.magnitude;
+        rbody.velocity = normal * speed;
+    }
+
+    private void StartSideSwipeSwerve(Vector2 normal) {
+
     }
 
     private void StopDrifting()
