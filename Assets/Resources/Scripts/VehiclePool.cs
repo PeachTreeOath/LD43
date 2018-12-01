@@ -100,5 +100,6 @@ public class VehiclePool : MonoBehaviour
         }
 
         controllerToSelect.isSelected = true;
+        JesusManager.instance.SelectAVehicle(controllerToSelect);
     }
 }
