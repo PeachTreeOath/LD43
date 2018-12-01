@@ -150,12 +150,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783e957d4a3409c47b6f8db80a2a69ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecayTimer: 0
-  DecayValue: 0
-  MaximumPrayers: 0
-  PrayerLifeTime: 0
-  ProgressBar: {fileID: 0}
-  PrayerPrefab: {fileID: 0}
+  DecayTimer: 500
+  DecayValue: 10
+  MaximumPrayers: 1000
+  PrayerLifeTime: 0.75
+  ProgressBar: {fileID: 1489451917608104}
+  PrayerPrefab: {fileID: 1760781999118266, guid: 1be4171e61cb8b24a999e7ed87eda9f5,
+    type: 2}
 --- !u!114 &114393293922783446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,8 +180,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -298,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
