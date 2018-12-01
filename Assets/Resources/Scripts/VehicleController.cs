@@ -124,15 +124,10 @@ public class VehicleController : MonoBehaviour
         if (currState != State.DRIVING) return;
 
         isSleeping = true;
-<<<<<<< HEAD
 
         //Display Sleep Caption
 
-=======
-        timeElapsed = 0;
-        nextWakeTime = GetNextSleepOrWakeTime();
         // Only pick from top 6 drift directions - don't want to drift north or south.
->>>>>>> 81569cd2cb7d796cd2c37b29d94599c544028a47
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
         switch (driftDirection)
         {
@@ -199,7 +194,6 @@ public class VehicleController : MonoBehaviour
             AddLight();
         }
         else {
-
             RemoveLight();
         }
     }
