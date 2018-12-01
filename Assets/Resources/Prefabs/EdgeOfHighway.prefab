@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212944952515339070}
   - component: {fileID: 50928418277000962}
   - component: {fileID: 61415505279622878}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EdgeOfHighway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
