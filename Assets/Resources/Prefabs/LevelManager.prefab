@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c7f7157cd3ff0499994d79bd151283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsBetweenCheckpoints: 15
+  distanceBetweenCheckpoints: 40
   scrollSpeed: 5
   spawnRateInSeconds: 5
   rateOfPrayerDecay: 5

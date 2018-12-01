@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    public float secondsBetweenCheckpoints;
+    public float distanceBetweenCheckpoints;
     public float scrollSpeed;
     public float spawnRateInSeconds;
     public float rateOfPrayerDecay;

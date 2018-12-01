@@ -41,15 +41,13 @@ public class GameManager : Singleton<GameManager>
 
         //start'er up
         hitCheckpoint();
-        resumeForCheckpoint(); //For debug only
+        resumeForCheckpoint(); 
     }
 
     void Update() {
         updateAmountMoved();
         //track distance travelled along map
         //see if we hit a checkpoint
-        //currently assuming a linear progression along Y axis just to keep it simple
-        //TODO offload this to the specific Level that is loaded
         float curPos = getCurrentMapPos();
         float distToNextCheckpoint = getNextCheckpointPos() - curPos;
         if (dbgCount++ % 120 == 0) {
@@ -58,13 +56,13 @@ public class GameManager : Singleton<GameManager>
         if (distToNextCheckpoint <= 0) {
             Debug.Log("CHECKPOINT BABY");
             hitCheckpoint();
-            nextCheckpointPos += 40; //TODO remove this, for debugging only
+            nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
         }
     }
 
     private void updateAmountMoved() {
         if (!isPausedForCheckpoint) {
-            curPos += 2 * Time.deltaTime; //TODO needs to be based on current speed
+            curPos += LevelManager.instance.scrollSpeed * Time.deltaTime; //TODO needs to be based on current speed
         }
     }
 
@@ -91,10 +89,10 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void hitCheckpoint() {
         pauseForCheckpoint();
-        if (!checkpointManager.hitCheckpoint()) {
+        //if (!checkpointManager.hitCheckpoint()) {
             //no checkpoint, keep going
-            resumeForCheckpoint();
-        }
+        //    resumeForCheckpoint();
+        //}
     }
 
     /// <summary>
@@ -113,6 +111,7 @@ public class GameManager : Singleton<GameManager>
         scroller.resume();
         isPausedForCheckpoint = false;
         obstacleSpawner.resume();
+        nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
     }
 
     public bool isPaused() {
