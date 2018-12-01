@@ -53,6 +53,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd50a83c486b5346913d51379bbfc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upperLeftBound: {x: -8.699, y: 4.75}
+  bottomRightBound: {x: 8.699, y: -4.75}
+  roadSpeed: 1
 --- !u!114 &114159070662340710
 MonoBehaviour:
   m_ObjectHideFlags: 1

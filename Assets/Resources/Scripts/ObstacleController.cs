@@ -58,8 +58,11 @@ public class ObstacleController : MonoBehaviour
 				transform.position = new Vector3(transform.position.x, transform.position.y - (dropSpeed * Time.deltaTime), transform.position.z);
 				break;
 			case ObstacleStateEnum.PLACED:
-				transform.position = new Vector3(transform.position.x, transform.position.y - (1 * Time.deltaTime), transform.position.z); // TOOD: get distance increment from some manager normal road increase.
-				// TODO: check if it is at a boundary from a manager and then delete.
+				transform.position = new Vector3(transform.position.x, transform.position.y - (GameManager.instance.roadSpeed * Time.deltaTime), transform.position.z);
+				if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y)
+				{
+					Destroy(gameObject);
+				}
 				break;
 		}
 	}
