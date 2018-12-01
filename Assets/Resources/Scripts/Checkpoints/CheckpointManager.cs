@@ -62,6 +62,7 @@ public class CheckpointManager : MonoBehaviour {
     /// Shows the checkpoint ui for the current checkpoint
     /// </summary>
     private void showCheckpointUi() {
+        Time.timeScale = 0;
         Debug.Log("Show checkpoint UI");
         //TODO tie in with curCheckpoint index
         //to load proper card choices
@@ -75,6 +76,7 @@ public class CheckpointManager : MonoBehaviour {
     /// Hide the canvas for the checkpoint
     /// </summary>
     private void hideCheckpointUi() {
+        Time.timeScale = 1;
         CanvasGroup cpCanvasGroup = checkpointUi.GetComponent<CanvasGroup>();
         cpCanvasGroup.alpha = 0;
         cpCanvasGroup.interactable = false;

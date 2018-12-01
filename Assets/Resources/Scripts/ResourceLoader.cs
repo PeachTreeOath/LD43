@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ResourceLoader : Singleton<ResourceLoader>
 {
+    #region Obstacles
+
     [HideInInspector]
     public GameObject obstacleConePrefab;
 
@@ -11,7 +13,11 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
     public GameObject obstacleCyclistPrefab;
 
+<<<<<<< HEAD
     public GameObject vehicleSleepCaption;
+=======
+    #endregion
+>>>>>>> 81569cd2cb7d796cd2c37b29d94599c544028a47
 
     #region Vehicles
 
