@@ -469,6 +469,12 @@ Prefab:
       propertyPath: checkpoints.Array.data[0]
       value: 
       objectReference: {fileID: 502789341}
+    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
+        type: 2}
+      propertyPath: prayerHandsFab
+      value: 
+      objectReference: {fileID: 1915286090572582, guid: 0bd30cc0227c53742aba6a0a57d61e67,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8bcab70b925d1a43b4540edabbe034a, type: 2}
   m_IsPrefabAsset: 0
