@@ -15,6 +15,7 @@ public class CheckpointUiActionHandler : MonoBehaviour {
 	}
 
     public void handleResume() {
+        Debug.Log("handleResume clicked");
         GameManager.instance.resumeCheckpoint();
     }
 }

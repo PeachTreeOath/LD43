@@ -96,6 +96,11 @@ public class VehicleController : MonoBehaviour
         }
     }
 
+    public void OnCollideWithWalls(Vector2 normal) {
+        //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
+
+    }
+
     private void StopDrifting()
     {
         isSleeping = false;

@@ -49,12 +49,12 @@ public class ResourceLoader : Singleton<ResourceLoader>
         obstacleCyclistPrefab = Resources.Load<GameObject>("Prefabs/ObstacleCyclist");
 
         // Vehicles
-        bus = Resources.Load<GameObject>("Prefabs/Bus");
-        car = Resources.Load<GameObject>("Prefabs/Car");
-        limo = Resources.Load<GameObject>("Prefabs/Limo");
-        sportsCar = Resources.Load<GameObject>("Prefabs/SportsCar");
-        truck = Resources.Load<GameObject>("Prefabs/Truck");
-        semiTruck = Resources.Load<GameObject>("Prefabs/SemiTruck");
-        motorcycle = Resources.Load<GameObject>("Prefabs/Motorcycle");
+        bus = Resources.Load<GameObject>("Prefabs/Vehicles/Bus");
+        car = Resources.Load<GameObject>("Prefabs/Vehicles/Car");
+        limo = Resources.Load<GameObject>("Prefabs/Vehicles/Limo");
+        sportsCar = Resources.Load<GameObject>("Prefabs/Vehicles/SportsCar");
+        truck = Resources.Load<GameObject>("Prefabs/Vehicles/Truck");
+        semiTruck = Resources.Load<GameObject>("Prefabs/Vehicles/SemiTruck");
+        motorcycle = Resources.Load<GameObject>("Prefabs/Vehicles/Motorcycle");
     }
 }
