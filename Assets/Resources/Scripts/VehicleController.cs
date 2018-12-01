@@ -114,7 +114,7 @@ public class VehicleController : MonoBehaviour
             } else { // angle > 180
                 rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
             }
-           // vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
+            vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
         }
 
         // Drift vehicle left/right based on how much rotation applied
