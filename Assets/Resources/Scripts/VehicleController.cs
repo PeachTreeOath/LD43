@@ -13,6 +13,8 @@ public class VehicleController : MonoBehaviour
 
     public bool isSelected; // This is how a user selects which vehicle to move
 
+    private bool isCaptioned;
+
     public GameObject vehicleSprite; // Contains both sprite and collider and are separate from the actual GameObject
 
     private Rigidbody2D rbody;
@@ -29,6 +31,7 @@ public class VehicleController : MonoBehaviour
     private static float LANE_CORRECTION_ANGLE_DELTA = 2;
 
     public bool isSleeping;
+    public float nextSleepTime;
     public float nextWakeTime;
     private float timeElapsed;
     private Vector2 sleepVector;
@@ -52,7 +55,7 @@ public class VehicleController : MonoBehaviour
     {
         currState = State.DRIVING;  // this is temporary...
         rbody = GetComponent<Rigidbody2D>();
-        nextWakeTime = GetNextSleepOrWakeTime();
+        nextSleepTime = GetNextSleepOrWakeTime();
         vehiclePool = GameManager.instance.getVehiclePool();
     }
 
@@ -67,17 +70,17 @@ public class VehicleController : MonoBehaviour
 
     void UpdateDriving() { 
         timeElapsed += Time.deltaTime;
-        if (timeElapsed > nextWakeTime && !isSleeping)
+        if (timeElapsed > nextSleepTime && !isSleeping)
         {
             if (isSelected) {
                 timeElapsed = 0;
-                nextWakeTime = GetNextSleepOrWakeTime();
-            } 
-            StartDrifting();
-            //Debug.Log(Time.time + " StartDrifting: " + gameObject.name);
-        } else if (isSelected && isSleeping && timeElapsed > nextWakeTime) 
+                nextSleepTime = GetNextSleepOrWakeTime();
+            } else {
+                StartDrifting();
+            }
+        } else if (isSleeping && timeElapsed > nextWakeTime)
         {
-            //Debug.Log(Time.time + " StopDrifting: " + gameObject.name);
+            isCaptioned = false;
             StopDrifting();
         }
 
@@ -91,18 +94,17 @@ public class VehicleController : MonoBehaviour
             vInput = vehicleStats.speed * 0.0012f * Input.GetAxisRaw("Vertical");
         }
 
-        if (isSelected)
-        {
-           // Debug.Log("isSleeping: " + isSleeping);
-        }
-
         // Movement from input
         float rotateDelta;
         if (isSleeping) {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
-            
+            if (isSelected)
+            {
+                Debug.Log("hInput: " + hInput + " sleepVector.x " + sleepVector.x + " vehicleStats.sleepSeverity " + vehicleStats.sleepSeverity + " rotateDelta " + rotateDelta);
+            }
             vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
         } else {
+            rbody.rotation = 0;
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
@@ -114,7 +116,7 @@ public class VehicleController : MonoBehaviour
             } else { // angle > 180
                 rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
             }
-           // vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
+            vehicleSprite.transform.Rotate(Vector3.forward, rotateDelta);
         }
 
         // Drift vehicle left/right based on how much rotation applied
@@ -129,9 +131,9 @@ public class VehicleController : MonoBehaviour
     {
         if (currState != State.DRIVING) return;
 
+        //Set is sleeping to true and render sleep caption;
         isSleeping = true;
-
-        //Display Sleep Caption
+        RenderSleepCaption();
 
         // Only pick from top 6 drift directions - don't want to drift north or south.
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
@@ -164,6 +166,22 @@ public class VehicleController : MonoBehaviour
         StartFatalCrash();
     }
 
+    private void RenderSleepCaption()
+    {
+        //Return if already captioned.
+        if (isCaptioned) return;
+
+        //Toggle caption flag.
+        isCaptioned = true;
+
+        //Render Sleep Caption
+        var caption = Instantiate(ResourceLoader.instance.vehicleSleepCaption, vehicleSprite.transform.position,
+            Quaternion.identity, vehicleSprite.transform);
+        Destroy(caption, 2F);
+
+
+    }
+
     private void StartFatalCrash() {
 
         if(vehiclePool == null)
@@ -190,7 +208,7 @@ public class VehicleController : MonoBehaviour
     {
         isSleeping = false;
         timeElapsed = 0;
-        nextWakeTime = GetNextSleepOrWakeTime();
+        nextSleepTime = GetNextSleepOrWakeTime();
     }
 
     private float GetNextSleepOrWakeTime()
@@ -230,9 +248,6 @@ public class VehicleController : MonoBehaviour
     {
         if(!IsCrashed) {
             vehiclePool.SelectVehicle(this);
-            timeElapsed = 0;
-            nextWakeTime = GetNextSleepOrWakeTime();
-            //Debug.Log(Time.time  + " reset timeElapsed nextSleepTime " + nextWakeTime);
         }
     }
 
