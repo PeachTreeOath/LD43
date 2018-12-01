@@ -29,7 +29,7 @@ public class ObstacleController : MonoBehaviour
 
 		if (endPosition.Equals(Vector2.zero))
 		{
-			Debug.Log("Set end position for obstacle before start!!");
+			Debug.LogWarning("Set end position for obstacle before start!!");
 		}
 	}
 	

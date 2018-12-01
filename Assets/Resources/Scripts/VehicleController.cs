@@ -20,29 +20,7 @@ public class VehicleController : MonoBehaviour
 
     public float driftPower;
 
-    #region Vehicle Stats
-
-    [Tooltip("How much it knocks other cars around & how much it gets knocked around.")]
-    public float weight;
-
-    [Tooltip("How quickly and easily it handles - i.e. the rotate speed.")]
-    public float control;
-
-	[Tooltip("How quickly it moves forward.")]
-    public float speed;
-
-    [Tooltip("How much time given at a check point.")]
-    public float prayerValue;
-
-	[Tooltip("How likely they are to fall asleep - 1 (low) to 3 (high).")]
-    public float sleepChance;
-
-    [Tooltip("How violently the car will swerve.")]
-    public float sleepSeverity;
-
-    public float awakeGracePeriod;
-
-    #endregion
+    public VehicleStats vehicleStats;
 
     private bool isSleeping;
     private float nextSleepTime;
@@ -53,7 +31,7 @@ public class VehicleController : MonoBehaviour
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
-        nextSleepTime = 8 - sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
+        nextSleepTime = 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
         vehiclePool = GetComponentInParent<VehiclePool>();
     }
 
@@ -70,18 +48,18 @@ public class VehicleController : MonoBehaviour
         float vInput = 0;
         if (isSelected)
         {
-            hInput = control * 0.0428f * Input.GetAxisRaw("Horizontal");
-            vInput = speed * 0.0029f * Input.GetAxisRaw("Vertical");
+            hInput = vehicleStats.control * 0.0428f * Input.GetAxisRaw("Horizontal");
+            vInput = vehicleStats.speed * 0.0029f * Input.GetAxisRaw("Vertical");
         }
 
         // Movement from input
-        float rotateDelta = hInput + (sleepVector.x * sleepSeverity);
+        float rotateDelta = hInput + (sleepVector.x * vehicleStats.sleepSeverity);
         vehicleSprite.transform.Rotate(Vector3.back, rotateDelta);
 
         // Drift car left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleSprite.transform.eulerAngles.z);
 
-        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vInput + (sleepVector.y * sleepSeverity * .01f));
+        Vector2 newPosition = (Vector2)transform.position + new Vector2(hDelta, vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f));
         rbody.MovePosition(newPosition);
     }
 

@@ -19,6 +19,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4793646574092364}
+  - component: {fileID: 114688264126918366}
+  - component: {fileID: 114598830207807746}
+  - component: {fileID: 114869022932484286}
+  - component: {fileID: 114683748990616570}
+  - component: {fileID: 114899944373007784}
+  - component: {fileID: 114222403844390916}
+  - component: {fileID: 114690844724259488}
+  - component: {fileID: 114986389514438282}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -39,3 +47,150 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114222403844390916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe6ad665f093cd4383210ff242e6bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleType: 4
+  weight: 8
+  control: 5
+  speed: 7
+  prayerValue: 20
+  sleepChance: 2
+  sleepSeverity: 7
+  awakeGracePeriod: 0
+--- !u!114 &114598830207807746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe6ad665f093cd4383210ff242e6bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleType: 1
+  weight: 5
+  control: 7
+  speed: 7
+  prayerValue: 15
+  sleepChance: 2
+  sleepSeverity: 3
+  awakeGracePeriod: 0
+--- !u!114 &114683748990616570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe6ad665f093cd4383210ff242e6bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleType: 2
+  weight: 8
+  control: 7
+  speed: 5
+  prayerValue: 20
+  sleepChance: 1
+  sleepSeverity: 8
+  awakeGracePeriod: 0
+--- !u!114 &114688264126918366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c7f7157cd3ff0499994d79bd151283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsBetweenCheckpoints: 0
+  spawnRateInSeconds: 0
+  rateOfPrayerDecay: 0
+--- !u!114 &114690844724259488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe6ad665f093cd4383210ff242e6bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleType: 5
+  weight: 11
+  control: 2
+  speed: 4
+  prayerValue: 20
+  sleepChance: 3
+  sleepSeverity: 11
+  awakeGracePeriod: 0
+--- !u!114 &114869022932484286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe6ad665f093cd4383210ff242e6bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleType: 0
+  weight: 11
+  control: 5
+  speed: 6
+  prayerValue: 20
+  sleepChance: 1
+  sleepSeverity: 6
+  awakeGracePeriod: 0
+--- !u!114 &114899944373007784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe6ad665f093cd4383210ff242e6bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleType: 3
+  weight: 4
+  control: 11
+  speed: 11
+  prayerValue: 30
+  sleepChance: 3
+  sleepSeverity: 11
+  awakeGracePeriod: 0
+--- !u!114 &114986389514438282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe6ad665f093cd4383210ff242e6bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleType: 6
+  weight: 2
+  control: 11
+  speed: 11
+  prayerValue: 30
+  sleepChance: 2
+  sleepSeverity: 5
+  awakeGracePeriod: 0
