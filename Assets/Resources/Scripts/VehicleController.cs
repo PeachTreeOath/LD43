@@ -53,7 +53,7 @@ public class VehicleController : MonoBehaviour
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
-        nextSleepTime = 8 - sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
+        nextSleepTime = GetNextSleepTime();
         vehiclePool = GetComponentInParent<VehiclePool>();
     }
 
@@ -112,6 +112,18 @@ public class VehicleController : MonoBehaviour
                 sleepVector = new Vector2(-1, -1);
                 break;
         }
+    }
+
+    private void StopDrifting()
+    {
+        isSleeping = false;
+        sleepTimeElapsed = 0;
+        nextSleepTime = GetNextSleepTime();
+    }
+
+    private float GetNextSleepTime()
+    {
+        return 8 - sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
     }
 
     public void OnMouseDown()
