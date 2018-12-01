@@ -26,6 +26,7 @@ public class CheckpointManager : MonoBehaviour {
 
         if (cp < 0 || cp >= checkpoints.Count) {
             Debug.LogError("Checkpoint ID not valid: " + cp);
+            return;  //do nothing
         }
 
         //TODO make this great
