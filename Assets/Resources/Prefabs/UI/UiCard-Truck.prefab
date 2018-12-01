@@ -53,4 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemText: Truck
   itemSprite: {fileID: 21300000, guid: 0ace20bf7b3f4624582e1d154704d062, type: 3}
-  cardBackground: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  cardBackground: {fileID: 0}
