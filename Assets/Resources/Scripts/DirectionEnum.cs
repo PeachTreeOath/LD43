@@ -9,6 +9,8 @@ public enum DirectionEnum
     SE,
     SW,
     W,
-    NW
-
+    NW,
+    // Not used for drifting.
+    N,
+    S,
 }

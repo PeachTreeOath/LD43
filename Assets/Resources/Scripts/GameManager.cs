@@ -6,6 +6,8 @@ public class GameManager : Singleton<GameManager>
 {
     public Vector2 upperLeftBound;
     public Vector2 bottomRightBound;
+	public float defaultDeltaFromTopForWarnings = 0.3f;
+	public float defaultDeltaFromRightForWarnings = 1;
 
     public float roadSpeed;
 
@@ -15,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     private ObstacleSpawner obstacleSpawner;
     private CheckpointManager checkpointManager;
     private VehiclePool vehiclePool;
+    PrayerMeter prayerMeter;
 
     private float curPos = 0;
     private float nextCheckpointPos = 11; //TODO relocate to Level object
@@ -27,6 +30,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Loaded VehiclePool: " + vehiclePool.gameObject.name);
         checkpointManager = FindObjectOfType<CheckpointManager>();
         Debug.Log("Loaded CheckpointManager: " + checkpointManager.gameObject.name);
+        prayerMeter = FindObjectOfType<PrayerMeter>();
         scroller = FindObjectOfType<Scroller>();
         Debug.Log("Loaded Scroller: " + scroller.gameObject.name);
         obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
@@ -114,5 +118,10 @@ public class GameManager : Singleton<GameManager>
 
     public VehiclePool getVehiclePool() {
         return vehiclePool;
+    }
+
+    public PrayerMeter GetPrayerMeter()
+    {
+        return prayerMeter;
     }
 }

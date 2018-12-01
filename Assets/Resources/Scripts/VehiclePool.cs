@@ -87,6 +87,16 @@ public class VehiclePool : MonoBehaviour
 
         GameObject vehicleGO = Instantiate(vehiclePrefab, new Vector3(xPosition, finalSpawnYPosition, 0), Quaternion.identity);
         vehicleGO.transform.SetParent(transform);
+        VehicleStats vs = vehicleGO.AddComponent<VehicleStats>();
+        vs.awakeGracePeriod = matchingStat[0].awakeGracePeriod;
+        vs.vehicleType = matchingStat[0].vehicleType;
+        vs.weight = matchingStat[0].weight;
+        vs.control = matchingStat[0].control;
+        vs.speed = matchingStat[0].speed;
+        vs.prayerValue = matchingStat[0].prayerValue;
+        vs.sleepChance = matchingStat[0].sleepChance;
+        vs.sleepSeverity = matchingStat[0].sleepSeverity;
+
 
         VehicleController vehicleController = vehicleGO.GetComponent<VehicleController>();
         vehicleController.vehicleStats = matchingStat[0];
@@ -104,7 +114,10 @@ public class VehiclePool : MonoBehaviour
             vehicleController.isSelected = false;
         }
 
-        controllerToSelect.isSelected = true;
+        if(controllerToSelect != null) {
+            controllerToSelect.isSelected = true;
+        }
+
         JesusManager.instance.SelectAVehicle(controllerToSelect);
     }
 }

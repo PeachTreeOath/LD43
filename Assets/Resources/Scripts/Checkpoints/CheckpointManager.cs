@@ -13,7 +13,10 @@ public class CheckpointManager : MonoBehaviour {
     [SerializeField]
     private int curCheckpoint = -1;
 
+    public GameObject prayerHandsFab;
+
     private bool showingCheckpointUi = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -59,6 +62,7 @@ public class CheckpointManager : MonoBehaviour {
     /// Shows the checkpoint ui for the current checkpoint
     /// </summary>
     private void showCheckpointUi() {
+        Time.timeScale = 0;
         Debug.Log("Show checkpoint UI");
         //TODO tie in with curCheckpoint index
         //to load proper card choices
@@ -72,6 +76,7 @@ public class CheckpointManager : MonoBehaviour {
     /// Hide the canvas for the checkpoint
     /// </summary>
     private void hideCheckpointUi() {
+        Time.timeScale = 1;
         CanvasGroup cpCanvasGroup = checkpointUi.GetComponent<CanvasGroup>();
         cpCanvasGroup.alpha = 0;
         cpCanvasGroup.interactable = false;
@@ -89,6 +94,26 @@ public class CheckpointManager : MonoBehaviour {
 
         //TODO make this great
         dbgLoadUpJesusVanPool(curCheckpoint);
+        GainPrayers();
+    }
+
+    void GainPrayers()
+    {
+        VehiclePool vp = GameManager.instance.getVehiclePool();
+        int prayerCount = 0;
+        Debug.Log("vp.vehicles.Count: " + vp.vehicles.Count);
+        for (int i = 0; i < vp.vehicles.Count; i++)
+        {
+            prayerCount += vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue;
+            for(int p = 0; p < vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue; p++)
+            {
+                GameObject ph = Instantiate(prayerHandsFab) as GameObject;
+                ph.transform.position = vp.vehicles[i].gameObject.transform.position + new Vector3(Random.Range(0f, 1f),
+                                                                                                    Random.Range(0f, 1f), 
+                                                                                                    -1);
+                ph.transform.SetParent(vp.vehicles[i].gameObject.transform);
+            }
+        }
     }
 
 
