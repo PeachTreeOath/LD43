@@ -9,6 +9,7 @@ public class CarPool : MonoBehaviour
     void Start()
     {
         GameObject car = Instantiate(ResourceLoader.instance.car);
+        car.GetComponent<CarController>().isSelected = true;
         GameObject car2 = Instantiate(ResourceLoader.instance.car);
         car2.transform.position = new Vector2(-2, 0);
 
