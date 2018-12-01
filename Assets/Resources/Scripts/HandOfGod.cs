@@ -46,6 +46,18 @@ public class HandOfGod : MonoBehaviour {
                 break;
         }	
 	}
+
+    public bool IsGuidingCar {
+        get {
+            switch(currState) {
+                case State.SNAPPING_TO_CAR:
+                case State.GUIDING_CAR:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
     
     public bool IsFollowingMouse {
         get {
