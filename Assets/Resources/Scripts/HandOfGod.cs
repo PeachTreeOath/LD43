@@ -10,6 +10,8 @@ public class HandOfGod : MonoBehaviour {
     public State currState;
     public VehicleController vehicleToGuide;
 
+    private static float PLANE_OF_GOD = 0; // on z axis
+
     private Vector2 velocity;  //TODO might be better as RigidBody2D?
 
 	void Start () {
@@ -94,6 +96,7 @@ public class HandOfGod : MonoBehaviour {
     }
 
     protected void LockOnPosition(Vector3 position) {
+        position.z = PLANE_OF_GOD; // fix bug for jesus hands going into z = -10
         transform.position = position;
     }
 
