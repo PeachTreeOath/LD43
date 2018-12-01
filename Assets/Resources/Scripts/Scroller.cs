@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scroller : MonoBehaviour {
+public class Scroller : MonoBehaviour
+{
     // Scroll main texture based on time
 
     public float scrollSpeed;
@@ -13,7 +14,9 @@ public class Scroller : MonoBehaviour {
     void Start()
     {
         rend = GetComponent<Renderer>();
+        scrollSpeed = GameManager.instance.roadSpeed;
         lastScrollSpeed = scrollSpeed;
+
     }
 
     void Update()
@@ -22,13 +25,15 @@ public class Scroller : MonoBehaviour {
         rend.material.SetTextureOffset("_MainTex", new Vector2(0, offset));
     }
 
-    public void pause() {
+    public void pause()
+    {
         Debug.Log("Scroller paused");
         lastScrollSpeed = scrollSpeed;
         scrollSpeed = 0;
     }
 
-    public void resume() {
+    public void resume()
+    {
         Debug.Log("Scroller resumed");
         scrollSpeed = lastScrollSpeed;
     }
