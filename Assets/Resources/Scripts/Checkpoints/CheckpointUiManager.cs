@@ -27,7 +27,9 @@ public class CheckpointUiManager : MonoBehaviour {
     private List<CheckpointCard> currentCards;
     private List<GameObject> currentUiCards;
 
-    private int maxCards = 4; //limited by UI space
+    private GameObject curCardSelection = null;
+
+    private int maxCards = 2; //limited by UI space (IT COULD HOLD 4 PEOPLE)
 
 	// Use this for initialization
 	void Start () {
@@ -125,20 +127,55 @@ public class CheckpointUiManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Toggles selection on card
+    /// Toggles selection on card. This does not advance the game,
+    /// it only marks the card as selected.
+    /// Returns true if the card is being marked for selection.
+    /// Returns false if the card was already selected and is now 
+    /// being deselected
     /// </summary>
     /// <param name="uiCard"></param>
-    public void selectCard(GameObject uiCard) {
-        //TODO
-//        Color c = isHighlighted ? cardHighlightColor : cardNonHighlightColor;
-//
-//        Image highlight = uiCard.GetComponentsInChildren<Image>()
-//            .Where(r => r.tag == "ItemHighlight").ToArray()[0];
-//        if (highlight == null) {
-//            Debug.LogError("Card does not have Image for hightlight with correct tag");
-//        } else {
-//            highlight.color = c;
-//        }
+    public bool selectCard(GameObject uiCard) {
+        bool doSelect = true;
+        if (curCardSelection != null) {
+            if (curCardSelection.GetInstanceID() == uiCard.GetInstanceID()) {
+                //unselect
+                doSelect = false;
+                curCardSelection = null;
+            }
+        } else {
+            Debug.Log("Selected uiCard " + uiCard.name);
+            curCardSelection = uiCard;
+        }
+        //assumes if we are unselecting that the mouse is still highlighting that card
+        Color c = doSelect ? cardSelectedHighlightColor : cardHighlightColor;
+
+        Image highlight = uiCard.GetComponentsInChildren<Image>()
+            .Where(r => r.tag == "ItemHighlight").ToArray()[0];
+        if (highlight == null) {
+            Debug.LogError("Card does not have Image for hightlight with correct tag");
+        } else {
+            highlight.color = c;
+        }
+
+        return doSelect;
+    }
+
+    public CheckpointCard getSelectedCard() {
+        if (curCardSelection == null) {
+            Debug.Log("curCardSelection was null -- probably not what you wanted to see");
+            return null;
+        } else {
+            //find the matching data for the selected UI object
+            int i = 0;
+            foreach (GameObject cardGo in currentUiCards) {
+                if (cardGo.GetInstanceID() == curCardSelection.GetInstanceID()) {
+                    break;
+                }
+                i++; //assumes they are at the same index
+            }
+            Debug.Log("Selected card is at index " + i);
+            return currentCards[i];
+        }
     }
 
      public void highlightCard(GameObject uiCard, bool isHighlighted) {

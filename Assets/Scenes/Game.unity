@@ -825,6 +825,21 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fbe8ae87989e5ec4cae296f04551a2e5, type: 2}
+    - target: {fileID: 212556694387976120, guid: 76f23f67efe6d8248b9bdb04ddee9792,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 120571305455485404, guid: 76f23f67efe6d8248b9bdb04ddee9792,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 120165491489029946, guid: 76f23f67efe6d8248b9bdb04ddee9792,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76f23f67efe6d8248b9bdb04ddee9792, type: 2}
   m_IsPrefabAsset: 0
@@ -1038,31 +1053,6 @@ Prefab:
     - target: {fileID: 224571921420767326, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
         type: 2}
       propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224014879835830286, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224014879835830286, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224014879835830286, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224014879835830286, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224014879835830286, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
-        type: 2}
-      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
