@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class CarPool : MonoBehaviour
 {
+	[Tooltip("All of the Jesus cars.")]
+    public List <GameObject> cars;
 
     // Use this for initialization
     void Start()
     {
-        GameObject car = Instantiate(ResourceLoader.instance.car);
-        car.GetComponent<CarController>().isSelected = true;
-        GameObject car2 = Instantiate(ResourceLoader.instance.car);
-        car2.transform.position = new Vector2(-2, 0);
+        AddNewCar(0);
+        cars[0].GetComponent<CarController>().isSelected = true;
+        AddNewCar(-2);
+    }
 
-        car.transform.SetParent(transform);
+    public void AddNewCar(float xPosition)
+    {
+        GameObject car = Instantiate(ResourceLoader.instance.car, new Vector3(xPosition, 0, 0), Quaternion.identity);
+        cars.Add(car);
+    }
+
+    public void SelectCar(int selectedCarId)
+    {
+        foreach (GameObject car in cars)
+        {
+            CarController carController = GetComponent<CarController>();
+            carController.isSelected = carController.id == selectedCarId;
+        }
     }
 }
