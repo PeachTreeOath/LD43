@@ -26,7 +26,7 @@ public class VehiclePool : MonoBehaviour
 
     public void AddNewVehicle(VehicleTypeEnum vehicleType, GameObject vehicleGO, float xPosition)
     {
-        // Get vehicle states - if possible.
+        // Get vehicle stats - if possible.
         VehicleStats[] vehicleStats = LevelManager.instance.GetComponents<VehicleStats>();
         List<VehicleStats> matchingStat = (from stat in vehicleStats where stat.vehicleType == vehicleType select stat).ToList();
         if (matchingStat.Count != 1)
@@ -44,12 +44,12 @@ public class VehiclePool : MonoBehaviour
         vehicleController.vehicleStats = matchingStat[0];
     }
 
-    public void SelectCar(int selectedCarId)
+    public void SelectVehicle(int selectedVehicleId)
     {
-        foreach (GameObject car in vehicles)
+        foreach (GameObject vehicle in vehicles)
         {
-            VehicleController vehicleController = car.GetComponent<VehicleController>();
-            vehicleController.isSelected = vehicleController.id == selectedCarId;
+            VehicleController vehicleController = vehicle.GetComponent<VehicleController>();
+            vehicleController.isSelected = vehicleController.id == selectedVehicleId;
         }
     }
 }
