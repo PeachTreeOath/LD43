@@ -55,7 +55,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upperLeftBound: {x: -8.699, y: 4.75}
   bottomRightBound: {x: 8.699, y: -4.75}
-  roadSpeed: 1
+  lightShaftsFab: {fileID: 1784035439255130, guid: f1ed7857eeef752448a0535314680dbe,
+    type: 2}
+  scrollSpeedMultiplier: 0.09
 --- !u!114 &114159070662340710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,8 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930eedbbfa3b9624baab23c8545b9226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coneSpawnInterval: 3
-  coneSpawnTimer: 0
+  allObstacleTypes: []
 --- !u!114 &114371813261019162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,4 +82,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleConePrefab: {fileID: 0}
+  obstaclePedestrianPrefab: {fileID: 0}
+  obstacleCyclistPrefab: {fileID: 0}
+  bus: {fileID: 0}
   car: {fileID: 0}
+  limo: {fileID: 0}
+  sportsCar: {fileID: 0}
+  truck: {fileID: 0}
+  semiTruck: {fileID: 0}
+  motorcycle: {fileID: 0}

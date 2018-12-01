@@ -9,11 +9,10 @@ public class GameManager : Singleton<GameManager>
 	public float defaultDeltaFromTopForWarnings = 0.3f;
 	public float defaultDeltaFromRightForWarnings = 1;
 
-    public float roadSpeed;
-
     public GameObject lightShaftsFab;
 
     private Scroller scroller;
+    public float scrollSpeedMultiplier;
     private ObstacleSpawner obstacleSpawner;
     private CheckpointManager checkpointManager;
     private VehiclePool vehiclePool;
@@ -26,6 +25,8 @@ public class GameManager : Singleton<GameManager>
     private int dbgCount = 0;
 
     void Start() {
+
+        //Loading managers, spawners, and UIElements
         vehiclePool = FindObjectOfType<VehiclePool>();
         Debug.Log("Loaded VehiclePool: " + vehiclePool.gameObject.name);
         checkpointManager = FindObjectOfType<CheckpointManager>();
@@ -35,6 +36,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Loaded Scroller: " + scroller.gameObject.name);
         obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
         Debug.Log("Loaded Obstacle Spawner: " + obstacleSpawner);
+
+        scroller.scrollSpeed = LevelManager.instance.scrollSpeed * scrollSpeedMultiplier;
 
         //start'er up
         hitCheckpoint();

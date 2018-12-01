@@ -6,8 +6,6 @@ public class ObstacleTelegraph : MonoBehaviour
 {
 	public ObstacleTypeEnum obstacleType;
 
-	public DirectionEnum directionObstacleComingFrom;
-
     //Serialized Obstacle Telegraph Fields.
     [SerializeField] private AudioClip AudioClip;
 

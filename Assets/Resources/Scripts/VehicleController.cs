@@ -36,6 +36,18 @@ public class VehicleController : MonoBehaviour
 
     GameObject lightShaft;
 
+    public bool IsCrashed {
+        get {
+            switch(currState) {
+                case State.CRASHING:
+                case State.CRASHED:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -117,8 +129,9 @@ public class VehicleController : MonoBehaviour
         if (currState != State.DRIVING) return;
 
         isSleeping = true;
-        timeElapsed = 0;
-        nextWakeTime = GetNextSleepOrWakeTime();
+
+        //Display Sleep Caption
+
         // Only pick from top 6 drift directions - don't want to drift north or south.
         DirectionEnum driftDirection = (DirectionEnum)UnityEngine.Random.Range(0, 6);
         switch (driftDirection)
@@ -151,20 +164,21 @@ public class VehicleController : MonoBehaviour
     }
 
     private void StartFatalCrash() {
+
         if(vehiclePool == null)
         {
             Start();
         }
-        vehiclePool.SelectVehicle(null);
 
-        currState = State.CRASHING;
+        vehiclePool.OnVehicleCrash(this);
+
+        currState = State.CRASHED;
 
         gameObject.layer = LayerMask.NameToLayer("Terrain");
 
         rbody.bodyType = RigidbodyType2D.Kinematic;
         rbody.angularVelocity = 0f;
-        rbody.velocity = new Vector2(0, -GameManager.instance.roadSpeed);
-
+        rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
 
         //TODO crash effect
         //TODO crash sound
@@ -178,7 +192,6 @@ public class VehicleController : MonoBehaviour
         nextSleepTime = GetNextSleepOrWakeTime();
     }
 
-
     private float GetNextSleepOrWakeTime()
     {
         float ret = 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
@@ -186,26 +199,36 @@ public class VehicleController : MonoBehaviour
         return ret;
     }
 
-    public void CheckSelected(GameObject selected)
-    {
-        if(selected.GetInstanceID() != gameObject.GetInstanceID())
-        {
-            Destroy(lightShaft);
+    public void SetSelected(bool selected) {
+        if (selected == isSelected) return;
+
+        isSelected = selected;
+        if (isSelected) {
+            AddLight();
+        }
+        else {
+            RemoveLight();
+        }
+    }
+
+    private void AddLight() {
+        if (lightShaft != null) return;
+
+        lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
+        lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
+        lightShaft.transform.SetParent(gameObject.transform);
+    }
+
+    private void RemoveLight() {
+        if(lightShaft != null) {
+            Destroy(lightShaft); 
         }
     }
 
     public void OnMouseDown()
     {
-        if (!isSelected)
-        {
-            lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
-            lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
-            lightShaft.transform.SetParent(gameObject.transform);
+        if(!IsCrashed) {
             vehiclePool.SelectVehicle(this);
-            for (int i = 0; i < vehiclePool.vehicles.Count; i++)
-            {
-                vehiclePool.vehicles[i].CheckSelected(gameObject);
-            }
         }
     }
 
