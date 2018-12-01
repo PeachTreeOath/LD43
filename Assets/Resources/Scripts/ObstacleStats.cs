@@ -15,6 +15,17 @@ public class ObstacleStats : MonoBehaviour
     [Tooltip("What is the visual obstacle telegraph?")]
     public GameObject spawnTelegraph;
 
+	[Tooltip("How fast the obstacle should drop. E.g. if bird fell from the sky it could drop very fast.")]
+	public float verticalSpeed;
+
+    [Tooltip("How fast the obstacle should walk across the road.")]
+    public float horizontalSpeed;
+
+    [Tooltip("How long to wait before obstacle starts moving towards map.")]
+	public float moveWaitTime;
+
+	public DirectionEnum directionObstacleComingFrom;
+
     [HideInInspector]
 	public float spawnTimer;
 	

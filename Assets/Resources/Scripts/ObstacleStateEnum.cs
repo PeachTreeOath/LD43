@@ -5,6 +5,6 @@ using UnityEngine;
 public enum ObstacleStateEnum 
 {
 	PLACED,
-	DROPPING,
+	MOVING,
 	WAITING
 }
