@@ -88,5 +88,9 @@ public class Median : MonoBehaviour {
                 }
                 break;
         }
-	}
+        var medianHeight = renderer.bounds.size.y;
+        if (gameObject.transform.position.y < GameManager.instance.bottomRightBound.y - medianHeight * 2) {
+            Destroy(gameObject);
+        }
+    }
 }
