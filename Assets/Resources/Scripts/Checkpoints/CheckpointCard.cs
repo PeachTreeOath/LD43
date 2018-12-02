@@ -8,6 +8,15 @@ public class CheckpointCard : MonoBehaviour {
     private string itemText;
 
     [SerializeField]
+    private string controlText;
+
+    [SerializeField]
+    private string prayerText;
+
+    [SerializeField]
+    private string sleepText;
+
+    [SerializeField]
     private Sprite itemSprite;
 
     [SerializeField]
@@ -16,18 +25,20 @@ public class CheckpointCard : MonoBehaviour {
     [SerializeField]
     private VehicleTypeEnum vehicleType;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public string getText() {
         return itemText;
+    }
+
+    public string getControlText() {
+        return controlText;
+    }
+
+    public string getPrayerText() {
+        return prayerText;
+    }
+
+    public string getSleepText() {
+        return sleepText;
     }
 
     public Sprite getItemSprite() {
