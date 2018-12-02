@@ -43,8 +43,14 @@ public class ResourceLoader : Singleton<ResourceLoader>
     public GameObject obituaryText;
     #endregion
 
+
     #region Stuff
     public GameObject burningFireFab;
+    #endregion
+
+
+    #region Rendering
+    public GameObject vehicleWobble;
     #endregion
 
 
@@ -63,6 +69,9 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
         // Ui Elements
         vehicleSleepCaption = Resources.Load<GameObject>("Prefabs/VehicleSleepCaption");
+
+        //Rendering
+        vehicleWobble = Resources.Load<GameObject>("Prefabs/VehicleWobble");
 
         // Vehicles
         bus = Resources.Load<GameObject>("Prefabs/Vehicles/Bus");
