@@ -205,11 +205,13 @@ public class VehicleController : MonoBehaviour
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
 
-        /*
         if(Math.Abs(swerve) > 0) {
-            swerve *= LevelManager.instance.SwerveDecayPerWeight * vehicleStats.weight;
+            var oldSign = Mathf.Sign(swerve);
+            swerve -= LevelManager.instance.SwerveDecayPerWeight * vehicleStats.weight * Time.deltaTime * oldSign;
+            if(Mathf.Sign(swerve) != oldSign) {
+                swerve = 0f;
+            }
         }
-        */
 
         // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleBody.transform.eulerAngles.z);
@@ -284,15 +286,19 @@ public class VehicleController : MonoBehaviour
 
     }
 
-    public void OnCollideWithVehicle(CollisionInfo info)
-    {
+    public void OnCollideWithVehicle(CollisionInfo info, float weightOfOtherVehicle) {
         if (!initialized) return;
 
         switch (currState)
         {
             case State.DRIVING:
+                Bump(info, weightOfOtherVehicle);
                 break;
         }
+    }
+
+    private void Bump(CollisionInfo info, float weightOfOtherVehicle) {
+
     }
 
     private bool IsHeadOnCrash(Vector2 normal)
@@ -308,31 +314,35 @@ public class VehicleController : MonoBehaviour
         return currVelocity.magnitude > maxControllableSpeed;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
-        var dir = currVelocity.normalized;
+        if (UnityEditor.EditorApplication.isPlaying)
+        {
+            var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
+            var dir = currVelocity.normalized;
 
-        Vector3 zFix = Vector3.back * 15f;
+            Vector3 zFix = Vector3.back * 15f;
 
-        Vector3 origin = rbody.transform.position + zFix;
-        Vector3 offset = dir * maxControllableSpeed * 0.25f;
-        Vector3 offset2 = currVelocity * 0.25f;
-        Vector3 offset3 = Vector2.right * swerve * 0.25f;
+            Vector3 origin = rbody.transform.position + zFix;
+            Vector3 offset = dir * maxControllableSpeed * 0.25f;
+            Vector3 offset2 = currVelocity * 0.25f;
+            Vector3 offset3 = Vector2.right * swerve * 0.25f;
 
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(origin, origin + offset);
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(origin, origin + offset2);
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(origin, origin + offset);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(origin, origin + offset2);
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(origin, origin + offset3);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(origin, origin + offset3);
+        }
     }
-
+#endif
 
     private void StartFatalCrash()
     {
-        vehiclePool.OnVehicleCrash(this);
+        vehiclePool.OnVehicleCrash(this, true);
         currState = State.CRASHED;
 
         gameObject.layer = LayerMask.NameToLayer("Terrain");
@@ -361,7 +371,7 @@ public class VehicleController : MonoBehaviour
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)
     {
-        vehiclePool.OnVehicleCrash(this);
+        vehiclePool.OnVehicleCrash(this, false);
         currState = State.CRASHING;
 
         rbody.drag = LevelManager.instance.CrashingLinearDrag;
