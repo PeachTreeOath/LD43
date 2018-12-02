@@ -135,7 +135,10 @@ public class CheckpointUiManager : MonoBehaviour {
         if (srbg == null) {
             Debug.LogError("Card does not have Image for background with correct tag");
         } else {
-            srbg.sprite = cc.getBackgroundSprite();
+            Sprite bgSprite = cc.getBackgroundSprite();
+            if (bgSprite != null) {
+                srbg.sprite = cc.getBackgroundSprite();
+            }
         }
 
         return template;

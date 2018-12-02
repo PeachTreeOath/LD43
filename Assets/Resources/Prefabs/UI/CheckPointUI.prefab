@@ -557,7 +557,7 @@ MonoBehaviour:
   blankCard: {fileID: 1605836185668634, guid: 71af30878e6554e43844bba8f29c7c6f, type: 2}
   cardSelectedHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   cardHighlightColor: {r: 0.32697248, g: 0.7264151, b: 0.3255162, a: 1}
-  cardNonHighlightColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+  cardNonHighlightColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0}
 --- !u!114 &114963715562671378
 MonoBehaviour:
   m_ObjectHideFlags: 1
