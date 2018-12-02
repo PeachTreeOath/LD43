@@ -17,7 +17,8 @@ public class JesusArmBezier : MonoBehaviour {
     private static float SLOPE_ITERATION_STEP = 0.1f;
 
     private Vector3[] mArmPositions = new Vector3[NUM_ARM_POINTS];
-    private LineRenderer lineRenderer;
+
+    public LineRenderer lineRenderer;
 
 	// Use this for initialization
 	void Start () {
@@ -73,6 +74,14 @@ public class JesusArmBezier : MonoBehaviour {
             mArmPositions[i] = CalculateArmPoint(t, startPoint, intersectPoint, endPoint);
         }
         lineRenderer.SetPositions(mArmPositions);
+
+        // Update texture based off of length of arm.
+        float armLength = 0;
+        for (int i = 1; i < NUM_ARM_POINTS; i++)
+        {
+            armLength += Vector3.Distance(mArmPositions[i], mArmPositions[i - 1]);
+        }
+        lineRenderer.material.mainTextureScale = new Vector2(armLength, 1);
     }
 
     // Calculate arm point using Quadratic Bezier Function

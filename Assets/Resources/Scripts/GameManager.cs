@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager>
     private float nextCheckpointPos = 135; //TODO relocate to Level object
     private bool isPausedForCheckpoint = false;
 
-    private int dbgCount = 0;
+    //private int dbgCount = 0;
 
     void Start() {
 
@@ -61,9 +61,9 @@ public class GameManager : Singleton<GameManager>
         float distToNextCheckpoint = getNextCheckpointPos() - curPos;
 
         checkpointManager.UpdateCheckpointSignDistance((int) distToNextCheckpoint);
-        if (dbgCount++ % 120 == 0) {
-            Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
-        }
+        // if (dbgCount++ % 120 == 0) {
+        //     Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
+        // }
         if (distToNextCheckpoint <= 0) {
             Debug.Log("CHECKPOINT BABY");
             hitCheckpoint();
