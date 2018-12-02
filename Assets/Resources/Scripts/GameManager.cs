@@ -59,6 +59,8 @@ public class GameManager : Singleton<GameManager>
         //see if we hit a checkpoint
         float curPos = getCurrentMapPos();
         float distToNextCheckpoint = getNextCheckpointPos() - curPos;
+
+        checkpointManager.UpdateCheckpointSignDistance((int) distToNextCheckpoint);
         if (dbgCount++ % 120 == 0) {
             Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
         }

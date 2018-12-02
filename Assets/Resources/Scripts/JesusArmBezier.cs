@@ -23,7 +23,7 @@ public class JesusArmBezier : MonoBehaviour {
 	void Start () {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = NUM_ARM_POINTS;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

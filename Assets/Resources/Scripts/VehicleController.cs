@@ -39,6 +39,8 @@ public class VehicleController : MonoBehaviour
     GameObject lightShaft;
     GameObject caption;
 
+    private JesusFace face;
+
     public bool IsCrashed
     {
         get
@@ -63,6 +65,7 @@ public class VehicleController : MonoBehaviour
         nextSleepTime = GetNextSleepOrWakeTime();
         nextWakeTime = float.PositiveInfinity;
         vehiclePool = GameManager.instance.getVehiclePool();
+        face = GameObject.Find("JesusBody").GetComponent<JesusFace>();
     }
 
     // Update is called once per frame
@@ -82,7 +85,7 @@ public class VehicleController : MonoBehaviour
         if (timeElapsed > nextSleepTime && !isSleeping)
         {
             onDriverSleep();
-            if(isSelected)
+            if (isSelected)
             {
                 resetWakeTime();
             }
@@ -107,11 +110,13 @@ public class VehicleController : MonoBehaviour
 
         // Movement from input
         float rotateDelta;
-        if(isSelected)
+        if (isSelected)
         {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .82f)) * Time.deltaTime;
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
-        } else if(!isSleeping) {
+        }
+        else if (!isSleeping)
+        {
             // North is 0 or 360
             // if less than 10 or more than 350, do nothing
             // if less than 180, reduce, if more than 180, increase
@@ -130,7 +135,8 @@ public class VehicleController : MonoBehaviour
             }
             vehicleBody.transform.Rotate(Vector3.forward, rotateDelta);
         }
-        else {
+        else
+        {
             rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
@@ -172,20 +178,27 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    public void OnCollideWithWalls(CollisionInfo info) {
+    public void OnCollideWithWalls(CollisionInfo info)
+    {
         if (!initialized) return;
 
         //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
 
         //var angle = vehicleSprite.transform.eulerAngles.z;
         //var carFacingDir = Quaternion.AngleAxis(angle, Vector3.forward) * Vector2.up;
-        switch(currState) {
+        switch (currState)
+        {
             case State.DRIVING:
-                if( IsHeadOnCrash(info.normal) ) {
+                if (IsHeadOnCrash(info.normal))
+                {
                     StartFatalCrash();
-                } else if( IsAtCrashSpeed() ) {
+                }
+                else if (IsAtCrashSpeed())
+                {
                     StartSpinningCrash(info);
-                } else {
+                }
+                else
+                {
                     StartSideSwipeSwerve(info);
                 }
                 break;
@@ -196,17 +209,20 @@ public class VehicleController : MonoBehaviour
 
     }
 
-    private bool IsHeadOnCrash(Vector2 normal) {
+    private bool IsHeadOnCrash(Vector2 normal)
+    {
         var headOnCrashPercentage = Math.Abs(Vector2.Dot(normal, vehicleBody.transform.up));
         return (1 - headOnCrashPercentage) <= LevelManager.instance.headOnCrashThreshold;
     }
 
-    private bool IsAtCrashSpeed() {
+    private bool IsAtCrashSpeed()
+    {
         //TODO use vehicle stats to determine if this is a crashing speed!
         return true;
     }
 
-    private void StartFatalCrash() {
+    private void StartFatalCrash()
+    {
         vehiclePool.OnVehicleCrash(this);
 
         currState = State.CRASHED;
@@ -217,20 +233,24 @@ public class VehicleController : MonoBehaviour
         rbody.angularVelocity = 0f;
         rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
 
+        face.GotoWinceFace();
+
         //TODO crash effect
         //TODO crash sound
         //TODO screen shake
     }
 
-    private void StartSpinningCrash(CollisionInfo collisionInfo) {
+    private void StartSpinningCrash(CollisionInfo collisionInfo)
+    {
         currState = State.CRASHING;
 
 
-
+        face.GotoWinceFace();
         rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
     }
 
-    private void StartSideSwipeSwerve(CollisionInfo collisionInfo) {
+    private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
+    {
 
     }
 
