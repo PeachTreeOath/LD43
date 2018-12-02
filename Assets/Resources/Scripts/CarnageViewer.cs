@@ -38,7 +38,8 @@ class CarnageViewer : MonoBehaviour
                                     "Here lies Little Miss Muppet. She enjoyed her curds and whey.",
                                     "Here lies Mary Contrary. She lovingly tended to her garden everyday.",
                                     "Here lies Lumpty Gumpty. He had the respect of the king and all his horses and men.",
-                                    "Here lies Jack Nimble. He was quick, but not quick enough." };
+                                    "Here lies Jack Nimble. He was quick, but not quick enough.",
+                                    "Here lies That Guy. Profound sadness." };
     VehiclePool vp;
     float scrollMod = .25f;
     void Start()
