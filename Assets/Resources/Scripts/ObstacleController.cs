@@ -77,12 +77,8 @@ public class ObstacleController : MonoBehaviour
 		// Update state.
 		if (moveTimer <= 0)
 		{
-			if (transform.position.y <= endPosition.y)
-			{
-				//obstacleState = ObstacleStateEnum.PLACED;
-			}
-			else
-			{
+			if (obstacleState != ObstacleStateEnum.PLACED)
+            {
 				obstacleState = ObstacleStateEnum.MOVING;
 			}
 		}
@@ -118,12 +114,12 @@ public class ObstacleController : MonoBehaviour
 		}
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collision2D collision)
     {
         obstacleState = ObstacleStateEnum.PLACED;
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collision2D collision)
     {
         obstacleState = ObstacleStateEnum.PLACED;
     }
