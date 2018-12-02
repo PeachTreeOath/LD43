@@ -43,7 +43,7 @@ class CarnageViewer : MonoBehaviour
                                     "Here lies Little Piggy. He was on his way home.",
                                     "Here lies Old Man. It was raining and pouring.",
                                     "Here lies Hankey Poodle. He loved his feathered hat.",
-                                    "Here lies Rice Krispy. He snapped, crackled, and popped." };
+                                    "Here lies Rice Crispy. He snapped, crackled, and popped." };
     VehiclePool vp;
     float scrollMod = .25f;
     void Start()
