@@ -437,7 +437,7 @@ public class VehicleController : MonoBehaviour
 
     public void SetSelected(bool selected)
     {
-        if (currState == State.ENTERING_STAGE) {
+        if (selected && currState == State.ENTERING_STAGE) {
             setEnteringStage(false);
             RemoveMiracles();
         }
