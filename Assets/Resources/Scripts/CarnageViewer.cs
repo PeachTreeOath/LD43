@@ -6,7 +6,7 @@ using TMPro;
 
 class CarnageViewer : MonoBehaviour
 {
-    public string[] obituaries = { "Here lies James Pond. He was 2 days from retirement.",
+    public string[] obituaries = {  "Here lies James Pond. He was 2 days from retirement.",
                                     "Here lies Mary Popcorns. She just had twins, but they probably didn't need a mom.",
                                     "Here lies Tinier Tim. He was on his way to attend Sunday School.",
                                     "Here lies Charlie Purple. He just received the Medal of Honor.",
@@ -73,7 +73,7 @@ class CarnageViewer : MonoBehaviour
             //Debug.Log("Set carnage velocity for " + vp.crashedVehicles[i].name);
             GameObject oText = Instantiate(ResourceLoader.instance.obituaryText) as GameObject;
             oText.GetComponent<TextMeshPro>().SetText(obituaries[Random.Range(0, obituaries.Length)]);
-            oText.transform.position = vp.crashedVehicles[i].transform.position + Vector3.up * bounds * 1.5f;
+            oText.transform.position = vp.crashedVehicles[i].transform.position + Vector3.up * bounds * 1.5f + Vector3.back;
             oText.AddComponent<ObjectFollower>().target = vp.crashedVehicles[i].transform;
         }
     }
