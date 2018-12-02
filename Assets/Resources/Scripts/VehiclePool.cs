@@ -132,6 +132,7 @@ public class VehiclePool : MonoBehaviour
             controllerToSelect.SetSelected(true);
         }
 
+        //Unselect all other controllers
         foreach (var vehicleController in vehicles)
         {
             if (controllerToSelect != vehicleController)

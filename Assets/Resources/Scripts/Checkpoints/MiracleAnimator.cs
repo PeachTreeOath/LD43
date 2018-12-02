@@ -16,13 +16,25 @@ public class MiracleAnimator : MonoBehaviour {
 
     private bool inProgress = false;
 
+    private int startingLayer;
+
     private VehicleController vc;
-    private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private Collider2D col;
+
+    void Awake() {
+
+    }
 
 	// Use this for initialization
 	void Start () {
-		
+
+        col = gameObject.GetComponentInChildren<Collider2D>();
+        if (col != null) {
+            startingLayer = col.gameObject.layer;
+            //This layer allows click detection without colliding with anything in the game
+            col.gameObject.layer = LayerMask.NameToLayer("EnteringCars");
+        }
 	}
 	
 	// Update is called once per frame
@@ -42,12 +54,10 @@ public class MiracleAnimator : MonoBehaviour {
         this.startPoint = start;
         this.endPoint = end;
         inProgress = true;
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null) {
-            Debug.LogError("Can't perform a miracle without a rigidbody");
-        }
-        rb.Sleep();
         transform.position = start;
+        //essentially we assign this script to the object and then hijack it
+        //to modify its state for a bit.
+        //Once our timer is expired we reset the state and clean ourselves up
         vc = GetComponent<VehicleController>();
         if (vc != null) {
             vc.setEnteringStage(true);
@@ -58,24 +68,45 @@ public class MiracleAnimator : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Call this externally to  terminate this miracle before it would normally complete
+    /// </summary>
+    public void endMiracle() {
+        Debug.Log("Early termination of a miracle");
+        finish();
+        Destroy(this, 0.25f); //remove this script, it is done
+        //we aren't setting t=1 cuz we want to keep the current position of whatever is incoming
+    }
+
     private void doLerp() {
         float t = (Time.time - startTime) / duration;
         //Debug.Log("t=" + t);
         if (t >= 1) {
             t = 1.0f;
-            inProgress = false;
-            vc.setEnteringStage(false);
-            rb.WakeUp();
-            if (sr != null) {
-                sr.color = startColor;
-            }
+            finish();
             Destroy(this, 0.25f); //remove this script, it is done
         }
         Vector2 newPos = Vector2.Lerp(startPoint, endPoint, t);
-        //rb.MovePosition(newPos);
         transform.position = newPos;
         if (sr != null) {
             sr.color = getCurrentColor();
+        }
+    }
+
+    /// <summary>
+    /// End the animation sequence and reset the state of vehicle to 
+    /// what it was before we f'ed with it
+    /// </summary>
+    private void finish() {
+        inProgress = false;
+        vc.setEnteringStage(false);
+        //rb.WakeUp();
+        if (sr != null) {
+            sr.color = startColor;
+        }
+        if (col != null) {
+            Debug.Log("Restoring original layer " + startingLayer + " on car " + col.gameObject.name);
+            col.gameObject.layer = startingLayer;
         }
     }
 
