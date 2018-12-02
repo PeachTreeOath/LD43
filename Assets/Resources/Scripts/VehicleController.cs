@@ -204,6 +204,7 @@ public class VehicleController : MonoBehaviour
                 break;
 
             case State.CRASHING:
+                StartFatalCrash();
                 break;
         }
 
@@ -244,11 +245,14 @@ public class VehicleController : MonoBehaviour
     {
         currState = State.CRASHING;
 
-
+        vehiclePool.OnVehicleCrash(this);
         face.GotoWinceFace();
-        rbody.velocity = collisionInfo.normal * 20f;
-        rbody.angularVelocity = collisionInfo.normal.x * 10f;
-        //rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
+
+        rbody.drag = 0.2f;
+        rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
+        rbody.angularVelocity = rbody.angularVelocity * 5f;
+        rbody.angularVelocity = Mathf.Clamp(rbody.angularVelocity, -700, 700);
+        rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .05f);
     }
 
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)

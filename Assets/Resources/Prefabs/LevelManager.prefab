@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceBetweenCheckpoints: 400
-  scrollSpeed: 5
+  scrollSpeed: 10
   spawnRateInSeconds: 5
   rateOfPrayerDecay: 5
   headOnCrashThreshold: 0.25
