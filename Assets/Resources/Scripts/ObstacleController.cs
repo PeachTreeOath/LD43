@@ -108,18 +108,18 @@ public class ObstacleController : MonoBehaviour
 
 			case ObstacleStateEnum.PLACED:
 				// Continue moving - potentially in a different way (or add logic to pause depending on obstacle?)
-				transform.position = new Vector3(0, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
+				transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
 
 				break;
 		}
 	}
 
-    private void OnTriggerEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         obstacleState = ObstacleStateEnum.PLACED;
     }
 
-    private void OnTriggerStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         obstacleState = ObstacleStateEnum.PLACED;
     }
