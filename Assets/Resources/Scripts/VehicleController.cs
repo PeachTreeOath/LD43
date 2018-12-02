@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = System.Random;
 
 public class VehicleController : MonoBehaviour
 {
@@ -41,7 +43,9 @@ public class VehicleController : MonoBehaviour
     private Vector2 sleepVector;
 
     GameObject lightShaft;
+
     GameObject caption;
+    List<Sprite> captionBubbles = new List<Sprite>();
 
     private JesusFace face;
 
@@ -70,6 +74,13 @@ public class VehicleController : MonoBehaviour
         nextWakeTime = float.PositiveInfinity;
         vehiclePool = GameManager.instance.getVehiclePool();
         face = GameObject.Find("JesusBody").GetComponent<JesusFace>();
+
+        captionBubbles.AddRange(new List<Sprite>
+        {
+            ResourceLoader.instance.captionBubble1,
+            ResourceLoader.instance.captionBubble2,
+            ResourceLoader.instance.captionBubble3,
+        });
     }
 
     // Update is called once per frame
@@ -414,6 +425,12 @@ public class VehicleController : MonoBehaviour
 
     private void RenderSleepCaption()
     {
+        
+        //Select sleep caption.
+        var randomIndex = UnityEngine.Random.Range(0, captionBubbles.Count);
+        var sleepCaption = ResourceLoader.instance.vehicleSleepCaption;
+        sleepCaption.GetComponentInChildren<SpriteRenderer>().sprite = captionBubbles.ElementAt(randomIndex);
+
         //Render Sleep Caption
         caption = Instantiate(ResourceLoader.instance.vehicleSleepCaption, vehicleBody.transform.position,
             Quaternion.identity, vehicleBody.transform);

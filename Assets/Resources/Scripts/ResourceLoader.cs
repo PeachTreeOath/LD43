@@ -43,6 +43,12 @@ public class ResourceLoader : Singleton<ResourceLoader>
     public GameObject obituaryText;
     #endregion
 
+    #region Sprites
+    public Sprite captionBubble1;
+    public Sprite captionBubble2;
+    public Sprite captionBubble3;
+    #endregion
+
 
     #region Stuff
     public GameObject burningFireFab;
@@ -72,6 +78,11 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
         //Rendering
         vehicleWobble = Resources.Load<GameObject>("Prefabs/VehicleWobble");
+
+        //Sprites
+        captionBubble1 = Resources.Load<Sprite>("Textures/CaptionBubble1");
+        captionBubble2 = Resources.Load<Sprite>("Textures/CaptionBubble2");
+        captionBubble3 = Resources.Load<Sprite>("Textures/CaptionBubble3");
 
         // Vehicles
         bus = Resources.Load<GameObject>("Prefabs/Vehicles/Bus");
