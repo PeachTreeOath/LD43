@@ -278,15 +278,19 @@ public class VehicleController : MonoBehaviour
 
     }
 
-    public void OnCollideWithVehicle(CollisionInfo info)
-    {
+    public void OnCollideWithVehicle(CollisionInfo info, float weightOfOtherVehicle) {
         if (!initialized) return;
 
         switch (currState)
         {
             case State.DRIVING:
+                Bump(info, weightOfOtherVehicle);
                 break;
         }
+    }
+
+    private void Bump(CollisionInfo info, float weightOfOtherVehicle) {
+
     }
 
     private bool IsHeadOnCrash(Vector2 normal)
@@ -326,7 +330,7 @@ public class VehicleController : MonoBehaviour
 
     private void StartFatalCrash()
     {
-        vehiclePool.OnVehicleCrash(this);
+        vehiclePool.OnVehicleCrash(this, true);
         currState = State.CRASHED;
 
         gameObject.layer = LayerMask.NameToLayer("Terrain");
@@ -355,7 +359,7 @@ public class VehicleController : MonoBehaviour
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)
     {
-        vehiclePool.OnVehicleCrash(this);
+        vehiclePool.OnVehicleCrash(this, false);
         currState = State.CRASHING;
 
         rbody.drag = LevelManager.instance.CrashingLinearDrag;
