@@ -5,7 +5,7 @@ using UnityEngine;
 // Controls obstacles like cones on the road.
 public class ObstacleController : MonoBehaviour
 {
-    public const float northWarningDeltaFromTop = 3.5f;
+    public const float northWarningDeltaFromTop = 3f;
     public const float eastWarningDeltaFromRight = 0.3f;
 
     [Tooltip("'Final position - logic being if you want the obstacle to stop for a moment somewhere or move faster/slower getting to said position.")]
