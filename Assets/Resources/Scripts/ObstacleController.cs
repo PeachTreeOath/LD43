@@ -16,7 +16,6 @@ public class ObstacleController : MonoBehaviour
     public float speedModifier;
 
     [HideInInspector]
-
     public ObstacleStateEnum obstacleState;
 
     [HideInInspector]
@@ -65,6 +64,7 @@ public class ObstacleController : MonoBehaviour
 		}
 		telegraph = Instantiate(obstacleStats.spawnTelegraph, telegraphPosition, Quaternion.identity);
 		telegraph.transform.SetParent(transform);
+        obstacleTelegraph.SetTelegraphObject(telegraph);
 
 		if (endPosition.Equals(Vector2.zero))
 		{
