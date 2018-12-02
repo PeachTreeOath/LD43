@@ -344,6 +344,9 @@ public class VehicleController : MonoBehaviour
         isSleeping = false;
         Destroy(caption);
         resetSleepTime();
+
+        //Testing prayer allocation on wake.
+        GameManager.instance.GetPrayerMeter().AddPrayer(vehicleStats.prayerValue);
     }
 
     private void resetSleepTime()
