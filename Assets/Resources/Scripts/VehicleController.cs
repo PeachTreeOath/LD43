@@ -104,8 +104,8 @@ public class VehicleController : MonoBehaviour
         {
             // Feel free to adjust these magic numbers to make the movement feel better, the current
             // numbers are balanced around the default car model
-            hInput = vehicleStats.control * 1.5f * Input.GetAxisRaw("Horizontal");
-            vInput = vehicleStats.speed * 0.0012f * Input.GetAxisRaw("Vertical");
+            hInput = vehicleStats.control * 3f * Input.GetAxisRaw("Horizontal");
+            vInput = vehicleStats.speed * 0.0024f * Input.GetAxisRaw("Vertical");
         }
 
         // Movement from input
