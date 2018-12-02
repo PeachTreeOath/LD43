@@ -302,27 +302,31 @@ public class VehicleController : MonoBehaviour
         return currVelocity.magnitude > maxControllableSpeed;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
-        var dir = currVelocity.normalized;
+        if (UnityEditor.EditorApplication.isPlaying)
+        {
+            var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
+            var dir = currVelocity.normalized;
 
-        Vector3 zFix = Vector3.back * 15f;
+            Vector3 zFix = Vector3.back * 15f;
 
-        Vector3 origin = rbody.transform.position + zFix;
-        Vector3 offset = dir * maxControllableSpeed * 0.25f;
-        Vector3 offset2 = currVelocity * 0.25f;
-        Vector3 offset3 = Vector2.right * swerve * 0.25f;
+            Vector3 origin = rbody.transform.position + zFix;
+            Vector3 offset = dir * maxControllableSpeed * 0.25f;
+            Vector3 offset2 = currVelocity * 0.25f;
+            Vector3 offset3 = Vector2.right * swerve * 0.25f;
 
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(origin, origin + offset);
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(origin, origin + offset2);
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(origin, origin + offset);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(origin, origin + offset2);
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(origin, origin + offset3);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(origin, origin + offset3);
+        }
     }
-
+#endif
 
     private void StartFatalCrash()
     {
