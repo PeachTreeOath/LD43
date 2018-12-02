@@ -5,24 +5,30 @@ using UnityEngine;
 // Controls obstacles like cones on the road.
 public class ObstacleController : MonoBehaviour
 {
-	public const float northWarningDeltaFromTop = 3.5f;
-	public const float eastWarningDeltaFromRight = 0.3f;
+    public const float northWarningDeltaFromTop = 3.5f;
+    public const float eastWarningDeltaFromRight = 0.3f;
 
-	[Tooltip("'Final position - logic being if you want the obstacle to stop for a moment somewhere or move faster/slower getting to said position.")]
-	public Vector3 endPosition;
+    [Tooltip("'Final position - logic being if you want the obstacle to stop for a moment somewhere or move faster/slower getting to said position.")]
+    public Vector3 endPosition;
 
-	public float moveTimer;
+    public float moveTimer;
 
     public float speedModifier;
 
     [HideInInspector]
 
-	public ObstacleStateEnum obstacleState;
+    public ObstacleStateEnum obstacleState;
 
     [HideInInspector]
     public float scrollSpeed;
 
-	public ObstacleStats obstacleStats;
+    public ObstacleStats obstacleStats;
+
+    private List<string> vehicleSpriteList;
+
+    private string[] vehicleSpriteArr = { "BusSprite", "CarSprite", "LimoSprite", "MotorcycleSprite", "SemiTruckSprite", "SportsCarSprite", "TruckSprite" };
+
+    private SpriteRenderer spr;
 
     [Tooltip("Warning indicator object, show display while obstacle is waiting to move into the map.")]
 	public GameObject telegraph;
@@ -34,7 +40,10 @@ public class ObstacleController : MonoBehaviour
 
 	public void Start () 
 	{
-		obstacleState = ObstacleStateEnum.WAITING;
+        spr = GetComponent<SpriteRenderer>();
+        spr.color = new Color(1f, 1f, 1f, 1f);
+        vehicleSpriteList = new List<string>(vehicleSpriteArr);
+        obstacleState = ObstacleStateEnum.WAITING;
 		moveTimer = obstacleStats.moveWaitTime;
 
 		// Spawn telegraph (visual & audio indicator) based off of obstacle position.
@@ -77,7 +86,7 @@ public class ObstacleController : MonoBehaviour
 		// Update state.
 		if (moveTimer <= 0)
 		{
-			if (obstacleState != ObstacleStateEnum.PLACED)
+			if (obstacleState == ObstacleStateEnum.WAITING)
             {
 				obstacleState = ObstacleStateEnum.MOVING;
 			}
@@ -109,20 +118,39 @@ public class ObstacleController : MonoBehaviour
 			case ObstacleStateEnum.PLACED:
 				// Continue moving - potentially in a different way (or add logic to pause depending on obstacle?)
 				transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
-
 				break;
-		}
+            case ObstacleStateEnum.DEAD:
+                spr.color = new Color(1f, 0f, 0f, 1f);
+                transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
+                break;
+        }
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(obstacleState == ObstacleStateEnum.MOVING)
-            obstacleState = ObstacleStateEnum.PLACED;
+        OnCollisionWithVehicle(collision);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        OnCollisionWithVehicle(collision);
+    }
+
+    private void OnCollisionWithVehicle(Collider2D collision) 
+    {
         if (obstacleState == ObstacleStateEnum.MOVING)
-            obstacleState = ObstacleStateEnum.PLACED;
+        {
+            Debug.Log(obstacleState);
+            Debug.Log(collision.name);
+            Debug.Log(vehicleSpriteList.Contains(collision.name));
+            if (vehicleSpriteList.Contains(collision.name))
+            {
+                obstacleState = ObstacleStateEnum.DEAD;
+            }
+            else 
+            {
+                obstacleState = ObstacleStateEnum.PLACED;
+            }
+        }
     }
 }

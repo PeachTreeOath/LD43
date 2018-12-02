@@ -6,5 +6,6 @@ public enum ObstacleStateEnum
 {
 	PLACED,
 	MOVING,
-	WAITING
+	WAITING,
+    DEAD
 }
