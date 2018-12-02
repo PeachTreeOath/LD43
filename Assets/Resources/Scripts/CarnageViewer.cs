@@ -77,6 +77,10 @@ class CarnageViewer : MonoBehaviour
                 }
                 vp.crashedVehicles[i].transform.position = basePos + Vector3.down * 4 * (firstOffScreen - i);
             }
+            GameObject fire = Instantiate(ResourceLoader.instance.burningFireFab, vp.crashedVehicles[i].transform.position + Vector3.back, Quaternion.identity);
+            fire.AddComponent<ObjectFollower>().target = vp.crashedVehicles[i].transform;
+
+            vp.crashedVehicles[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             vp.crashedVehicles[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0, LevelManager.instance.scrollSpeed * scrollMod);
             vp.crashedVehicles[i].GetComponent<VehicleController>().enabled = false;
             //Debug.Log("Set carnage velocity for " + vp.crashedVehicles[i].name);

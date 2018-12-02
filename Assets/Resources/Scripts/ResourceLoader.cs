@@ -43,9 +43,16 @@ public class ResourceLoader : Singleton<ResourceLoader>
     public GameObject obituaryText;
     #endregion
 
+
+    #region Stuff
+    public GameObject burningFireFab;
+    #endregion
+
+
     #region Rendering
     public GameObject vehicleWobble;
     #endregion
+
 
     protected override void Awake()
     {
@@ -77,5 +84,8 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
         //Text
         obituaryText = Resources.Load("Prefabs/ObituaryText2") as GameObject;
+
+        //Stuff
+        burningFireFab = Resources.Load("Prefabs/BurningFire") as GameObject;
     }
 }
