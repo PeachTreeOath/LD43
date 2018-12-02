@@ -71,6 +71,11 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void dbg_setDistToNextCheckpoint(float newDist) {
+        Debug.Log("Debug - set dist to next checkpoint " + newDist);
+        curPos = nextCheckpointPos - newDist;
+    }
+
     private void updateAmountMoved() {
         if (!isPausedForCheckpoint) {
             curPos += LevelManager.instance.scrollSpeed * Time.deltaTime; 
@@ -136,5 +141,20 @@ public class GameManager : Singleton<GameManager>
     public PrayerMeter GetPrayerMeter()
     {
         return prayerMeter;
+    }
+
+    public Scroller GetScroller()
+    {
+        return scroller;
+    }
+
+    public CheckpointManager GetCheckPointManager()
+    {
+        return checkpointManager;
+    }
+
+    public ObstacleSpawner GetObstacleSpawner()
+    {
+        return obstacleSpawner;
     }
 }

@@ -180,7 +180,7 @@ public class VehicleController : MonoBehaviour
 
     public void OnCollideWithWalls(CollisionInfo info)
     {
-        if (!initialized) return;
+        if (!initialized || !enabled) return;
 
         //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
 
@@ -225,7 +225,6 @@ public class VehicleController : MonoBehaviour
     private void StartFatalCrash()
     {
         vehiclePool.OnVehicleCrash(this);
-
         currState = State.CRASHED;
 
         gameObject.layer = LayerMask.NameToLayer("Terrain");
@@ -233,6 +232,7 @@ public class VehicleController : MonoBehaviour
         rbody.bodyType = RigidbodyType2D.Kinematic;
         rbody.angularVelocity = 0f;
         rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
+        //Debug.Log("Set crash velocity for " + gameObject.name + " enabled: " + enabled);
 
         face.GotoWinceFace();
 
@@ -243,16 +243,16 @@ public class VehicleController : MonoBehaviour
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)
     {
-        currState = State.CRASHING;
-
         vehiclePool.OnVehicleCrash(this);
+        currState = State.CRASHING;
         face.GotoWinceFace();
 
         rbody.drag = 0.2f;
         rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
         rbody.angularVelocity = rbody.angularVelocity * 5f;
         rbody.angularVelocity = Mathf.Clamp(rbody.angularVelocity, -700, 700);
-        rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .05f);
+        rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
+        //Debug.Log("Set crash velocity for " + gameObject.name + " enabled: " + enabled);
     }
 
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)

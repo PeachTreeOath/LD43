@@ -6,6 +6,7 @@ using UnityEditor;
 public class JesusArmBezier : MonoBehaviour
 {
     public GameObject handOfGod;
+    public float width;
 
     private static int NUM_ARM_POINTS = 30;
 
@@ -18,11 +19,18 @@ public class JesusArmBezier : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = NUM_ARM_POINTS;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(lineRenderer.startWidth != width)
+        {
+            lineRenderer.startWidth = width;
+            lineRenderer.endWidth = width;
+        }
         float currentArmEndTangent = getTangentFromAngle(handOfGod.transform.rotation.eulerAngles);
         DrawCurve(transform.position, handOfGod.transform.position, currentArmEndTangent);
     }
