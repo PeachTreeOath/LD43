@@ -14,7 +14,7 @@ class CarnageViewer : MonoBehaviour
         "Here lies Harly Pottery. She just bought tickets to the \"Beyond Say\" Concert.",
         "Here lies Lucky Skyrunner. I pity da foo'.",
         "Here lies Jack Parrot. Dead men tell no tales.",
-        "Here lies Donkey Hotay. He followed the code ov chivalry to the end.",
+        "Here lies Donkey Hotay. He followed the code of chivalry to the end.",
         "Here lies Dr. Susie. Curiosity killed the cat.",
         "Here lies Ebony Zerscrew. Back to square one.",
         "Here lies Nicholas Nickelback. You can't judge a book by its cover.",
@@ -88,7 +88,9 @@ class CarnageViewer : MonoBehaviour
                 deadPeople.Add(obstacles[i].gameObject);
             }
         }
-            
+
+        deadPeople.Sort((m, n) => m.transform.position.y.CompareTo(n.transform.position.y));
+
         for (int i = deadPeople.Count - 1; i >= 0; i--)
         {
             float bounds;
