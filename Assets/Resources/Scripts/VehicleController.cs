@@ -199,11 +199,13 @@ public class VehicleController : MonoBehaviour
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
 
-        /*
         if(Math.Abs(swerve) > 0) {
-            swerve *= LevelManager.instance.SwerveDecayPerWeight * vehicleStats.weight;
+            var oldSign = Mathf.Sign(swerve);
+            swerve -= LevelManager.instance.SwerveDecayPerWeight * vehicleStats.weight * Time.deltaTime * oldSign;
+            if(Mathf.Sign(swerve) != oldSign) {
+                swerve = 0f;
+            }
         }
-        */
 
         // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleBody.transform.eulerAngles.z);
