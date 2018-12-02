@@ -19,17 +19,8 @@ public class VehicleBody : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.layer == TERRAIN_LAYER) {
             var collisionInfo = CollisionInfo.FromCollision(collision);
-
-            /*
-            if(collisionInfo.contactPoint.x < transform.position.x) {
-                collisionInfo.normal = new Vector2(1, 0);
-            } else {
-                collisionInfo.normal = new Vector2(-1, 0); 
-            }
-            */
-
             controller.OnCollideWithWalls(collisionInfo); 
-        }
+        } //else if()
     }
 
     // Update is called once per frame
