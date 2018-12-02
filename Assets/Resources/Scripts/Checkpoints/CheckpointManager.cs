@@ -26,7 +26,12 @@ using UnityEngine.EventSystems;
 /// between 0 and max (2) number of cards associated with it.  When the checkpoint is
 /// hit it will load the cards into the UI which will convert the data to a visual.
 /// If there are less than max cards to display, the empty spots will be filled with a
-/// blank looking card (specific in the CheckpointUiManager)
+/// blank looking card (specific in the CheckpointUiManager).
+/// 
+/// This class monitors the mouse position and clicks when the checkpoint menu is
+/// being displayed.  A click will query the ui for the card that was selected via
+/// raycast (and ultimately by gameobject tag name).  The ui card is converted
+/// back to a data card and returned to this class.
 /// </summary>
 public class CheckpointManager : MonoBehaviour {
 
@@ -114,6 +119,7 @@ public class CheckpointManager : MonoBehaviour {
         if (isSelected) {
             CheckpointCard cc = uiManager.getSelectedCard();
             Debug.Log("You selected " + cc.gameObject.name);
+            activateSelectedCard(cc);
             //TODO should pause for selection display for a second or so
             GameManager.instance.resumeCheckpoint();
         }
@@ -184,8 +190,6 @@ public class CheckpointManager : MonoBehaviour {
 
         hideCheckpointUi();
 
-        //TODO make this great
-        dbgLoadUpJesusVanPool();
         GainPrayers();
     }
 
@@ -209,17 +213,26 @@ public class CheckpointManager : MonoBehaviour {
     }
 
 
-    private void dbgLoadUpJesusVanPool() {
+    public void dbgLoadUpJesusVanPool(Checkpoint dbgThing) { //starting func
         Debug.Log("Debug Spawn Stuff");
         //for now we will just dump out
         //everything that is avaialable
-        List<VehicleTypeEnum> vs = checkpoint.getAvailableVehicles();
+        List<VehicleTypeEnum> vs = dbgThing.getAvailableVehicles();
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
 
         foreach (VehicleTypeEnum vte in vs) {
             vp.AddNewVehicle(vte);
         }
+        
+    }
+
+    private void activateSelectedCard(CheckpointCard cc) {
+        Debug.Log("Activating card " + cc.gameObject.name);
+        VehicleTypeEnum vs = cc.getVehicleType();
+
+        VehiclePool vp = GameManager.instance.getVehiclePool();
+        vp.AddNewVehicle(vs);
         
     }
 

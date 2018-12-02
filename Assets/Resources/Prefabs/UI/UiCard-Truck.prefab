@@ -54,3 +54,4 @@ MonoBehaviour:
   itemText: Truck
   itemSprite: {fileID: 21300000, guid: 0ace20bf7b3f4624582e1d154704d062, type: 3}
   cardBackground: {fileID: 0}
+  vehicleType: 4

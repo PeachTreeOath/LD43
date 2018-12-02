@@ -13,6 +13,9 @@ public class CheckpointCard : MonoBehaviour {
     [SerializeField]
     private Sprite cardBackground;
 
+    [SerializeField]
+    private VehicleTypeEnum vehicleType;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -33,5 +36,9 @@ public class CheckpointCard : MonoBehaviour {
 
     public Sprite getBackgroundSprite() {
         return cardBackground;
+    }
+
+    public VehicleTypeEnum getVehicleType() {
+        return vehicleType;
     }
 }

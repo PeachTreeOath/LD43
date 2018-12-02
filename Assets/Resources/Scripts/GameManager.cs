@@ -11,6 +11,9 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject lightShaftsFab;
 
+    [SerializeField]
+    private Checkpoint startingCheckpoint; //loads starting vehicles
+
     private Scroller scroller;
     public float scrollSpeedMultiplier;
     private ObstacleSpawner obstacleSpawner;
@@ -41,7 +44,13 @@ public class GameManager : Singleton<GameManager>
 
         //start'er up
         hitCheckpoint();
-        resumeForCheckpoint(); 
+        resumeForCheckpoint();
+
+        if (startingCheckpoint == null) {
+            Debug.LogError("No starting checkpoint, you are not going to have any cars");
+        } else {
+            checkpointManager.dbgLoadUpJesusVanPool(startingCheckpoint);
+        }
     }
 
     void Update() {
