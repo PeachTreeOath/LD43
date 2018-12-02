@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
 
     private Scroller scroller;
     public float scrollSpeedMultiplier;
+    public float displayDistanceMultiplier;
     private ObstacleSpawner obstacleSpawner;
     private CheckpointManager checkpointManager;
     private VehiclePool vehiclePool;
@@ -67,7 +68,9 @@ public class GameManager : Singleton<GameManager>
         float curPos = getCurrentMapPos();
         float distToNextCheckpoint = getNextCheckpointPos() - curPos;
 
-        checkpointManager.UpdateCheckpointSignDistance((int)distToNextCheckpoint);
+        float displayDistance = distToNextCheckpoint * displayDistanceMultiplier;
+
+        checkpointManager.UpdateCheckpointSignDistance(displayDistance);
         // if (dbgCount++ % 120 == 0) {
         //     Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
         // }

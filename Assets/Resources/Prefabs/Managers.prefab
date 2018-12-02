@@ -63,6 +63,7 @@ MonoBehaviour:
     type: 2}
   startingCheckpoint: {fileID: 0}
   scrollSpeedMultiplier: 1
+  displayDistanceMultiplier: 0.01
 --- !u!114 &114159070662340710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,6 +90,7 @@ MonoBehaviour:
   obstacleConePrefab: {fileID: 0}
   obstaclePedestrianPrefab: {fileID: 0}
   obstacleCyclistPrefab: {fileID: 0}
+  obstacleTerrainPrefab: {fileID: 0}
   vehicleSleepCaption: {fileID: 0}
   bus: {fileID: 0}
   car: {fileID: 0}
@@ -98,6 +100,9 @@ MonoBehaviour:
   semiTruck: {fileID: 0}
   motorcycle: {fileID: 0}
   obituaryText: {fileID: 0}
+  captionBubble1: {fileID: 0}
+  captionBubble2: {fileID: 0}
+  captionBubble3: {fileID: 0}
   burningFireFab: {fileID: 0}
   vehicleWobble: {fileID: 0}
 --- !u!114 &114727451593951148
