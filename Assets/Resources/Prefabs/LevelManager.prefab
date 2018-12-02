@@ -86,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleType: 4
   weight: 8
-  control: 5
+  control: 9
   speed: 7
   prayerValue: 0
   sleepChance: 2
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleType: 1
   weight: 5
-  control: 7
+  control: 14
   speed: 7
   prayerValue: 0
   sleepChance: 2
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleType: 2
   weight: 8
-  control: 7
+  control: 11
   speed: 5
   prayerValue: 0
   sleepChance: 1
@@ -187,11 +187,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c7f7157cd3ff0499994d79bd151283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceBetweenCheckpoints: 40
+  distanceBetweenCheckpoints: 400
   scrollSpeed: 5
   spawnRateInSeconds: 5
   rateOfPrayerDecay: 5
-  headOnCrashThreshold: 15
+  headOnCrashThreshold: 0.25
 --- !u!114 &114690844724259488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleType: 5
   weight: 11
-  control: 2
+  control: 8
   speed: 4
   prayerValue: 0
   sleepChance: 3
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleType: 0
   weight: 11
-  control: 5
+  control: 10
   speed: 6
   prayerValue: 0
   sleepChance: 1
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleType: 3
   weight: 4
-  control: 11
+  control: 15
   speed: 11
   prayerValue: 0
   sleepChance: 3
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleType: 6
   weight: 2
-  control: 11
+  control: 15
   speed: 11
   prayerValue: 0
   sleepChance: 2

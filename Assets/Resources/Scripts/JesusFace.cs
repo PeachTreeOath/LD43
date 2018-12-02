@@ -12,6 +12,7 @@ public class JesusFace : MonoBehaviour
     private bool isDoneWincing;
     private SpriteRenderer spr;
     private bool isTriggered;
+    private Color alphaColor;
 
     void Start()
     {

@@ -104,8 +104,8 @@ public class VehicleController : MonoBehaviour
         {
             // Feel free to adjust these magic numbers to make the movement feel better, the current
             // numbers are balanced around the default car model
-            hInput = vehicleStats.control * 1.5f * Input.GetAxisRaw("Horizontal");
-            vInput = vehicleStats.speed * 0.0012f * Input.GetAxisRaw("Vertical");
+            hInput = vehicleStats.control * 3f * Input.GetAxisRaw("Horizontal");
+            vInput = vehicleStats.speed * 0.0024f * Input.GetAxisRaw("Vertical");
         }
 
         // Movement from input
@@ -246,7 +246,9 @@ public class VehicleController : MonoBehaviour
 
 
         face.GotoWinceFace();
-        rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
+        rbody.velocity = collisionInfo.normal * 20f;
+        rbody.angularVelocity = collisionInfo.normal.x * 10f;
+        //rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
     }
 
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
@@ -315,7 +317,7 @@ public class VehicleController : MonoBehaviour
 
         lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
         lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
-        lightShaft.transform.SetParent(gameObject.transform);
+        lightShaft.AddComponent<ObjectFollower>().target = gameObject.transform;
     }
 
     private void RemoveLight()
