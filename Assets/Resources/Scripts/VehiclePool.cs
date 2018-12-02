@@ -143,10 +143,9 @@ public class VehiclePool : MonoBehaviour
         JesusManager.instance.SelectAVehicle(controllerToSelect);
     }
 
-    public void OnVehicleCrash(VehicleController crashedVehicle)
+    public void OnVehicleCrash(VehicleController crashedVehicle, bool fatal)
     {
-        if (crashedVehicle == null ||
-            crashedVehicle.IsCrashed) return;
+        if (crashedVehicle == null) return;
 
         if (crashedVehicle.isSelected)
         {
@@ -154,11 +153,13 @@ public class VehiclePool : MonoBehaviour
             SelectVehicle(null);
         }
 
-        Debug.Log(crashedVehicle.gameObject.name + " crashed");
         vehicles.Remove(crashedVehicle);
-        crashedVehicles.Add(crashedVehicle.gameObject);
 
-        CheckForGameOver();
+        if(fatal) {
+            Debug.Log(crashedVehicle.gameObject.name + " crashed");
+            crashedVehicles.Add(crashedVehicle.gameObject);
+            CheckForGameOver();
+        }
     }
 
     void CheckForGameOver()
