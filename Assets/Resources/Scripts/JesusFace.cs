@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JesusFace : MonoBehaviour
 {
-
     public Sprite neutralFace;
     public Sprite winceFace;
     public float winceDuration;
@@ -14,11 +13,15 @@ public class JesusFace : MonoBehaviour
     private bool isTriggered;
     private Color alphaColor;
 
+    private JesusManager jesusManager;
+
     void Start()
     {
         spr = GetComponent<SpriteRenderer>();
         spr.color = new Color(1f, 1f, 1f, 1f);
         isTriggered = false;
+
+        jesusManager = GetComponentInParent<JesusManager>();
     }
 
     void Update()
@@ -36,6 +39,7 @@ public class JesusFace : MonoBehaviour
         {
             spr.color = new Color(1f, 1f, 1f, 1f);
         }
+        jesusManager.SetBodyTransparency(isTriggered);
     }
 
     // Should only be called internally via timer but leaving this public anyways

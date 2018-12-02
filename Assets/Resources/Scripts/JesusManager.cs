@@ -8,6 +8,8 @@ public class JesusManager : Singleton<JesusManager>
     public HandOfGod leftHand;
     public HandOfGod rightHand;
 
+    public JesusArmBezier[] armBeziers;
+
     private VehicleController controllingVehicle;
     private HandOfGod guidingHand;
 
@@ -15,6 +17,8 @@ public class JesusManager : Singleton<JesusManager>
     {
         leftHand.Hover();
         rightHand.FollowMouse();
+
+        armBeziers = GetComponentsInChildren<JesusArmBezier>();
     }
 
     public void VehicleCrashedLetGo(VehicleController vehicleController)
@@ -54,5 +58,15 @@ public class JesusManager : Singleton<JesusManager>
             if (rightHand.IsGuidingCar) rightHand.Hover();
             if (leftHand.IsGuidingCar) leftHand.Hover();
         }
+    }
+
+    public void SetBodyTransparency(bool isTransparent)
+    {
+        foreach (JesusArmBezier arm in armBeziers)
+        {
+            arm.SetArmTransparency(isTransparent);
+        }
+        leftHand.SetHandTransparency(isTransparent);
+        rightHand.SetHandTransparency(isTransparent);
     }
 }

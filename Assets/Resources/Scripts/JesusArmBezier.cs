@@ -7,6 +7,10 @@ public class JesusArmBezier : MonoBehaviour
 {
     public GameObject handOfGod;
 
+    public Material defaultMatieral;
+
+    public Material transparentMaterial;
+
     public float width;
 
     [Tooltip("The amount of distance from Jesus center arm should be.")]
@@ -25,6 +29,7 @@ public class JesusArmBezier : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = NUM_ARM_POINTS;
+        lineRenderer.material = defaultMatieral;
 
         transform.position = new Vector3(transform.position.x + distanceFromCenter, transform.position.y, 0);
     }
@@ -107,5 +112,10 @@ public class JesusArmBezier : MonoBehaviour
         float t3 = Mathf.Pow(t, 3);
         return u3 * p0 + 3f * u2 * t * p1 + 3f * u * t2 * p2 + t3 * p3;
         // return (1 - t) * ((1 - t) * p0 + t * p1) + t * ((1 - t) * p1 + t * p3);
+    }
+
+    public void SetArmTransparency(bool isTransparent)
+    {
+        lineRenderer.material = isTransparent ? transparentMaterial : defaultMatieral;
     }
 }

@@ -235,6 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 114424250678024828}
   rightHand: {fileID: 114452739732777478}
+  armBeziers: []
 --- !u!114 &114317850422071966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -247,6 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handOfGod: {fileID: 1261437515964374}
+  defaultMatieral: {fileID: 2100000, guid: fbe8ae87989e5ec4cae296f04551a2e5, type: 2}
+  transparentMaterial: {fileID: 2100000, guid: 37a6b23104148af429fac0c8080ed9e4, type: 2}
   width: 0.44
   distanceFromCenter: -0.95
   lineRenderer: {fileID: 0}
@@ -262,6 +265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handOfGod: {fileID: 1747901811609952}
+  defaultMatieral: {fileID: 2100000, guid: fbe8ae87989e5ec4cae296f04551a2e5, type: 2}
+  transparentMaterial: {fileID: 2100000, guid: 37a6b23104148af429fac0c8080ed9e4, type: 2}
   width: 0.44
   distanceFromCenter: 1.1
   lineRenderer: {fileID: 0}
@@ -282,6 +287,7 @@ MonoBehaviour:
   epsilon: 0.1
   currState: 0
   vehicleToGuide: {fileID: 0}
+  targetHandAngle: {x: 0, y: 0, z: 0}
 --- !u!114 &114452739732777478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,6 +305,7 @@ MonoBehaviour:
   epsilon: 0.1
   currState: 0
   vehicleToGuide: {fileID: 0}
+  targetHandAngle: {x: 0, y: 0, z: 0}
 --- !u!114 &114861846662731310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,8 +406,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.7764706, g: 0.45882353, b: 0.3647059, a: 1}
-      key1: {r: 0.7764706, g: 0.45882353, b: 0.3647059, a: 1}
+      key0: {r: 0.30980393, g: 0.15294118, b: 0.3803922, a: 1}
+      key1: {r: 0.32156864, g: 0.16078432, b: 0.3921569, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -519,8 +526,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.7764706, g: 0.45882353, b: 0.3647059, a: 1}
-      key1: {r: 0.7764706, g: 0.45882353, b: 0.3647059, a: 1}
+      key0: {r: 0.30980393, g: 0.15294118, b: 0.3803922, a: 1}
+      key1: {r: 0.32156864, g: 0.16078432, b: 0.3921569, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -678,7 +685,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2075757779
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d069b9badeccba341ac023ea2224e1f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
