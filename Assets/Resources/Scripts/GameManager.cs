@@ -62,7 +62,7 @@ public class GameManager : Singleton<GameManager>
 
         checkpointManager.UpdateCheckpointSignDistance((int) distToNextCheckpoint);
         if (dbgCount++ % 120 == 0) {
-            Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
+            //Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
         }
         if (distToNextCheckpoint <= 0) {
             Debug.Log("CHECKPOINT BABY");
@@ -141,5 +141,20 @@ public class GameManager : Singleton<GameManager>
     public PrayerMeter GetPrayerMeter()
     {
         return prayerMeter;
+    }
+
+    public Scroller GetScroller()
+    {
+        return scroller;
+    }
+
+    public CheckpointManager GetCheckPointManager()
+    {
+        return checkpointManager;
+    }
+
+    public ObstacleSpawner GetObstacleSpawner()
+    {
+        return obstacleSpawner;
     }
 }
