@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 212071326531996284}
   - component: {fileID: 61574938641925942}
   - component: {fileID: 114064907080978338}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TruckSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

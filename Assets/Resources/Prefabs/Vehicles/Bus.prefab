@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 212033467093508838}
   - component: {fileID: 61743711355795118}
   - component: {fileID: 114097200651849056}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BusSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

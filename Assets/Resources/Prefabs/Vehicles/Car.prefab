@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 212843768548449604}
   - component: {fileID: 61931840949521714}
   - component: {fileID: 114156884588911556}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CarSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 212200480149824618}
   - component: {fileID: 61472811604310182}
   - component: {fileID: 114272923994812060}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LimoSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 212587939603990218}
   - component: {fileID: 61987685270157600}
   - component: {fileID: 114482442816267248}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SemiTruckSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

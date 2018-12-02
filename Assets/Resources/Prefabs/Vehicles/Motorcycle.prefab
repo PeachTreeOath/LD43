@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 212003444938549324}
   - component: {fileID: 61172706241351690}
   - component: {fileID: 114482868579134892}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MotorcycleSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

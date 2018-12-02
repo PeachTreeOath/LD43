@@ -7,7 +7,7 @@ using Random = System.Random;
 
 public class VehicleController : MonoBehaviour
 {
-    public enum State { ENTERING_STAGE, DRIVING, CRASHING, CRASHED }
+    public enum State { ENTERING_STAGE, DRIVING, SWERVING, CRASHING, CRASHED }
     public State currState;
 
     [Tooltip("The pool the vehicle belongs to.")]
@@ -40,7 +40,11 @@ public class VehicleController : MonoBehaviour
     public float nextSleepTime;
     public float nextWakeTime;
     private float timeElapsed;
+
     private Vector2 sleepVector;
+    private float swerve;
+
+    private Vector2 drivingVelocity;
 
     GameObject lightShaft;
 
@@ -157,7 +161,7 @@ public class VehicleController : MonoBehaviour
         float rotateDelta;
         if (isSelected)
         {
-            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .82f)) * Time.deltaTime;
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .82f) + swerve) * Time.deltaTime;
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
         else if (!isSleeping)
@@ -182,16 +186,29 @@ public class VehicleController : MonoBehaviour
         }
         else
         {
-            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f) + swerve) * Time.deltaTime;
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
+
+        /*
+        if(Math.Abs(swerve) > 0) {
+            swerve *= LevelManager.instance.SwerveDecayPerWeight * vehicleStats.weight;
+        }
+        */
 
         // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleBody.transform.eulerAngles.z);
 
-        Vector2 newPosition = (Vector2)transform.position
-            + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
+        Vector2 oldPosition = transform.position;
+        Vector2 newPosition = oldPosition + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
+
         rbody.MovePosition(newPosition);
+
+        drivingVelocity = (newPosition - oldPosition) / Time.deltaTime; //TODO how to get this to be the right number?
+    }
+
+    protected Vector2 currVelocity {
+        get { return currState == State.DRIVING ? drivingVelocity : rbody.velocity;  }
     }
 
     public void StartDrifting()
@@ -251,6 +268,15 @@ public class VehicleController : MonoBehaviour
 
     }
 
+    public void OnCollideWithVehicle(CollisionInfo info) {
+        if (!initialized) return;
+
+        switch(currState) {
+            case State.DRIVING:
+                break;
+        }
+    }
+
     private bool IsHeadOnCrash(Vector2 normal)
     {
         var headOnCrashPercentage = Math.Abs(Vector2.Dot(normal, vehicleBody.transform.up));
@@ -260,8 +286,30 @@ public class VehicleController : MonoBehaviour
     private bool IsAtCrashSpeed()
     {
         //TODO use vehicle stats to determine if this is a crashing speed!
-        return true;
+        var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
+        return currVelocity.magnitude > maxControllableSpeed;
     }
+
+    private void OnDrawGizmos() {
+        var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
+        var dir = currVelocity.normalized;
+
+        Vector3 zFix = Vector3.back * 15f;
+
+        Vector3 origin = rbody.transform.position + zFix;
+        Vector3 offset = dir * maxControllableSpeed * 0.25f;
+        Vector3 offset2 = currVelocity * 0.25f;
+        Vector3 offset3 = Vector2.right * swerve * 0.25f;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(origin, origin + offset);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(origin, origin + offset2);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(origin, origin + offset3);
+    }
+
 
     private void StartFatalCrash()
     {
@@ -313,6 +361,9 @@ public class VehicleController : MonoBehaviour
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
     {
         sparkEmitter.Play();
+
+        var percentOfMaxSwerve = 1 - Mathf.Clamp(vehicleStats.weight / LevelManager.instance.WeightForZeroSwerve, 0, 1f);
+        swerve = Mathf.Sign(collisionInfo.normal.x) * LevelManager.instance.MinSwerve + (LevelManager.instance.MaxSwerve - LevelManager.instance.MinSwerve) * percentOfMaxSwerve;
     }
 
     private void StopDrifting()

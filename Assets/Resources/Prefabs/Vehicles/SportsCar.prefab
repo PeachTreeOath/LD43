@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 212040634385732100}
   - component: {fileID: 61246562734650814}
   - component: {fileID: 114958594717554294}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SportsCarSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
