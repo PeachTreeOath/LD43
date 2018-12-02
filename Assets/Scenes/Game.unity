@@ -189,6 +189,31 @@ Prefab:
       propertyPath: spawnInterval
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114598830207807746, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: prayerValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114869022932484286, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: prayerValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114683748990616570, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: prayerValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114899944373007784, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: prayerValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222403844390916, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: prayerValue
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12216c880e2c1f54b9c87d949cf3e49c, type: 2}
   m_IsPrefabAsset: 0
