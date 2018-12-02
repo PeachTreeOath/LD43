@@ -16,7 +16,10 @@ public class LevelManager : Singleton<LevelManager>
 
     public float SpeedToWeightCrashingRatio = 2f;
     public float SwerveDecayPerWeight = 0.02f;
+
     public float WeightForZeroSwerve = 15;
     public float MinSwerve = 10f;
     public float MaxSwerve = 30f;
+
+    public float BumpingSwerveRatio = 10f;
 }

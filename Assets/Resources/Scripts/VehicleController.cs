@@ -297,11 +297,21 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    private void Bump(CollisionInfo info, VehicleController otherVehicle) {
-        if( IsHeadOnCrashWithVehicle(info.normal, otherVehicle) ) {
-            StartSpinningCrash(info);
+    private void Bump(CollisionInfo collisionInfo, VehicleController otherVehicle) {
+        if( IsHeadOnCrashWithVehicle(collisionInfo.normal, otherVehicle) ) {
+            StartSpinningCrash(collisionInfo);
         } else {
+            // fake one-dimensional elastic collision?
+            var u1 = currVelocity.x;
+            var u2 = otherVehicle.currVelocity.x;
+            var m1 = vehicleStats.weight;
+            var m2 = otherVehicle.vehicleStats.weight;
 
+            var vNew = (u1 * (m1 - m2) + 2 * m2 * u2) / (m1 + m2);
+
+            //TODO this is crazy...
+            //TODO reall wants to be the inverse of the squared angle severity calculation...
+            swerve = vNew * -LevelManager.instance.BumpingSwerveRatio;
         }
     }
 
