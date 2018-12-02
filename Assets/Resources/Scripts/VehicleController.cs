@@ -68,11 +68,14 @@ public class VehicleController : MonoBehaviour
         }
     }
 
+    void Awake() {
+        currState = State.DRIVING;  // this is temporary...
+    }
+
     // Use this for initialization
     void Start()
     {
         initialized = true;
-        currState = State.DRIVING;  // this is temporary...
         rbody = GetComponent<Rigidbody2D>();
         nextSleepTime = GetNextSleepOrWakeTime();
         nextWakeTime = float.PositiveInfinity;
@@ -124,15 +127,16 @@ public class VehicleController : MonoBehaviour
 
     public void setEnteringStage(bool isEntering)
     {
-        childCollider = GetComponentInChildren<BoxCollider2D>();
         if (isEntering)
         {
-            childCollider.enabled = false;
+            Debug.Log("SetEnteringStage");
+            //note, collider is enabled but may be on a different layer
+            //if a miracle is in progress
             currState = State.ENTERING_STAGE;
         }
         else
         {
-            childCollider.enabled = true;
+            resetSleepTime(); //don't let the car fall asleep immediately
             currState = State.DRIVING;
         }
     }
@@ -142,6 +146,7 @@ public class VehicleController : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if (timeElapsed > nextSleepTime && !isSleeping)
         {
+            //falling asleep
             onDriverSleep();
             if (isSelected)
             {
@@ -150,6 +155,7 @@ public class VehicleController : MonoBehaviour
         }
         else if (isSleeping && timeElapsed > nextWakeTime)
         {
+            //waking up from sleep
             if (isSelected)
             {
                 onDriverWake();
@@ -421,6 +427,11 @@ public class VehicleController : MonoBehaviour
 
     public void SetSelected(bool selected)
     {
+        if (currState == State.ENTERING_STAGE) {
+            setEnteringStage(false);
+            RemoveMiracles();
+        }
+
         if (selected == isSelected) return;
 
         isSelected = selected;
@@ -431,6 +442,13 @@ public class VehicleController : MonoBehaviour
         else
         {
             RemoveLight();
+        }
+    }
+
+    private void RemoveMiracles() {
+        MiracleAnimator ma = GetComponentInChildren<MiracleAnimator>();
+        if (ma != null) {
+            ma.endMiracle();
         }
     }
 
