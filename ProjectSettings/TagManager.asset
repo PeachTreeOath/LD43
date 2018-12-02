@@ -9,6 +9,9 @@ TagManager:
   - ItemBackgroundSprite
   - ItemHighlight
   - Fire
+  - ControlText
+  - PrayerText
+  - SleepText
   layers:
   - Default
   - TransparentFX

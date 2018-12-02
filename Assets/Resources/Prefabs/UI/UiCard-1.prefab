@@ -52,6 +52,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemText: Car
+  controlText: Control ++
+  prayerText: Prayer Pts +
+  sleepText: Sleepiness - -
   itemSprite: {fileID: 21300000, guid: 8bb50762d2011e24ba480f45e771eaa1, type: 3}
   cardBackground: {fileID: 0}
   vehicleType: 1

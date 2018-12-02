@@ -33,7 +33,7 @@ public class JesusFace : MonoBehaviour
         }
         if (isTriggered)
         {
-            spr.color = new Color(1f, 1f, 1f, 0.3f);
+            spr.color = new Color(1f, 1f, 1f, 0.1f);
         }
         else 
         {

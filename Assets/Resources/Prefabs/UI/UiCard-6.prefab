@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1412558446440182}
+  m_RootGameObject: {fileID: 1782491013814506}
   m_IsPrefabAsset: 1
---- !u!1 &1412558446440182
+--- !u!1 &1782491013814506
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4841929624914010}
-  - component: {fileID: 114406662496787874}
+  - component: {fileID: 4411711422810418}
+  - component: {fileID: 114754292073353320}
   m_Layer: 0
-  m_Name: UiCard-0
+  m_Name: UiCard-6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4841929624914010
+--- !u!4 &4411711422810418
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1412558446440182}
+  m_GameObject: {fileID: 1782491013814506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 659.20593, y: 242.59253, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,21 +40,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114406662496787874
+--- !u!114 &114754292073353320
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1412558446440182}
+  m_GameObject: {fileID: 1782491013814506}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a64f350cf6ddf304d935ae11ed1b55a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemText: Bus
-  controlText: Control ++
-  prayerText: Prayer Pts ++
-  sleepText: Sleepiness -
-  itemSprite: {fileID: 21300000, guid: fc1ee491c1e9d2342a20f3d124caa6ab, type: 3}
+  itemText: Clown Car
+  controlText: Control +++
+  prayerText: Prayer +++
+  sleepText: Sleepiness - - -
+  itemSprite: {fileID: 21300000, guid: 0ace20bf7b3f4624582e1d154704d062, type: 3}
   cardBackground: {fileID: 0}
-  vehicleType: 0
+  vehicleType: 3

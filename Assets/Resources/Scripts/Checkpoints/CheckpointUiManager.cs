@@ -99,6 +99,27 @@ public class CheckpointUiManager : MonoBehaviour {
             itemText.text = cc.getText();
         }
 
+        Text controlText = template.GetComponentsInChildren<Text>().Where(r => r.tag == "ControlText").ToArray()[0]; //seems efficient
+        if (controlText == null) {
+            Debug.LogError("Card does not have ControlText with correct tag");
+        } else {
+            controlText.text = cc.getControlText();
+        }
+
+        Text prayerText = template.GetComponentsInChildren<Text>().Where(r => r.tag == "PrayerText").ToArray()[0]; //seems efficient
+        if (prayerText == null) {
+            Debug.LogError("Card does not have PrayerText with correct tag");
+        } else {
+            prayerText.text = cc.getPrayerText();
+        }
+
+        Text sleepText = template.GetComponentsInChildren<Text>().Where(r => r.tag == "SleepText").ToArray()[0]; //seems efficient
+        if (sleepText == null) {
+            Debug.LogError("Card does not have SleepText with correct tag");
+        } else {
+            sleepText.text = cc.getSleepText();
+        }
+
         highlightCard(template, false);
 
         Image srfg = template.GetComponentsInChildren<Image>()
