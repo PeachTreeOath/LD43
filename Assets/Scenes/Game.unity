@@ -163,6 +163,21 @@ Prefab:
       propertyPath: rateOfPrayerDecay
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 114541618118497832, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: spawnInterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114660716886353034, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: spawnInterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114149389299123430, guid: 12216c880e2c1f54b9c87d949cf3e49c,
+        type: 2}
+      propertyPath: spawnInterval
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12216c880e2c1f54b9c87d949cf3e49c, type: 2}
   m_IsPrefabAsset: 0
