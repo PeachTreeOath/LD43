@@ -88,7 +88,9 @@ class CarnageViewer : MonoBehaviour
                 deadPeople.Add(obstacles[i].gameObject);
             }
         }
-            
+
+        deadPeople.Sort((m, n) => m.transform.position.y.CompareTo(n.transform.position.y));
+
         for (int i = deadPeople.Count - 1; i >= 0; i--)
         {
             float bounds;
