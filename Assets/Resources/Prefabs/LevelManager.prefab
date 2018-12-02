@@ -88,7 +88,7 @@ MonoBehaviour:
   weight: 8
   control: 9
   speed: 7
-  prayerValue: 0
+  prayerValue: 20
   sleepChance: 2
   sleepSeverity: 7
   awakeGracePeriod: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   weight: 5
   control: 14
   speed: 7
-  prayerValue: 0
+  prayerValue: 10
   sleepChance: 2
   sleepSeverity: 3
   awakeGracePeriod: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   weight: 8
   control: 11
   speed: 5
-  prayerValue: 0
+  prayerValue: 20
   sleepChance: 1
   sleepSeverity: 8
   awakeGracePeriod: 0
@@ -187,11 +187,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c7f7157cd3ff0499994d79bd151283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceBetweenCheckpoints: 100
+  distanceBetweenCheckpoints: 400
   scrollSpeed: 10
   spawnRateInSeconds: 5
   rateOfPrayerDecay: 5
   headOnCrashThreshold: 0.25
+  CrashingLinearDrag: 1
+  CrashingAngularDrag: 0.1
+  CrashingFriction: 200
 --- !u!114 &114690844724259488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,7 +210,7 @@ MonoBehaviour:
   weight: 11
   control: 8
   speed: 4
-  prayerValue: 0
+  prayerValue: 20
   sleepChance: 3
   sleepSeverity: 11
   awakeGracePeriod: 0
@@ -226,7 +229,7 @@ MonoBehaviour:
   weight: 11
   control: 10
   speed: 6
-  prayerValue: 0
+  prayerValue: 20
   sleepChance: 1
   sleepSeverity: 6
   awakeGracePeriod: 0
@@ -245,7 +248,7 @@ MonoBehaviour:
   weight: 4
   control: 15
   speed: 11
-  prayerValue: 0
+  prayerValue: 30
   sleepChance: 3
   sleepSeverity: 11
   awakeGracePeriod: 0
@@ -264,7 +267,7 @@ MonoBehaviour:
   weight: 2
   control: 15
   speed: 11
-  prayerValue: 0
+  prayerValue: 30
   sleepChance: 2
   sleepSeverity: 5
   awakeGracePeriod: 0
