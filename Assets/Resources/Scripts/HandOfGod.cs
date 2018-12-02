@@ -6,6 +6,7 @@ public class HandOfGod : MonoBehaviour {
     public float timeToSnap = 0.25f;
     public float maxSpeed = 30f;
     public float epsilon = 0.1f;
+    public float eulerAngleZ;
 
     public State currState;
     public VehicleController vehicleToGuide;
@@ -18,6 +19,7 @@ public class HandOfGod : MonoBehaviour {
 	}
 	
 	void Update () {
+        eulerAngleZ = transform.eulerAngles.z;
         switch(currState) {
             case State.SNAPPING_TO_MOUSE:
                 if( UpdateMovingToPosition(GetMousePosition()) ) {
