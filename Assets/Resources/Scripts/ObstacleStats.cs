@@ -6,6 +6,9 @@ public class ObstacleStats : MonoBehaviour
 {
 	public ObstacleTypeEnum obstacleType;
 
+    [Tooltip("Whether or not the obstacle is allowed to spawn")]
+    public bool allowSpawn = false;
+
 	[Tooltip("How soon from start up should the first obstacle spawn - 0 means right away.")]
 	public float firstSpawnTime;
 

@@ -63,8 +63,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 2
+  allowSpawn: 0
   firstSpawnTime: 0
-  spawnInterval: 3
+  spawnInterval: 6
   spawnTelegraph: {fileID: 1030747890891760, guid: fccd298ba419a9d4fa8e9e182ce0a114,
     type: 2}
   verticalSpeed: 2
@@ -105,8 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 0
+  allowSpawn: 0
   firstSpawnTime: 0
-  spawnInterval: 3
+  spawnInterval: 5
   spawnTelegraph: {fileID: 1777406086461410, guid: cc4454d85b108bd42a6525c72d03bef3,
     type: 2}
   verticalSpeed: 5
@@ -128,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 3
+  allowSpawn: 1
   firstSpawnTime: 30
   spawnInterval: 20
   spawnTelegraph: {fileID: 1777406086461410, guid: bc5eb552320119c44b4b6a16f941e02c,
@@ -170,8 +173,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 1
+  allowSpawn: 0
   firstSpawnTime: 0
-  spawnInterval: 3
+  spawnInterval: 5
   spawnTelegraph: {fileID: 1535891220004270, guid: 557e8964e6ed08e439d64c780d5b79b0,
     type: 2}
   verticalSpeed: 1
@@ -214,7 +218,7 @@ MonoBehaviour:
   distanceBetweenCheckpoints: 100
   scrollSpeed: 10
   spawnRateInSeconds: 5
-  rateOfPrayerDecay: 5
+  rateOfPrayerDecay: 100
   headOnCrashThreshold: 0.25
   CrashingLinearDrag: 1
   CrashingAngularDrag: 0.1
@@ -224,6 +228,7 @@ MonoBehaviour:
   WeightForZeroSwerve: 15
   MinSwerve: 10
   MaxSwerve: 30
+  BumpingSwerveRatio: 10
 --- !u!114 &114690844724259488
 MonoBehaviour:
   m_ObjectHideFlags: 1

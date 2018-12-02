@@ -70,7 +70,10 @@ public class ObstacleSpawner : MonoBehaviour
 	{
 		foreach (ObstacleStats obstacleStats in allObstacleTypes)
 		{
-			if (obstacleStats.spawnTimer <= 0)
+            if(!obstacleStats.allowSpawn) {
+                obstacleStats.spawnTimer = obstacleStats.spawnInterval;
+            }
+            else if (obstacleStats.spawnTimer <= 0)
 			{
 				// Spawn new obstacle at top of the stage.
 				float randomX = UnityEngine.Random.Range(GameManager.instance.upperLeftBound.x, GameManager.instance.bottomRightBound.x);
