@@ -40,7 +40,7 @@ class CarnageViewer : MonoBehaviour
                                     "Here lies Lumpty Gumpty. He had the respect of the king and all his horses and men.",
                                     "Here lies Jack Nimble. He was quick, but not quick enough.",
                                     "Here lies That Guy. Profound sadness.",
-                                    "Here lies Little Piggy. He was on his way home.",
+                                    "Here lies Little Piggy. He was on his way home crying \"Wee, wee, wee!\"",
                                     "Here lies Old Man. It was raining and pouring.",
                                     "Here lies Hankey Poodle. He loved his feathered hat.",
                                     "Here lies Rice Crispy. He snapped, crackled, and popped.",
