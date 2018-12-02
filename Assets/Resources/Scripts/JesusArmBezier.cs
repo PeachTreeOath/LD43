@@ -65,6 +65,10 @@ public class JesusArmBezier : MonoBehaviour
             float t = (float)i / (float)NUM_ARM_POINTS;
             mArmPositions[i] = CalculateArmPoint(t, startPoint, intersectPoint, endPoint);
         }
+        // extrapolate the last point to not show gaps
+        Vector3 secondToEndPoint = mArmPositions[NUM_ARM_POINTS - 2];
+        Vector3 finalVector = endPoint - secondToEndPoint;
+        mArmPositions[NUM_ARM_POINTS-1] = endPoint - 0.5f * Vector3.Normalize(finalVector);
         lineRenderer.SetPositions(mArmPositions);
 
         // Update texture based off of length of arm.
