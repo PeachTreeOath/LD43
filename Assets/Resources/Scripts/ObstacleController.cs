@@ -79,7 +79,7 @@ public class ObstacleController : MonoBehaviour
 		{
 			if (transform.position.y <= endPosition.y)
 			{
-				obstacleState = ObstacleStateEnum.PLACED;
+				//obstacleState = ObstacleStateEnum.PLACED;
 			}
 			else
 			{
@@ -117,4 +117,14 @@ public class ObstacleController : MonoBehaviour
 				break;
 		}
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        obstacleState = ObstacleStateEnum.PLACED;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        obstacleState = ObstacleStateEnum.PLACED;
+    }
 }
