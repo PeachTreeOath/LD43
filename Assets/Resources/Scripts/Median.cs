@@ -12,7 +12,7 @@ public class Median : MonoBehaviour {
     public const float LEFT_EDGE_OF_FIRST_LANE = -2.82f;
 
     private const float DISTANCE_BETWEEN_TELEGRAPHS = 0.75f;
-    private const float Y_POSITION_OF_TELEGRAPHS = 5f - 0.33f;
+    private const float Y_POSITION_OF_TELEGRAPHS = 3.5f;
 
     private new BoxCollider2D collider;
     private new SpriteRenderer renderer;
