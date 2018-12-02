@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4411711422810418}
   - component: {fileID: 114754292073353320}
   m_Layer: 0
-  m_Name: UiCard-Truck
+  m_Name: UiCard-5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

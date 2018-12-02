@@ -46,11 +46,11 @@ public class GameManager : Singleton<GameManager>
         hitCheckpoint();
         resumeForCheckpoint();
 
-        if (startingCheckpoint == null) {
-            Debug.LogError("No starting checkpoint, you are not going to have any cars");
-        } else {
-            checkpointManager.dbgLoadUpJesusVanPool(startingCheckpoint);
-        }
+        //if (startingCheckpoint == null) {
+        //    Debug.LogError("No starting checkpoint, you are not going to have any cars");
+        //} else {
+        //    checkpointManager.dbgLoadUpJesusVanPool(startingCheckpoint);
+        //}
     }
 
     void Update() {
