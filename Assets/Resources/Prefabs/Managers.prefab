@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 114116232590491852}
   - component: {fileID: 114812727593556908}
   - component: {fileID: 114727451593951148}
+  - component: {fileID: 81289172449634130}
+  - component: {fileID: 114894922245314938}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -44,6 +46,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &81289172449634130
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1438342812020930}
+  m_Enabled: 1
 --- !u!114 &114116232590491852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -62,7 +71,8 @@ MonoBehaviour:
   lightShaftsFab: {fileID: 1784035439255130, guid: f1ed7857eeef752448a0535314680dbe,
     type: 2}
   startingCheckpoint: {fileID: 0}
-  scrollSpeedMultiplier: 1
+  scrollSpeedMultiplier: 0.09
+  displayDistanceMultiplier: 0.01
 --- !u!114 &114159070662340710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,6 +99,7 @@ MonoBehaviour:
   obstacleConePrefab: {fileID: 0}
   obstaclePedestrianPrefab: {fileID: 0}
   obstacleCyclistPrefab: {fileID: 0}
+  obstacleTerrainPrefab: {fileID: 0}
   vehicleSleepCaption: {fileID: 0}
   bus: {fileID: 0}
   car: {fileID: 0}
@@ -98,6 +109,9 @@ MonoBehaviour:
   semiTruck: {fileID: 0}
   motorcycle: {fileID: 0}
   obituaryText: {fileID: 0}
+  captionBubble1: {fileID: 0}
+  captionBubble2: {fileID: 0}
+  captionBubble3: {fileID: 0}
   burningFireFab: {fileID: 0}
   vehicleWobble: {fileID: 0}
 --- !u!114 &114727451593951148
@@ -123,3 +137,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpToNextCheckpointKey: 99
+--- !u!114 &114894922245314938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1438342812020930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25bcb168c1a7f54797d202da224e62c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mute: 0
+  musicVolume: 0.6

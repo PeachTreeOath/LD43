@@ -43,7 +43,7 @@ public class CheckpointManager : MonoBehaviour
 
     public const int twoDigitFontSize = 35;
 
-    public const int threeDigitFontSize = 30;
+    public const int threeDigitFontSize = 28;
 
     [SerializeField]
     private Canvas checkpointUi;
@@ -115,25 +115,27 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    public void UpdateCheckpointSignDistance(int distance)
+    public void UpdateCheckpointSignDistance(float distance)
     {
         TextMeshProUGUI textMesh = GetComponentInChildren<TextMeshProUGUI>();
 
         // If it's in the thousands it's too high!
-        if (distance / 100 >= 1)
-        {
-            textMesh.fontSize = threeDigitFontSize;
-        }
-        else if (distance / 10 >= 1)
-        {
-            textMesh.fontSize = twoDigitFontSize;
-        }
-        else
-        {
-            textMesh.fontSize = oneDigitFontSize;
-        }
+        //if (distance / 100 >= 1)
+        //{
+        //   textMesh.fontSize = threeDigitFontSize;
+        //}
+        //else if (distance / 10 >= 1)
+        //{
+        //    textMesh.fontSize = twoDigitFontSize;
+        //}
+        //else
+        //{
+        //    textMesh.fontSize = oneDigitFontSize;
+        //}
 
-        textMesh.SetText((int)distance + " " + distanceOnSign);
+        textMesh.fontSize = threeDigitFontSize;
+
+        textMesh.SetText(distance.ToString("0.00") + " " + distanceOnSign);
     }
 
     //highlight cards that have the mouse over them
