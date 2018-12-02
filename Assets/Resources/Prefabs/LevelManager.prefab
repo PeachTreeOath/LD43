@@ -198,8 +198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 1
-  allowSpawn: 0
-  firstSpawnTime: 0
+  allowSpawn: 1
+  firstSpawnTime: 45
   spawnInterval: 5
   spawnTelegraph: {fileID: 1535891220004270, guid: 557e8964e6ed08e439d64c780d5b79b0,
     type: 2}

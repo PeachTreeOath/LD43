@@ -9,10 +9,9 @@ public class Median : MonoBehaviour {
     public const float WIDTH_PER_LANE = 2f;
     public const float HEIGHT_PER_SCREEN = 10f;
 
-    public const float LEFT_EDGE_OF_FIRST_LANE = -2.82f;
-
-    private const float DISTANCE_BETWEEN_TELEGRAPHS = 0.75f;
-    private const float Y_POSITION_OF_TELEGRAPHS = 5f - 0.33f;
+    public const float LEFT_EDGE_OF_FIRST_LANE = -4.78f;
+    private const float DISTANCE_BETWEEN_TELEGRAPHS = 0.6f;
+    private const float Y_POSITION_OF_TELEGRAPHS = 3.75f;
 
     private new BoxCollider2D collider;
     private new SpriteRenderer renderer;
@@ -49,9 +48,11 @@ public class Median : MonoBehaviour {
         var totalSpaceUsedToSpawn = numToSpawn * stride;
         var leftPadding = (collider.size.x - totalSpaceUsedToSpawn) / 2f;
 
+        var telegraphSize = telegraphPrefab.GetComponent<SpriteRenderer>().bounds.size;
+
         var position = new Vector3(
             collider.bounds.min.x + leftPadding,
-            Y_POSITION_OF_TELEGRAPHS,
+            Y_POSITION_OF_TELEGRAPHS - telegraphSize.y / 2f,
             transform.position.z
         );
 
