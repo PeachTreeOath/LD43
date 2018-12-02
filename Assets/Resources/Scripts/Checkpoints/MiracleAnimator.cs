@@ -9,6 +9,8 @@ public class MiracleAnimator : MonoBehaviour {
     private Vector2 endPoint;
     private float duration;
 
+    private Color startColor;
+
     private float startTime;
     private float endTime;
 
@@ -16,6 +18,7 @@ public class MiracleAnimator : MonoBehaviour {
 
     private VehicleController vc;
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +52,10 @@ public class MiracleAnimator : MonoBehaviour {
         if (vc != null) {
             vc.setEnteringStage(true);
         }
+        sr = GetComponentInChildren<SpriteRenderer>();
+        if (sr != null) {
+            startColor = sr.color;
+        }
     }
 
     private void doLerp() {
@@ -59,12 +66,27 @@ public class MiracleAnimator : MonoBehaviour {
             inProgress = false;
             vc.setEnteringStage(false);
             rb.WakeUp();
+            if (sr != null) {
+                sr.color = startColor;
+            }
             Destroy(this, 0.25f); //remove this script, it is done
         }
         Vector2 newPos = Vector2.Lerp(startPoint, endPoint, t);
         //rb.MovePosition(newPos);
         transform.position = newPos;
+        if (sr != null) {
+            sr.color = getCurrentColor();
+        }
     }
 
+
+    private Color getCurrentColor() {
+        float t = (Time.time - startTime) / duration;
+        float a = Mathf.Cos(Mathf.Deg2Rad * t * 360 * 11);
+        a = Mathf.Max(a, 0.25f); //don't fade out completely
+        a = Mathf.Min(a, 0.90f); //don't get too bright
+        Color newCol = new Color(startColor.r, startColor.g, startColor.b, a);
+        return newCol;
+    }
 
 }
