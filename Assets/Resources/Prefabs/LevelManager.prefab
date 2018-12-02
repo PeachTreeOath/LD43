@@ -72,8 +72,8 @@ MonoBehaviour:
   horizontalSpeed: 2
   moveWaitTime: 2
   directionObstacleComingFrom: 6
-  spawnTimer: 0
-  obstacleHeight: 0
+  spawnTimer: 3
+  obstacleHeight: 0.78
 --- !u!114 &114222403844390916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,8 +114,8 @@ MonoBehaviour:
   horizontalSpeed: 0
   moveWaitTime: 1
   directionObstacleComingFrom: 6
-  spawnTimer: 0
-  obstacleHeight: 0
+  spawnTimer: 3
+  obstacleHeight: 0.5
 --- !u!114 &114595464114365988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,17 +128,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 3
-  firstSpawnTime: 0
-  spawnInterval: 3
-  spawnTelegraph: {fileID: 1409411255968002, guid: e9ffb93c51d65604fb9400b66059e380,
+  firstSpawnTime: 30
+  spawnInterval: 10
+  spawnTelegraph: {fileID: 1777406086461410, guid: bc5eb552320119c44b4b6a16f941e02c,
     type: 2}
   verticalSpeed: 5
-  verticalRange: 10
+  verticalRange: 0
   horizontalSpeed: 0
   moveWaitTime: 1
   directionObstacleComingFrom: 6
-  spawnTimer: 0
-  obstacleHeight: 0
+  spawnTimer: 3
+  obstacleHeight: 21.619371
 --- !u!114 &114598830207807746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,8 +179,8 @@ MonoBehaviour:
   horizontalSpeed: 1
   moveWaitTime: 1
   directionObstacleComingFrom: 6
-  spawnTimer: 0
-  obstacleHeight: 0
+  spawnTimer: 3
+  obstacleHeight: 0.6
 --- !u!114 &114683748990616570
 MonoBehaviour:
   m_ObjectHideFlags: 1
