@@ -6,5 +6,6 @@ public enum ObstacleTypeEnum
 {
 	CONE,
     PEDESTRIAN,
-    CYCLIST
+    CYCLIST,
+    TERRAIN
 }

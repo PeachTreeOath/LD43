@@ -30,6 +30,7 @@ GameObject:
   - component: {fileID: 114541618118497832}
   - component: {fileID: 114660716886353034}
   - component: {fileID: 114149389299123430}
+  - component: {fileID: 114595464114365988}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -110,6 +111,29 @@ MonoBehaviour:
     type: 2}
   verticalSpeed: 5
   verticalRange: 2
+  horizontalSpeed: 0
+  moveWaitTime: 1
+  directionObstacleComingFrom: 6
+  spawnTimer: 0
+  obstacleHeight: 0
+--- !u!114 &114595464114365988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c471df16dc7fcfd43869463b35d56364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleType: 3
+  firstSpawnTime: 0
+  spawnInterval: 3
+  spawnTelegraph: {fileID: 1409411255968002, guid: e9ffb93c51d65604fb9400b66059e380,
+    type: 2}
+  verticalSpeed: 5
+  verticalRange: 10
   horizontalSpeed: 0
   moveWaitTime: 1
   directionObstacleComingFrom: 6

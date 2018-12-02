@@ -42,6 +42,9 @@ public class ObstacleSpawner : MonoBehaviour
             case ObstacleTypeEnum.CYCLIST:
                 obstacleGO = ResourceLoader.instance.obstacleCyclistPrefab;
                 break;
+            case ObstacleTypeEnum.TERRAIN:
+                obstacleGO = ResourceLoader.instance.obstacleTerrainPrefab;
+                break;
             default:
                 Debug.LogWarning("Couldn't find matching GameObject in ResourceLoader for obstacle of type " + stats.obstacleType);
                 break;
