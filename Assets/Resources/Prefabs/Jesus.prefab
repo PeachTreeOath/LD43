@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4326442263206556}
   - component: {fileID: 120571305455485404}
   - component: {fileID: 114348849703092814}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: JesusLeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4541085002045738}
   - component: {fileID: 212027039656043152}
   - component: {fileID: 114424250678024828}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: RightHandOfGod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4045871049141690}
   - component: {fileID: 120165491489029946}
   - component: {fileID: 114317850422071966}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: JesusRightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4651180023364414}
   - component: {fileID: 212161877535556442}
   - component: {fileID: 114452739732777478}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: LeftHandOfGod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4030915165681062}
   - component: {fileID: 212427119602148270}
   - component: {fileID: 114056826590515224}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Jesus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 212556694387976120}
   - component: {fileID: 114861846662731310}
   - component: {fileID: 61026670375045294}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: JesusBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,6 +248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handOfGod: {fileID: 1261437515964374}
   width: 0.44
+  distanceFromCenter: 1
+  lineRenderer: {fileID: 0}
 --- !u!114 &114348849703092814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -261,6 +263,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handOfGod: {fileID: 1747901811609952}
   width: 0.44
+  distanceFromCenter: -0.9
+  lineRenderer: {fileID: 0}
 --- !u!114 &114424250678024828
 MonoBehaviour:
   m_ObjectHideFlags: 1
