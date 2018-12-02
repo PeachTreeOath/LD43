@@ -23,6 +23,9 @@ public class VehicleController : MonoBehaviour
 
     public VehicleStats vehicleStats;
 
+    public ParticleSystem sparkEmitter;
+    public ParticleSystem fireballEmitter;
+
     //Cap on how fast the car can move on the x-axis per update
     private bool initialized = false;
     private float maxHSpeedConst = 0.17f;
@@ -236,6 +239,8 @@ public class VehicleController : MonoBehaviour
 
         face.GotoWinceFace();
 
+        fireballEmitter.Play();
+
         //TODO crash effect
         //TODO crash sound
         //TODO screen shake
@@ -251,13 +256,16 @@ public class VehicleController : MonoBehaviour
         rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
         rbody.angularVelocity = rbody.angularVelocity * 5f;
         rbody.angularVelocity = Mathf.Clamp(rbody.angularVelocity, -700, 700);
+        rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .05f);
+
+        fireballEmitter.Play();
         rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
         //Debug.Log("Set crash velocity for " + gameObject.name + " enabled: " + enabled);
     }
 
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
     {
-
+        sparkEmitter.Play();
     }
 
     private void StopDrifting()
