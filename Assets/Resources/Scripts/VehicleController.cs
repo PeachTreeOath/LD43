@@ -315,7 +315,7 @@ public class VehicleController : MonoBehaviour
 
         lightShaft = Instantiate(GameManager.instance.lightShaftsFab) as GameObject;
         lightShaft.transform.position = gameObject.transform.position + Vector3.up * 1;
-        lightShaft.transform.SetParent(gameObject.transform);
+        lightShaft.AddComponent<ObjectFollower>().target = gameObject.transform;
     }
 
     private void RemoveLight()

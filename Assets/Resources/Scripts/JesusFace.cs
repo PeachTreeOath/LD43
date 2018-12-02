@@ -11,10 +11,12 @@ public class JesusFace : MonoBehaviour
     private float winceTime;
     private bool isDoneWincing;
     private SpriteRenderer spr;
+    private Color alphaColor;
 
     void Start()
     {
         spr = GetComponent<SpriteRenderer>();
+        alphaColor = new Color(1, 1, 1, .25f);
     }
 
     void Update()
