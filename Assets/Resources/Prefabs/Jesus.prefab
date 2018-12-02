@@ -270,10 +270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d692334b9bee5224c89ea784db0d9ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRightHand: 1
   timeToSnap: 0.25
   maxSpeed: 30
   epsilon: 0.1
-  eulerAngleZ: 0
   currState: 0
   vehicleToGuide: {fileID: 0}
 --- !u!114 &114452739732777478
@@ -287,10 +287,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d692334b9bee5224c89ea784db0d9ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRightHand: 0
   timeToSnap: 0.25
   maxSpeed: 30
   epsilon: 0.1
-  eulerAngleZ: 0
   currState: 0
   vehicleToGuide: {fileID: 0}
 --- !u!114 &114861846662731310
