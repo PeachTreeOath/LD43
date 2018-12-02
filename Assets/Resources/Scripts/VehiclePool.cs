@@ -142,6 +142,7 @@ public class VehiclePool : MonoBehaviour
             crashedVehicle.IsCrashed) return;
 
         if(crashedVehicle.isSelected) {
+            JesusManager.instance.VehicleCrashedLetGo(crashedVehicle);
             SelectVehicle(null);
         }
 

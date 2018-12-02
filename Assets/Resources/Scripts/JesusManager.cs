@@ -2,29 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JesusManager : Singleton<JesusManager> {
+public class JesusManager : Singleton<JesusManager>
+{
 
     public HandOfGod leftHand;
     public HandOfGod rightHand;
 
-    public void Start() {
+    private VehicleController controllingVehicle;
+    private HandOfGod guidingHand;
+
+    public void Start()
+    {
         leftHand.Hover();
-        rightHand.FollowMouse(); 
+        rightHand.FollowMouse();
     }
 
-    public void SelectAVehicle(VehicleController vehicleController) {
-        if(vehicleController != null) {
-            if(rightHand.IsFollowingMouse) {
+    public void VehicleCrashedLetGo(VehicleController vehicleController)
+    {
+        Debug.Log("Vehicle crashed! let go!");
+        guidingHand.Hover();
+        guidingHand = null;
+    }
+
+    public void SelectAVehicle(VehicleController vehicleController)
+    {
+        if (vehicleController != null)
+        {
+            controllingVehicle = vehicleController;
+            if (rightHand.IsFollowingMouse)
+            {
                 rightHand.GuideVehicle(vehicleController);
+                guidingHand = rightHand;
                 leftHand.FollowMouse();
-            } else if(leftHand.IsFollowingMouse) {
+            }
+            else if (leftHand.IsFollowingMouse)
+            {
                 leftHand.GuideVehicle(vehicleController);
+                guidingHand = leftHand;
                 rightHand.FollowMouse();
-            } else {
+            }
+            else
+            {
                 rightHand.FollowMouse();
+                guidingHand = null;
                 SelectAVehicle(vehicleController);
             }
-        } else {
+        }
+        else
+        {
+            guidingHand = null;
             if (rightHand.IsGuidingCar) rightHand.Hover();
             if (leftHand.IsGuidingCar) leftHand.Hover();
         }

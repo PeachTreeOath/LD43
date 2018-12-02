@@ -65,6 +65,7 @@ public class HandOfGod : MonoBehaviour
 
             case State.HOVER_HANDS:
                 //TODO gently drift?
+                ResetHandAngle();
                 break;
         }
         UpdateHandAngle();
@@ -156,25 +157,22 @@ public class HandOfGod : MonoBehaviour
 
     private void UpdateHandAngle()
     {
-        if (!IsGuidingCar)
+        if (IsGuidingCar)
         {
-            ResetHandAngle();
-            return;
-        }
-
-        // Set target hand angle
-        float hInput = Input.GetAxisRaw("Horizontal");
-        if (hInput > 0) // turning right
-        {
-            targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - HIGH_HAND_ANGLE : LOW_HAND_ANGLE);
-        }
-        else if (hInput < 0)
-        {
-            targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - LOW_HAND_ANGLE : HIGH_HAND_ANGLE);
-        }
-        else
-        {
-            ResetHandAngle();
+            // Set target hand angle
+            float hInput = Input.GetAxisRaw("Horizontal");
+            if (hInput > 0) // turning right
+            {
+                targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - HIGH_HAND_ANGLE : LOW_HAND_ANGLE);
+            }
+            else if (hInput < 0)
+            {
+                targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - LOW_HAND_ANGLE : HIGH_HAND_ANGLE);
+            }
+            else
+            {
+                ResetHandAngle();
+            }
         }
 
         // Rotate to target angle
@@ -195,9 +193,6 @@ public class HandOfGod : MonoBehaviour
 
     private void ResetHandAngle()
     {
-        if (Mathf.Abs(targetHandAngle.z) != NEUTRAL_HAND_ANGLE)
-        {
-            targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - NEUTRAL_HAND_ANGLE : NEUTRAL_HAND_ANGLE);
-        }
+        targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - NEUTRAL_HAND_ANGLE : NEUTRAL_HAND_ANGLE);
     }
 }
