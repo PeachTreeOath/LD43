@@ -65,7 +65,6 @@ public class HandOfGod : MonoBehaviour
 
             case State.HOVER_HANDS:
                 //TODO gently drift?
-                ResetHandAngle();
                 break;
         }
         UpdateHandAngle();
@@ -173,6 +172,9 @@ public class HandOfGod : MonoBehaviour
             {
                 ResetHandAngle();
             }
+        } else
+        {
+            ResetHandAngle();
         }
 
         // Rotate to target angle
