@@ -144,10 +144,6 @@ public class ObstacleController : MonoBehaviour
             {
                 obstacleState = ObstacleStateEnum.DEAD;
             }
-            else 
-            {
-                obstacleState = ObstacleStateEnum.PLACED;
-            }
         }
     }
 }
