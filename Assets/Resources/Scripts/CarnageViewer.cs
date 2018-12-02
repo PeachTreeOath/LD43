@@ -12,7 +12,7 @@ class CarnageViewer : MonoBehaviour
                                     "Here lies Charlie Purple. He just received the Medal of Honor.",
                                     "Here lies Harly Pottery. She just bought tickets to the \"Beyond Say\" Concert.",
                                     "Here lies Lucky Skyrunner. I pity da foo'.",
-                                    "Here lies Jack Parrot. He was stuck between a rock and a hard place.",
+                                    "Here lies Jack Parrot. Dead men tell no tales.",
                                     "Here lies Donkey Hotay. He wouldn't harm a fly.",
                                     "Here lies Dr. Susie. Curiosity killed the cat.",
                                     "Here lies Ebony Zerscrew. Back to square one.",
@@ -39,7 +39,11 @@ class CarnageViewer : MonoBehaviour
                                     "Here lies Mary Contrary. She lovingly tended to her garden everyday.",
                                     "Here lies Lumpty Gumpty. He had the respect of the king and all his horses and men.",
                                     "Here lies Jack Nimble. He was quick, but not quick enough.",
-                                    "Here lies That Guy. Profound sadness." };
+                                    "Here lies That Guy. Profound sadness.",
+                                    "Here lies Little Piggy. He was on his way home.",
+                                    "Here lies Old Man. It was raining and pouring.",
+                                    "Here lies Hankey Poodle. He loved his feathered hat.",
+                                    "Here lies Rice Krispy. He snapped, crackled, and popped." };
     VehiclePool vp;
     float scrollMod = .25f;
     void Start()
