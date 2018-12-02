@@ -18,6 +18,8 @@ public class HandOfGod : MonoBehaviour
     private static float LOW_HAND_ANGLE = 20;
     private static float MIN_ANGLE_THRESHOLD = 5; // in degrees
 
+    private SpriteRenderer spriteRenderer;
+
 
     private Vector2 velocity;  //TODO might be better as RigidBody2D?
     public Vector3 targetHandAngle;
@@ -32,6 +34,8 @@ public class HandOfGod : MonoBehaviour
         {
             transform.Rotate(new Vector3(0, 0, NEUTRAL_HAND_ANGLE));
         }
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -196,5 +200,10 @@ public class HandOfGod : MonoBehaviour
     private void ResetHandAngle()
     {
         targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - NEUTRAL_HAND_ANGLE : NEUTRAL_HAND_ANGLE);
+    }
+
+    public void SetHandTransparency(bool isTransparent)
+    {
+        spriteRenderer.color = isTransparent ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);
     }
 }
