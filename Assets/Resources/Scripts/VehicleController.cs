@@ -239,6 +239,7 @@ public class VehicleController : MonoBehaviour
 
         face.GotoWinceFace();
 
+        fireballEmitter.gameObject.AddComponent<ObjectFollower>().target = gameObject.transform;
         fireballEmitter.Play();
 
         //TODO crash effect
@@ -258,6 +259,7 @@ public class VehicleController : MonoBehaviour
         rbody.angularVelocity = Mathf.Clamp(rbody.angularVelocity, -700, 700);
         rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .05f);
 
+        fireballEmitter.gameObject.AddComponent<ObjectFollower>().target = gameObject.transform;
         fireballEmitter.Play();
         rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
         //Debug.Log("Set crash velocity for " + gameObject.name + " enabled: " + enabled);
