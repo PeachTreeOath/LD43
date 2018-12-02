@@ -6,7 +6,11 @@ using UnityEditor;
 public class JesusArmBezier : MonoBehaviour
 {
     public GameObject handOfGod;
+    
     public float width;
+
+	[Tooltip("The amount of distance from Jesus center arm should be.")]
+    public float distanceFromCenter;
 
     private static int NUM_ARM_POINTS = 30;
 
@@ -19,8 +23,8 @@ public class JesusArmBezier : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = NUM_ARM_POINTS;
-        lineRenderer.startWidth = width;
-        lineRenderer.endWidth = width;
+
+        transform.position = new Vector3(transform.position.x + distanceFromCenter, transform.position.y, 0);
     }
 
     // Update is called once per frame
