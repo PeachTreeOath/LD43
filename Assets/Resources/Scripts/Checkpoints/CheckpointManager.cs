@@ -34,7 +34,8 @@ using TMPro;
 /// raycast (and ultimately by gameobject tag name).  The ui card is converted
 /// back to a data card and returned to this class.
 /// </summary>
-public class CheckpointManager : MonoBehaviour {
+public class CheckpointManager : MonoBehaviour
+{
 
     public const string distanceOnSign = "MI";
 
@@ -65,40 +66,54 @@ public class CheckpointManager : MonoBehaviour {
     private GraphicRaycaster graycast;
     private EventSystem eventSystem;
 
-	// Use this for initialization
-	void Start () {
-        if (checkpointUi == null) {
-            Debug.LogError("Missing checkpoint UI");
-        }
-
+    // Use this for initialization
+    void Awake()
+    {
         uiManager = FindObjectOfType<CheckpointUiManager>();
-        if (uiManager == null) {
+        if (uiManager == null)
+        {
             Debug.LogError("No CheckpointUiManager in the scene... it should be on a Canvas somewhere");
         }
         graycast = uiManager.GetComponentInParent<GraphicRaycaster>();
-        if (graycast == null) {
+        if (graycast == null)
+        {
             Debug.LogError("No GraphicRaycaster in scene... missing canvas er something?");
         }
+    }
+
+    void Start()
+    {
+        if (checkpointUi == null)
+        {
+            Debug.LogError("Missing checkpoint UI");
+        }
+
         eventSystem = FindObjectOfType<EventSystem>();
-        if (eventSystem == null) {
+        if (eventSystem == null)
+        {
             Debug.LogError("No event system in scene");
         }
 
         hideCheckpointUi();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (showingCheckpointUi) {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (showingCheckpointUi)
+        {
             Vector2 mousePos = Input.mousePosition;
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetMouseButtonDown(0))
+            {
                 updateWithMouseClick(mousePos);
-            } else {
+            }
+            else
+            {
                 uiManager.clearHighlights();
                 updateWithMousePos(mousePos);
             }
-        }		
-	}
+        }
+    }
 
     public void UpdateCheckpointSignDistance(int distance)
     {
@@ -116,40 +131,47 @@ public class CheckpointManager : MonoBehaviour {
         else
         {
             textMesh.fontSize = oneDigitFontSize;
-        }    
+        }
 
-        textMesh.SetText((int) distance + " " + distanceOnSign);
+        textMesh.SetText((int)distance + " " + distanceOnSign);
     }
 
     //highlight cards that have the mouse over them
-    private void updateWithMousePos(Vector2 mouseScreenPos) {
+    private void updateWithMousePos(Vector2 mouseScreenPos)
+    {
         PointerEventData ped = new PointerEventData(eventSystem);
         ped.position = mouseScreenPos;
         List<RaycastResult> result = new List<RaycastResult>();
 
         graycast.Raycast(ped, result);
-        foreach (RaycastResult rr in result) {
-            if (rr.gameObject.CompareTag("ItemHighlight")) {
+        foreach (RaycastResult rr in result)
+        {
+            if (rr.gameObject.CompareTag("ItemHighlight"))
+            {
                 uiManager.highlightCard(rr.gameObject, true);
             }
         }
     }
-    
+
     //highlight cards that have been clicked
-    private void updateWithMouseClick(Vector2 mouseScreenPos) {
+    private void updateWithMouseClick(Vector2 mouseScreenPos)
+    {
         PointerEventData ped = new PointerEventData(eventSystem);
         ped.position = mouseScreenPos;
         List<RaycastResult> result = new List<RaycastResult>();
 
         bool isSelected = false;
         graycast.Raycast(ped, result);
-        foreach (RaycastResult rr in result) {
-            if (rr.gameObject.CompareTag("ItemHighlight")) {
+        foreach (RaycastResult rr in result)
+        {
+            if (rr.gameObject.CompareTag("ItemHighlight"))
+            {
                 isSelected = uiManager.selectCard(rr.gameObject);
             }
         }
 
-        if (isSelected) {
+        if (isSelected)
+        {
             CheckpointCard cc = uiManager.getSelectedCard();
             Debug.Log("You selected " + cc.gameObject.name);
             activateSelectedCard(cc);
@@ -160,15 +182,19 @@ public class CheckpointManager : MonoBehaviour {
 
     //returns true if the checkpoint was hit OK
     //returns false if there wasn't a checkpoint to hit
-    public bool hitCheckpoint() {
+    public bool hitCheckpoint()
+    {
         bool cpHit = true;
         int cp = ++curCheckpoint;
         Debug.Log("Hit checkpoint " + cp);
 
         //TODO pause gameplay
-        if (cp > 0) {
+        if (cp > 0)
+        {
             showCheckpointUi();
-        } else {
+        }
+        else
+        {
             resumeCheckpoint();
         }
         return cpHit;
@@ -178,12 +204,14 @@ public class CheckpointManager : MonoBehaviour {
     /// <summary>
     /// Shows the checkpoint ui for the current checkpoint
     /// </summary>
-    private void showCheckpointUi() {
+    private void showCheckpointUi()
+    {
         Time.timeScale = 0;
         showingCheckpointUi = true;
         Debug.Log("Show checkpoint UI");
 
-        if (checkpoint == null) {
+        if (checkpoint == null)
+        {
             Debug.LogError("Now why did you think that would work??");
             return;
         }
@@ -203,7 +231,8 @@ public class CheckpointManager : MonoBehaviour {
     /// <summary>
     /// Hide the canvas for the checkpoint
     /// </summary>
-    private void hideCheckpointUi() {
+    private void hideCheckpointUi()
+    {
         Time.timeScale = 1;
         showingCheckpointUi = false;
         CanvasGroup cpCanvasGroup = checkpointUi.GetComponent<CanvasGroup>();
@@ -218,7 +247,8 @@ public class CheckpointManager : MonoBehaviour {
     /// of calling GameManager resumeCheckpoint then you are
     /// probably wondering why everything didn't resume.
     /// </summary>
-    public void resumeCheckpoint() {
+    public void resumeCheckpoint()
+    {
         Debug.Log("Resume checkpoint");
 
         hideCheckpointUi();
@@ -234,11 +264,11 @@ public class CheckpointManager : MonoBehaviour {
         for (int i = 0; i < vp.vehicles.Count; i++)
         {
             prayerCount += vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue;
-            for(int p = 0; p < vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue; p++)
+            for (int p = 0; p < vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue; p++)
             {
                 GameObject ph = Instantiate(prayerHandsFab) as GameObject;
                 ph.transform.position = vp.vehicles[i].gameObject.transform.position + new Vector3(Random.Range(0f, 1f),
-                                                                                                    Random.Range(0f, 1f), 
+                                                                                                    Random.Range(0f, 1f),
                                                                                                     -1);
                 ph.transform.SetParent(vp.vehicles[i].gameObject.transform);
             }
@@ -246,7 +276,8 @@ public class CheckpointManager : MonoBehaviour {
     }
 
 
-    public void dbgLoadUpJesusVanPool(Checkpoint dbgThing) { //starting func
+    public void dbgLoadUpJesusVanPool(Checkpoint dbgThing)
+    { //starting func
         Debug.Log("Debug Spawn Stuff");
         //for now we will just dump out
         //everything that is avaialable
@@ -254,19 +285,21 @@ public class CheckpointManager : MonoBehaviour {
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
 
-        foreach (VehicleTypeEnum vte in vs) {
+        foreach (VehicleTypeEnum vte in vs)
+        {
             vp.AddNewVehicle(vte, null); //TODO starting animation
         }
-        
+
     }
 
-    private void activateSelectedCard(CheckpointCard cc) {
+    private void activateSelectedCard(CheckpointCard cc)
+    {
         Debug.Log("Activating card " + cc.gameObject.name);
         VehicleTypeEnum vs = cc.getVehicleType();
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
         vp.AddNewVehicle(vs, spawnAnimator);
-        
+
     }
 
 
