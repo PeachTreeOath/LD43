@@ -15,11 +15,11 @@ public class MedianObstacleStats : ObstacleStats {
         var prefab = GetObstaclePrefab();
 
         int lanesWide = Random.Range(1, 4);
-        float screensTall = 3;
+        float screensTall = Random.Range(1, 12) * 0.5f;
 
         int lane = Random.Range(0, NUM_LANES);
-        if(lane + lanesWide > NUM_LANES) {
-            lane = NUM_LANES - lanesWide -1; //fencepost!?!
+        if( (lane + lanesWide) > NUM_LANES) {
+            lane = NUM_LANES - lanesWide - 1; 
         }
 
         var position = new Vector3(
