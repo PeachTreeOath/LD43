@@ -380,11 +380,6 @@ public class VehicleController : MonoBehaviour
         swerve = Mathf.Sign(collisionInfo.normal.x) * (LevelManager.instance.MinSwerve + (LevelManager.instance.MaxSwerve - LevelManager.instance.MinSwerve) * percentOfMaxSwerve);
     }
 
-    private void StopDrifting()
-    {
-        Destroy(caption);
-    }
-
     private void onDriverSleep()
     {
         isSleeping = true;
@@ -404,6 +399,7 @@ public class VehicleController : MonoBehaviour
         isSleeping = false;
         Destroy(caption);
         resetSleepTime();
+        sleepVector = Vector2.zero;
 
         //Testing prayer allocation on wake.
         GameManager.instance.GetPrayerMeter().AddPrayer(vehicleStats.prayerValue);
