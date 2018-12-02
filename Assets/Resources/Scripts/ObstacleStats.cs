@@ -37,7 +37,7 @@ public class ObstacleStats : MonoBehaviour
     [HideInInspector]
 	public float obstacleHeight;
 
-    protected virtual void tart() {
+    protected virtual void Start() {
         var obstacleGO = GetObstaclePrefab();
 
         if (obstacleGO != null)
@@ -71,6 +71,9 @@ public class ObstacleStats : MonoBehaviour
                 break;
             case ObstacleTypeEnum.TERRAIN:
                 obstacleGO = ResourceLoader.instance.obstacleTerrainPrefab;
+                break;
+            case ObstacleTypeEnum.MEDIAN:
+                obstacleGO = ResourceLoader.instance.obstacleMedianPrefab;
                 break;
             default:
                 Debug.LogWarning("Couldn't find matching GameObject in ResourceLoader for obstacle of type " + obstacleType);
