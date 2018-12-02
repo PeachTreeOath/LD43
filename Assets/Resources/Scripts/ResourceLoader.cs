@@ -43,10 +43,6 @@ public class ResourceLoader : Singleton<ResourceLoader>
     public GameObject obituaryText;
     #endregion
 
-    #region Rendering
-    public GameObject vehicleWobble;
-    #endregion
-
     protected override void Awake()
     {
         base.Awake();
@@ -62,9 +58,6 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
         // Ui Elements
         vehicleSleepCaption = Resources.Load<GameObject>("Prefabs/VehicleSleepCaption");
-
-        //Rendering
-        vehicleWobble = Resources.Load<GameObject>("Prefabs/VehicleWobble");
 
         // Vehicles
         bus = Resources.Load<GameObject>("Prefabs/Vehicles/Bus");
