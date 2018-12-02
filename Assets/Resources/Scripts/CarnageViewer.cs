@@ -48,7 +48,7 @@ class CarnageViewer : MonoBehaviour
                                     "Here lies Pat Bakerman. He was baking a cake as fast as he could.",
                                     "Here lies Rosy Posy. Ashes! Ashes! She fell down." };
     VehiclePool vp;
-    float scrollMod = .25f;
+    float scrollMod = .1f;
     void Start()
     {
         Canvas canv = GameManager.instance.GetCheckPointManager().transform.Find("CheckpointSignCanvas").GetComponent<Canvas>();
