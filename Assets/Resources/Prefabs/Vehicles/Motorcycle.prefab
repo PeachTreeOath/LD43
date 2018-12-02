@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26854f66d3d5ee34a957d748790b96d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crashedSprite: {fileID: 21300000, guid: aebe1a22f6cd19b4082a7a60dd9a030b, type: 3}
 --- !u!198 &198695059444624600
 ParticleSystem:
   m_ObjectHideFlags: 1
