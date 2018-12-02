@@ -140,9 +140,6 @@ public class ObstacleController : MonoBehaviour
     {
         if (obstacleState == ObstacleStateEnum.MOVING)
         {
-            Debug.Log(obstacleState);
-            Debug.Log(collision.name);
-            Debug.Log(vehicleSpriteList.Contains(collision.name));
             if (vehicleSpriteList.Contains(collision.name))
             {
                 obstacleState = ObstacleStateEnum.DEAD;
