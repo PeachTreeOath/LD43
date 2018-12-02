@@ -22,6 +22,6 @@ public class Debug_Controls : MonoBehaviour {
 	}
 
     private void jumpToNextCheckpoint() {
-        GameManager.instance.dbg_setDistToNextCheckpoint(20);
+        GameManager.instance.dbg_setDistToNextCheckpoint(5);
     }
 }
