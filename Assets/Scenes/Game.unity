@@ -585,6 +585,30 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1985779953154390, guid: 76f23f67efe6d8248b9bdb04ddee9792, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997664613544256, guid: 76f23f67efe6d8248b9bdb04ddee9792, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023674311823918, guid: 76f23f67efe6d8248b9bdb04ddee9792, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1582024365160912, guid: 76f23f67efe6d8248b9bdb04ddee9792, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1261437515964374, guid: 76f23f67efe6d8248b9bdb04ddee9792, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747901811609952, guid: 76f23f67efe6d8248b9bdb04ddee9792, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76f23f67efe6d8248b9bdb04ddee9792, type: 2}
   m_IsPrefabAsset: 0
