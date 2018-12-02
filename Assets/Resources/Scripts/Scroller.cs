@@ -10,19 +10,20 @@ public class Scroller : MonoBehaviour
     Renderer rend;
 
     private float lastScrollSpeed;
+    Vector2 startOffset;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
         //scrollSpeed = GameManager.instance.roadSpeed;
         lastScrollSpeed = scrollSpeed;
-
+        startOffset = rend.material.GetTextureOffset("_MainTex");
     }
 
     void Update()
     {
         float offset = Time.time * scrollSpeed;
-        rend.material.SetTextureOffset("_MainTex", new Vector2(0, offset));
+        rend.material.SetTextureOffset("_MainTex", new Vector2(startOffset.x, offset));
     }
 
     public void pause()
