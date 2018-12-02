@@ -7,14 +7,14 @@ using TMPro;
 class CarnageViewer : MonoBehaviour
 {
     public string[] obituaries = {  "Here lies James Pond. He was 2 days from retirement.",
-                                    "Here lies Mary Popcorns. She just had twins, but they probably didn't need a mom.",
+                                    "Here lies Mother Geese. She just had twins, but they probably didn't need a mom.",
                                     "Here lies Tinier Tim. He was on his way to attend Sunday School.",
                                     "Here lies Charlie Purple. He just received the Medal of Honor.",
                                     "Here lies Harly Pottery. She just bought tickets to the \"Beyond Say\" Concert.",
                                     "Here lies Lucky Skyrunner. I pity da foo'.",
                                     "Here lies Jack Parrot. He was stuck between a rock and a hard place.",
                                     "Here lies Donkey Hotay. He wouldn't harm a fly.",
-                                    "Here lies Dr. Susies. Curiosity killed the cat.",
+                                    "Here lies Dr. Susie. Curiosity killed the cat.",
                                     "Here lies Ebony Zerscrew. Back to square one.",
                                     "Here lies Nicholas Nickelback. You can't judge a book by its cover.",
                                     "Here lies Elvis Parsley. Elvis has left the building.",
@@ -24,17 +24,21 @@ class CarnageViewer : MonoBehaviour
                                     "Here lies Peter Gryffindor. He was always second best in the family (of two).",
                                     "Here lies Curious Jordan. He just submitted a Game Jam entry.",
                                     "Here lies Frogo Froggins. He was actively committing a felony.",
-                                    "Here lies Fizz Lightsecond. He just saw the light at the end of the tunnel.",
+                                    "Here lies Fizz Lightsecond. He saw the light at the end of the tunnel.",
                                     "Here lies Peter Bunny. He found love in his final moments.",
                                     "Here lies Robe Hoody. He always paid his taxes.",
                                     "Here lies Tuesday Atoms. She did not live to see another day.",
-                                    "Here lies Jessica Bunny. She found their soulmate just the other day.",
+                                    "Here lies Jessica Bunny. She found her soulmate just the other day.",
                                     "Here lies Rip Car Wink L. He was fit as a fiddle.",
                                     "Here lies David Silverfield. He counted his chickens before they hatched.",
                                     "Here lies Dorothy Gal. She got the short end of the stick.",
                                     "Here lies Pippi Longsock. He rolled with the punches one too many times.",
                                     "Here lies Dr. Dolot. He died doing what he loved.",
-                                    "Here lies King Yolomon. It's great to go out in a blaze of glory."};
+                                    "Here lies King Yolomon. It's great to go out in a blaze of glory.",
+                                    "Here lies Little Miss Muppet. She enjoyed her curds and whey.",
+                                    "Here lies Mary Contrary. She lovingly tended to her garden everyday.",
+                                    "Here lies Lumpty Gumpty. He had the respect of the king and all his horses and men.",
+                                    "Here lies Jack Nimble. He was quick, but not quick enough." };
     VehiclePool vp;
     float scrollMod = .25f;
     void Start()
