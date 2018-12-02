@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class JesusArmBezier : MonoBehaviour {
 
-    public bool isRightArm;
+    public bool isLeftArm;
     public Transform armEndPosition;
     public float currentArmEndTangent;
 
@@ -35,19 +35,19 @@ public class JesusArmBezier : MonoBehaviour {
     private void UpdateEndTangent() {
         float endTangent;
         if (Input.GetKey("d")) { // turning right
-            if (isRightArm) { // high negative
+            if (isLeftArm) { // high negative
                 endTangent = -1f * HIGH_ARM_SLOPE;
             } else { // low positive
                 endTangent = LOW_ARM_SLOPE;
             }
         } else if (Input.GetKey("a")) { // turning left
-            if (isRightArm) { // low negative
+            if (isLeftArm) { // low negative
                 endTangent = -1f * LOW_ARM_SLOPE;
             } else {
                 endTangent = HIGH_ARM_SLOPE;
             }
         } else {
-            endTangent = isRightArm ? NEUTRAL_ARM_SLOPE * -1.0f : NEUTRAL_ARM_SLOPE;
+            endTangent = isLeftArm ? NEUTRAL_ARM_SLOPE * -1.0f : NEUTRAL_ARM_SLOPE;
         }
 
         if (endTangent > currentArmEndTangent && endTangent - currentArmEndTangent > SLOPE_ITERATION_STEP) {
