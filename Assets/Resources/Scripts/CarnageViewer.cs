@@ -7,7 +7,21 @@ using TMPro;
 class CarnageViewer : MonoBehaviour
 {
     public string[] obituaries = { "Johny was 2 days from retirement.",
-                                    "Linda just had twins. But they probably didn't need a mom."};
+                                    "Linda just had twins. But they probably didn't need a mom.",
+                                    "Was on their way to attend Sunday School.",
+                                "Just received the Medal of Honor.",
+                                "Just bought tickets to the \"Beyond Say\" Concert.",
+                                "I pity da foo'.",
+                                "Was stuck between a rock and a hard place.",
+                                "Wouldn't harm a fly.",
+                                "Curiosity killed the cat.",
+                                "Back to square one.",
+                                "You can't judge a book by its cover.",
+                                "Elvis has left the building.",
+                                "Probably not playing possum.",
+                                "Who shot the sheriff?",
+                                "Unleash the beast.",
+                                "Was always second best in the family (of two)."};
     VehiclePool vp;
     float scrollMod = .25f;
     void Start()

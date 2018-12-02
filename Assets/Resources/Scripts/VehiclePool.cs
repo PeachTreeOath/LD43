@@ -130,12 +130,14 @@ public class VehiclePool : MonoBehaviour
     }
 
     public void OnVehicleCrash(VehicleController crashedVehicle) {
-        if (crashedVehicle == null) return;
+        if (crashedVehicle == null ||
+            crashedVehicle.IsCrashed) return;
 
         if(crashedVehicle.isSelected) {
             SelectVehicle(null);
         }
 
+        Debug.Log(crashedVehicle.gameObject.name + " crashed");
         vehicles.Remove(crashedVehicle);
         crashedVehicles.Add(crashedVehicle.gameObject);
     }

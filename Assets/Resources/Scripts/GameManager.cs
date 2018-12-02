@@ -62,7 +62,7 @@ public class GameManager : Singleton<GameManager>
 
         checkpointManager.UpdateCheckpointSignDistance((int) distToNextCheckpoint);
         if (dbgCount++ % 120 == 0) {
-            Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
+            //Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
         }
         if (distToNextCheckpoint <= 0) {
             Debug.Log("CHECKPOINT BABY");
