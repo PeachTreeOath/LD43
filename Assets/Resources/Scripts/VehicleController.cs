@@ -102,27 +102,36 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    void UpdateCrashing() {
-        if(Math.Abs(rbody.velocity.x) <= 0.1f) {
+    void UpdateCrashing()
+    {
+        if (Math.Abs(rbody.velocity.x) <= 0.1f)
+        {
             StartFatalCrash();
         }
 
         // crashing cars aren't being driven forward, so they need to return to "scrollspeed"
-        if(rbody.velocity.y > -LevelManager.instance.scrollSpeed) {
+        if (rbody.velocity.y > -LevelManager.instance.scrollSpeed)
+        {
             var newYvel = rbody.velocity.y + LevelManager.instance.CrashingFriction * Time.deltaTime; //TODO do this in fixed time?
             rbody.velocity = new Vector2(rbody.velocity.x, -newYvel);
-        } else {
+        }
+        else
+        {
             //TODO do collisions matter here?
             rbody.velocity = new Vector2(rbody.velocity.x, -LevelManager.instance.scrollSpeed);
         }
     }
 
-    public void setEnteringStage(bool isEntering) {
+    public void setEnteringStage(bool isEntering)
+    {
         childCollider = GetComponentInChildren<BoxCollider2D>();
-        if (isEntering) {
+        if (isEntering)
+        {
             childCollider.enabled = false;
             currState = State.ENTERING_STAGE;
-        } else {
+        }
+        else
+        {
             childCollider.enabled = true;
             currState = State.DRIVING;
         }
@@ -207,8 +216,9 @@ public class VehicleController : MonoBehaviour
         drivingVelocity = (newPosition - oldPosition) / Time.deltaTime; //TODO how to get this to be the right number?
     }
 
-    protected Vector2 currVelocity {
-        get { return currState == State.DRIVING ? drivingVelocity : rbody.velocity;  }
+    protected Vector2 currVelocity
+    {
+        get { return currState == State.DRIVING ? drivingVelocity : rbody.velocity; }
     }
 
     public void StartDrifting()
@@ -268,10 +278,12 @@ public class VehicleController : MonoBehaviour
 
     }
 
-    public void OnCollideWithVehicle(CollisionInfo info) {
+    public void OnCollideWithVehicle(CollisionInfo info)
+    {
         if (!initialized) return;
 
-        switch(currState) {
+        switch (currState)
+        {
             case State.DRIVING:
                 break;
         }
@@ -290,7 +302,8 @@ public class VehicleController : MonoBehaviour
         return currVelocity.magnitude > maxControllableSpeed;
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos()
+    {
         var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
         var dir = currVelocity.normalized;
 
@@ -331,6 +344,8 @@ public class VehicleController : MonoBehaviour
 
         //TODO crash sound
         ScreenShake();
+
+        Destroy(caption);
     }
 
     private void ScreenShake()
@@ -342,7 +357,6 @@ public class VehicleController : MonoBehaviour
     {
         vehiclePool.OnVehicleCrash(this);
         currState = State.CRASHING;
-        face.GotoWinceFace();
 
         rbody.drag = LevelManager.instance.CrashingLinearDrag;
         rbody.angularDrag = LevelManager.instance.CrashingAngularDrag;
@@ -474,13 +488,13 @@ public class VehicleController : MonoBehaviour
 
     private void RenderSleepCaption()
     {
-        
+
         //Select sleep caption.
         var randomIndex = UnityEngine.Random.Range(0, captionBubbles.Count);
         var sleepCaption = ResourceLoader.instance.vehicleSleepCaption;
 
         //Render Sleep Caption
         caption = Instantiate(sleepCaption, vehicleBody.transform.position, Quaternion.identity, vehicleBody.transform);
-        sleepCaption.GetComponentInChildren<SpriteRenderer>().sprite = captionBubbles.ElementAt(randomIndex);
+        caption.GetComponentInChildren<SpriteRenderer>().sprite = captionBubbles.ElementAt(randomIndex);
     }
 }
