@@ -256,7 +256,13 @@ public class VehicleController : MonoBehaviour
 
         //TODO crash effect
         //TODO crash sound
-        //TODO screen shake
+        //Screen Shake
+        ScreenShake();
+    }
+
+    private void ScreenShake()
+    {
+        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake();
     }
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)

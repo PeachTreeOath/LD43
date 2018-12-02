@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ScreenShake : MonoBehaviour {
 
@@ -17,12 +19,11 @@ public class ScreenShake : MonoBehaviour {
         cameraTransform = gameObject.transform;
         initialPosition = cameraTransform.localPosition;
         shakeTimer = new Stopwatch();
-        shakeTimer.Start();
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    if (shakeTimer.ElapsedMilliseconds < shakeDuration)
+	    if (shakeTimer.IsRunning && shakeTimer.ElapsedMilliseconds < shakeDuration)
 	    {
 	        transform.localPosition = initialPosition + Random.insideUnitSphere * shakeMagnitude;
 	    }
