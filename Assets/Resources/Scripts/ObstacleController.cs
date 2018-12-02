@@ -116,11 +116,13 @@ public class ObstacleController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        obstacleState = ObstacleStateEnum.PLACED;
+        if(obstacleState == ObstacleStateEnum.MOVING)
+            obstacleState = ObstacleStateEnum.PLACED;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        obstacleState = ObstacleStateEnum.PLACED;
+        if (obstacleState == ObstacleStateEnum.MOVING)
+            obstacleState = ObstacleStateEnum.PLACED;
     }
 }
