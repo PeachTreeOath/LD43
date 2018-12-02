@@ -137,4 +137,19 @@ public class GameManager : Singleton<GameManager>
     {
         return prayerMeter;
     }
+
+    public Scroller GetScroller()
+    {
+        return scroller;
+    }
+
+    public CheckpointManager GetCheckPointManager()
+    {
+        return checkpointManager;
+    }
+
+    public ObstacleSpawner GetObstacleSpawner()
+    {
+        return obstacleSpawner;
+    }
 }

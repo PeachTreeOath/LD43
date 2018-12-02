@@ -5,6 +5,7 @@ using UnityEditor;
 
 public class JesusArmBezier : MonoBehaviour {
 
+    public float width;
     public bool isLeftArm;
     public Transform armEndPosition;
     public float currentArmEndTangent;
@@ -23,10 +24,17 @@ public class JesusArmBezier : MonoBehaviour {
 	void Start () {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = NUM_ARM_POINTS;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if(lineRenderer.startWidth != width)
+        {
+            lineRenderer.startWidth = width;
+            lineRenderer.endWidth = width;
+        }
         UpdateEndTangent();
         DrawCurve(transform.position, armEndPosition.position, currentArmEndTangent);
 	}

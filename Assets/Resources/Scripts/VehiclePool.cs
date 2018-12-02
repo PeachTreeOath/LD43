@@ -10,9 +10,13 @@ public class VehiclePool : MonoBehaviour
 	[Tooltip("All of the Jesus vehicles.")]
     public List <VehicleController> vehicles;
 
+    [HideInInspector]
+    public List<GameObject> crashedVehicles;
+
     // Use this for initialization
     void Start()
     {
+        crashedVehicles = new List<GameObject>();
         //Load vehicles into the map via checkpoint/ checkpoint mgr
         /*
         AddNewVehicle(VehicleTypeEnum.CAR, ResourceLoader.instance.car, 0);
@@ -133,5 +137,15 @@ public class VehiclePool : MonoBehaviour
         }
 
         vehicles.Remove(crashedVehicle);
+        crashedVehicles.Add(crashedVehicle.gameObject);
+    }
+
+    void LateUpdate()
+    {
+        if(vehicles.Count == 0 &&
+            gameObject.GetComponent<CarnageViewer>() == null)
+        {
+            gameObject.AddComponent<CarnageViewer>();
+        }
     }
 }
