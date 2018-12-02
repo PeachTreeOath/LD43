@@ -60,7 +60,7 @@ class CarnageViewer : MonoBehaviour
         for(int i = 0; i < obstacles.Length; i++)
         {
             obstacles[i].enabled = false;
-            Rigidbody2D rb = obstacles[i].gameObject.AddComponent<Rigidbody2D>();
+            Rigidbody2D rb = obstacles[i].gameObject.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(0, LevelManager.instance.scrollSpeed * scrollMod);
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
