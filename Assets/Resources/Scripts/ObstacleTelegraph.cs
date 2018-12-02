@@ -5,7 +5,6 @@ using UnityEngine;
 public class ObstacleTelegraph : MonoBehaviour
 {
     public ObstacleTypeEnum obstacleType;
-    public GameObject telegraphObject;
 
     //Serialized Obstacle Telegraph Fields.
     [SerializeField] private AudioClip AudioClip;
@@ -35,23 +34,13 @@ public class ObstacleTelegraph : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if (timeElapsed > blinkInterval)
         {
-            Debug.Log(gameObject.name + ": Toggling " + telegraphObject + " visibility to " + isVisible);
             isVisible = !isVisible;
-            if (telegraphObject != null)
-            {
-                telegraphObject.GetComponent<SpriteRenderer>().enabled = isVisible;
-            }
+                GetComponent<SpriteRenderer>().enabled = isVisible;
             if (audioSource != null && isVisible)
             {
                 audioSource.PlayOneShot(AudioClip);
             }
             timeElapsed = 0f;
         }
-    }
-
-    public void SetTelegraphObject(GameObject telegraph)
-    {
-        Debug.Log(gameObject.name + ": Setting telegraph object to " + telegraph);
-        telegraphObject = telegraph;
     }
 }

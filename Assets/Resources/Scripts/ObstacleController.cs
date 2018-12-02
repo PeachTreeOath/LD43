@@ -46,7 +46,6 @@ public class ObstacleController : MonoBehaviour
 		moveTimer = obstacleStats.moveWaitTime;
 
 		// Spawn telegraph (visual & audio indicator) based off of obstacle position.
-		ObstacleTelegraph obstacleTelegraph = obstacleStats.spawnTelegraph.GetComponent<ObstacleTelegraph>();
 		Vector3 obstacleSize = obstacleStats.spawnTelegraph.GetComponent<SpriteRenderer>().sprite.bounds.size;
 		Vector3 obstaclePosition = transform.position;
 		Vector3 telegraphPosition = Vector3.zero;
@@ -64,7 +63,6 @@ public class ObstacleController : MonoBehaviour
 		}
 		telegraph = Instantiate(obstacleStats.spawnTelegraph, telegraphPosition, Quaternion.identity);
 		telegraph.transform.SetParent(transform);
-        obstacleTelegraph.SetTelegraphObject(telegraph);
 
 		if (endPosition.Equals(Vector2.zero))
 		{
