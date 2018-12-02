@@ -21,7 +21,7 @@ TagManager:
   - Terrain
   - Obstacles
   - Cars
-  - 
+  - Jesus
   - 
   - 
   - 
@@ -45,6 +45,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Effects
+    uniqueID: 3368366903
     locked: 0
   - name: Jesus
     uniqueID: 2075757779

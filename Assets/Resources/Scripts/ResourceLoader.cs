@@ -39,6 +39,21 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
     #endregion
 
+    #region Text
+    public GameObject obituaryText;
+    #endregion
+
+
+    #region Stuff
+    public GameObject burningFireFab;
+    #endregion
+
+
+    #region Rendering
+    public GameObject vehicleWobble;
+    #endregion
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -55,6 +70,9 @@ public class ResourceLoader : Singleton<ResourceLoader>
         // Ui Elements
         vehicleSleepCaption = Resources.Load<GameObject>("Prefabs/VehicleSleepCaption");
 
+        //Rendering
+        vehicleWobble = Resources.Load<GameObject>("Prefabs/VehicleWobble");
+
         // Vehicles
         bus = Resources.Load<GameObject>("Prefabs/Vehicles/Bus");
         car = Resources.Load<GameObject>("Prefabs/Vehicles/Car");
@@ -63,5 +81,11 @@ public class ResourceLoader : Singleton<ResourceLoader>
         truck = Resources.Load<GameObject>("Prefabs/Vehicles/Truck");
         semiTruck = Resources.Load<GameObject>("Prefabs/Vehicles/SemiTruck");
         motorcycle = Resources.Load<GameObject>("Prefabs/Vehicles/Motorcycle");
+
+        //Text
+        obituaryText = Resources.Load("Prefabs/ObituaryText2") as GameObject;
+
+        //Stuff
+        burningFireFab = Resources.Load("Prefabs/BurningFire") as GameObject;
     }
 }
