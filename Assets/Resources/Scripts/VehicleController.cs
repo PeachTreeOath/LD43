@@ -363,7 +363,7 @@ public class VehicleController : MonoBehaviour
         sparkEmitter.Play();
 
         var percentOfMaxSwerve = 1 - Mathf.Clamp(vehicleStats.weight / LevelManager.instance.WeightForZeroSwerve, 0, 1f);
-        swerve = Mathf.Sign(collisionInfo.normal.x) * LevelManager.instance.MinSwerve + (LevelManager.instance.MaxSwerve - LevelManager.instance.MinSwerve) * percentOfMaxSwerve;
+        swerve = Mathf.Sign(collisionInfo.normal.x) * (LevelManager.instance.MinSwerve + (LevelManager.instance.MaxSwerve - LevelManager.instance.MinSwerve) * percentOfMaxSwerve);
     }
 
     private void StopDrifting()
