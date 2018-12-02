@@ -227,10 +227,6 @@ public class VehicleController : MonoBehaviour
     {
         if (!initialized || !enabled) return;
 
-        //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
-
-        //var angle = vehicleSprite.transform.eulerAngles.z;
-        //var carFacingDir = Quaternion.AngleAxis(angle, Vector3.forward) * Vector2.up;
         switch (currState)
         {
             case State.DRIVING:
@@ -276,17 +272,16 @@ public class VehicleController : MonoBehaviour
 
         rbody.bodyType = RigidbodyType2D.Kinematic;
         rbody.angularVelocity = 0f;
+        rbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
-        //Debug.Log("Set crash velocity for " + gameObject.name + " enabled: " + enabled);
 
         face.GotoWinceFace();
 
         fireballEmitter.gameObject.AddComponent<ObjectFollower>().target = gameObject.transform;
         fireballEmitter.Play();
 
-        //TODO crash effect
         //TODO crash sound
-        //Screen Shake
         ScreenShake();
     }
 
