@@ -439,6 +439,7 @@ public class VehicleController : MonoBehaviour
     {
         vehiclePool.OnVehicleCrash(this, true);
         currState = State.CRASHED;
+        showCrashedSprite();
 
         gameObject.layer = LayerMask.NameToLayer("Terrain");
 
@@ -457,6 +458,10 @@ public class VehicleController : MonoBehaviour
         ScreenShake();
 
         Destroy(caption);
+    }
+
+    private void showCrashedSprite() {
+        vehicleBody.showCrashedSprite();
     }
 
     private void ScreenShake()
