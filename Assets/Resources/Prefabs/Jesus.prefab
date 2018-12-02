@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 4545752879541996}
   - component: {fileID: 212556694387976120}
   - component: {fileID: 114861846662731310}
+  - component: {fileID: 61026670375045294}
   m_Layer: 0
   m_Name: JesusBody
   m_TagString: Untagged
@@ -196,6 +197,31 @@ Transform:
   m_Father: {fileID: 4030915165681062}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61026670375045294
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1997664613544256}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04904747, y: -0.2697549}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.4444447, y: 4.4444447}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5016627, y: 3.904935}
+  m_EdgeRadius: 0
 --- !u!114 &114056826590515224
 MonoBehaviour:
   m_ObjectHideFlags: 1
