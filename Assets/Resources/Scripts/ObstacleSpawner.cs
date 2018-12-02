@@ -22,7 +22,7 @@ public class ObstacleSpawner : MonoBehaviour
 
 			if (obstacleGO != null)
 			{
-				obstacleStats.obstacleHeight = obstacleGO.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+				obstacleStats.obstacleHeight = obstacleGO.GetComponent<SpriteRenderer>().sprite.bounds.size.y * obstacleGO.transform.localScale.y;
 			}
 
 			obstacleStats.spawnTimer = obstacleStats.firstSpawnTime;

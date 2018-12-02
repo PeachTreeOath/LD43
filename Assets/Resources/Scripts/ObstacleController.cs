@@ -5,8 +5,8 @@ using UnityEngine;
 // Controls obstacles like cones on the road.
 public class ObstacleController : MonoBehaviour
 {
-	public const float northWarningDeltaFromObstacle = 0.9f;
-	public const float eastWarningDeltaFromObstacle = 0.3f;
+	public const float northWarningDeltaFromTop = 3.5f;
+	public const float eastWarningDeltaFromRight = 0.3f;
 
 	[Tooltip("'Final position - logic being if you want the obstacle to stop for a moment somewhere or move faster/slower getting to said position.")]
 	public Vector3 endPosition;
@@ -45,10 +45,10 @@ public class ObstacleController : MonoBehaviour
 		switch (obstacleStats.directionObstacleComingFrom)
 		{
 			case DirectionEnum.N:
-				telegraphPosition = new Vector3(obstaclePosition.x, obstaclePosition.y - (obstacleSize.y / 2) - northWarningDeltaFromObstacle, 0);
+				telegraphPosition = new Vector3(obstaclePosition.x, northWarningDeltaFromTop, 0);
 				break;
 			case DirectionEnum.E:
-				telegraphPosition = new Vector3(obstaclePosition.x + (obstacleSize.x / 2) + eastWarningDeltaFromObstacle, obstaclePosition.y, 0);
+				telegraphPosition = new Vector3(eastWarningDeltaFromRight, obstaclePosition.y, 0);
 				break;
 			default:
 				Debug.LogWarning("Unhandled obstacle dirction - update me!");
