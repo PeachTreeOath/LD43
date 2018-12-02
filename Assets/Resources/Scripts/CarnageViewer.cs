@@ -51,11 +51,32 @@ class CarnageViewer : MonoBehaviour
         "Here lies Mance Armstrength.  Now he doesn't even lift."
     };
 
+    private List<GameObject> deadPeople;
+
     VehiclePool vp;
     float scrollMod = .1f;
     void Start()
     {
         Canvas canv = GameManager.instance.GetCheckPointManager().transform.Find("CheckpointSignCanvas").GetComponent<Canvas>();
+        vp = GameManager.instance.getVehiclePool();
+
+        GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
+        GameManager.instance.GetCheckPointManager().enabled = false;
+        GameManager.instance.GetObstacleSpawner().enabled = false;
+        GameManager.instance.GetPrayerMeter().enabled = false;
+        GameManager.instance.enabled = false;
+
+        int firstOffScreen = -1;
+        Vector3 basePos = Vector3.zero;
+
+        // Add vehicles
+        deadPeople = new List<GameObject>(vp.crashedVehicles);
+        for (int i = deadPeople.Count - 1; i >= 0; i--)
+        {
+            deadPeople[i].GetComponent<VehicleController>().enabled = false;
+        }
+
+        // Add pedestrians and cyclists
         ObstacleController[] obstacles = GameObject.FindObjectsOfType<ObstacleController>();
         for(int i = 0; i < obstacles.Length; i++)
         {
@@ -63,38 +84,41 @@ class CarnageViewer : MonoBehaviour
             Rigidbody2D rb = obstacles[i].gameObject.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(0, LevelManager.instance.scrollSpeed * scrollMod);
             rb.bodyType = RigidbodyType2D.Kinematic;
+            if(obstacles[i].obstacleState == ObstacleStateEnum.DEAD) {
+                deadPeople.Add(obstacles[i].gameObject);
+            }
         }
-        GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
-        GameManager.instance.GetCheckPointManager().enabled = false;
-        GameManager.instance.GetObstacleSpawner().enabled = false;
-        GameManager.instance.GetPrayerMeter().enabled = false;
-        GameManager.instance.enabled = false;
-        vp = GameManager.instance.getVehiclePool();
-        int firstOffScreen = -1;
-        Vector3 basePos = Vector3.zero;
-        for (int i = vp.crashedVehicles.Count - 1; i >= 0; i--)
+            
+        for (int i = deadPeople.Count - 1; i >= 0; i--)
         {
-            float bounds = Mathf.Max(vp.crashedVehicles[i].transform.GetChild(0).GetComponent<Renderer>().bounds.extents.x, vp.crashedVehicles[i].transform.GetChild(0).GetComponent<Renderer>().bounds.extents.y);
-            if (vp.crashedVehicles[i].transform.position.y <= -Camera.main.orthographicSize - bounds)
+            float bounds;
+
+            if(deadPeople[i].transform.childCount > 0) {
+                bounds = Mathf.Max(deadPeople[i].transform.GetChild(0).GetComponent<Renderer>().bounds.extents.x, deadPeople[i].transform.GetChild(0).GetComponent<Renderer>().bounds.extents.y);
+            } else {
+                bounds = Mathf.Max(deadPeople[i].GetComponent<Renderer>().bounds.extents.x, deadPeople[i].GetComponent<Renderer>().bounds.extents.y);
+            }
+
+            if (deadPeople[i].transform.position.y <= -Camera.main.orthographicSize - bounds)
             {
                 if(firstOffScreen == -1)
                 {
                     firstOffScreen = i + 1;
-                    basePos = new Vector3(vp.crashedVehicles[i].transform.position.x, (firstOffScreen - i) * -Camera.main.orthographicSize, 0); ;
+                    basePos = new Vector3(deadPeople[i].transform.position.x, (firstOffScreen - i) * -Camera.main.orthographicSize, 0); ;
                 }
-                vp.crashedVehicles[i].transform.position = basePos + Vector3.down * 4 * (firstOffScreen - i);
+                deadPeople[i].transform.position = basePos + Vector3.down * 4 * (firstOffScreen - i);
             }
-            GameObject fire = Instantiate(ResourceLoader.instance.burningFireFab, vp.crashedVehicles[i].transform.position + Vector3.back, Quaternion.identity);
-            fire.AddComponent<ObjectFollower>().target = vp.crashedVehicles[i].transform;
+            GameObject fire = Instantiate(ResourceLoader.instance.burningFireFab, deadPeople[i].transform.position + Vector3.back, Quaternion.identity);
+            fire.AddComponent<ObjectFollower>().target = deadPeople[i].transform;
 
-            vp.crashedVehicles[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-            vp.crashedVehicles[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0, LevelManager.instance.scrollSpeed * scrollMod);
-            vp.crashedVehicles[i].GetComponent<VehicleController>().enabled = false;
+            deadPeople[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            deadPeople[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0, LevelManager.instance.scrollSpeed * scrollMod);
+            //deadPeople[i].GetComponent<VehicleController>().enabled = false;
             //Debug.Log("Set carnage velocity for " + vp.crashedVehicles[i].name);
             GameObject oText = Instantiate(ResourceLoader.instance.obituaryText) as GameObject;
             oText.GetComponent<TextMeshPro>().SetText(obituaries[Random.Range(0, obituaries.Length)]);
-            oText.transform.position = vp.crashedVehicles[i].transform.position + Vector3.up * bounds * 1.5f + Vector3.back;
-            oText.AddComponent<ObjectFollower>().target = vp.crashedVehicles[i].transform;
+            oText.transform.position = deadPeople[i].transform.position + Vector3.up * bounds * 1.5f + Vector3.back;
+            oText.AddComponent<ObjectFollower>().target = deadPeople[i].transform;
         }
     }
 }
