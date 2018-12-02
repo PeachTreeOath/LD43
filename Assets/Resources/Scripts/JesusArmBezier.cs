@@ -31,14 +31,19 @@ public class JesusArmBezier : MonoBehaviour
             lineRenderer.endWidth = width;
         }
         float currentArmEndTangent = getTangentFromAngle(handOfGod.transform.rotation.eulerAngles);
-        DrawCurve(transform.position, handOfGod.transform.position, currentArmEndTangent);
+        DrawCurve(transform.position, handOfGod.transform.position + Vector3.back, currentArmEndTangent);
     }
 
     private float getTangentFromAngle(Vector3 eulerAngles)
     {
         float angle = eulerAngles.z; // 0 is north, increasing counter clockwise
         angle = angle + 90f; // adding 90 so that 0 is on positive x axis
-        return Mathf.Tan(Mathf.Deg2Rad*angle);
+        float modifier = 1.06f;
+        if(handOfGod.GetComponent<HandOfGod>().isRightHand)
+        {
+            modifier = .97f;
+        }
+        return Mathf.Tan(Mathf.Deg2Rad*angle* modifier);
     }
 
     private void DrawCurve(Vector3 startPoint, Vector3 endPoint, float endTangent)
@@ -47,7 +52,7 @@ public class JesusArmBezier : MonoBehaviour
         float cEndPoint = endPoint.y - endTangent * endPoint.x;
         float intersectX = (startPoint.y - cEndPoint) / endTangent;
         float intersectY = startPoint.y;
-        Vector3 intersectPoint = new Vector3(intersectX, intersectY, 0);
+        Vector3 intersectPoint = new Vector3(intersectX, intersectY, 1);
 
         // Plot Bezier Curve
         for (int i = 0; i < NUM_ARM_POINTS; i++)
