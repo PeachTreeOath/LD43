@@ -33,7 +33,7 @@ class CarnageViewer : MonoBehaviour
         "Here lies Rip Car Wink L. He was fit as a fiddle.",
         "Here lies David Silverfield. He counted his chickens before they hatched.",
         "Here lies Dorothy Gal. She got the short end of the stick.",
-        "Here lies Pippi Longsock. He rolled with the punches one too many times.",
+        "Here lies Pippi Longsock. She rolled with the punches one too many times.",
         "Here lies Dr. Dolot. He died doing what he loved.",
         "Here lies King Yolomon. It's great to go out in a blaze of glory.",
         "Here lies Little Miss Muppet. She enjoyed her curds and whey.",
