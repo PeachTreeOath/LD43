@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114159070662340710}
   - component: {fileID: 114371813261019162}
   - component: {fileID: 114116232590491852}
+  - component: {fileID: 114812727593556908}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -95,3 +96,14 @@ MonoBehaviour:
   truck: {fileID: 0}
   semiTruck: {fileID: 0}
   motorcycle: {fileID: 0}
+--- !u!114 &114812727593556908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1438342812020930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53972f99bd2bc5c45a7afab0e7384e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
