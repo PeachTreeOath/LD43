@@ -33,6 +33,9 @@ public class VehicleController : MonoBehaviour
     private static float WAKE_CONTROL_LOWER_BOUND = 5;
     private static float LANE_CORRECTION_ANGLE_DELTA = 2;
     private static float WAKE_TIME = 1f; // 1 second before waking
+    private static float CRASHING_LINEAR_DRAG = 1f;
+    private static float CRASHING_ANGULAR_DRAG = 0.1f;
+    private static float CRASHING_FRICTION = 200f;
 
     public bool isSleeping;
     public float nextSleepTime;
@@ -80,6 +83,25 @@ public class VehicleController : MonoBehaviour
             case State.DRIVING:
                 UpdateDriving();
                 break;
+
+            case State.CRASHING:
+                UpdateCrashing();
+                break;
+        }
+    }
+
+    void UpdateCrashing() {
+        if(Math.Abs(rbody.velocity.x) <= 0.1f) {
+            StartFatalCrash();
+        }
+
+        // crashing cars aren't being driven forward, so they need to return to "scrollspeed"
+        if(rbody.velocity.y > -LevelManager.instance.scrollSpeed) {
+            var newYvel = rbody.velocity.y + CRASHING_FRICTION * Time.deltaTime; //TODO do this in fixed time?
+            rbody.velocity = new Vector2(rbody.velocity.x, -newYvel);
+        } else {
+            //TODO do collisions matter here?
+            rbody.velocity = new Vector2(rbody.velocity.x, -LevelManager.instance.scrollSpeed);
         }
     }
 
@@ -271,12 +293,13 @@ public class VehicleController : MonoBehaviour
         currState = State.CRASHING;
         face.GotoWinceFace();
 
-        rbody.drag = 0.2f;
+        rbody.drag = CRASHING_LINEAR_DRAG;
+        rbody.angularDrag = CRASHING_ANGULAR_DRAG;
         rbody.constraints = RigidbodyConstraints2D.None;
 
         rbody.angularVelocity = collisionInfo.impulse.magnitude * 300f;
         rbody.angularVelocity = Mathf.Clamp(rbody.angularVelocity, -700, 700);
-        rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .05f);
+        rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .01f);
 
         fireballEmitter.gameObject.AddComponent<ObjectFollower>().target = gameObject.transform;
         fireballEmitter.Play();
