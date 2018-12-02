@@ -113,11 +113,16 @@ class CarnageViewer : MonoBehaviour
 
             deadPeople[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             deadPeople[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0, LevelManager.instance.scrollSpeed * scrollMod);
-            //deadPeople[i].GetComponent<VehicleController>().enabled = false;
-            //Debug.Log("Set carnage velocity for " + vp.crashedVehicles[i].name);
+
             GameObject oText = Instantiate(ResourceLoader.instance.obituaryText) as GameObject;
             oText.GetComponent<TextMeshPro>().SetText(obituaries[Random.Range(0, obituaries.Length)]);
             oText.transform.position = deadPeople[i].transform.position + Vector3.up * bounds * 1.5f + Vector3.back;
+            if (deadPeople[i].transform.position.x > 5) {
+                oText.transform.position = oText.transform.position + Vector3.left;
+            }
+            if (deadPeople[i].transform.position.x < -5) {
+                oText.transform.position = oText.transform.position + Vector3.right;
+            }
             oText.AddComponent<ObjectFollower>().target = deadPeople[i].transform;
         }
     }
