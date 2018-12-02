@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4920068162008540}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SparkEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4853299348993912}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 4404032728219900}
   - component: {fileID: 198356442658951512}
   - component: {fileID: 199818902686918892}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4531634899649872}
   - component: {fileID: 114439187429172370}
   - component: {fileID: 50456260856512612}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SemiTruck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4462765632702978}
   - component: {fileID: 198939188964770788}
   - component: {fileID: 199220979984892744}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 4830459809239524}
   - component: {fileID: 198107652398629094}
   - component: {fileID: 199625058513634578}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
