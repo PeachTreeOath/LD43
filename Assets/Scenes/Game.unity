@@ -174,21 +174,6 @@ Prefab:
       propertyPath: distanceBetweenCheckpoints
       value: 400
       objectReference: {fileID: 0}
-    - target: {fileID: 114541618118497832, guid: 12216c880e2c1f54b9c87d949cf3e49c,
-        type: 2}
-      propertyPath: spawnInterval
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114660716886353034, guid: 12216c880e2c1f54b9c87d949cf3e49c,
-        type: 2}
-      propertyPath: spawnInterval
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114149389299123430, guid: 12216c880e2c1f54b9c87d949cf3e49c,
-        type: 2}
-      propertyPath: spawnInterval
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12216c880e2c1f54b9c87d949cf3e49c, type: 2}
   m_IsPrefabAsset: 0
@@ -932,14 +917,6 @@ Prefab:
     - target: {fileID: 4582216336483684, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
       propertyPath: m_RootOrder
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4678813905486490, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -7.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246350827260476, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 7.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
