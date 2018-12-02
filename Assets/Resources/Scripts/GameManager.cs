@@ -16,6 +16,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Checkpoint startingCheckpoint; //loads starting vehicles
 
+    [SerializeField]
+    public float screenShakeDurationMs = 750;
+
     private Scroller scroller;
     public float scrollSpeedMultiplier;
     public float displayDistanceMultiplier;

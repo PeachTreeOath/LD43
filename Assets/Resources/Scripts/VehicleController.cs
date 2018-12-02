@@ -461,7 +461,7 @@ public class VehicleController : MonoBehaviour
 
     private void ScreenShake()
     {
-        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake();
+        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(GameManager.instance.screenShakeDurationMs);
     }
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)
