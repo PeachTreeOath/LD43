@@ -12,6 +12,8 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
     public GameObject obstacleCyclistPrefab;
 
+    public GameObject obstacleTerrainPrefab;
+
     public GameObject vehicleSleepCaption;
     #endregion
 
@@ -72,6 +74,7 @@ public class ResourceLoader : Singleton<ResourceLoader>
         obstacleConePrefab = Resources.Load<GameObject>("Prefabs/ObstacleCone");
         obstaclePedestrianPrefab = Resources.Load<GameObject>("Prefabs/ObstaclePedestrian");
         obstacleCyclistPrefab = Resources.Load<GameObject>("Prefabs/ObstacleCyclist");
+        obstacleTerrainPrefab = Resources.Load<GameObject>("Prefabs/HighwayObstruction");
 
         // Ui Elements
         vehicleSleepCaption = Resources.Load<GameObject>("Prefabs/VehicleSleepCaption");
