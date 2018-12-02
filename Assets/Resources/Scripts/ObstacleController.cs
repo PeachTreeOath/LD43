@@ -64,6 +64,7 @@ public class ObstacleController : MonoBehaviour
 		}
 		telegraph = Instantiate(obstacleStats.spawnTelegraph, telegraphPosition, Quaternion.identity);
 		telegraph.transform.SetParent(transform);
+        obstacleTelegraph.SetTelegraphObject(telegraph);
 
 		if (endPosition.Equals(Vector2.zero))
 		{
