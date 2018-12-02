@@ -34,8 +34,9 @@ public class ScreenShake : MonoBehaviour {
 	    }
     }
 
-    public void TriggerShake()
+    public void TriggerShake(float duration) 
     {
+        shakeDuration = duration;
         shakeTimer.Reset();
         shakeTimer.Start();
     }
