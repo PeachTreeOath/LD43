@@ -13,9 +13,14 @@ public class HandOfGod : MonoBehaviour
     public VehicleController vehicleToGuide;
 
     private static float PLANE_OF_GOD = 0; // on z axis
-    private static float NEUTRAL_HAND_ANGLE = 30;
+    private static float NEUTRAL_HAND_ANGLE = 45;
+    private static float HIGH_HAND_ANGLE = 70;
+    private static float LOW_HAND_ANGLE = 20;
+    private static float MIN_ANGLE_THRESHOLD = 5; // in degrees
+
 
     private Vector2 velocity;  //TODO might be better as RigidBody2D?
+    public Vector3 targetHandAngle;
 
     void Start()
     {
@@ -62,6 +67,7 @@ public class HandOfGod : MonoBehaviour
                 //TODO gently drift?
                 break;
         }
+        UpdateHandAngle();
     }
 
     public bool IsGuidingCar
@@ -148,4 +154,50 @@ public class HandOfGod : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(mousePos);
     }
 
+    private void UpdateHandAngle()
+    {
+        if (!IsGuidingCar)
+        {
+            ResetHandAngle();
+            return;
+        }
+
+        // Set target hand angle
+        float hInput = Input.GetAxisRaw("Horizontal");
+        if (hInput > 0) // turning right
+        {
+            targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - HIGH_HAND_ANGLE : LOW_HAND_ANGLE);
+        }
+        else if (hInput < 0)
+        {
+            targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - LOW_HAND_ANGLE : HIGH_HAND_ANGLE);
+        }
+        else
+        {
+            ResetHandAngle();
+        }
+
+        // Rotate to target angle
+        float angleDifference = targetHandAngle.z - transform.rotation.eulerAngles.z;
+        if (angleDifference == 0)
+        {
+            return;
+        }
+        else if (Mathf.Abs(angleDifference) < MIN_ANGLE_THRESHOLD)
+        {
+            transform.Rotate(new Vector3(0, 0, angleDifference));
+        }
+        else
+        {
+            transform.Rotate(new Vector3(0, 0, angleDifference * 0.5f));
+        }
+    }
+
+    private void ResetHandAngle()
+    {
+        if (Mathf.Abs(targetHandAngle.z) != NEUTRAL_HAND_ANGLE)
+        {
+            targetHandAngle = new Vector3(0, 0, isRightHand ? 360f - NEUTRAL_HAND_ANGLE : NEUTRAL_HAND_ANGLE);
+        }
+    }
 }

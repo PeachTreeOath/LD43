@@ -248,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handOfGod: {fileID: 1261437515964374}
   width: 0.44
-  distanceFromCenter: 1
+  distanceFromCenter: -0.95
   lineRenderer: {fileID: 0}
 --- !u!114 &114348849703092814
 MonoBehaviour:
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handOfGod: {fileID: 1747901811609952}
   width: 0.44
-  distanceFromCenter: -0.9
+  distanceFromCenter: 1.1
   lineRenderer: {fileID: 0}
 --- !u!114 &114424250678024828
 MonoBehaviour:
