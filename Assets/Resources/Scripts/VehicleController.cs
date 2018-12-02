@@ -432,10 +432,9 @@ public class VehicleController : MonoBehaviour
         //Select sleep caption.
         var randomIndex = UnityEngine.Random.Range(0, captionBubbles.Count);
         var sleepCaption = ResourceLoader.instance.vehicleSleepCaption;
-        sleepCaption.GetComponentInChildren<SpriteRenderer>().sprite = captionBubbles.ElementAt(randomIndex);
 
         //Render Sleep Caption
-        caption = Instantiate(ResourceLoader.instance.vehicleSleepCaption, vehicleBody.transform.position,
-            Quaternion.identity, vehicleBody.transform);
+        caption = Instantiate(sleepCaption, vehicleBody.transform.position, Quaternion.identity, vehicleBody.transform);
+        sleepCaption.GetComponentInChildren<SpriteRenderer>().sprite = captionBubbles.ElementAt(randomIndex);
     }
 }
