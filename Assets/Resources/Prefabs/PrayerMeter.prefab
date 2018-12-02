@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecayTimer: 0.5
-  DecayValue: 10
+  DecayValue: 5
   MaximumPrayers: 1000
   PrayerLifeTime: 0.75
   ProgressBar: {fileID: 1489451917608104}
