@@ -185,9 +185,4 @@ public class GameManager : Singleton<GameManager>
         cGroup.blocksRaycasts = true;
     }
 
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("Game");
-    }
 }
