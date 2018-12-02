@@ -38,6 +38,12 @@ public class CheckpointManager : MonoBehaviour {
 
     public const string distanceOnSign = "MI";
 
+    public const int oneDigitFontSize = 40;
+
+    public const int twoDigitFontSize = 35;
+
+    public const int threeDigitFontSize = 30;
+
     [SerializeField]
     private Canvas checkpointUi;
 
@@ -94,6 +100,21 @@ public class CheckpointManager : MonoBehaviour {
     public void UpdateCheckpointSignDistance(int distance)
     {
         TextMeshProUGUI textMesh = GetComponentInChildren<TextMeshProUGUI>();
+
+        // If it's in the thousands it's too high!
+        if (distance / 100 >= 1)
+        {
+            textMesh.fontSize = threeDigitFontSize;
+        }
+        else if (distance / 10 >= 1)
+        {
+            textMesh.fontSize = twoDigitFontSize;
+        }
+        else
+        {
+            textMesh.fontSize = oneDigitFontSize;
+        }    
+
         textMesh.SetText((int) distance + " " + distanceOnSign);
     }
 

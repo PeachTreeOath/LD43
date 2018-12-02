@@ -153,7 +153,7 @@ MonoBehaviour:
   checkpointUi: {fileID: 0}
   checkpoint: {fileID: 114738531540576802, guid: 7e31bbd46b48d554b926063f4c11f734,
     type: 2}
-  curCheckpoint: -1
+  curCheckpoint: 0
   prayerHandsFab: {fileID: 1915286090572582, guid: 0bd30cc0227c53742aba6a0a57d61e67,
     type: 2}
 --- !u!114 &114689622545603108
@@ -218,7 +218,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: ?? MI
+  m_text: 449 MI
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -245,8 +245,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 35
-  m_fontSizeBase: 35
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -286,10 +286,10 @@ MonoBehaviour:
   m_margin: {x: 78.51671, y: 0, z: 17.877409, w: 0}
   m_textInfo:
     textComponent: {fileID: 114891016900876896}
-    characterCount: 5
+    characterCount: 6
     spriteCount: 0
     spaceCount: 1
-    wordCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 0
+  m_inputSource: 2
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -395,7 +395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -27.7, y: -9.8}
+  m_AnchoredPosition: {x: -27.4, y: -10.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224303567603045852
