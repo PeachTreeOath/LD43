@@ -35,6 +35,9 @@ public class VehicleController : MonoBehaviour
     private static float WAKE_CONTROL_LOWER_BOUND = 5;
     private static float LANE_CORRECTION_ANGLE_DELTA = 2;
     private static float WAKE_TIME = 1f; // 1 second before waking
+    private static float mouseDragDeadZone = 0.3f; // values < this are in the mouse movement deadzone
+
+    private bool isHoldingMouse; //for drag detection
 
     public bool isSleeping;
     public float nextSleepTime;
@@ -81,6 +84,7 @@ public class VehicleController : MonoBehaviour
         nextWakeTime = float.PositiveInfinity;
         vehiclePool = GameManager.instance.getVehiclePool();
         face = GameObject.Find("JesusBody").GetComponent<JesusFace>();
+        isHoldingMouse = false;
 
         captionBubbles.AddRange(new List<Sprite>
         {
@@ -166,10 +170,30 @@ public class VehicleController : MonoBehaviour
         float vInput = 0;
         if (isSelected) // Only apply input if vehicle is selected, otherwise just continue with drift logic alone
         {
+            float horzAxisInput = 0;
+            float vertAxisInput = 0;
+            if (isHoldingMouse) {
+                //get axis values from relative mouse position (i.e. drag dir)
+                horzAxisInput = getMouseHorzInput();
+                vertAxisInput = getMouseVertInput();
+                //Debug.Log("MouseDrag x=" + horzAxisInput + ", y=" + vertAxisInput);
+            }
+
+            float mouseHorzAxisInput = Input.GetAxisRaw("Horizontal");
+            float mouseVertAxisInput = Input.GetAxisRaw("Vertical");
+            bool hasKeyboardInput = !Mathf.Approximately(mouseHorzAxisInput, 0) || !Mathf.Approximately(mouseVertAxisInput, 0);
+
+            //note keyboard controls will override mouse drag if they are being used at the same time
+            if (hasKeyboardInput) {
+                horzAxisInput = mouseHorzAxisInput;
+                vertAxisInput = mouseVertAxisInput;
+                //Debug.Log("keyboardInput x=" + horzAxisInput + ", y=" + vertAxisInput);
+            }
+
             // Feel free to adjust these magic numbers to make the movement feel better, the current
             // numbers are balanced around the default car model
-            hInput = vehicleStats.control * 3f * Input.GetAxisRaw("Horizontal");
-            vInput = vehicleStats.speed * 0.0024f * Input.GetAxisRaw("Vertical");
+            hInput = vehicleStats.control * 3f * horzAxisInput;
+            vInput = vehicleStats.speed * 0.0024f * vertAxisInput;
         }
 
         // Movement from input
@@ -224,6 +248,43 @@ public class VehicleController : MonoBehaviour
         drivingVelocity = (newPosition - oldPosition) / Time.deltaTime; //TODO how to get this to be the right number?
     }
 
+    //Get a 'digital' x read of the mouse position
+    private float getMouseHorzInput() {
+        return getMouseBinaryAxis(true);
+    }
+
+    //Get a 'digital' y read of the mouse position
+    private float getMouseVertInput() {
+        return getMouseBinaryAxis(false);
+    }
+
+    //Get a 'digital' read of the mouse position verse the current position of this object
+    //-1 = -x, 0 = none, +1 = +x
+    //-1 = -y, 0 = none, +1 = +y
+    //Respects a small deadzone area for zero
+    //if isHorz == true the reading is for horizontal position (x)
+    //otherwise it is for vertical position (y)
+    private float getMouseBinaryAxis(bool isHorz) {
+        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Debug.Log("mousePos=" + pos + ", myPos=" + gameObject.transform.position);
+        float diff;
+        if (isHorz) {
+            diff = (pos - (Vector2)gameObject.transform.position).x;
+        } else {
+            diff = (pos - (Vector2)gameObject.transform.position).y;
+        }
+
+        if (diff < mouseDragDeadZone && diff > -mouseDragDeadZone) {
+            diff = 0;
+        }
+        float result = 0;
+        if (diff < 0) {
+            result = -1;
+        } else if (diff > 0) {
+            result = 1;
+        }
+        return result;
+    }
     protected Vector2 currVelocity
     {
         get { return currState == State.DRIVING ? drivingVelocity : rbody.velocity; }
@@ -517,9 +578,16 @@ public class VehicleController : MonoBehaviour
     {
         if (!IsCrashed)
         {
+            isHoldingMouse = true;
             vehiclePool.SelectVehicle(this);
             resetWakeTime();
             //Debug.Log(Time.time  + " reset timeElapsed nextSleepTime " + nextWakeTime);
+        }
+    }
+
+    public void OnMouseUp() {
+        if (isHoldingMouse) {
+            isHoldingMouse = false;
         }
     }
 
