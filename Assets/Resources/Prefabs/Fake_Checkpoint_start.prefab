@@ -51,5 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a27ee1fad44cb94885ebda9ae9979ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availVehicles: 010000000000000006000000
+  availVehicles: 
   cardsForThisCheckpoint: []
