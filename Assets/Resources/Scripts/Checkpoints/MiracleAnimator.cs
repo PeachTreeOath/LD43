@@ -53,7 +53,7 @@ public class MiracleAnimator : MonoBehaviour {
 
     private void doLerp() {
         float t = (Time.time - startTime) / duration;
-        Debug.Log("t=" + t);
+        //Debug.Log("t=" + t);
         if (t >= 1) {
             t = 1.0f;
             inProgress = false;
