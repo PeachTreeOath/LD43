@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PrayerMeter : MonoBehaviour {
+public class PrayerMeter : MonoBehaviour
+{
 
     //Prayer Meter Serialized Fields
     [SerializeField] private float DecayTimer = .5f;
@@ -25,48 +26,54 @@ public class PrayerMeter : MonoBehaviour {
         return ProgressBar;
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         //Initialize Prayer Meter Count
-	    _prayerCount = MaximumPrayers;
+        _prayerCount = MaximumPrayers;
 
-	    //Initialize Prayer Meter Progress Size Based on Ui
-	    _prayerMeterProgressSize = ProgressBar.GetComponent<RectTransform>();
+        //Initialize Prayer Meter Progress Size Based on Ui
+        _prayerMeterProgressSize = ProgressBar.GetComponent<RectTransform>();
         _maxPrayerMeterProgressSize = _prayerMeterProgressSize.sizeDelta.x;
 
         //Initialize Prayer Meter Location
-	    _prayerMeterLocation = new Vector2(ProgressBar.transform.position.x, ProgressBar.transform.position.y);
+        _prayerMeterLocation = new Vector2(ProgressBar.transform.position.x, ProgressBar.transform.position.y);
 
         //Initialize and start the Prayer Meter Decay Timer
         _prayerMeterDecayTimer = Time.time;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         //Decrement the prayer meter based on decay timer.
         if (Time.time - _prayerMeterDecayTimer >= DecayTimer)
-	    {
+        {
             //Decrement the prayer meter.
-	        _prayerCount -= DecayValue;
+            _prayerCount -= DecayValue;
 
-            //Set a bottom threshold for prayer meter count.
-	        if (_prayerCount <= 0) _prayerCount = 0;
+            //Set a bottom threshold for prayer meter count. Game over on running out of prayer power.
+            if (_prayerCount <= 0)
+            {
+                _prayerCount = 0;
+                GameManager.instance.GameOverPrayerPowerDeath();
+            }
 
-	        //Update the Ui.
-	        UpdateUi();
+            //Update the Ui.
+            UpdateUi();
 
             //Reset the decay timer.
             _prayerMeterDecayTimer = Time.time;
         }
-	}
+    }
 
     public void AddPrayer(float prayerValue)
     {
         //Increment the prayer count.
         _prayerCount += prayerValue;
-        if(_prayerCount > MaximumPrayers)
+        if (_prayerCount > MaximumPrayers)
         {
             _prayerCount = MaximumPrayers;
         }
