@@ -33,9 +33,6 @@ public class VehicleController : MonoBehaviour
     private static float WAKE_CONTROL_LOWER_BOUND = 5;
     private static float LANE_CORRECTION_ANGLE_DELTA = 2;
     private static float WAKE_TIME = 1f; // 1 second before waking
-    private static float CRASHING_LINEAR_DRAG = 1f;
-    private static float CRASHING_ANGULAR_DRAG = 0.1f;
-    private static float CRASHING_FRICTION = 200f;
 
     public bool isSleeping;
     public float nextSleepTime;
@@ -97,7 +94,7 @@ public class VehicleController : MonoBehaviour
 
         // crashing cars aren't being driven forward, so they need to return to "scrollspeed"
         if(rbody.velocity.y > -LevelManager.instance.scrollSpeed) {
-            var newYvel = rbody.velocity.y + CRASHING_FRICTION * Time.deltaTime; //TODO do this in fixed time?
+            var newYvel = rbody.velocity.y + LevelManager.instance.CrashingFriction * Time.deltaTime; //TODO do this in fixed time?
             rbody.velocity = new Vector2(rbody.velocity.x, -newYvel);
         } else {
             //TODO do collisions matter here?
@@ -293,8 +290,8 @@ public class VehicleController : MonoBehaviour
         currState = State.CRASHING;
         face.GotoWinceFace();
 
-        rbody.drag = CRASHING_LINEAR_DRAG;
-        rbody.angularDrag = CRASHING_ANGULAR_DRAG;
+        rbody.drag = LevelManager.instance.CrashingLinearDrag;
+        rbody.angularDrag = LevelManager.instance.CrashingAngularDrag;
         rbody.constraints = RigidbodyConstraints2D.None;
 
         rbody.angularVelocity = collisionInfo.impulse.magnitude * 300f;
