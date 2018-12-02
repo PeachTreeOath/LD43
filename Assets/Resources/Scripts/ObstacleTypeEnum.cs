@@ -7,5 +7,6 @@ public enum ObstacleTypeEnum
 	CONE,
     PEDESTRIAN,
     CYCLIST,
-    TERRAIN
+    TERRAIN,
+    MEDIAN
 }

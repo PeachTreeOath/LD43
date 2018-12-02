@@ -31,6 +31,7 @@ GameObject:
   - component: {fileID: 114660716886353034}
   - component: {fileID: 114149389299123430}
   - component: {fileID: 114595464114365988}
+  - component: {fileID: 114588377508808916}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -118,6 +119,30 @@ MonoBehaviour:
   directionObstacleComingFrom: 6
   spawnTimer: 3
   obstacleHeight: 0.5
+--- !u!114 &114588377508808916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409519595639640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7a37498cb3ff544b50ad8cf8f4d084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleType: 4
+  allowSpawn: 1
+  firstSpawnTime: 30
+  spawnInterval: 20
+  spawnTelegraph: {fileID: 1777406086461410, guid: bc5eb552320119c44b4b6a16f941e02c,
+    type: 2}
+  verticalSpeed: 0
+  verticalRange: 0
+  horizontalSpeed: 0
+  moveWaitTime: 4
+  directionObstacleComingFrom: 6
+  spawnTimer: 0
+  obstacleHeight: 0
 --- !u!114 &114595464114365988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 3
-  allowSpawn: 1
+  allowSpawn: 0
   firstSpawnTime: 30
   spawnInterval: 20
   spawnTelegraph: {fileID: 1777406086461410, guid: bc5eb552320119c44b4b6a16f941e02c,
