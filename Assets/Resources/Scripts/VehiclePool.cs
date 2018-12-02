@@ -157,7 +157,7 @@ public class VehiclePool : MonoBehaviour
             gameObject.GetComponent<CarnageViewer>() == null)
         {
             gameObject.AddComponent<CarnageViewer>();
-            GameManager.instance.GameOver();
+            GameManager.instance.GameOverVehicleDeath();
         }
     }
 }

@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 222973711838466704}
   - component: {fileID: 114372293455093314}
   m_Layer: 5
-  m_Name: Tip
+  m_Name: GameOverTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 222113797749044176}
   - component: {fileID: 114938634503980136}
   m_Layer: 5
-  m_Name: Header
+  m_Name: GameOverHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Tip: Save vehicles that generate more prayer power\r\n\r\n"
+  m_Text: "Tip: More vehicles = more prayers = more time\n\r\n"
 --- !u!114 &114611577976698566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,7 +475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 67}
+  m_AnchoredPosition: {x: 0, y: 77.9}
   m_SizeDelta: {x: 340, y: 114.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224611436919035326
@@ -515,8 +515,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 79}
-  m_SizeDelta: {x: -450, y: -200}
+  m_AnchoredPosition: {x: 0, y: 99.3}
+  m_SizeDelta: {x: -450, y: -263.15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224815700222343672
 RectTransform:
@@ -552,7 +552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22, y: -43}
+  m_AnchoredPosition: {x: 22, y: -40.3}
   m_SizeDelta: {x: 340, y: 114.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &225013327718249550

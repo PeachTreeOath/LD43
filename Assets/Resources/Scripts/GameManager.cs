@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -177,12 +178,22 @@ public class GameManager : Singleton<GameManager>
         return obstacleSpawner;
     }
 
-    public void GameOver()
+    public void GameOverVehicleDeath()
+    {
+        CanvasGroup cGroup = GameObject.Find("GameOverCanvasGroup").GetComponent<CanvasGroup>();
+        cGroup.alpha = 1;
+        cGroup.interactable = true;
+        cGroup.blocksRaycasts = true;
+        GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
+        GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
+    }
+
+    
+    public void GameOverPrayerPowerDeath()
     {
         CanvasGroup cGroup = GameObject.Find("GameOverCanvasGroup").GetComponent<CanvasGroup>();
         cGroup.alpha = 1;
         cGroup.interactable = true;
         cGroup.blocksRaycasts = true;
     }
-
 }
