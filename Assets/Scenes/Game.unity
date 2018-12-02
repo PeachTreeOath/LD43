@@ -770,6 +770,12 @@ Prefab:
       propertyPath: m_inputSource
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
+        type: 2}
+      propertyPath: spawnAnimator
+      value: 
+      objectReference: {fileID: 114439486728423526, guid: d893aa8d12f3a8246b6cbfb2f5b1bfbe,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8bcab70b925d1a43b4540edabbe034a, type: 2}
   m_IsPrefabAsset: 0
