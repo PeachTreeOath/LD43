@@ -114,12 +114,12 @@ public class ObstacleController : MonoBehaviour
 		}
 	}
 
-    private void OnTriggerEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         obstacleState = ObstacleStateEnum.PLACED;
     }
 
-    private void OnTriggerStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         obstacleState = ObstacleStateEnum.PLACED;
     }
