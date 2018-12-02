@@ -171,6 +171,54 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12216c880e2c1f54b9c87d949cf3e49c, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &91756242
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4320464598242498, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320464598242498, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320464598242498, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320464598242498, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320464598242498, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320464598242498, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320464598242498, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4320464598242498, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f249eabd42cdb71428b535784ab0ce3c, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!114 &91756243 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114547906097474820, guid: f249eabd42cdb71428b535784ab0ce3c,
+    type: 2}
+  m_PrefabInternal: {fileID: 91756242}
+  m_Script: {fileID: 11500000, guid: 9a27ee1fad44cb94885ebda9ae9979ef, type: 3}
 --- !u!1001 &162554312
 Prefab:
   m_ObjectHideFlags: 0
@@ -395,7 +443,7 @@ Prefab:
     - target: {fileID: 224920753186783296, guid: fb23efab91621ca408c141a99cd326e7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 224920753186783296, guid: fb23efab91621ca408c141a99cd326e7,
         type: 2}
@@ -455,65 +503,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb23efab91621ca408c141a99cd326e7, type: 2}
   m_IsPrefabAsset: 0
---- !u!1001 &231484063
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 114529227554898904, guid: cb2bb60a1e4186e44977d4db0d6f5cb2,
-        type: 2}
-      propertyPath: cardsForThisCheckpoint.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173852096326694, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173852096326694, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173852096326694, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173852096326694, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173852096326694, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173852096326694, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173852096326694, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173852096326694, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114529227554898904, guid: cb2bb60a1e4186e44977d4db0d6f5cb2,
-        type: 2}
-      propertyPath: cardsForThisCheckpoint.Array.data[0]
-      value: 
-      objectReference: {fileID: 114056520776898410, guid: 1f080cc5bdafdc140a5a0a9899c6fc85,
-        type: 2}
-    - target: {fileID: 114529227554898904, guid: cb2bb60a1e4186e44977d4db0d6f5cb2,
-        type: 2}
-      propertyPath: cardsForThisCheckpoint.Array.data[1]
-      value: 
-      objectReference: {fileID: 114754292073353320, guid: 6993147661fdeb446a468fe0ff7633b4,
-        type: 2}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cb2bb60a1e4186e44977d4db0d6f5cb2, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &242902329
 Prefab:
   m_ObjectHideFlags: 0
@@ -555,10 +544,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114116232590491852, guid: 0ec769b73bf1a5a43a0dc76d426373cf,
         type: 2}
-      propertyPath: lightShaftsFab
+      propertyPath: startingCheckpoint
       value: 
-      objectReference: {fileID: 1784035439255130, guid: f1ed7857eeef752448a0535314680dbe,
-        type: 2}
+      objectReference: {fileID: 91756243}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ec769b73bf1a5a43a0dc76d426373cf, type: 2}
   m_IsPrefabAsset: 0
@@ -627,14 +615,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &502789341 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114027900280641414, guid: f049e964a6630e24cb7b5601bae62558,
-    type: 2}
-  m_PrefabInternal: {fileID: 1828017288}
-  m_Script: {fileID: 11500000, guid: 9a27ee1fad44cb94885ebda9ae9979ef, type: 3}
 --- !u!1001 &524015865
 Prefab:
   m_ObjectHideFlags: 0
@@ -721,16 +703,6 @@ Prefab:
       propertyPath: checkpointUi
       value: 
       objectReference: {fileID: 309107341}
-    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
-        type: 2}
-      propertyPath: checkpoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 502789341}
-    - target: {fileID: 114185125624246920, guid: e8bcab70b925d1a43b4540edabbe034a,
-        type: 2}
-      propertyPath: checkpoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 1196977197}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8bcab70b925d1a43b4540edabbe034a, type: 2}
   m_IsPrefabAsset: 0
@@ -898,12 +870,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa919a38f94ec2049a0b2b68abaa55d2, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &1196977197 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114529227554898904, guid: cb2bb60a1e4186e44977d4db0d6f5cb2,
-    type: 2}
-  m_PrefabInternal: {fileID: 231484063}
-  m_Script: {fileID: 11500000, guid: 9a27ee1fad44cb94885ebda9ae9979ef, type: 3}
 --- !u!1001 &1828017288
 Prefab:
   m_ObjectHideFlags: 0
@@ -911,11 +877,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114027900280641414, guid: f049e964a6630e24cb7b5601bae62558,
-        type: 2}
-      propertyPath: cardsForThisCheckpoint.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4401864780297134, guid: f049e964a6630e24cb7b5601bae62558, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -948,18 +909,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114027900280641414, guid: f049e964a6630e24cb7b5601bae62558,
-        type: 2}
-      propertyPath: cardsForThisCheckpoint.Array.data[0]
-      value: 
-      objectReference: {fileID: 114754292073353320, guid: 6993147661fdeb446a468fe0ff7633b4,
-        type: 2}
-    - target: {fileID: 114027900280641414, guid: f049e964a6630e24cb7b5601bae62558,
-        type: 2}
-      propertyPath: cardsForThisCheckpoint.Array.data[1]
-      value: 
-      objectReference: {fileID: 114754292073353320, guid: 6993147661fdeb446a468fe0ff7633b4,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f049e964a6630e24cb7b5601bae62558, type: 2}
   m_IsPrefabAsset: 0
@@ -1008,7 +957,7 @@ Prefab:
     - target: {fileID: 224571921420767326, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
         type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 224571921420767326, guid: 5bdba6c3bbe721d4f858516ae3aeb3b1,
         type: 2}
