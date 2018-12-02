@@ -6,7 +6,7 @@ using TMPro;
 
 class CarnageViewer : MonoBehaviour
 {
-    public string[] obituaries = { "Here lies James Pond. He was 2 days from retirement.",
+    public string[] obituaries = {  "Here lies James Pond. He was 2 days from retirement.",
                                     "Here lies Mary Popcorns. She just had twins, but they probably didn't need a mom.",
                                     "Here lies Tinier Tim. He was on his way to attend Sunday School.",
                                     "Here lies Charlie Purple. He just received the Medal of Honor.",
