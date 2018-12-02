@@ -280,19 +280,23 @@ public class VehicleController : MonoBehaviour
 
     }
 
-    public void OnCollideWithVehicle(CollisionInfo info, float weightOfOtherVehicle) {
+    public void OnCollideWithVehicle(CollisionInfo info, VehicleController otherVehicle) {
         if (!initialized) return;
 
         switch (currState)
         {
             case State.DRIVING:
-                Bump(info, weightOfOtherVehicle);
+                Bump(info, otherVehicle);
                 break;
         }
     }
 
-    private void Bump(CollisionInfo info, float weightOfOtherVehicle) {
+    private void Bump(CollisionInfo info, VehicleController otherVehicle) {
+        if( IsHeadOnCrash(info.normal) ) {
+            StartSpinningCrash(info);
+        } else {
 
+        }
     }
 
     private bool IsHeadOnCrash(Vector2 normal)

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4750809205342196}
   - component: {fileID: 198695059444624600}
   - component: {fileID: 199423402950795460}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4201518726858710}
   - component: {fileID: 114110259888223956}
   - component: {fileID: 50533084178659150}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Motorcycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4242923625750034}
   - component: {fileID: 198890056837464008}
   - component: {fileID: 199366576189325694}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4666759774632144}
   - component: {fileID: 58019819123715966}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: GrabCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4715596927264386}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4016390150251532}
   - component: {fileID: 198856482714931840}
   - component: {fileID: 199039729691149816}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567358021906196}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SparkEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

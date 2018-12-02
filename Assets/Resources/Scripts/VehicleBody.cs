@@ -24,14 +24,9 @@ public class VehicleBody : MonoBehaviour {
             controller.OnCollideWithWalls(collisionInfo); 
         } else if(collision.gameObject.layer == CAR_LAYER) {
             var collisionInfo = CollisionInfo.FromCollision(collision); //TODO pass in the weight from the other car!
-            var weight = GetWeightOfVehicle(collision);
-            controller.OnCollideWithVehicle(collisionInfo, weight);
+            var vehicle = collision.gameObject.GetComponent<VehicleController>();
+            controller.OnCollideWithVehicle(collisionInfo, vehicle);
         }
-    }
-
-    private float GetWeightOfVehicle(Collision2D collision) {
-        var vehicle = collision.gameObject.GetComponent<VehicleController>();
-        return (vehicle != null) ? vehicle.vehicleStats.weight : float.NaN;  
     }
 
     // Update is called once per frame

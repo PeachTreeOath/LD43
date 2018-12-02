@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4878654349794216}
   - component: {fileID: 114196414232543960}
   - component: {fileID: 50145836901427690}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4034876911660430}
   - component: {fileID: 198777432571293494}
   - component: {fileID: 199827617984606348}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4794352667857776}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4250356693479898}
   - component: {fileID: 198335629190461404}
   - component: {fileID: 199111264762050652}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4269091447480204}
   - component: {fileID: 198462705648185358}
   - component: {fileID: 199333305129331804}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4449330025229092}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SparkEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
