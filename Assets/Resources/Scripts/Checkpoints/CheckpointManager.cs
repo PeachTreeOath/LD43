@@ -54,6 +54,9 @@ public class CheckpointManager : MonoBehaviour {
     [SerializeField]
     private int curCheckpoint = -1;
 
+    [SerializeField]
+    private MiracleAnimator spawnAnimator;
+
     public GameObject prayerHandsFab;
 
     private CheckpointUiManager uiManager;
@@ -252,7 +255,7 @@ public class CheckpointManager : MonoBehaviour {
         VehiclePool vp = GameManager.instance.getVehiclePool();
 
         foreach (VehicleTypeEnum vte in vs) {
-            vp.AddNewVehicle(vte);
+            vp.AddNewVehicle(vte, null); //TODO starting animation
         }
         
     }
@@ -262,7 +265,7 @@ public class CheckpointManager : MonoBehaviour {
         VehicleTypeEnum vs = cc.getVehicleType();
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
-        vp.AddNewVehicle(vs);
+        vp.AddNewVehicle(vs, spawnAnimator);
         
     }
 

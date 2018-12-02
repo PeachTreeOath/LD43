@@ -16,6 +16,7 @@ public class VehicleController : MonoBehaviour
     public VehicleBody vehicleBody; // Contains both sprite and collider and are separate from the actual GameObject
 
     private Rigidbody2D rbody;
+    private BoxCollider2D childCollider;
 
     public float angledMovementPower;
 
@@ -79,6 +80,17 @@ public class VehicleController : MonoBehaviour
             case State.DRIVING:
                 UpdateDriving();
                 break;
+        }
+    }
+
+    public void setEnteringStage(bool isEntering) {
+        childCollider = GetComponentInChildren<BoxCollider2D>();
+        if (isEntering) {
+            childCollider.enabled = false;
+            currState = State.ENTERING_STAGE;
+        } else {
+            childCollider.enabled = true;
+            currState = State.DRIVING;
         }
     }
 

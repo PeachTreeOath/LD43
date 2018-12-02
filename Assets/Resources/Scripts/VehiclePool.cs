@@ -31,7 +31,7 @@ public class VehiclePool : MonoBehaviour
         */
     }
 
-    public void AddNewVehicle(VehicleTypeEnum vehicleType) {
+    public void AddNewVehicle(VehicleTypeEnum vehicleType, MiracleAnimator entryMiracle) {
         Debug.Log("Add vehicle: " + vehicleType);
         GameObject prefab = null;
         int pos = 0; //TODO pos should be provided by caller
@@ -75,10 +75,11 @@ public class VehiclePool : MonoBehaviour
                 Debug.Log("You done fukt up a-a-ron");
                 break;
         }
-        AddNewVehicle(vehicleType, prefab, pos);
+        AddNewVehicle(vehicleType, prefab, pos, entryMiracle);
     }
 
-    public void AddNewVehicle(VehicleTypeEnum vehicleType, GameObject vehiclePrefab, float xPosition)
+    public void AddNewVehicle(VehicleTypeEnum vehicleType, GameObject vehiclePrefab, float xPosition,
+        MiracleAnimator entryMiracle)
     {
         // Get vehicle stats - if possible.
         VehicleStats[] vehicleStats = LevelManager.instance.GetComponents<VehicleStats>();
@@ -108,6 +109,11 @@ public class VehiclePool : MonoBehaviour
         Rigidbody2D rb2d = vehicleGO.GetComponent<Rigidbody2D>();
         rb2d.mass = matchingStat[0].weight * 50;
         rb2d.drag = matchingStat[0].weight * 10f;
+
+        if (entryMiracle != null) {
+            MiracleAnimator myMiracle = vehicleGO.AddComponent<MiracleAnimator>();
+            myMiracle.beginMiracles(new Vector2(-6, 4), vehicleGO.transform.position, 5.0f);
+        }
 
         vehicles.Add(vehicleController);
     }
