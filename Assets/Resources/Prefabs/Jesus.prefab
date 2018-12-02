@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4326442263206556}
   - component: {fileID: 120571305455485404}
   - component: {fileID: 114348849703092814}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: JesusLeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4541085002045738}
   - component: {fileID: 212027039656043152}
   - component: {fileID: 114424250678024828}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RightHandOfGod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4045871049141690}
   - component: {fileID: 120165491489029946}
   - component: {fileID: 114317850422071966}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: JesusRightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4651180023364414}
   - component: {fileID: 212161877535556442}
   - component: {fileID: 114452739732777478}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LeftHandOfGod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4030915165681062}
   - component: {fileID: 212427119602148270}
   - component: {fileID: 114056826590515224}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Jesus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 212556694387976120}
   - component: {fileID: 114861846662731310}
   - component: {fileID: 61026670375045294}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: JesusBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1985779953154390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalPosition: {x: 0, y: -4.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4545752879541996}
@@ -165,7 +165,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1261437515964374}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.35, y: 4.1, z: 0}
+  m_LocalPosition: {x: -3.35, y: 4.1, z: 1}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 4030915165681062}
@@ -191,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1747901811609952}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.05, y: 4.5, z: 0}
+  m_LocalPosition: {x: 2.05, y: 4.5, z: 1}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 4030915165681062}
@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handOfGod: {fileID: 1261437515964374}
+  width: 0.44
 --- !u!114 &114348849703092814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handOfGod: {fileID: 1747901811609952}
+  width: 0.44
 --- !u!114 &114424250678024828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -339,9 +341,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2075757779
-  m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
   m_Positions:
   - {x: -0.5, y: -4.5, z: 0}
   - {x: -0.9343444, y: -4.4957776, z: 0}
@@ -393,8 +395,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.7764706, g: 0.45882353, b: 0.3647059, a: 1}
+      key1: {r: 0.7764706, g: 0.45882353, b: 0.3647059, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -459,9 +461,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2075757779
-  m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
   m_Positions:
   - {x: 0.5, y: -4.5, z: 0}
   - {x: 0.948, y: -4.495011, z: 0}
@@ -513,8 +515,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.7764706, g: 0.45882353, b: 0.3647059, a: 1}
+      key1: {r: 0.7764706, g: 0.45882353, b: 0.3647059, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -579,9 +581,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2075757779
-  m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0bb6b6dcb21161f499ab60d928b5c4c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -625,9 +627,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2075757779
-  m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: ac8910d682af0ed42aacc0e8a84e5cc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -672,7 +674,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2075757779
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d069b9badeccba341ac023ea2224e1f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -717,8 +719,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2075757779
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0a8a4a3df68816e4ba13116ed4ee5e35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
