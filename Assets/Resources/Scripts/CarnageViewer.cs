@@ -60,7 +60,7 @@ class CarnageViewer : MonoBehaviour
             //Debug.Log("Set carnage velocity for " + vp.crashedVehicles[i].name);
             GameObject oText = Instantiate(ResourceLoader.instance.obituaryText) as GameObject;
             oText.GetComponent<TextMeshPro>().SetText(obituaries[Random.Range(0, obituaries.Length)]);
-            oText.transform.position = vp.crashedVehicles[i].transform.position + Vector3.up * bounds * 1.5f;
+            oText.transform.position = vp.crashedVehicles[i].transform.position + Vector3.up * bounds * 1.5f + Vector3.back;
             oText.AddComponent<ObjectFollower>().target = vp.crashedVehicles[i].transform;
         }
     }
