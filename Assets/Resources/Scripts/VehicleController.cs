@@ -298,7 +298,7 @@ public class VehicleController : MonoBehaviour
     }
 
     private void Bump(CollisionInfo info, VehicleController otherVehicle) {
-        if( IsHeadOnCrash(info.normal) ) {
+        if( IsHeadOnCrashWithVehicle(info.normal, otherVehicle) ) {
             StartSpinningCrash(info);
         } else {
 
@@ -311,9 +311,29 @@ public class VehicleController : MonoBehaviour
         return (1 - headOnCrashPercentage) <= LevelManager.instance.headOnCrashThreshold;
     }
 
+    private bool IsHeadOnCrashWithVehicle(Vector2 normal, VehicleController otherVehicle) 
+    {
+        if (!IsHeadOnCrash(normal)) return false;
+      
+        var goingFrowardPercentage = Math.Abs(Vector2.Dot(normal, Vector2.up));
+        if( (1 - goingFrowardPercentage) <= LevelManager.instance.headOnCrashThreshold) {
+
+            /*
+            if(otherVehicle.vehicleStats.weight - vehicleStats.weight > vehicleStats.weight || vehicleStats.weight <= 1.5f) {
+                return true;
+            } 
+            */
+
+            //TODO this should probably not just be copy pasta
+            var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio * 0.333f;
+            return currVelocity.magnitude > maxControllableSpeed;
+        } else {
+            return true;
+        }
+    }
+
     private bool IsAtCrashSpeed()
     {
-        //TODO use vehicle stats to determine if this is a crashing speed!
         var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
         return currVelocity.magnitude > maxControllableSpeed;
     }

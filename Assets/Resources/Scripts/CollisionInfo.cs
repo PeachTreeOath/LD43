@@ -21,9 +21,9 @@ public struct CollisionInfo {
             info.impulse += contact.normal * contact.normalImpulse; //TODO factor in tangent impulse?
         }
 
-        info.normal *= collision.contactCount;
-        info.contactPoint *= collision.contactCount;
-        info.impulse *= collision.contactCount;
+        info.normal /= collision.contactCount;
+        info.contactPoint /= collision.contactCount;
+        info.impulse /= collision.contactCount;
 
         return info;
     }
