@@ -39,11 +39,11 @@ public class CheckpointManager : MonoBehaviour
 
     public const string distanceOnSign = "MI";
 
-    public const int oneDigitFontSize = 40;
+    public const int oneDigitFontSize = 45;
 
-    public const int twoDigitFontSize = 35;
+    public const int twoDigitFontSize = 40;
 
-    public const int threeDigitFontSize = 28;
+    public const int threeDigitFontSize = 33;
 
     [SerializeField]
     private Canvas checkpointUi;
