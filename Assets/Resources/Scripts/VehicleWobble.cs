@@ -35,7 +35,6 @@ public class VehicleWobble : MonoBehaviour {
 	{
 	    if (!enableWobble) return;
 	    var random = Random.Range(wobbleMin, wobbleMax);
-	    var time = Random.Range(timeMin, timeMax);
         vehicleSpriteObject.transform.position = new Vector2(startingPos.x + Mathf.Sin(Time.deltaTime) * random,
 	        startingPos.y + Mathf.Sin(Time.deltaTime) * random);
 	}
