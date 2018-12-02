@@ -5,8 +5,8 @@ using UnityEngine;
 // Controls obstacles like cones on the road.
 public class ObstacleController : MonoBehaviour
 {
-	public const float northWarningDeltaFromObstacle = 0.9f;
-	public const float eastWarningDeltaFromObstacle = 0.3f;
+	public const float northWarningDeltaFromTop = 3.5f;
+	public const float eastWarningDeltaFromRight = 0.3f;
 
 	[Tooltip("'Final position - logic being if you want the obstacle to stop for a moment somewhere or move faster/slower getting to said position.")]
 	public Vector3 endPosition;
@@ -45,10 +45,10 @@ public class ObstacleController : MonoBehaviour
 		switch (obstacleStats.directionObstacleComingFrom)
 		{
 			case DirectionEnum.N:
-				telegraphPosition = new Vector3(obstaclePosition.x, obstaclePosition.y - (obstacleSize.y / 2) - northWarningDeltaFromObstacle, 0);
+				telegraphPosition = new Vector3(obstaclePosition.x, northWarningDeltaFromTop, 0);
 				break;
 			case DirectionEnum.E:
-				telegraphPosition = new Vector3(obstaclePosition.x + (obstacleSize.x / 2) + eastWarningDeltaFromObstacle, obstaclePosition.y, 0);
+				telegraphPosition = new Vector3(eastWarningDeltaFromRight, obstaclePosition.y, 0);
 				break;
 			default:
 				Debug.LogWarning("Unhandled obstacle dirction - update me!");
@@ -77,12 +77,8 @@ public class ObstacleController : MonoBehaviour
 		// Update state.
 		if (moveTimer <= 0)
 		{
-			if (transform.position.y <= endPosition.y)
-			{
-				obstacleState = ObstacleStateEnum.PLACED;
-			}
-			else
-			{
+			if (obstacleState != ObstacleStateEnum.PLACED)
+            {
 				obstacleState = ObstacleStateEnum.MOVING;
 			}
 		}
@@ -101,20 +97,30 @@ public class ObstacleController : MonoBehaviour
 				}
 				
 				transform.position = new Vector3(transform.position.x + (obstacleStats.horizontalSpeed * Time.deltaTime), transform.position.y - ((obstacleStats.verticalSpeed + speedModifier) * Time.deltaTime), transform.position.z);
-				break;
+
+                if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y) {
+                    Destroy(gameObject);
+                }
+                if (transform.position.x <= GameManager.instance.upperLeftBound.x || transform.position.x >= GameManager.instance.bottomRightBound.x) {
+                    Destroy(gameObject);
+                }
+                break;
 
 			case ObstacleStateEnum.PLACED:
 				// Continue moving - potentially in a different way (or add logic to pause depending on obstacle?)
 				transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
-				if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y)
-				{
-					Destroy(gameObject);
-				}
-                if (transform.position.x <= GameManager.instance.upperLeftBound.x || transform.position.x >= GameManager.instance.bottomRightBound.x)
-                {
-                    Destroy(gameObject);
-                }
+
 				break;
 		}
 	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        obstacleState = ObstacleStateEnum.PLACED;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        obstacleState = ObstacleStateEnum.PLACED;
+    }
 }

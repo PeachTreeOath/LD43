@@ -22,7 +22,7 @@ public class ObstacleSpawner : MonoBehaviour
 
 			if (obstacleGO != null)
 			{
-				obstacleStats.obstacleHeight = obstacleGO.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+				obstacleStats.obstacleHeight = obstacleGO.GetComponent<SpriteRenderer>().sprite.bounds.size.y * obstacleGO.transform.localScale.y;
 			}
 
 			obstacleStats.spawnTimer = obstacleStats.firstSpawnTime;
@@ -41,6 +41,9 @@ public class ObstacleSpawner : MonoBehaviour
                 break;
             case ObstacleTypeEnum.CYCLIST:
                 obstacleGO = ResourceLoader.instance.obstacleCyclistPrefab;
+                break;
+            case ObstacleTypeEnum.TERRAIN:
+                obstacleGO = ResourceLoader.instance.obstacleTerrainPrefab;
                 break;
             default:
                 Debug.LogWarning("Couldn't find matching GameObject in ResourceLoader for obstacle of type " + stats.obstacleType);

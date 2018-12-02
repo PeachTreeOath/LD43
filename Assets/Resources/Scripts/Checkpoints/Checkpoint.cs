@@ -15,6 +15,11 @@ public class Checkpoint : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
+        init();
+    }
+
+    void init()
+    {
         cardsForThisCheckpoint = new List<CheckpointCard>();
         //cardsForThisCheckpoint.Clear();
         System.Array enumValArray = System.Enum.GetValues(typeof(VehicleTypeEnum));
@@ -39,6 +44,8 @@ public class Checkpoint : MonoBehaviour {
     }
 
     public List<CheckpointCard> getCards() {
+
+        init();
         return cardsForThisCheckpoint;
     }
 

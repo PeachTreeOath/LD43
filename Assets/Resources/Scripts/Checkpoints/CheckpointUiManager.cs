@@ -32,7 +32,7 @@ public class CheckpointUiManager : MonoBehaviour {
     private int maxCards = 2; //limited by UI space (IT COULD HOLD 4 PEOPLE)
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         if (layoutParent == null) {
             Debug.LogError("No layout group specified");
         }

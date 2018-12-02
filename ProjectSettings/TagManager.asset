@@ -49,6 +49,9 @@ TagManager:
   - name: Effects
     uniqueID: 3368366903
     locked: 0
+  - name: Foreground
+    uniqueID: 206252759
+    locked: 0
   - name: Jesus
     uniqueID: 2075757779
     locked: 0

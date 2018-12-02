@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = System.Random;
 
 public class VehicleController : MonoBehaviour
 {
-    public enum State { ENTERING_STAGE, DRIVING, CRASHING, CRASHED }
+    public enum State { ENTERING_STAGE, DRIVING, SWERVING, CRASHING, CRASHED }
     public State currState;
 
     [Tooltip("The pool the vehicle belongs to.")]
@@ -38,10 +40,16 @@ public class VehicleController : MonoBehaviour
     public float nextSleepTime;
     public float nextWakeTime;
     private float timeElapsed;
+
     private Vector2 sleepVector;
+    private float swerve;
+
+    private Vector2 drivingVelocity;
 
     GameObject lightShaft;
+
     GameObject caption;
+    List<Sprite> captionBubbles = new List<Sprite>();
 
     private JesusFace face;
 
@@ -70,6 +78,13 @@ public class VehicleController : MonoBehaviour
         nextWakeTime = float.PositiveInfinity;
         vehiclePool = GameManager.instance.getVehiclePool();
         face = GameObject.Find("JesusBody").GetComponent<JesusFace>();
+
+        captionBubbles.AddRange(new List<Sprite>
+        {
+            ResourceLoader.instance.captionBubble1,
+            ResourceLoader.instance.captionBubble2,
+            ResourceLoader.instance.captionBubble3,
+        });
     }
 
     // Update is called once per frame
@@ -80,15 +95,43 @@ public class VehicleController : MonoBehaviour
             case State.DRIVING:
                 UpdateDriving();
                 break;
+
+            case State.CRASHING:
+                UpdateCrashing();
+                break;
         }
     }
 
-    public void setEnteringStage(bool isEntering) {
+    void UpdateCrashing()
+    {
+        if (Math.Abs(rbody.velocity.x) <= 0.1f)
+        {
+            StartFatalCrash();
+        }
+
+        // crashing cars aren't being driven forward, so they need to return to "scrollspeed"
+        if (rbody.velocity.y > -LevelManager.instance.scrollSpeed)
+        {
+            var newYvel = rbody.velocity.y + LevelManager.instance.CrashingFriction * Time.deltaTime; //TODO do this in fixed time?
+            rbody.velocity = new Vector2(rbody.velocity.x, -newYvel);
+        }
+        else
+        {
+            //TODO do collisions matter here?
+            rbody.velocity = new Vector2(rbody.velocity.x, -LevelManager.instance.scrollSpeed);
+        }
+    }
+
+    public void setEnteringStage(bool isEntering)
+    {
         childCollider = GetComponentInChildren<BoxCollider2D>();
-        if (isEntering) {
+        if (isEntering)
+        {
             childCollider.enabled = false;
             currState = State.ENTERING_STAGE;
-        } else {
+        }
+        else
+        {
             childCollider.enabled = true;
             currState = State.DRIVING;
         }
@@ -127,7 +170,7 @@ public class VehicleController : MonoBehaviour
         float rotateDelta;
         if (isSelected)
         {
-            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .82f)) * Time.deltaTime;
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .82f) + swerve) * Time.deltaTime;
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
         else if (!isSleeping)
@@ -152,16 +195,30 @@ public class VehicleController : MonoBehaviour
         }
         else
         {
-            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f)) * Time.deltaTime;
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f) + swerve) * Time.deltaTime;
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
+
+        /*
+        if(Math.Abs(swerve) > 0) {
+            swerve *= LevelManager.instance.SwerveDecayPerWeight * vehicleStats.weight;
+        }
+        */
 
         // Drift vehicle left/right based on how much rotation applied
         float hDelta = GetHorizontalDeltaFromRotation(vehicleBody.transform.eulerAngles.z);
 
-        Vector2 newPosition = (Vector2)transform.position
-            + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
+        Vector2 oldPosition = transform.position;
+        Vector2 newPosition = oldPosition + new Vector2(hDelta, (vInput + (sleepVector.y * vehicleStats.sleepSeverity * .01f) * Time.deltaTime));
+
         rbody.MovePosition(newPosition);
+
+        drivingVelocity = (newPosition - oldPosition) / Time.deltaTime; //TODO how to get this to be the right number?
+    }
+
+    protected Vector2 currVelocity
+    {
+        get { return currState == State.DRIVING ? drivingVelocity : rbody.velocity; }
     }
 
     public void StartDrifting()
@@ -197,10 +254,6 @@ public class VehicleController : MonoBehaviour
     {
         if (!initialized || !enabled) return;
 
-        //TODO 1) Check if the vehicle is "roughly perpendicular" to the wall
-
-        //var angle = vehicleSprite.transform.eulerAngles.z;
-        //var carFacingDir = Quaternion.AngleAxis(angle, Vector3.forward) * Vector2.up;
         switch (currState)
         {
             case State.DRIVING:
@@ -225,6 +278,17 @@ public class VehicleController : MonoBehaviour
 
     }
 
+    public void OnCollideWithVehicle(CollisionInfo info)
+    {
+        if (!initialized) return;
+
+        switch (currState)
+        {
+            case State.DRIVING:
+                break;
+        }
+    }
+
     private bool IsHeadOnCrash(Vector2 normal)
     {
         var headOnCrashPercentage = Math.Abs(Vector2.Dot(normal, vehicleBody.transform.up));
@@ -234,8 +298,31 @@ public class VehicleController : MonoBehaviour
     private bool IsAtCrashSpeed()
     {
         //TODO use vehicle stats to determine if this is a crashing speed!
-        return true;
+        var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
+        return currVelocity.magnitude > maxControllableSpeed;
     }
+
+    private void OnDrawGizmos()
+    {
+        var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio;
+        var dir = currVelocity.normalized;
+
+        Vector3 zFix = Vector3.back * 15f;
+
+        Vector3 origin = rbody.transform.position + zFix;
+        Vector3 offset = dir * maxControllableSpeed * 0.25f;
+        Vector3 offset2 = currVelocity * 0.25f;
+        Vector3 offset3 = Vector2.right * swerve * 0.25f;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(origin, origin + offset);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(origin, origin + offset2);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(origin, origin + offset3);
+    }
+
 
     private void StartFatalCrash()
     {
@@ -246,31 +333,38 @@ public class VehicleController : MonoBehaviour
 
         rbody.bodyType = RigidbodyType2D.Kinematic;
         rbody.angularVelocity = 0f;
+        rbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
-        //Debug.Log("Set crash velocity for " + gameObject.name + " enabled: " + enabled);
 
         face.GotoWinceFace();
 
         fireballEmitter.gameObject.AddComponent<ObjectFollower>().target = gameObject.transform;
         fireballEmitter.Play();
 
-        //TODO crash effect
         //TODO crash sound
-        //TODO screen shake
+        ScreenShake();
+
+        Destroy(caption);
+    }
+
+    private void ScreenShake()
+    {
+        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake();
     }
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)
     {
         vehiclePool.OnVehicleCrash(this);
         currState = State.CRASHING;
-        face.GotoWinceFace();
 
-        rbody.drag = 0.2f;
+        rbody.drag = LevelManager.instance.CrashingLinearDrag;
+        rbody.angularDrag = LevelManager.instance.CrashingAngularDrag;
         rbody.constraints = RigidbodyConstraints2D.None;
 
         rbody.angularVelocity = collisionInfo.impulse.magnitude * 300f;
         rbody.angularVelocity = Mathf.Clamp(rbody.angularVelocity, -700, 700);
-        rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .05f);
+        rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .01f);
 
         fireballEmitter.gameObject.AddComponent<ObjectFollower>().target = gameObject.transform;
         fireballEmitter.Play();
@@ -281,6 +375,9 @@ public class VehicleController : MonoBehaviour
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
     {
         sparkEmitter.Play();
+
+        var percentOfMaxSwerve = 1 - Mathf.Clamp(vehicleStats.weight / LevelManager.instance.WeightForZeroSwerve, 0, 1f);
+        swerve = Mathf.Sign(collisionInfo.normal.x) * (LevelManager.instance.MinSwerve + (LevelManager.instance.MaxSwerve - LevelManager.instance.MinSwerve) * percentOfMaxSwerve);
     }
 
     private void StopDrifting()
@@ -307,6 +404,9 @@ public class VehicleController : MonoBehaviour
         isSleeping = false;
         Destroy(caption);
         resetSleepTime();
+
+        //Testing prayer allocation on wake.
+        GameManager.instance.GetPrayerMeter().AddPrayer(vehicleStats.prayerValue);
     }
 
     private void resetSleepTime()
@@ -388,8 +488,13 @@ public class VehicleController : MonoBehaviour
 
     private void RenderSleepCaption()
     {
+
+        //Select sleep caption.
+        var randomIndex = UnityEngine.Random.Range(0, captionBubbles.Count);
+        var sleepCaption = ResourceLoader.instance.vehicleSleepCaption;
+
         //Render Sleep Caption
-        caption = Instantiate(ResourceLoader.instance.vehicleSleepCaption, vehicleBody.transform.position,
-            Quaternion.identity, vehicleBody.transform);
+        caption = Instantiate(sleepCaption, vehicleBody.transform.position, Quaternion.identity, vehicleBody.transform);
+        caption.GetComponentInChildren<SpriteRenderer>().sprite = captionBubbles.ElementAt(randomIndex);
     }
 }

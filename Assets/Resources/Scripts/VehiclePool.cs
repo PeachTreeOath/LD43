@@ -7,8 +7,8 @@ public class VehiclePool : MonoBehaviour
 {
     public const float finalSpawnYPosition = 0;
 
-	[Tooltip("All of the Jesus vehicles.")]
-    public List <VehicleController> vehicles;
+    [Tooltip("All of the Jesus vehicles.")]
+    public List<VehicleController> vehicles;
 
     [HideInInspector]
     public List<GameObject> crashedVehicles;
@@ -31,11 +31,13 @@ public class VehiclePool : MonoBehaviour
         */
     }
 
-    public void AddNewVehicle(VehicleTypeEnum vehicleType, MiracleAnimator entryMiracle) {
+    public void AddNewVehicle(VehicleTypeEnum vehicleType, MiracleAnimator entryMiracle)
+    {
         Debug.Log("Add vehicle: " + vehicleType);
         GameObject prefab = null;
         int pos = 0; //TODO pos should be provided by caller
-        switch (vehicleType) {
+        switch (vehicleType)
+        {
             case VehicleTypeEnum.CAR:
                 prefab = ResourceLoader.instance.car;
                 pos = 0;
@@ -110,7 +112,8 @@ public class VehiclePool : MonoBehaviour
         rb2d.mass = matchingStat[0].weight * 50;
         rb2d.drag = matchingStat[0].weight * 10f;
 
-        if (entryMiracle != null) {
+        if (entryMiracle != null)
+        {
             MiracleAnimator myMiracle = vehicleGO.AddComponent<MiracleAnimator>();
             float startX = Random.Range(-6, 6);
             float duration = Random.Range(2.75f, 4.25f);
@@ -122,14 +125,17 @@ public class VehiclePool : MonoBehaviour
 
     public void SelectVehicle(VehicleController controllerToSelect)
     {
-        if(controllerToSelect != null) {
+        if (controllerToSelect != null)
+        {
             if (controllerToSelect.IsCrashed) return;
 
             controllerToSelect.SetSelected(true);
         }
 
-        foreach (var vehicleController in vehicles) {
-            if (controllerToSelect != vehicleController) {
+        foreach (var vehicleController in vehicles)
+        {
+            if (controllerToSelect != vehicleController)
+            {
                 vehicleController.SetSelected(false);
             }
         }
@@ -137,25 +143,31 @@ public class VehiclePool : MonoBehaviour
         JesusManager.instance.SelectAVehicle(controllerToSelect);
     }
 
-    public void OnVehicleCrash(VehicleController crashedVehicle) {
+    public void OnVehicleCrash(VehicleController crashedVehicle)
+    {
         if (crashedVehicle == null ||
             crashedVehicle.IsCrashed) return;
 
-        if(crashedVehicle.isSelected) {
+        if (crashedVehicle.isSelected)
+        {
+            JesusManager.instance.VehicleCrashedLetGo(crashedVehicle);
             SelectVehicle(null);
         }
 
         Debug.Log(crashedVehicle.gameObject.name + " crashed");
         vehicles.Remove(crashedVehicle);
         crashedVehicles.Add(crashedVehicle.gameObject);
+
+        CheckForGameOver();
     }
 
-    void LateUpdate()
+    void CheckForGameOver()
     {
-        if(vehicles.Count == 0 &&
+        if (vehicles.Count == 0 &&
             gameObject.GetComponent<CarnageViewer>() == null)
         {
             gameObject.AddComponent<CarnageViewer>();
+            GameManager.instance.GameOverVehicleDeath();
         }
     }
 }
