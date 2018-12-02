@@ -16,7 +16,6 @@ public class ObstacleController : MonoBehaviour
     public float speedModifier;
 
     [HideInInspector]
-
     public ObstacleStateEnum obstacleState;
 
     [HideInInspector]
