@@ -246,7 +246,9 @@ public class VehicleController : MonoBehaviour
 
 
         face.GotoWinceFace();
-        rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
+        rbody.velocity = collisionInfo.normal * 20f;
+        rbody.angularVelocity = collisionInfo.normal.x * 10f;
+        //rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
     }
 
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
