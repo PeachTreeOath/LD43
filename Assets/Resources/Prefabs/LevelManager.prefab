@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleType: 3
   firstSpawnTime: 30
-  spawnInterval: 10
+  spawnInterval: 15
   spawnTelegraph: {fileID: 1777406086461410, guid: bc5eb552320119c44b4b6a16f941e02c,
     type: 2}
   verticalSpeed: 5
@@ -219,6 +219,11 @@ MonoBehaviour:
   CrashingLinearDrag: 1
   CrashingAngularDrag: 0.1
   CrashingFriction: 200
+  SpeedToWeightCrashingRatio: 2
+  SwerveDecayPerWeight: 0.02
+  WeightForZeroSwerve: 15
+  MinSwerve: 10
+  MaxSwerve: 30
 --- !u!114 &114690844724259488
 MonoBehaviour:
   m_ObjectHideFlags: 1
