@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     public Vector2 upperLeftBound;
     public Vector2 bottomRightBound;
-	public float defaultDeltaFromTopForWarnings = 5f;
-	public float defaultDeltaFromRightForWarnings = 1;
+    public float defaultDeltaFromTopForWarnings = 5f;
+    public float defaultDeltaFromRightForWarnings = 1;
 
     public GameObject lightShaftsFab;
 
@@ -27,7 +28,8 @@ public class GameManager : Singleton<GameManager>
 
     //private int dbgCount = 0;
 
-    void Start() {
+    void Start()
+    {
 
         //Loading managers, spawners, and UIElements
         vehiclePool = FindObjectOfType<VehiclePool>();
@@ -46,66 +48,79 @@ public class GameManager : Singleton<GameManager>
         hitCheckpoint();
         resumeForCheckpoint();
 
-        if (startingCheckpoint == null) {
+        if (startingCheckpoint == null)
+        {
             Debug.LogError("No starting checkpoint, you are not going to have any cars");
-        } else {
+        }
+        else
+        {
             checkpointManager.dbgLoadUpJesusVanPool(startingCheckpoint);
         }
     }
 
-    void Update() {
+    void Update()
+    {
         updateAmountMoved();
         //track distance travelled along map
         //see if we hit a checkpoint
         float curPos = getCurrentMapPos();
         float distToNextCheckpoint = getNextCheckpointPos() - curPos;
 
-        checkpointManager.UpdateCheckpointSignDistance((int) distToNextCheckpoint);
+        checkpointManager.UpdateCheckpointSignDistance((int)distToNextCheckpoint);
         // if (dbgCount++ % 120 == 0) {
         //     Debug.Log("Dist to checkpoint: " + distToNextCheckpoint);
         // }
-        if (distToNextCheckpoint <= 0) {
+        if (distToNextCheckpoint <= 0)
+        {
             Debug.Log("CHECKPOINT BABY");
             hitCheckpoint();
             nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
         }
     }
 
-    public void dbg_setDistToNextCheckpoint(float newDist) {
+    public void dbg_setDistToNextCheckpoint(float newDist)
+    {
         Debug.Log("Debug - set dist to next checkpoint " + newDist);
         curPos = nextCheckpointPos - newDist;
     }
 
-    private void updateAmountMoved() {
-        if (!isPausedForCheckpoint) {
-            curPos += LevelManager.instance.scrollSpeed * Time.deltaTime; 
+    private void updateAmountMoved()
+    {
+        if (!isPausedForCheckpoint)
+        {
+            curPos += LevelManager.instance.scrollSpeed * Time.deltaTime;
         }
     }
 
-    private float getCurrentMapPos() {
+    private float getCurrentMapPos()
+    {
         return curPos;
     }
 
-    private float getNextCheckpointPos() {
+    private float getNextCheckpointPos()
+    {
         return nextCheckpointPos;
     }
 
     /// <summary>
     /// Callback for an action that resumes from the checkpoint screen
     /// </summary>
-    public void resumeCheckpoint() {
+    public void resumeCheckpoint()
+    {
         checkpointManager.resumeCheckpoint();
         resumeForCheckpoint();
     }
-        
+
 
 
     /// <summary>
     /// Triggers the checkpoint display and associated pausing actions
     /// </summary>
-    public void hitCheckpoint() {
+    public void hitCheckpoint()
+    {
         pauseForCheckpoint();
-        if (!checkpointManager.hitCheckpoint()) {
+        if (!checkpointManager.hitCheckpoint())
+        {
             //no checkpoint, keep going
             resumeForCheckpoint();
         }
@@ -114,7 +129,8 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// Stops all the crap that needs to wait for a checkpoint
     /// </summary>
-    private void pauseForCheckpoint() {
+    private void pauseForCheckpoint()
+    {
         isPausedForCheckpoint = true;
         scroller.pause();
         obstacleSpawner.pause();
@@ -123,18 +139,21 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// Resumes all the crap stopped for a checkpoint
     /// </summary>
-    private void resumeForCheckpoint() {
+    private void resumeForCheckpoint()
+    {
         scroller.resume();
         isPausedForCheckpoint = false;
         obstacleSpawner.resume();
         nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
     }
 
-    public bool isPaused() {
+    public bool isPaused()
+    {
         return isPausedForCheckpoint;
     }
 
-    public VehiclePool getVehiclePool() {
+    public VehiclePool getVehiclePool()
+    {
         return vehiclePool;
     }
 
@@ -156,5 +175,19 @@ public class GameManager : Singleton<GameManager>
     public ObstacleSpawner GetObstacleSpawner()
     {
         return obstacleSpawner;
+    }
+
+    public void GameOver()
+    {
+        CanvasGroup cGroup = GameObject.Find("GameOverCanvasGroup").GetComponent<CanvasGroup>();
+        cGroup.alpha = 1;
+        cGroup.interactable = true;
+        cGroup.blocksRaycasts = true;
+    }
+
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }
