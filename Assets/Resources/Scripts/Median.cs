@@ -59,6 +59,8 @@ public class Median : MonoBehaviour {
             Instantiate(telegraphPrefab, position, Quaternion.identity, transform);
             position.x += stride;
         }
+
+        AudioManager.instance.PlaySound("obstacle_warning");
     }
 
     void DestroyAllTelegraphs() {
