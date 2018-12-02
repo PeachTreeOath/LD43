@@ -11,6 +11,8 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
         if (instance == null)
         {
             instance = (T)this;
+            gameObject.tag = "singleton";
+            Debug.Log("Tagged " + gameObject.name + " as singleton");
         }
         else
         {

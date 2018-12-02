@@ -30,6 +30,7 @@ public class GameManager : Singleton<GameManager>
 
     //private int dbgCount = 0;
 
+        //Note this will only start once ever because of the singleton dontdestroyonload
     void Start()
     {
 
@@ -46,13 +47,18 @@ public class GameManager : Singleton<GameManager>
 
         scroller.scrollSpeed = LevelManager.instance.scrollSpeed * scrollSpeedMultiplier;
 
+        StartSceneThings();
+    }
+
+    public void StartSceneThings() {
         //start'er up
-        hitCheckpoint();
-        resumeForCheckpoint();
+        //hitCheckpoint();
+        //resumeForCheckpoint();
+        nextCheckpointPos = curPos; //trigger starting checkpoint for realz
 
         if (startingCheckpoint == null)
         {
-            Debug.LogError("No starting checkpoint, you are not going to have any cars");
+            Debug.LogWarning("No starting checkpoint on GameManager (optional) -- No starting vehicles will be created");
         }
         else
         {
@@ -79,6 +85,31 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("CHECKPOINT BABY");
             hitCheckpoint();
             nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
+        }
+    }
+
+    /// <summary>
+    /// Use this method exclusively for changing scenes.  It will handle the proper reference
+    /// updates needed before/after the scene load
+    /// If a full reload of all objects is needed, destroyTheUndestroyables must be set to true,
+    /// otherwise objects marked as DontDestroyOnLoad will not be reinitialized.
+    /// </summary>
+    public void loadScene(string sceneName, bool destroyTheUndestroyables) {
+        if (destroyTheUndestroyables) {
+            //this is kind of slow :<
+            targetAllSingletonsForDestruction();
+        }
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private void targetAllSingletonsForDestruction() {
+        GameObject[] ss = GameObject.FindGameObjectsWithTag("singleton");
+        //https://answers.unity.com/questions/18217/undoing-dontdestroyonload-without-immediately-dest.html
+        //reparent the objects to force them to unload
+        foreach(GameObject go in ss) {
+            Debug.Log("Resetting DontDestroyOnLoad for " + go.name);
+            GameObject tmpParent = new GameObject();
+            go.transform.parent = tmpParent.transform;
         }
     }
 

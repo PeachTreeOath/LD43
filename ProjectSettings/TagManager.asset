@@ -12,6 +12,7 @@ TagManager:
   - ControlText
   - PrayerText
   - SleepText
+  - singleton
   layers:
   - Default
   - TransparentFX

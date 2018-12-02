@@ -8,6 +8,7 @@ public class GameOver : MonoBehaviour {
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Game");
+        GameManager.instance.loadScene("Game", true);
+        //SceneManager.LoadScene("Game");
     }
 }
