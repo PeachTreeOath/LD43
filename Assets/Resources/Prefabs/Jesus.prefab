@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 4545752879541996}
   - component: {fileID: 212556694387976120}
   - component: {fileID: 114861846662731310}
+  - component: {fileID: 61026670375045294}
   m_Layer: 0
   m_Name: JesusBody
   m_TagString: Untagged
@@ -196,6 +197,31 @@ Transform:
   m_Father: {fileID: 4030915165681062}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61026670375045294
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1997664613544256}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04904747, y: -0.2697549}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.4444447, y: 4.4444447}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5016627, y: 3.904935}
+  m_EdgeRadius: 0
 --- !u!114 &114056826590515224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -220,9 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5965e4a0a3adc9b49aa89740019711e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeftArm: 0
-  armEndPosition: {fileID: 4541085002045738}
-  currentArmEndTangent: 0
+  handOfGod: {fileID: 1261437515964374}
 --- !u!114 &114348849703092814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -234,9 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5965e4a0a3adc9b49aa89740019711e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeftArm: 1
-  armEndPosition: {fileID: 4651180023364414}
-  currentArmEndTangent: 0
+  handOfGod: {fileID: 1747901811609952}
 --- !u!114 &114424250678024828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -248,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d692334b9bee5224c89ea784db0d9ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRightHand: 1
   timeToSnap: 0.25
   maxSpeed: 30
   epsilon: 0.1
@@ -264,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d692334b9bee5224c89ea784db0d9ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRightHand: 0
   timeToSnap: 0.25
   maxSpeed: 30
   epsilon: 0.1
@@ -315,8 +339,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2075757779
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Positions:
   - {x: -0.5, y: -4.5, z: 0}
@@ -435,8 +459,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2075757779
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Positions:
   - {x: 0.5, y: -4.5, z: 0}
@@ -555,9 +579,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 2075757779
+  m_SortingLayer: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 0bb6b6dcb21161f499ab60d928b5c4c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -601,9 +625,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 2075757779
+  m_SortingLayer: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ac8910d682af0ed42aacc0e8a84e5cc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -648,7 +672,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2075757779
-  m_SortingLayer: -1
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d069b9badeccba341ac023ea2224e1f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -693,9 +717,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: 2075757779
+  m_SortingLayer: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0a8a4a3df68816e4ba13116ed4ee5e35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

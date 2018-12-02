@@ -104,8 +104,8 @@ public class VehicleController : MonoBehaviour
         {
             // Feel free to adjust these magic numbers to make the movement feel better, the current
             // numbers are balanced around the default car model
-            hInput = vehicleStats.control * 1.5f * Input.GetAxisRaw("Horizontal");
-            vInput = vehicleStats.speed * 0.0012f * Input.GetAxisRaw("Vertical");
+            hInput = vehicleStats.control * 3f * Input.GetAxisRaw("Horizontal");
+            vInput = vehicleStats.speed * 0.0024f * Input.GetAxisRaw("Vertical");
         }
 
         // Movement from input
@@ -204,6 +204,7 @@ public class VehicleController : MonoBehaviour
                 break;
 
             case State.CRASHING:
+                StartFatalCrash();
                 break;
         }
 
@@ -244,9 +245,14 @@ public class VehicleController : MonoBehaviour
     {
         currState = State.CRASHING;
 
-
+        vehiclePool.OnVehicleCrash(this);
         face.GotoWinceFace();
+
+        rbody.drag = 0.2f;
         rbody.AddForceAtPosition(collisionInfo.impulse, collisionInfo.contactPoint);
+        rbody.angularVelocity = rbody.angularVelocity * 5f;
+        rbody.angularVelocity = Mathf.Clamp(rbody.angularVelocity, -700, 700);
+        rbody.velocity = (collisionInfo.normal * 5f) + new Vector2(0, -LevelManager.instance.scrollSpeed * .05f);
     }
 
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
