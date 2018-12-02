@@ -107,6 +107,11 @@ public class VehicleController : MonoBehaviour
                 UpdateCrashing();
                 break;
         }
+        var vehicleLength = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+        if (gameObject.transform.position.y < GameManager.instance.bottomRightBound.y - vehicleLength / 2 || gameObject.transform.position.y > GameManager.instance.upperLeftBound.y + vehicleLength / 2) 
+        {
+            currState = State.CRASHING;
+        }
     }
 
     void UpdateCrashing()

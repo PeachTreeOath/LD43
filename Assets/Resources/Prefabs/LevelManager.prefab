@@ -34,7 +34,7 @@ GameObject:
   - component: {fileID: 114588377508808916}
   m_Layer: 0
   m_Name: LevelManager
-  m_TagString: Untagged
+  m_TagString: singleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   horizontalSpeed: 2
   moveWaitTime: 2
   directionObstacleComingFrom: 6
-  spawnTimer: 3
+  spawnTimer: 0
   obstacleHeight: 0.78
 --- !u!114 &114222403844390916
 MonoBehaviour:
@@ -117,7 +117,7 @@ MonoBehaviour:
   horizontalSpeed: 0
   moveWaitTime: 1
   directionObstacleComingFrom: 6
-  spawnTimer: 3
+  spawnTimer: 0
   obstacleHeight: 0.5
 --- !u!114 &114588377508808916
 MonoBehaviour:
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleType: 4
   allowSpawn: 1
-  firstSpawnTime: 30
-  spawnInterval: 20
+  firstSpawnTime: 10
+  spawnInterval: 12
   spawnTelegraph: {fileID: 1777406086461410, guid: bc5eb552320119c44b4b6a16f941e02c,
     type: 2}
   verticalSpeed: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   horizontalSpeed: 0
   moveWaitTime: 4
   directionObstacleComingFrom: 6
-  spawnTimer: 0
+  spawnTimer: 10
   obstacleHeight: 0
 --- !u!114 &114595464114365988
 MonoBehaviour:
@@ -165,8 +165,8 @@ MonoBehaviour:
   horizontalSpeed: 0
   moveWaitTime: 1
   directionObstacleComingFrom: 6
-  spawnTimer: 3
-  obstacleHeight: 21.619371
+  spawnTimer: 30
+  obstacleHeight: 8.172123
 --- !u!114 &114598830207807746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,7 +208,7 @@ MonoBehaviour:
   horizontalSpeed: 1
   moveWaitTime: 1
   directionObstacleComingFrom: 6
-  spawnTimer: 3
+  spawnTimer: 0
   obstacleHeight: 0.6
 --- !u!114 &114683748990616570
 MonoBehaviour:

@@ -89,6 +89,15 @@ class CarnageViewer : MonoBehaviour
             }
         }
 
+        // Scroll medians
+        Median[] medians = GameObject.FindObjectsOfType<Median>();
+        for (int i = 0; i < medians.Length; i++) {
+            medians[i].enabled = false;
+            Rigidbody2D rb = medians[i].gameObject.GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector2(0, LevelManager.instance.scrollSpeed * scrollMod);
+            rb.bodyType = RigidbodyType2D.Kinematic;
+        }
+
         deadPeople.Sort((m, n) => m.transform.position.y.CompareTo(n.transform.position.y));
 
         for (int i = deadPeople.Count - 1; i >= 0; i--)
