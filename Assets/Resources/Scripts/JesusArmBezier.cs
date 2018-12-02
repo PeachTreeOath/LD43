@@ -6,20 +6,25 @@ using UnityEditor;
 public class JesusArmBezier : MonoBehaviour
 {
     public GameObject handOfGod;
+    
     public float width;
+
+	[Tooltip("The amount of distance from Jesus center arm should be.")]
+    public float distanceFromCenter;
 
     private static int NUM_ARM_POINTS = 30;
 
     private Vector3[] mArmPositions = new Vector3[NUM_ARM_POINTS];
-    private LineRenderer lineRenderer;
+
+    public LineRenderer lineRenderer;
 
     // Use this for initialization
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = NUM_ARM_POINTS;
-        lineRenderer.startWidth = width;
-        lineRenderer.endWidth = width;
+
+        transform.position = new Vector3(transform.position.x + distanceFromCenter, transform.position.y, 0);
     }
 
     // Update is called once per frame
@@ -61,6 +66,14 @@ public class JesusArmBezier : MonoBehaviour
             mArmPositions[i] = CalculateArmPoint(t, startPoint, intersectPoint, endPoint);
         }
         lineRenderer.SetPositions(mArmPositions);
+
+        // Update texture based off of length of arm.
+        float armLength = 0;
+        for (int i = 1; i < NUM_ARM_POINTS; i++)
+        {
+            armLength += Vector3.Distance(mArmPositions[i], mArmPositions[i - 1]);
+        }
+        lineRenderer.material.mainTextureScale = new Vector2(armLength, 1);
     }
 
     // Calculate arm point using Quadratic Bezier Function
