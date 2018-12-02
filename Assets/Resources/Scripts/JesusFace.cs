@@ -11,12 +11,14 @@ public class JesusFace : MonoBehaviour
     private float winceTime;
     private bool isDoneWincing;
     private SpriteRenderer spr;
+    private bool isTriggered;
     private Color alphaColor;
 
     void Start()
     {
         spr = GetComponent<SpriteRenderer>();
-        alphaColor = new Color(1, 1, 1, .25f);
+        spr.color = new Color(1f, 1f, 1f, 1f);
+        isTriggered = false;
     }
 
     void Update()
@@ -25,6 +27,14 @@ public class JesusFace : MonoBehaviour
         if (!isDoneWincing && winceTime > winceDuration)
         {
             GotoNeutralFace();
+        }
+        if (isTriggered)
+        {
+            spr.color = new Color(1f, 1f, 1f, 0.7f);
+        }
+        else 
+        {
+            spr.color = new Color(1f, 1f, 1f, 1f);
         }
     }
 
@@ -40,5 +50,17 @@ public class JesusFace : MonoBehaviour
         spr.sprite = winceFace;
         winceTime = 0;
         isDoneWincing = false;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision) {
+        isTriggered = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        isTriggered = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        isTriggered = false;
     }
 }
