@@ -60,7 +60,7 @@ MonoBehaviour:
   lightShaftsFab: {fileID: 1784035439255130, guid: f1ed7857eeef752448a0535314680dbe,
     type: 2}
   startingCheckpoint: {fileID: 0}
-  scrollSpeedMultiplier: 0.09
+  scrollSpeedMultiplier: 1
 --- !u!114 &114159070662340710
 MonoBehaviour:
   m_ObjectHideFlags: 1
