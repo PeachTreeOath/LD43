@@ -14,6 +14,7 @@ public class LevelManager : Singleton<LevelManager>
     public float prayerIncomeTickRate; //how often the update is in sec
     public float prayerDecayPerSec;    //how many are lost after 1 second, approx
     public float prayersPerSecondPerCar; //number per car added every IncomeTickRate
+    public float prayerCheckpointMultiplier; // number to multiply all your car prayers at per checkpoint (want to give an ok boost)
     public float maxPrayers;            //max amount you can have
     public float startingAmtOfPrayers;  //when the game starts you get this many
 
