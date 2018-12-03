@@ -13,6 +13,10 @@ using UnityEngine;
 /// </summary>
 public class PrayerMeter : MonoBehaviour
 {
+    public float lowThreshold;
+    public float pulseScale;
+    public float pulseSpeed;
+    public RectTransform prayerMeter;
 
     //Prayer constants set in level manager
 
@@ -44,6 +48,10 @@ public class PrayerMeter : MonoBehaviour
     private float remainingSurgeTime; //should max at surgeTimeMs
 
     private LevelManager levelManager;
+    bool pulsing;
+    Vector3 startScale;
+    float pulseTimer;
+    bool pulseUp;
 
     public GameObject GetProgressBar()
     {
@@ -60,6 +68,7 @@ public class PrayerMeter : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        startScale = prayerMeter.localScale;
 
         //Initialize Prayer Meter Count
         maxPrayers = levelManager.maxPrayers;
@@ -88,7 +97,6 @@ public class PrayerMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //Decrement the prayer meter based on decay timer.
         float decayDiff = Time.time - _prayerMeterDecayTimer;
         if (decayDiff >= decayTick) {
@@ -107,6 +115,44 @@ public class PrayerMeter : MonoBehaviour
         UpdateAnimations();
         remainingSurgeTime -= Time.deltaTime;
         remainingSurgeTime = Mathf.Max(remainingSurgeTime, 0);
+        
+        if(pulsing)
+        {
+            PulseMeter();
+        }else if(!pulsing &&
+                _prayerCount / maxPrayers <= lowThreshold)
+        {
+            pulsing = true;
+            pulseTimer = Time.time;
+            pulseUp = true;
+        }else if (_prayerCount / maxPrayers > lowThreshold)
+        {
+            pulsing = false;
+            prayerMeter.localScale = startScale;
+            prayerMeter.ForceUpdateRectTransforms();
+        }
+    }
+
+    void PulseMeter()
+    {
+        float dt = (Time.time - pulseTimer) / pulseSpeed;
+        if (pulseUp)
+        {
+            Vector3 v1 = Vector3.Lerp(startScale, startScale * pulseScale, (Time.time - pulseTimer) / pulseSpeed);
+            prayerMeter.localScale = v1;
+        }
+        else
+        {
+            Vector3 v1 = Vector3.Lerp(startScale * pulseScale, startScale, (Time.time - pulseTimer) / pulseSpeed);
+            prayerMeter.localScale = v1;
+        }
+
+        prayerMeter.ForceUpdateRectTransforms();
+        if (dt >= 1)
+        {
+            pulseTimer = Time.time;
+            pulseUp = !pulseUp;
+        }
     }
 
     private void UpdateAnimations() {
