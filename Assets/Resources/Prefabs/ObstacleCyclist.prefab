@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50485605024941918}
   m_Layer: 0
   m_Name: ObstacleCyclist
-  m_TagString: Untagged
+  m_TagString: ObCycle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

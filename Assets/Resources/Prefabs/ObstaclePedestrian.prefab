@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50125934728957736}
   m_Layer: 0
   m_Name: ObstaclePedestrian
-  m_TagString: Untagged
+  m_TagString: ObPed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -13,6 +13,9 @@ TagManager:
   - PrayerText
   - SleepText
   - singleton
+  - ObPed
+  - ObCone
+  - ObCycle
   layers:
   - Default
   - TransparentFX
