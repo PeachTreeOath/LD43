@@ -451,10 +451,10 @@ MonoBehaviour:
     minSpawnInterval: 5
     maxSpawnInterval: 5
   - startUsingAfter: 385
-    stopUsingAfter: 500
-    lengthOfBehavior: 115
+    stopUsingAfter: 420
+    lengthOfBehavior: 35
     weight: 1
-    neverStopUsing: 1
+    neverStopUsing: 0
     spawnAnything: 1
     laneSizeDistribution:
     - value: 1
@@ -486,3 +486,21 @@ MonoBehaviour:
     allowNeighboringSpawn: 1
     minSpawnInterval: 4
     maxSpawnInterval: 4
+  - startUsingAfter: 420
+    stopUsingAfter: 520
+    lengthOfBehavior: 100
+    weight: 1
+    neverStopUsing: 1
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 4
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 2
+    maxSpawnInterval: 2
