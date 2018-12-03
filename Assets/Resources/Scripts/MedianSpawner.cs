@@ -8,7 +8,7 @@ public class MedianSpawner : ProgrammableSpawner {
         float screensTall = Mathf.Max(medianLengthDistribution.Draw(), 0.5f);
 
         //mark what lanes will have medians then walk the array and spawn then in chunks
-        var mediansAt = GetSpawnLocations();
+        var mediansAt = GetSpawnLocations(screensTall * 1f);
         for(var i = 0; i < mediansAt.Length; i++) {
             if(mediansAt[i]) {
                 int j = i;
