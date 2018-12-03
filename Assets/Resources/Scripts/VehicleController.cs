@@ -386,6 +386,7 @@ public class VehicleController : MonoBehaviour
                 else
                 {
                     StartSideSwipeSwerve(info);
+                    AudioManager.instance.PlaySound("car_bump");
                 }
                 break;
 

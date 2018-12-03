@@ -168,6 +168,7 @@ public class ObstacleController : MonoBehaviour
             switch (tag) {
                 case "ObPed":
                     GameManager.instance.GetPrayerMeter().RemovePrayer(LevelManager.instance.prayerPenaltyPerPed);
+                    AudioManager.instance.PlaySound("ped_death");
                     break;
 
                 case "ObCycle":
