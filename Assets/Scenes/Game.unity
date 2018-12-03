@@ -668,7 +668,7 @@ Prefab:
     - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
         type: 2}
       propertyPath: lowThreshold
-      value: 0.95
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
         type: 2}
