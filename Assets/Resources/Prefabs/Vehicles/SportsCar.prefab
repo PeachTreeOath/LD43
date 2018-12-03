@@ -316,7 +316,7 @@ MonoBehaviour:
   isSelected: 0
   vehicleBody: {fileID: 114958594717554294}
   angledMovementPower: 0.0001
-  driftPower: 5
+  driftPower: 0.3
   vehicleStats: {fileID: 0}
   sparkEmitter: {fileID: 198700860227812620}
   fireballEmitter: {fileID: 198792903762415980}
@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26854f66d3d5ee34a957d748790b96d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crashedSprite: {fileID: 0}
 --- !u!198 &198504570928310288
 ParticleSystem:
   m_ObjectHideFlags: 1
