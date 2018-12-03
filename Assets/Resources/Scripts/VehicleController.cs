@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 using Random = System.Random;
 
 public class VehicleController : MonoBehaviour
@@ -29,6 +31,11 @@ public class VehicleController : MonoBehaviour
 
     public ParticleSystem sparkEmitter;
     public ParticleSystem fireballEmitter;
+
+    private float bumpScreenShakeMs = 150;
+    private float spinScreenShakeMs = 250;
+    private float screenShakeCoolDown = 1000;
+    private Stopwatch screenShakeTimer = new Stopwatch();
 
     //Cap on how fast the car can move on the x-axis per update
     private bool initialized = false;
@@ -88,6 +95,7 @@ public class VehicleController : MonoBehaviour
         vehiclePool = GameManager.instance.getVehiclePool();
         face = GameObject.Find("JesusBody").GetComponent<JesusFace>();
         isHoldingMouse = false;
+        screenShakeTimer.Start();
 
         captionBubbles.AddRange(new List<Sprite>
         {
@@ -404,10 +412,12 @@ public class VehicleController : MonoBehaviour
     {
         if (IsHeadOnCrashWithVehicle(collisionInfo.normal, otherVehicle))
         {
+            ScreenShake(false, bumpScreenShakeMs);
             StartSpinningCrash(collisionInfo);
         }
         else
         {
+            ScreenShake(false, spinScreenShakeMs);
             // fake one-dimensional elastic collision?
             var u1 = currVelocity.x;
             var u2 = otherVehicle.currVelocity.x;
@@ -504,7 +514,7 @@ public class VehicleController : MonoBehaviour
         fireballEmitter.Play();
 
         //TODO crash sound
-        ScreenShake();
+        ScreenShake(true, GameManager.instance.screenShakeDurationMs);
 
         captionTimer = null;
         Destroy(caption);
@@ -515,9 +525,14 @@ public class VehicleController : MonoBehaviour
         vehicleBody.showCrashedSprite();
     }
 
-    private void ScreenShake()
+    private void ScreenShake(bool fatal, float shakeDuration)
     {
-        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(GameManager.instance.screenShakeDurationMs);
+        //If Fatal, big shake.
+        if (fatal) GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(shakeDuration);
+        if (screenShakeTimer.ElapsedMilliseconds < screenShakeCoolDown) return;
+        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(shakeDuration);
+        screenShakeTimer.Reset();
+        screenShakeTimer.Start();
     }
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)
@@ -542,6 +557,7 @@ public class VehicleController : MonoBehaviour
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
     {
         sparkEmitter.Play();
+        ScreenShake(false, bumpScreenShakeMs);
 
         var percentOfMaxSwerve = 1 - Mathf.Clamp(vehicleStats.weight / LevelManager.instance.WeightForZeroSwerve, 0, 1f);
         swerve = Mathf.Sign(collisionInfo.normal.x) * (LevelManager.instance.MinSwerve + (LevelManager.instance.MaxSwerve - LevelManager.instance.MinSwerve) * percentOfMaxSwerve);
