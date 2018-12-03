@@ -35,7 +35,6 @@ public class GameManager : Singleton<GameManager>
 
     public void GameOver()
     {
-        GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
         GameManager.instance.GetCheckPointManager().enabled = false;
         GameManager.instance.GetObstacleSpawner().enabled = false;
         GameManager.instance.GetMedianSpawner().enabled = false;

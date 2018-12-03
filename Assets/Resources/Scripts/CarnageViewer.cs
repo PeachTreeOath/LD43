@@ -61,6 +61,7 @@ class CarnageViewer : MonoBehaviour
         Canvas canv = GameManager.instance.GetCheckPointManager().transform.Find("CheckpointSignCanvas").GetComponent<Canvas>();
         vp = GameManager.instance.getVehiclePool();
 
+        GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
         GameManager.instance.GameOver();
 
         int firstOffScreen = -1;
