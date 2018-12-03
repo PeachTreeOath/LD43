@@ -341,7 +341,7 @@ MonoBehaviour:
   isSelected: 0
   vehicleBody: {fileID: 114064907080978338}
   angledMovementPower: 0.0001
-  driftPower: 5
+  driftPower: 0.3
   vehicleStats: {fileID: 0}
   sparkEmitter: {fileID: 198840094240489386}
   fireballEmitter: {fileID: 198091593200572156}

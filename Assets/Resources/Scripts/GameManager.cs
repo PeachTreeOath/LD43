@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     private Scroller scroller;
     public float scrollSpeedMultiplier;
     public float displayDistanceMultiplier;
+    private PedestrianSpawner pedestrianSpawner;
     private ObstacleSpawner obstacleSpawner;
     private CheckpointManager checkpointManager;
     private VehiclePool vehiclePool;
@@ -51,6 +52,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Loaded Scroller: " + scroller.gameObject.name);
         obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
         Debug.Log("Loaded Obstacle Spawner: " + obstacleSpawner);
+        pedestrianSpawner = FindObjectOfType<PedestrianSpawner>();
+        Debug.Log("Loaded Pedestrian Spawner: " + pedestrianSpawner);
 
 
         scroller.scrollSpeed = LevelManager.instance.scrollSpeed * scrollSpeedMultiplier;
@@ -228,6 +231,10 @@ public class GameManager : Singleton<GameManager>
         return obstacleSpawner;
     }
 
+    public PedestrianSpawner GetPedestrianSpawner() {
+        return pedestrianSpawner;
+    }
+
     public MedianSpawner GetMedianSpawner()
     {
         return GameObject.FindObjectOfType<MedianSpawner>();
@@ -253,6 +260,7 @@ public class GameManager : Singleton<GameManager>
     {
         GameManager.instance.GetCheckPointManager().enabled = false;
         GameManager.instance.GetObstacleSpawner().enabled = false;
+        GameManager.instance.GetPedestrianSpawner().enabled = false;
         GameManager.instance.GetMedianSpawner().enabled = false;
         GameManager.instance.GetPrayerMeter().enabled = false;
         GameManager.instance.enabled = false;
