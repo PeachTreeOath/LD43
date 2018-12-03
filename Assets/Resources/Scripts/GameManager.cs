@@ -31,9 +31,11 @@ public class GameManager : Singleton<GameManager>
     private float nextCheckpointPos = 0; //TODO relocate to Level object
     private bool isPausedForCheckpoint = false;
 
+    public bool isPrayerDeath;
+
     //private int dbgCount = 0;
 
-        //Note this will only start once ever because of the singleton dontdestroyonload
+    //Note this will only start once ever because of the singleton dontdestroyonload
     void Start()
     {
 
@@ -54,7 +56,8 @@ public class GameManager : Singleton<GameManager>
         StartSceneThings();
     }
 
-    public void StartSceneThings() {
+    public void StartSceneThings()
+    {
         //start'er up
         //hitCheckpoint();
         //resumeForCheckpoint();
@@ -98,19 +101,23 @@ public class GameManager : Singleton<GameManager>
     /// If a full reload of all objects is needed, destroyTheUndestroyables must be set to true,
     /// otherwise objects marked as DontDestroyOnLoad will not be reinitialized.
     /// </summary>
-    public void loadScene(string sceneName, bool destroyTheUndestroyables) {
-        if (destroyTheUndestroyables) {
+    public void loadScene(string sceneName, bool destroyTheUndestroyables)
+    {
+        if (destroyTheUndestroyables)
+        {
             //this is kind of slow :<
             targetAllSingletonsForDestruction();
         }
         SceneManager.LoadScene(sceneName);
     }
 
-    private void targetAllSingletonsForDestruction() {
+    private void targetAllSingletonsForDestruction()
+    {
         GameObject[] ss = GameObject.FindGameObjectsWithTag("singleton");
         //https://answers.unity.com/questions/18217/undoing-dontdestroyonload-without-immediately-dest.html
         //reparent the objects to force them to unload
-        foreach(GameObject go in ss) {
+        foreach (GameObject go in ss)
+        {
             Debug.Log("Resetting DontDestroyOnLoad for " + go.name);
             GameObject tmpParent = new GameObject();
             go.transform.parent = tmpParent.transform;
@@ -185,7 +192,7 @@ public class GameManager : Singleton<GameManager>
         obstacleSpawner.resume();
         nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
         GameManager.instance.PrayerPowerRevive();
-        
+
         AudioManager.instance.PlaySound("car_start");
     }
 
@@ -219,7 +226,8 @@ public class GameManager : Singleton<GameManager>
         return obstacleSpawner;
     }
 
-    public MedianSpawner GetMedianSpawner() {
+    public MedianSpawner GetMedianSpawner()
+    {
         return GameObject.FindObjectOfType<MedianSpawner>();
     }
 
@@ -233,18 +241,14 @@ public class GameManager : Singleton<GameManager>
         GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
     }
 
-    
     public void GameOverPrayerPowerDeath()
     {
-        public void GameOverPrayerPowerDeath()
-        {
-            GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
-            isPrayerDeath = true;
-        }
+        GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
+        isPrayerDeath = true;
+    }
 
-        public void PrayerPowerRevive()
-        {
-            isPrayerDeath = false;
-        }
+    public void PrayerPowerRevive()
+    {
+        isPrayerDeath = false;
     }
 }

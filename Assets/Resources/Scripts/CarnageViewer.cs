@@ -62,7 +62,6 @@ class CarnageViewer : MonoBehaviour
         vp = GameManager.instance.getVehiclePool();
 
         GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
-        GameManager.instance.GameOver();
 
         int firstOffScreen = -1;
         Vector3 basePos = Vector3.zero;
