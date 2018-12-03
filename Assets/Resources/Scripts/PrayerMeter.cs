@@ -202,6 +202,9 @@ public class PrayerMeter : MonoBehaviour
 
     public void AddPrayer(float prayerValue)
     {
+        if(GameManager.instance.isPrayerDeath)
+            return;
+            
         //Increment the prayer count.
         _prayerCount += prayerValue;
         if (_prayerCount > maxPrayers)
