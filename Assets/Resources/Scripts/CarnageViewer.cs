@@ -64,7 +64,7 @@ class CarnageViewer : MonoBehaviour
         GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
 
         int firstOffScreen = -1;
-        Vector3 basePos = Vector3.zero;
+        float basePos = 0f;
 
         // Add vehicles
         deadPeople = new List<GameObject>(vp.crashedVehicles);
@@ -103,7 +103,8 @@ class CarnageViewer : MonoBehaviour
         for (int i = deadPeople.Count - 1; i >= 0; i--)
         {
             float bounds;
-
+            Debug.Log("Person " + i.ToString());
+            Debug.Log(deadPeople[i].transform.position.x);
             if(deadPeople[i].transform.childCount > 0) {
                 bounds = Mathf.Max(deadPeople[i].transform.GetChild(0).GetComponent<Renderer>().bounds.extents.x, deadPeople[i].transform.GetChild(0).GetComponent<Renderer>().bounds.extents.y);
             } else {
@@ -115,9 +116,9 @@ class CarnageViewer : MonoBehaviour
                 if(firstOffScreen == -1)
                 {
                     firstOffScreen = i + 1;
-                    basePos = new Vector3(deadPeople[i].transform.position.x, (firstOffScreen - i) * -Camera.main.orthographicSize, 0); ;
+                    basePos = (firstOffScreen - i) * -Camera.main.orthographicSize;
                 }
-                deadPeople[i].transform.position = basePos + Vector3.down * 4 * (firstOffScreen - i);
+                deadPeople[i].transform.position = new Vector3(deadPeople[i].transform.position.x, basePos * 1.5f * (firstOffScreen - i), 0);
             }
             GameObject fire = Instantiate(ResourceLoader.instance.burningFireFab, deadPeople[i].transform.position + Vector3.back, Quaternion.identity);
             fire.AddComponent<ObjectFollower>().target = deadPeople[i].transform;
@@ -136,6 +137,7 @@ class CarnageViewer : MonoBehaviour
                 oText.transform.position = oText.transform.position = new Vector3(-5.9f, oText.transform.position.y, oText.transform.position.z);
             }
             oText.AddComponent<ObjectFollower>().target = deadPeople[i].transform;
+
         }
     }
 }
