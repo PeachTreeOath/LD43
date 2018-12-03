@@ -91,7 +91,7 @@ MonoBehaviour:
   weight: 8
   control: 9
   speed: 7
-  prayerValue: 20
+  prayerValue: 40
   sleepChance: 2
   sleepSeverity: 7
   awakeGracePeriod: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
   weight: 5
   control: 14
   speed: 7
-  prayerValue: 10
+  prayerValue: 20
   sleepChance: 2
   sleepSeverity: 3
   awakeGracePeriod: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   weight: 8
   control: 11
   speed: 5
-  prayerValue: 20
+  prayerValue: 40
   sleepChance: 1
   sleepSeverity: 8
   awakeGracePeriod: 0
@@ -269,7 +269,7 @@ MonoBehaviour:
   weight: 11
   control: 8
   speed: 4
-  prayerValue: 20
+  prayerValue: 40
   sleepChance: 3
   sleepSeverity: 11
   awakeGracePeriod: 0
@@ -288,7 +288,7 @@ MonoBehaviour:
   weight: 11
   control: 10
   speed: 6
-  prayerValue: 20
+  prayerValue: 40
   sleepChance: 1
   sleepSeverity: 6
   awakeGracePeriod: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   weight: 4
   control: 15
   speed: 11
-  prayerValue: 30
+  prayerValue: 60
   sleepChance: 3
   sleepSeverity: 11
   awakeGracePeriod: 0
@@ -326,7 +326,7 @@ MonoBehaviour:
   weight: 2
   control: 15
   speed: 11
-  prayerValue: 30
+  prayerValue: 60
   sleepChance: 2
   sleepSeverity: 5
   awakeGracePeriod: 0
