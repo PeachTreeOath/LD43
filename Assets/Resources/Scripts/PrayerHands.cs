@@ -11,6 +11,7 @@ public class PrayerHands : MonoBehaviour {
     public float finalScale;
 
     private float startScale;
+    public int value;
 
     float delayTime;
     float timer;
@@ -78,7 +79,7 @@ public class PrayerHands : MonoBehaviour {
         gameObject.transform.position = Vector3.Lerp(startPos, finalPos, (Time.time - timer) / exitTime);
         if (Time.time - timer >= exitTime)
         {
-            GameManager.instance.GetPrayerMeter().AddPrayer(1);
+            GameManager.instance.GetPrayerMeter().AddPrayer(value);
             Destroy(gameObject);
         }
     }

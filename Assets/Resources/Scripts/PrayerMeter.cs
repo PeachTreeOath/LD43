@@ -18,6 +18,7 @@ public class PrayerMeter : MonoBehaviour
     public float pulseSpeed;
     public RectTransform prayerMeter;
     public GameObject lowPrayersText;
+    public int periodicPrayerFactor;
 
     //Prayer constants set in level manager
 
@@ -110,7 +111,12 @@ public class PrayerMeter : MonoBehaviour
         float incomeDiff = Time.time - _prayerMeterIncomeTimer;
         if (incomeDiff >= incomeTick) {
             int numCars = GameManager.instance.getVehiclePool().getNumWorkingCars();
-            float amt = numCars * incomePerTick * (incomeDiff / incomeTick);
+            int amt = (int)(numCars * incomePerTick * (incomeDiff / incomeTick));
+            //Round amt up to nearest periodicPrayerFactor
+            while (amt % periodicPrayerFactor != 0)
+            {
+                amt++;
+            }
             Debug.Log("Adding timed prayer income for numCars:" + numCars + ", amt=" + amt);
             AddTimedPrayer(amt);
         }
@@ -195,8 +201,37 @@ public class PrayerMeter : MonoBehaviour
         TriggerUiUpdate();
     }
 
-    public void AddTimedPrayer(float prayerValue) {
-        AddPrayer(prayerValue);
+    public void AddTimedPrayer(int prayerValue) {
+
+        prayerValue /= periodicPrayerFactor;
+
+        VehiclePool vp = GameManager.instance.getVehiclePool();
+        int prayerCount = prayerValue / vp.vehicles.Count;
+        int prayerExtra = prayerValue % vp.vehicles.Count;
+
+        for (int i = 0; i < vp.vehicles.Count - 1; i++)
+        {
+            for (int p = 0; p < prayerCount; p++)
+            {
+                GameObject ph = Instantiate(ResourceLoader.instance.prayerHandsFab) as GameObject;
+                ph.GetComponent<PrayerHands>().value = periodicPrayerFactor;
+                ph.transform.position = vp.vehicles[i].gameObject.transform.position + new Vector3(Random.Range(0f, 1f),
+                                                                                                    Random.Range(0f, 1f),
+                                                                                                    -1);
+                ph.transform.SetParent(vp.vehicles[i].gameObject.transform);
+            }
+        }
+
+        for (int p = 0; p < prayerCount + prayerExtra; p++)
+        {
+            GameObject ph = Instantiate(ResourceLoader.instance.prayerHandsFab) as GameObject;
+            ph.GetComponent<PrayerHands>().value = periodicPrayerFactor;
+            ph.transform.position = vp.vehicles[vp.vehicles.Count - 1].gameObject.transform.position + new Vector3(Random.Range(0f, 1f),
+                                                                                                Random.Range(0f, 1f),
+                                                                                                -1);
+            ph.transform.SetParent(vp.vehicles[vp.vehicles.Count - 1].gameObject.transform);
+        }
+
         _prayerMeterIncomeTimer = Time.time;
     }
 

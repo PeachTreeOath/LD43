@@ -429,6 +429,7 @@ public class VehicleController : MonoBehaviour
             //TODO this is crazy...
             //TODO reall wants to be the inverse of the squared angle severity calculation...
             swerve = vNew * -LevelManager.instance.BumpingSwerveRatio;
+            AudioManager.instance.PlaySound("car_bump");
         }
     }
 
