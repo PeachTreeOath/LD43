@@ -32,8 +32,8 @@ public class AudioManager : Singleton<AudioManager>
         soundMap = new Dictionary<string, AudioClip>();
         soundMixer = new Dictionary<string, float>
         {
-            { "praise_song", .5f },
-            { "obstacle_warning", .3f },
+            { "praise_song", .45f },
+            { "obstacle_warning", .4f },
             { "car_start", .9f },
             { "car_slide", .9f },
             { "car_bump", .7f },
