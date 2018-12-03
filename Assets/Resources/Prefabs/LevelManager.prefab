@@ -334,7 +334,7 @@ MonoBehaviour:
   weight: 2
   control: 15
   speed: 11
-  prayerValue: 60
+  prayerValue: 30
   sleepChance: 2
   sleepSeverity: 5
   awakeGracePeriod: 0

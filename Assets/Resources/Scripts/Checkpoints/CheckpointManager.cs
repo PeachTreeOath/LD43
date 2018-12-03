@@ -275,18 +275,15 @@ public class CheckpointManager : MonoBehaviour
     }
 
 
-    public void dbgLoadUpJesusVanPool(Checkpoint dbgThing)
-    { //starting func
-        Debug.Log("Debug Spawn Stuff");
-        //for now we will just dump out
-        //everything that is avaialable
+    public void dbgLoadUpJesusVanPool(Checkpoint dbgThing) { 
+        //for now we will just dump out everything that is avaialable
         List<VehicleTypeEnum> vs = dbgThing.getAvailableVehicles();
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
 
         foreach (VehicleTypeEnum vte in vs)
         {
-            vp.AddNewVehicle(vte, null); //TODO starting animation
+            vp.AddNewVehicle(vte); //TODO starting animation
         }
 
     }
@@ -297,7 +294,7 @@ public class CheckpointManager : MonoBehaviour
         VehicleTypeEnum vs = cc.getVehicleType();
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
-        vp.AddNewVehicle(vs, spawnAnimator);
+        vp.AddNewVehicle(vs);
 
     }
 
