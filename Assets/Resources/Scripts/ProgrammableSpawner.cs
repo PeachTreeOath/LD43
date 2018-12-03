@@ -21,7 +21,13 @@ public abstract class ProgrammableSpawner : MonoBehaviour {
     protected RandomUrn<int> laneCountDistribution = new RandomUrn<int>();
     protected RandomUrn<int> laneSizeDistribution = new RandomUrn<int>();
     protected RandomUrn<float> medianLengthDistribution = new RandomUrn<float>();
-    
+
+    private LaneAvailability laneAvailability;
+
+    public void Start() {
+        laneAvailability = GetComponent<LaneAvailability>();
+    }
+
     // Update is called once per frame
     void Update() {
         if (GameManager.instance.isPaused()) return;
@@ -43,10 +49,19 @@ public abstract class ProgrammableSpawner : MonoBehaviour {
 
     protected abstract void Spawn();
 
-    protected bool[] GetSpawnLocations() {
+    protected bool[] GetSpawnLocations(float laneCloseDuration) {
         int lanesLeft = lanes.Length;
+
+        // collect used lane data from the availability store
         bool[] lanesUsed = new bool[lanes.Length];
-        bool[] mediansAt = new bool[lanes.Length];
+        for(var i = 0; i < lanes.Length; i++) {
+            if(!laneAvailability.IsLaneOpen(i)) {
+                lanesUsed[i] = true;
+                lanesLeft--;
+            }
+        }
+
+        bool[] spawnsAt = new bool[lanes.Length];
 
         int lanesToSpawn = Mathf.Max(laneCountDistribution.Draw(), 1);
         for (var i = 0; i < lanesToSpawn && lanesLeft > 0; i++) {
@@ -69,7 +84,8 @@ public abstract class ProgrammableSpawner : MonoBehaviour {
             var j = 0;
             for (j = 0; j < lanesWide; j++) {
                 if (!lanesUsed[lane + j]) {
-                    lanesUsed[lane + j] = mediansAt[lane + j] = true;
+                    laneAvailability.CloseLane(lane + j, laneCloseDuration);
+                    lanesUsed[lane + j] = spawnsAt[lane + j] = true;
                     lanesLeft--;
                 } else {
                     lanesWide = j;
@@ -91,7 +107,7 @@ public abstract class ProgrammableSpawner : MonoBehaviour {
             }
         }
 
-        return mediansAt;
+        return spawnsAt;
     }
 
     void UpdateEpoch() {

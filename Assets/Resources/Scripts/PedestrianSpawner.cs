@@ -4,9 +4,10 @@ using System.Collections;
 public class PedestrianSpawner : ProgrammableSpawner {
 
     public ObstacleStats obstacleStats;
+    public float closeLaneDuration = 0.25f;
 
     protected override void Spawn() {
-        bool[] spawnAt = GetSpawnLocations();
+        bool[] spawnAt = GetSpawnLocations(closeLaneDuration);
         for(var i = 0; i < spawnAt.Length; i++) {
             if (spawnAt[i]) SpawnPedestrian(i);
         }
