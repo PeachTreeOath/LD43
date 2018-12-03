@@ -819,47 +819,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
         type: 2}
-      propertyPath: DecayValue
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
-        type: 2}
-      propertyPath: prayerMeter
-      value: 
-      objectReference: {fileID: 823826820}
-    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
-        type: 2}
-      propertyPath: lowThreshold
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
-        type: 2}
-      propertyPath: pulseScale
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
-        type: 2}
-      propertyPath: pulseSpeed
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
-        type: 2}
-      propertyPath: lowPrayersTextFab
-      value: 
-      objectReference: {fileID: 1353108766}
-    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
-        type: 2}
       propertyPath: lowPrayersText
       value: 
       objectReference: {fileID: 1353108766}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a96303b67fe033c47a42de8471afe551, type: 2}
   m_IsPrefabAsset: 0
---- !u!224 &823826820 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 224755952165119342, guid: a96303b67fe033c47a42de8471afe551,
-    type: 2}
-  m_PrefabInternal: {fileID: 823826819}
 --- !u!1001 &1057216093
 Prefab:
   m_ObjectHideFlags: 0

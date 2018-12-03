@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MedianSpawner : MonoBehaviour {
 
-    const int NUM_LANES = 5;
+    float[] lanes = { -6.75f, -4.86f, -2.99f, -1.02f, 0.87f, 2.86f, 4.73f };
 
     [System.Serializable]
     public class Entry {
@@ -74,13 +74,13 @@ public class MedianSpawner : MonoBehaviour {
         int lanesWide = laneSizeDistribution.Draw();
         float screensTall = medianLengthDistribution.Draw();
 
-        int lane = Random.Range(0, NUM_LANES);
-        if( (lane + lanesWide) > NUM_LANES) {
-            lane = NUM_LANES - lanesWide - 1; 
+        int lane = Random.Range(0, lanes.Length);
+        if( (lane + lanesWide) > lanes.Length) {
+            lane = lanes.Length - lanesWide - 1; 
         }
 
         var position = new Vector3(
-            Median.LEFT_EDGE_OF_FIRST_LANE + (lane * Median.WIDTH_PER_LANE) + ((Median.WIDTH_PER_LANE * lanesWide) / 2f),
+            lanes[lane] + ((Median.WIDTH_PER_LANE * lanesWide) / 2f),
             6f + (screensTall * Median.HEIGHT_PER_SCREEN) /2f, //TODO this isn't quite right
             0f
         );

@@ -218,9 +218,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783e957d4a3409c47b6f8db80a2a69ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecayTimer: 0.5
-  DecayValue: 15
-  MaximumPrayers: 450
+  lowThreshold: 0.285
+  pulseScale: 1.1
+  pulseSpeed: 0.4
+  prayerMeter: {fileID: 224755952165119342}
+  lowPrayersText: {fileID: 0}
   PrayerLifeTime: 0.75
   ProgressBar: {fileID: 1390050041843164}
   SurgeMeter: {fileID: 1299709514620576}
