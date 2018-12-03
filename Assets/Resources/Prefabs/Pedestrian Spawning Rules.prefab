@@ -53,14 +53,108 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rules:
   - startUsingAfter: 0
-    stopUsingAfter: 0
-    lengthOfBehavior: 30
+    stopUsingAfter: 55
+    lengthOfBehavior: 55
     weight: 1
-    neverStopUsing: 1
+    neverStopUsing: 0
     spawnAnything: 1
     laneSizeDistribution: []
     lengthDistribution: []
     numberOfLanesDistribution: []
     allowNeighboringSpawn: 0
-    minSpawnInterval: 10
-    maxSpawnInterval: 10
+    minSpawnInterval: 5
+    maxSpawnInterval: 7
+  - startUsingAfter: 55
+    stopUsingAfter: 120
+    lengthOfBehavior: 65
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution: []
+    lengthDistribution: []
+    numberOfLanesDistribution:
+    - value: 2
+      weight: 0
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 3
+  - startUsingAfter: 120
+    stopUsingAfter: 160
+    lengthOfBehavior: 30
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution: []
+    lengthDistribution: []
+    numberOfLanesDistribution: []
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 2
+    maxSpawnInterval: 4
+  - startUsingAfter: 160
+    stopUsingAfter: 220
+    lengthOfBehavior: 60
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution: []
+    lengthDistribution: []
+    numberOfLanesDistribution:
+    - value: 2
+      weight: 0
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 3
+    maxSpawnInterval: 8
+  - startUsingAfter: 220
+    stopUsingAfter: 270
+    lengthOfBehavior: 30
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution: []
+    lengthDistribution: []
+    numberOfLanesDistribution:
+    - value: 2
+      weight: 0
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 2
+    maxSpawnInterval: 2
+  - startUsingAfter: 270
+    stopUsingAfter: 320
+    lengthOfBehavior: 50
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution: []
+    lengthDistribution: []
+    numberOfLanesDistribution: []
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 3
+    maxSpawnInterval: 4
+  - startUsingAfter: 320
+    stopUsingAfter: 350
+    lengthOfBehavior: 30
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution: []
+    lengthDistribution: []
+    numberOfLanesDistribution:
+    - value: 3
+      weight: 0
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 350
+    stopUsingAfter: 500
+    lengthOfBehavior: 150
+    weight: 1
+    neverStopUsing: 1
+    spawnAnything: 1
+    laneSizeDistribution: []
+    lengthDistribution: []
+    numberOfLanesDistribution:
+    - value: 5
+      weight: 0
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 1

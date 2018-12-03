@@ -108,7 +108,7 @@ MonoBehaviour:
     allowNeighboringSpawn: 1
     minSpawnInterval: 2
     maxSpawnInterval: 2
-  - startUsingAfter: 33
+  - startUsingAfter: 35
     stopUsingAfter: 36
     lengthOfBehavior: 1
     weight: 1
@@ -162,8 +162,8 @@ MonoBehaviour:
     allowNeighboringSpawn: 1
     minSpawnInterval: 1
     maxSpawnInterval: 1
-  - startUsingAfter: 60
-    stopUsingAfter: 61
+  - startUsingAfter: 120
+    stopUsingAfter: 121
     lengthOfBehavior: 1
     weight: 1
     neverStopUsing: 0
@@ -180,8 +180,8 @@ MonoBehaviour:
     allowNeighboringSpawn: 0
     minSpawnInterval: 1
     maxSpawnInterval: 1
-  - startUsingAfter: 71
-    stopUsingAfter: 72
+  - startUsingAfter: 131
+    stopUsingAfter: 132
     lengthOfBehavior: 1
     weight: 1
     neverStopUsing: 0
@@ -198,8 +198,8 @@ MonoBehaviour:
     allowNeighboringSpawn: 0
     minSpawnInterval: 1
     maxSpawnInterval: 1
-  - startUsingAfter: 80
-    stopUsingAfter: 88
+  - startUsingAfter: 140
+    stopUsingAfter: 148
     lengthOfBehavior: 8
     weight: 1
     neverStopUsing: 0
@@ -216,9 +216,9 @@ MonoBehaviour:
     allowNeighboringSpawn: 1
     minSpawnInterval: 4
     maxSpawnInterval: 4
-  - startUsingAfter: 96
-    stopUsingAfter: 111
-    lengthOfBehavior: 15
+  - startUsingAfter: 156
+    stopUsingAfter: 168
+    lengthOfBehavior: 12
     weight: 1
     neverStopUsing: 0
     spawnAnything: 1
@@ -227,6 +227,258 @@ MonoBehaviour:
       weight: 1
     lengthDistribution:
     - value: 4
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 4
+    maxSpawnInterval: 4
+  - startUsingAfter: 180
+    stopUsingAfter: 181
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 3
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 3
+      weight: 1
+    allowNeighboringSpawn: 0
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 191
+    stopUsingAfter: 192
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 4
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 3
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 203
+    stopUsingAfter: 204
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 3
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 3
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 215
+    stopUsingAfter: 235
+    lengthOfBehavior: 20
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 2
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 5
+    maxSpawnInterval: 5
+  - startUsingAfter: 240
+    stopUsingAfter: 241
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 10
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 3
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 258
+    stopUsingAfter: 259
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 10
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 3
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 275
+    stopUsingAfter: 285
+    lengthOfBehavior: 10
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 6
+    maxSpawnInterval: 6
+  - startUsingAfter: 290
+    stopUsingAfter: 300
+    lengthOfBehavior: 10
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 2
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 6
+    maxSpawnInterval: 6
+  - startUsingAfter: 305
+    stopUsingAfter: 315
+    lengthOfBehavior: 10
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 3
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 6
+    maxSpawnInterval: 6
+  - startUsingAfter: 320
+    stopUsingAfter: 330
+    lengthOfBehavior: 10
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 5
+    maxSpawnInterval: 5
+  - startUsingAfter: 335
+    stopUsingAfter: 345
+    lengthOfBehavior: 10
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 4
+    maxSpawnInterval: 4
+  - startUsingAfter: 350
+    stopUsingAfter: 380
+    lengthOfBehavior: 30
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 2
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 5
+    maxSpawnInterval: 5
+  - startUsingAfter: 385
+    stopUsingAfter: 500
+    lengthOfBehavior: 115
+    weight: 1
+    neverStopUsing: 1
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 3
+    maxSpawnInterval: 3
+  - startUsingAfter: 85
+    stopUsingAfter: 100
+    lengthOfBehavior: 15
+    weight: 1
+    neverStopUsing: 1
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
       weight: 1
     numberOfLanesDistribution:
     - value: 1
