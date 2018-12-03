@@ -24,6 +24,8 @@ public class MedianSpawner : MonoBehaviour {
         public bool spawnMedians = true;
         public List<Entry> laneSizeDistribution;
         public List<Entry> medianLengthDistribution;
+        public List<Entry> numberOfLanesDistribution;
+        public bool allowNeighboringMedians = false;
 
         public float minMedianInterval;
         public float maxMedianInterval;
@@ -33,6 +35,7 @@ public class MedianSpawner : MonoBehaviour {
     public GameObject spawnTelegraph;
 
     public bool isSpawningMedians = false;
+    public bool allowNeighboringMedians = false;
     public float minMedianInterval;
     public float maxMedianInterval;
     public float moveWaitTime;
@@ -42,6 +45,7 @@ public class MedianSpawner : MonoBehaviour {
 
     public float timeUntilNextSpawn;
 
+    private RandomUrn<int> laneCountDistribution = new RandomUrn<int>();
     private RandomUrn<int> laneSizeDistribution = new RandomUrn<int>();
     private RandomUrn<float> medianLengthDistribution = new RandomUrn<float>();
     
@@ -69,15 +73,76 @@ public class MedianSpawner : MonoBehaviour {
 	}
 
     void Spawn() {
-        var prefab = ResourceLoader.instance.obstacleMedianPrefab;
+        float screensTall = Mathf.Max(medianLengthDistribution.Draw(), 0.5f);
 
-        int lanesWide = laneSizeDistribution.Draw();
-        float screensTall = medianLengthDistribution.Draw();
+        //mark what lanes will have medians then walk the array and spawn then in chunks
+        var mediansAt = GetMedianLocations();
+        for(var i = 0; i < mediansAt.Length; i++) {
+            if(mediansAt[i]) {
+                int j = i;
+                while (j < mediansAt.Length && mediansAt[j]) j++;
 
-        int lane = Random.Range(0, lanes.Length);
-        if( (lane + lanesWide) > lanes.Length) {
-            lane = lanes.Length - lanesWide - 1; 
+                int lanesWide = j - i;
+                SpawnMedian(i, lanesWide, screensTall);
+
+                i = j;
+            }
         }
+    }
+
+    protected bool[] GetMedianLocations() {
+        int lanesLeft = lanes.Length;
+        bool[] lanesUsed = new bool[lanes.Length];
+        bool[] mediansAt = new bool[lanes.Length];
+
+        int lanesToSpawn = Mathf.Max(laneCountDistribution.Draw(), 1);
+        for (var i = 0; i < lanesToSpawn && lanesLeft > 0; i++) {
+            if (lanesLeft == 0) break;
+
+            int lane = Random.Range(0, lanes.Length);
+            int lanesWide = Mathf.Max(laneSizeDistribution.Draw(), 1);
+
+            if ((lane + lanesWide) > lanes.Length) {
+                lane = lanes.Length - lanesWide - 1;
+            }
+
+            //find the next open lane
+            while (lanesUsed[lane]) {
+                lane += 1;
+                if (lane >= lanes.Length) lane = 0;
+            }
+
+            // mark used lanes or cut down width to fit
+            var j = 0;
+            for (j = 0; j < lanesWide; j++) {
+                if (!lanesUsed[lane + j]) {
+                    lanesUsed[lane + j] = mediansAt[lane + j] = true;
+                    lanesLeft--;
+                } else {
+                    lanesWide = j;
+                    break;
+                }
+            }
+
+            // if we're not allowing neighboring, mark them as used
+            if (!allowNeighboringMedians) {
+                if (lane - 1 >= 0 && !lanesUsed[lane - 1]) {
+                    lanesUsed[lane - 1] = true;
+                    lanesLeft--;
+                }
+
+                if (lane + lanesWide < lanes.Length && !lanesUsed[lane + lanesWide]) {
+                    lanesUsed[lane + lanesWide] = true;
+                    lanesLeft--;
+                }
+            }
+        }
+
+        return mediansAt;
+    }
+
+    protected void SpawnMedian(int lane, int lanesWide, float screensTall) { 
+        var prefab = ResourceLoader.instance.obstacleMedianPrefab;
 
         var position = new Vector3(
             lanes[lane] + ((Median.WIDTH_PER_LANE * lanesWide) / 2f),
@@ -128,6 +193,12 @@ public class MedianSpawner : MonoBehaviour {
             medianLengthDistribution.Add(entry.value, entry.weight);
         }
 
+        laneCountDistribution.Clear();
+        foreach(Entry entry in epoch.numberOfLanesDistribution) {
+            laneCountDistribution.Add(entry.value, entry.weight);
+        }
+
+        allowNeighboringMedians = epoch.allowNeighboringMedians;
         minMedianInterval = epoch.minMedianInterval;
         maxMedianInterval = epoch.maxMedianInterval;
     }
