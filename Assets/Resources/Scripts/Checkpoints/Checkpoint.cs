@@ -30,8 +30,7 @@ public class Checkpoint : MonoBehaviour {
         }
 
 
-        cardsForThisCheckpoint.Add(getRandomCard());
-        cardsForThisCheckpoint.Add(getRandomCard());
+        getRandomCards(cardsForThisCheckpoint, 2);
     }
 	
 	// Update is called once per frame
@@ -50,20 +49,25 @@ public class Checkpoint : MonoBehaviour {
     }
 
 
-
-    public CheckpointCard getRandomCard()
+    public void getRandomCards(List<CheckpointCard> cardListToFill, int numToGen)
     {
-        int randInt = Random.Range(0, 6);
-        GameObject uiCardPrefab = Resources.Load<GameObject>("Prefabs/UI/UiCard-" + randInt);
+        //hardcode for 2 right now cuz why not
 
-        // Debug.Log("Add vehicle to card deck: " + vehicleType);
-
-        GameObject uiCardGo = Instantiate(uiCardPrefab, transform.position, Quaternion.identity);
-        CheckpointCard checkpointCard = uiCardGo.GetComponent<CheckpointCard>();
-
-        return checkpointCard;
-
-        
+        int lastPicked = -1;
+        for (int i = 0; i < numToGen; i++) {
+            int randInt = Random.Range(0, 7);
+            if (randInt == lastPicked) { //prevent same card twice in a row
+                i--;
+                continue;
+            } else {
+                lastPicked = randInt;
+            }
+            GameObject uiCardPrefab = Resources.Load<GameObject>("Prefabs/UI/UiCard-" + randInt);
+            // Debug.Log("Add vehicle to card deck: " + vehicleType);
+            GameObject uiCardGo = Instantiate(uiCardPrefab, transform.position, Quaternion.identity);
+            CheckpointCard checkpointCard = uiCardGo.GetComponent<CheckpointCard>();
+            cardsForThisCheckpoint.Add(checkpointCard);
+        }
         
         //AddNewVehicle(vehicleType, prefab, pos);
     }

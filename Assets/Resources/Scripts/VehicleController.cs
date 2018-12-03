@@ -34,7 +34,7 @@ public class VehicleController : MonoBehaviour
 
     private float bumpScreenShakeMs = 150;
     private float spinScreenShakeMs = 250;
-    private float screenShakeCoolDown = 250;
+    private float screenShakeCoolDown = 300;
     private Stopwatch screenShakeTimer = new Stopwatch();
 
     //Cap on how fast the car can move on the x-axis per update
@@ -108,7 +108,7 @@ public class VehicleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !GameManager.instance.isPrayerDeath)
         {
             Debug.Log("Pressed left click, casting ray.");
             CastRay();
@@ -660,7 +660,7 @@ public class VehicleController : MonoBehaviour
         if (!IsCrashed)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, LayerMask.GetMask("Cars"));
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, LayerMask.GetMask(new string[] { "Cars", "EnteringCars" }));
             if (hit.collider != null && hit.transform == transform)
             {
                 isHoldingMouse = true;
