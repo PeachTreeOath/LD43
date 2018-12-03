@@ -32,6 +32,8 @@ public class GameManager : Singleton<GameManager>
     private float nextCheckpointPos = 0; //TODO relocate to Level object
     private bool isPausedForCheckpoint = false;
 
+    private float totalDistanceTraveled = 0;
+
     public bool isPrayerDeath() {
         return GameManager.instance.GetPrayerMeter().GetPrayer() < 0.1f;
     }
@@ -139,7 +141,9 @@ public class GameManager : Singleton<GameManager>
     {
         if (!isPausedForCheckpoint)
         {
-            curPos += LevelManager.instance.scrollSpeed * Time.deltaTime;
+            float distance = LevelManager.instance.scrollSpeed * Time.deltaTime;
+            curPos += distance;
+            totalDistanceTraveled += distance;
         }
     }
 
@@ -247,7 +251,7 @@ public class GameManager : Singleton<GameManager>
         cGroup.interactable = true;
         cGroup.blocksRaycasts = true;
        // GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
-      //  GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
+        GameObject.Find("GameOverTip").GetComponent<Text>().text = "Total Distance Traveled:\n" + (totalDistanceTraveled * displayDistanceMultiplier).ToString("0.00");
         GameOver();
     }
 
