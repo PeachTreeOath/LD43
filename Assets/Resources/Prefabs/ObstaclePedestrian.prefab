@@ -106,6 +106,7 @@ MonoBehaviour:
   scrollSpeed: 0
   obstacleStats: {fileID: 0}
   telegraph: {fileID: 0}
+  deathImage: {fileID: 1261340073448880, guid: 71f351ac3eaca4243b82d96a48623fa3, type: 2}
 --- !u!212 &212066515062223612
 SpriteRenderer:
   m_ObjectHideFlags: 1
