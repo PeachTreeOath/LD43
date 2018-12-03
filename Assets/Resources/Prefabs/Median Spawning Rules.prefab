@@ -52,17 +52,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rules:
-  - startUsingAfter: 0
-    stopUsingAfter: 0
-    lengthOfBehavior: 30
+  - startUsingAfter: 10
+    stopUsingAfter: 70
+    lengthOfBehavior: 60
     weight: 1
-    neverStopUsing: 1
+    neverStopUsing: 0
     spawnAnything: 1
-    laneSizeDistribution: []
-    lengthDistribution: []
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
     numberOfLanesDistribution:
-    - value: 3
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 0
+    minSpawnInterval: 12
+    maxSpawnInterval: 12
+  - startUsingAfter: 70
+    stopUsingAfter: 130
+    lengthOfBehavior: 60
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
       weight: 1
     allowNeighboringSpawn: 1
-    minSpawnInterval: 10
-    maxSpawnInterval: 10
+    minSpawnInterval: 12
+    maxSpawnInterval: 12
