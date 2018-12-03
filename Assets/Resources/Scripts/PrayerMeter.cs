@@ -245,7 +245,7 @@ public class PrayerMeter : MonoBehaviour
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
         int prayerCount = vp.vehicles.Count == 0 ? 0 : prayerValue / vp.vehicles.Count;
-        int prayerExtra = prayerValue % vp.vehicles.Count;
+        int prayerExtra = vp.vehicles.Count == 0 ? 0 : prayerValue % vp.vehicles.Count;
 
         for (int i = 0; i < vp.vehicles.Count - 1; i++)
         {
