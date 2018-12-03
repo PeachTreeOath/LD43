@@ -46,9 +46,9 @@ public class ObstacleController : MonoBehaviour
 	public void Start () 
 	{
         if (transform.position.x < 0) {
-            rotation = UnityEngine.Random.Range(-30, -90);
+            rotation = UnityEngine.Random.Range(0, -90);
         } else {
-            rotation = UnityEngine.Random.Range(-90, -150);
+            rotation = UnityEngine.Random.Range(-90, -180);
         }
         rbody = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
@@ -132,7 +132,7 @@ public class ObstacleController : MonoBehaviour
                 rbody.velocity = (Vector2)(Quaternion.Euler(0, 0, rotation) * Vector2.right);
                 rbody.rotation = rotation;
                 //transform.right = endPosition.normalized - transform.position;
-                // transform.position = new Vector3(transform.position.x + (obstacleStats.horizontalSpeed * Time.deltaTime), transform.position.y - ((obstacleStats.verticalSpeed + speedModifier) * Time.deltaTime), transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y - ((obstacleStats.verticalSpeed + speedModifier) * Time.deltaTime), transform.position.z);
 
                 if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y) {
                     Destroy(gameObject);

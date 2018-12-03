@@ -12,6 +12,7 @@ public class MedianObstacleStats : ObstacleStats {
 
     // :-/  I guess we're ignoring these inputs for now
     public override void Spawn(Vector2 startPosition, Vector2 endPosition) {
+        /*
         var prefab = GetObstaclePrefab();
 
         int lanesWide = Random.Range(1, 4);
@@ -32,7 +33,7 @@ public class MedianObstacleStats : ObstacleStats {
         median.Initialize();
 
         median.SetSize(lanesWide, screensTall);
-        median.SpawnTelegraphsAlongWidth(spawnTelegraph);
         median.moveTimer = this.moveWaitTime;
+        */
     }
 }

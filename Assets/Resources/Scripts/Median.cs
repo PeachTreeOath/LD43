@@ -10,8 +10,6 @@ public class Median : MonoBehaviour {
     public const float HEIGHT_PER_SCREEN = 10f;
 
     public const float LEFT_EDGE_OF_FIRST_LANE = -4.78f;
-    private const float DISTANCE_BETWEEN_TELEGRAPHS = 0.1f;
-    private const float Y_POSITION_OF_TELEGRAPHS = 3.75f;
 
     private new BoxCollider2D collider;
     private new SpriteRenderer renderer;
@@ -39,29 +37,6 @@ public class Median : MonoBehaviour {
         var size = new Vector2(numLanes * WIDTH_PER_LANE, numberOfScreens * HEIGHT_PER_SCREEN);
         collider.size = size;
         renderer.size = size;
-    }
-
-    public void SpawnTelegraphsAlongWidth(GameObject telegraphPrefab) {
-        var telegraphSize = telegraphPrefab.GetComponent<SpriteRenderer>().bounds.size;
-
-        var stride = telegraphSize.x + DISTANCE_BETWEEN_TELEGRAPHS;
-        var numToSpawn = Mathf.FloorToInt(collider.size.x / stride);
-        var totalSpaceUsedToSpawn = numToSpawn * stride;
-        var leftPadding = (collider.size.x - totalSpaceUsedToSpawn) / 2f;
-
-
-        var position = new Vector3(
-            collider.bounds.min.x + leftPadding,
-            Y_POSITION_OF_TELEGRAPHS - telegraphSize.y / 2f,
-            transform.position.z
-        );
-
-        for (var i = 0; i < numToSpawn; i++) {
-            Instantiate(telegraphPrefab, position, Quaternion.identity, transform);
-            position.x += stride;
-        }
-
-        AudioManager.instance.PlaySound("obstacle_warning");
     }
 
     void DestroyAllTelegraphs() {
