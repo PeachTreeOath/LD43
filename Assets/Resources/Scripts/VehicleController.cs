@@ -553,6 +553,7 @@ public class VehicleController : MonoBehaviour
         if (isSelected)
         {
             AddLight();
+            AudioManager.instance.PlaySound("possession");
         }
         else
         {
