@@ -53,8 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rules:
   - startUsingAfter: 10
-    stopUsingAfter: 70
-    lengthOfBehavior: 60
+    stopUsingAfter: 11
+    lengthOfBehavior: 1
     weight: 1
     neverStopUsing: 0
     spawnAnything: 1
@@ -64,15 +64,17 @@ MonoBehaviour:
     lengthDistribution:
     - value: 1
       weight: 1
+    - value: 1
+      weight: 1
     numberOfLanesDistribution:
     - value: 1
       weight: 1
     allowNeighboringSpawn: 0
-    minSpawnInterval: 12
-    maxSpawnInterval: 12
-  - startUsingAfter: 70
-    stopUsingAfter: 130
-    lengthOfBehavior: 60
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 22
+    stopUsingAfter: 25
+    lengthOfBehavior: 1
     weight: 1
     neverStopUsing: 0
     spawnAnything: 1
@@ -86,5 +88,149 @@ MonoBehaviour:
     - value: 1
       weight: 1
     allowNeighboringSpawn: 1
-    minSpawnInterval: 12
-    maxSpawnInterval: 12
+    minSpawnInterval: 3
+    maxSpawnInterval: 3
+  - startUsingAfter: 30
+    stopUsingAfter: 32
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 2
+    maxSpawnInterval: 2
+  - startUsingAfter: 33
+    stopUsingAfter: 36
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 3
+    maxSpawnInterval: 3
+  - startUsingAfter: 41
+    stopUsingAfter: 43
+    lengthOfBehavior: 2
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 51
+    stopUsingAfter: 53
+    lengthOfBehavior: 2
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 60
+    stopUsingAfter: 61
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 2
+      weight: 1
+    allowNeighboringSpawn: 0
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 71
+    stopUsingAfter: 72
+    lengthOfBehavior: 1
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 1
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 2
+      weight: 1
+    allowNeighboringSpawn: 0
+    minSpawnInterval: 1
+    maxSpawnInterval: 1
+  - startUsingAfter: 80
+    stopUsingAfter: 88
+    lengthOfBehavior: 8
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 2
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 4
+    maxSpawnInterval: 4
+  - startUsingAfter: 96
+    stopUsingAfter: 111
+    lengthOfBehavior: 15
+    weight: 1
+    neverStopUsing: 0
+    spawnAnything: 1
+    laneSizeDistribution:
+    - value: 1
+      weight: 1
+    lengthDistribution:
+    - value: 4
+      weight: 1
+    numberOfLanesDistribution:
+    - value: 1
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 4
+    maxSpawnInterval: 4
