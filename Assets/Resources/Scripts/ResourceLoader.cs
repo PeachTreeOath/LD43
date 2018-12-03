@@ -56,6 +56,7 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
     #region Stuff
     public GameObject burningFireFab;
+    public GameObject prayerHandsFab;
     #endregion
 
 
@@ -104,5 +105,6 @@ public class ResourceLoader : Singleton<ResourceLoader>
 
         //Stuff
         burningFireFab = Resources.Load("Prefabs/BurningFire") as GameObject;
+        prayerHandsFab = Resources.Load("Prefabs/PrayingHands") as GameObject;
     }
 }

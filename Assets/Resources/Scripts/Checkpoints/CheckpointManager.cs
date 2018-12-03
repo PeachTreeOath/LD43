@@ -58,8 +58,6 @@ public class CheckpointManager : MonoBehaviour
     [SerializeField]
     private MiracleAnimator spawnAnimator;
 
-    public GameObject prayerHandsFab;
-
     private CheckpointUiManager uiManager;
     private bool showingCheckpointUi = false;
 
@@ -262,9 +260,8 @@ public class CheckpointManager : MonoBehaviour
 
         hideCheckpointUi();
 
-        GameManager.instance.PrayerPowerRevive();
-
         GainPrayers();
+        GameManager.instance.PrayerPowerRevive();
     }
 
     void GainPrayers()
@@ -277,7 +274,8 @@ public class CheckpointManager : MonoBehaviour
             prayerCount += vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue;
             for (int p = 0; p < vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue; p++)
             {
-                GameObject ph = Instantiate(prayerHandsFab) as GameObject;
+                GameObject ph = Instantiate(ResourceLoader.instance.prayerHandsFab) as GameObject;
+                ph.GetComponent<PrayerHands>().value = 1;
                 ph.transform.position = vp.vehicles[i].gameObject.transform.position + new Vector3(Random.Range(0f, 1f),
                                                                                                     Random.Range(0f, 1f),
                                                                                                     -1);

@@ -822,6 +822,11 @@ Prefab:
       propertyPath: lowPrayersText
       value: 
       objectReference: {fileID: 1353108766}
+    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
+        type: 2}
+      propertyPath: periodicPrayerFactor
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a96303b67fe033c47a42de8471afe551, type: 2}
   m_IsPrefabAsset: 0

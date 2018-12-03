@@ -8,6 +8,8 @@ public class LevelManager : Singleton<LevelManager>
     public float scrollSpeed;
     public float spawnRateInSeconds;
 
+    public float prayerPenaltyPerCycle;
+    public float prayerPenaltyPerPed;
     public float prayerDecayTickRate; //how often the update is in sec
     public float prayerIncomeTickRate; //how often the update is in sec
     public float prayerDecayPerSec;    //how many are lost after 1 second, approx

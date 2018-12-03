@@ -32,6 +32,8 @@ public class ObstacleController : MonoBehaviour
     [Tooltip("Warning indicator object, show display while obstacle is waiting to move into the map.")]
 	public GameObject telegraph;
 
+    private bool penalized = false;
+
 	public void SetEndLocation(Vector2 endPosition)
 	{
 		this.endPosition = endPosition;
@@ -120,6 +122,7 @@ public class ObstacleController : MonoBehaviour
             case ObstacleStateEnum.DEAD:
                 spr.color = new Color(1f, 0f, 0f, 1f);
                 transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
+                doDeathPenalty();
                 break;
         }
 	}
@@ -144,4 +147,24 @@ public class ObstacleController : MonoBehaviour
             }
         }
     }
+
+    private void doDeathPenalty() {
+        if (!penalized) {
+            penalized = true;
+            switch (tag) {
+                case "ObPed":
+                    GameManager.instance.GetPrayerMeter().RemovePrayer(LevelManager.instance.prayerPenaltyPerPed);
+                    break;
+
+                case "ObCycle":
+                    GameManager.instance.GetPrayerMeter().RemovePrayer(LevelManager.instance.prayerPenaltyPerCycle);
+                    break;
+
+                case "ObCone":
+                    break;
+            }
+        }
+
+    }
+
 }

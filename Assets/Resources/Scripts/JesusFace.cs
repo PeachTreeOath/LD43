@@ -31,7 +31,9 @@ public class JesusFace : MonoBehaviour
         {
             GotoNeutralFace();
         }
-        if (isTriggered)
+
+        bool isTransparent = isTriggered || GameManager.instance.isPrayerDeath;
+        if (isTransparent)
         {
             spr.color = new Color(1f, 1f, 1f, 0.1f);
         }
@@ -39,7 +41,7 @@ public class JesusFace : MonoBehaviour
         {
             spr.color = new Color(1f, 1f, 1f, 1f);
         }
-        jesusManager.SetBodyTransparency(isTriggered);
+        jesusManager.SetBodyTransparency(isTransparent);
     }
 
     // Should only be called internally via timer but leaving this public anyways
