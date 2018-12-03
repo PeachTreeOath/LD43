@@ -246,7 +246,6 @@ public class GameManager : Singleton<GameManager>
     {
         GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
         isPrayerDeath = true;
-        GameOver();
     }
 
     private void GameOver()
