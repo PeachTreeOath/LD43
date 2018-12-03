@@ -39,12 +39,6 @@ public class CheckpointManager : MonoBehaviour
 
     public const string distanceOnSign = "MI";
 
-    public const int oneDigitFontSize = 45;
-
-    public const int twoDigitFontSize = 40;
-
-    public const int threeDigitFontSize = 33;
-
     [SerializeField]
     private Canvas checkpointUi;
 
@@ -64,6 +58,8 @@ public class CheckpointManager : MonoBehaviour
     private GraphicRaycaster graycast;
     private EventSystem eventSystem;
     private PrayerMeter prayerMeter;
+
+    public Text distanceText;
 
     // Use this for initialization
     void Awake()
@@ -118,25 +114,7 @@ public class CheckpointManager : MonoBehaviour
 
     public void UpdateCheckpointSignDistance(float distance)
     {
-        TextMeshProUGUI textMesh = GetComponentInChildren<TextMeshProUGUI>();
-
-        // If it's in the thousands it's too high!
-        //if (distance / 100 >= 1)
-        //{
-        //   textMesh.fontSize = threeDigitFontSize;
-        //}
-        //else if (distance / 10 >= 1)
-        //{
-        //    textMesh.fontSize = twoDigitFontSize;
-        //}
-        //else
-        //{
-        //    textMesh.fontSize = oneDigitFontSize;
-        //}
-
-        textMesh.fontSize = threeDigitFontSize;
-
-        textMesh.SetText(distance.ToString("0.00") + " " + distanceOnSign);
+        distanceText.text = distance.ToString("0.00");
     }
 
     //highlight cards that have the mouse over them
