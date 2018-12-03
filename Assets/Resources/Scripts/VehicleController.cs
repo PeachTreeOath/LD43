@@ -513,6 +513,7 @@ public class VehicleController : MonoBehaviour
         fireballEmitter.gameObject.AddComponent<ObjectFollower>().target = gameObject.transform;
         fireballEmitter.Play();
 
+        AudioManager.instance.PlaySound("explosion");
         //TODO crash sound
         ScreenShake(true, GameManager.instance.screenShakeDurationMs);
 
@@ -552,6 +553,8 @@ public class VehicleController : MonoBehaviour
         fireballEmitter.Play();
         //rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
         //Debug.Log("Set crash velocity for " + gameObject.name + " enabled: " + enabled);
+        AudioManager.instance.PlaySound("car_slide");
+
     }
 
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
