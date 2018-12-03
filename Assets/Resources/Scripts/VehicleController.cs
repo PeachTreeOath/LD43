@@ -659,7 +659,7 @@ public class VehicleController : MonoBehaviour
         if (!IsCrashed)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, LayerMask.GetMask("Cars"));
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, LayerMask.GetMask(new string[] { "Cars", "EnteringCars" }));
             if (hit.collider != null && hit.transform == transform)
             {
                 isHoldingMouse = true;
