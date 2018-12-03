@@ -11,7 +11,7 @@ public class HighlightableVehicle : MonoBehaviour
 
     void Update()
     {
-        if(RayCaster.hitInfo.collider != null && !GameManager.instance.isPrayerDeath
+        if(RayCaster.hitInfo.collider != null && !GameManager.instance.isPrayerDeath()
             && !GameManager.instance.isGameOver)
         {
             if(RayCaster.hitInfo.collider.gameObject.GetInstanceID() == gameObject.GetInstanceID())
