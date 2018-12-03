@@ -37,6 +37,10 @@ public class JesusArmBezier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Stop arm movement when you run out of prayers
+        if(GameManager.instance.isPrayerDeath)
+            return;
+
         if (lineRenderer.startWidth != width)
         {
             lineRenderer.startWidth = width;

@@ -123,6 +123,15 @@ public class VehiclePool : MonoBehaviour
         vehicles.Add(vehicleController);
     }
 
+    public void UnselectAllVehicles()
+    {
+        //Unselect all other controllers
+        foreach (var vehicleController in vehicles)
+        {
+            vehicleController.SetSelected(false);
+        }
+    }
+
     public void SelectVehicle(VehicleController controllerToSelect)
     {
         if (controllerToSelect != null)
@@ -156,7 +165,8 @@ public class VehiclePool : MonoBehaviour
 
         vehicles.Remove(crashedVehicle);
 
-        if(fatal) {
+        if (fatal)
+        {
             Debug.Log(crashedVehicle.gameObject.name + " crashed");
             crashedVehicles.Add(crashedVehicle.gameObject);
             CheckForGameOver();
@@ -173,7 +183,8 @@ public class VehiclePool : MonoBehaviour
         }
     }
 
-    public int getNumWorkingCars() {
+    public int getNumWorkingCars()
+    {
         return vehicles.Count;
     }
 }

@@ -252,7 +252,7 @@ public class CheckpointManager : MonoBehaviour
         Debug.Log("Resume checkpoint");
 
         hideCheckpointUi();
-
+        
         GameManager.instance.PrayerPowerRevive();
 
         GainPrayers();

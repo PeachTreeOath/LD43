@@ -58,7 +58,7 @@ public class JesusManager : Singleton<JesusManager>
             if (rightHand.IsGuidingCar) rightHand.Hover();
             if (leftHand.IsGuidingCar) leftHand.Hover();
         }
-        
+
     }
 
     public void SetBodyTransparency(bool isTransparent)

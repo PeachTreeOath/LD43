@@ -250,6 +250,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GameOverPrayerPowerDeath()
     {
+        GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
         isPrayerDeath = true;
     }
 

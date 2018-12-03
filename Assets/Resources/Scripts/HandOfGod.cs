@@ -40,6 +40,10 @@ public class HandOfGod : MonoBehaviour
 
     void Update()
     {
+        // Stop arm movement when you run out of prayers
+        if(GameManager.instance.isPrayerDeath)
+            return;
+            
         switch (currState)
         {
             case State.SNAPPING_TO_MOUSE:
