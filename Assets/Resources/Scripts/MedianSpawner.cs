@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MedianSpawner : ProgrammableSpawner {
 
+    private const float Y_POSITION_OF_TELEGRAPHS = 3.75f;
+
     protected override void Spawn() {
         float screensTall = Mathf.Max(medianLengthDistribution.Draw(), 0.5f);
 
@@ -35,7 +37,23 @@ public class MedianSpawner : ProgrammableSpawner {
         median.Initialize();
 
         median.SetSize(lanesWide, screensTall);
-        median.SpawnTelegraphsAlongWidth(spawnTelegraph);
         median.moveTimer = moveWaitTime;
+
+        for(var i = 0; i < lanesWide; i++) {
+            SpawnTelegraph(median.transform, lane + i);
+        }
+    }
+
+    protected void SpawnTelegraph(Transform transform, int lane) {
+        var telegraphSize = spawnTelegraph.GetComponent<SpriteRenderer>().bounds.size;
+        var position = new Vector3(
+            lanes[lane] + (Median.WIDTH_PER_LANE /2f),
+            Y_POSITION_OF_TELEGRAPHS - telegraphSize.y / 2f,
+            transform.position.z
+        );
+
+        Instantiate(spawnTelegraph, position, Quaternion.identity, transform);
+
+        AudioManager.instance.PlaySound("obstacle_warning");
     }
 }

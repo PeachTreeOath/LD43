@@ -127,6 +127,7 @@ class CarnageViewer : MonoBehaviour
             GameObject oText = Instantiate(ResourceLoader.instance.obituaryText) as GameObject;
             oText.GetComponent<TextMeshPro>().SetText(shuffleDobituaries[i % shuffleDobituaries.Length]);
             oText.GetComponent<TextMeshPro>().alignment = TextAlignmentOptions.Center;
+            oText.GetComponent<TextMeshPro>().color = Color.black;
             oText.transform.position = deadPeople[i].transform.position + Vector3.up * bounds * 1.5f + Vector3.back;
             if (oText.transform.position.x > 4.5f) {
                 oText.transform.position = oText.transform.position = new Vector3(4.5f, oText.transform.position.y, oText.transform.position.z);
