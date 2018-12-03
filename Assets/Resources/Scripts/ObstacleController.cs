@@ -184,10 +184,9 @@ public class ObstacleController : MonoBehaviour
             penalized = true;
             switch (tag) {
                 case "ObPed":
-                    GameManager.instance.GetPrayerMeter().RemovePrayer(LevelManager.instance.prayerPenaltyPerPed);
                     AudioManager.instance.PlaySound("ped_death");
                     GameObject deathObj = Instantiate(deathImage);
-                    deathObj.transform.position = new Vector2(0,1);
+                    deathObj.GetComponent<PedestrianDeath>().SetPosition(transform.position);
                     break;
 
                 case "ObCycle":
