@@ -255,6 +255,8 @@ public class CheckpointManager : MonoBehaviour
 
         hideCheckpointUi();
 
+        GameManager.instance.PrayerPowerRevive();
+
         GainPrayers();
     }
 
