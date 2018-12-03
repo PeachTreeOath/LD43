@@ -33,6 +33,16 @@ public class GameManager : Singleton<GameManager>
 
     //private int dbgCount = 0;
 
+    public void GameOver()
+    {
+        GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
+        GameManager.instance.GetCheckPointManager().enabled = false;
+        GameManager.instance.GetObstacleSpawner().enabled = false;
+        GameManager.instance.GetMedianSpawner().enabled = false;
+        GameManager.instance.GetPrayerMeter().enabled = false;
+        GameManager.instance.enabled = false;
+    }
+
         //Note this will only start once ever because of the singleton dontdestroyonload
     void Start()
     {
