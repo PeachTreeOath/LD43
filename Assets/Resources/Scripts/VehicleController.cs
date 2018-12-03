@@ -590,7 +590,7 @@ public class VehicleController : MonoBehaviour
         sleepVector = Vector2.zero;
 
         //Testing prayer allocation on wake.
-        GameManager.instance.GetPrayerMeter().AddPrayer(vehicleStats.prayerValue);
+        //GameManager.instance.GetPrayerMeter().AddPrayer(vehicleStats.prayerValue);
     }
 
     private void resetSleepTime()

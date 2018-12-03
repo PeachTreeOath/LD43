@@ -199,7 +199,8 @@ public class GameManager : Singleton<GameManager>
         isPausedForCheckpoint = false;
         obstacleSpawner.resume();
         nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
-
+        GameManager.instance.PrayerPowerRevive();
+        
         AudioManager.instance.PlaySound("car_start");
     }
 

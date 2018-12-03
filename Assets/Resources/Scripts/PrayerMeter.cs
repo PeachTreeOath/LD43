@@ -202,7 +202,9 @@ public class PrayerMeter : MonoBehaviour
     }
 
     public void AddTimedPrayer(int prayerValue) {
-
+        if(GameManager.instance.isPrayerDeath)
+            return;
+            
         prayerValue /= periodicPrayerFactor;
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
@@ -237,9 +239,7 @@ public class PrayerMeter : MonoBehaviour
 
     public void AddPrayer(float prayerValue)
     {
-        if(GameManager.instance.isPrayerDeath)
-            return;
-            
+
         //Increment the prayer count.
         _prayerCount += prayerValue;
         if (_prayerCount > maxPrayers)

@@ -63,6 +63,7 @@ public class CheckpointManager : MonoBehaviour
 
     private GraphicRaycaster graycast;
     private EventSystem eventSystem;
+    private PrayerMeter prayerMeter;
 
     // Use this for initialization
     void Awake()
@@ -77,6 +78,8 @@ public class CheckpointManager : MonoBehaviour
         {
             Debug.LogError("No GraphicRaycaster in scene... missing canvas er something?");
         }
+
+        prayerMeter = GameObject.Find("PrayerMeter").GetComponent<PrayerMeter>();
     }
 
     void Start()
@@ -254,17 +257,19 @@ public class CheckpointManager : MonoBehaviour
         hideCheckpointUi();
 
         GainPrayers();
-        GameManager.instance.PrayerPowerRevive();
     }
 
     void GainPrayers()
     {
+        /*
+        Had to change this cuz if you had 0 PP entering a checkpoint, you would game over again before the hands reach you. Getting late so can't fully fix, doing instant prayer for now.
+
         VehiclePool vp = GameManager.instance.getVehiclePool();
-        int prayerCount = 0;
+       // int prayerCount = 0;
         Debug.Log("vp.vehicles.Count: " + vp.vehicles.Count);
         for (int i = 0; i < vp.vehicles.Count; i++)
         {
-            prayerCount += vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue;
+          //  prayerCount += vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue;
             for (int p = 0; p < vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue; p++)
             {
                 GameObject ph = Instantiate(ResourceLoader.instance.prayerHandsFab) as GameObject;
@@ -274,7 +279,14 @@ public class CheckpointManager : MonoBehaviour
                                                                                                     -1);
                 ph.transform.SetParent(vp.vehicles[i].gameObject.transform);
             }
+        }*/
+        int prayerCount = 0;
+        VehiclePool vp = GameManager.instance.getVehiclePool();
+        for (int i = 0; i < vp.vehicles.Count; i++)
+        {
+            prayerCount += vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue;
         }
+        prayerMeter.AddPrayer(prayerCount * 2);
     }
 
 
