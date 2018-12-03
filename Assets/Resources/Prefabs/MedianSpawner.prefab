@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114260786124810796}
   - component: {fileID: 114462845443542858}
   - component: {fileID: 114422130474605140}
+  - component: {fileID: 114728156896056166}
   m_Layer: 0
   m_Name: MedianSpawner
   m_TagString: Untagged
@@ -85,7 +86,7 @@ MonoBehaviour:
   verticalSpeed: 5
   verticalRange: 1
   horizontalSpeed: 1
-  moveWaitTime: 1
+  moveWaitTime: 3.5
   directionObstacleComingFrom: 6
   spawnTimer: 0
   obstacleHeight: 0.6
@@ -108,8 +109,20 @@ MonoBehaviour:
   allowNeighboringMedians: 0
   minMedianInterval: 0
   maxMedianInterval: 0
-  moveWaitTime: 0
+  moveWaitTime: 3.5
   elapsedTime: 0
   timeLeftInEpoch: 0
   timeUntilNextSpawn: 0
   obstacleStats: {fileID: 114422130474605140}
+  closeLaneDuration: 0.25
+--- !u!114 &114728156896056166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581632159215740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f531c6802e4c0439e0d9d1283a5c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
