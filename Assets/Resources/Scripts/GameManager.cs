@@ -48,6 +48,7 @@ public class GameManager : Singleton<GameManager>
         obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
         Debug.Log("Loaded Obstacle Spawner: " + obstacleSpawner);
 
+
         scroller.scrollSpeed = LevelManager.instance.scrollSpeed * scrollSpeedMultiplier;
 
         StartSceneThings();
@@ -215,6 +216,10 @@ public class GameManager : Singleton<GameManager>
     public ObstacleSpawner GetObstacleSpawner()
     {
         return obstacleSpawner;
+    }
+
+    public MedianSpawner GetMedianSpawner() {
+        return GameObject.FindObjectOfType<MedianSpawner>();
     }
 
     public void GameOverVehicleDeath()

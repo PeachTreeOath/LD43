@@ -319,7 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neutralFace: {fileID: 21300000, guid: 0a8a4a3df68816e4ba13116ed4ee5e35, type: 3}
   winceFace: {fileID: 21300000, guid: c0d09d542efe95245b11b4ca15161b8b, type: 3}
-  winceDuration: 1
+  winceDuration: 1.75
 --- !u!120 &120165491489029946
 LineRenderer:
   m_ObjectHideFlags: 1

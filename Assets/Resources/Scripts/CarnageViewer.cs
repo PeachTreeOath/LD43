@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System.Linq;
 
 class CarnageViewer : MonoBehaviour
 {
@@ -55,14 +55,17 @@ class CarnageViewer : MonoBehaviour
 
     VehiclePool vp;
     float scrollMod = .1f;
+
     void Start()
     {
         Canvas canv = GameManager.instance.GetCheckPointManager().transform.Find("CheckpointSignCanvas").GetComponent<Canvas>();
         vp = GameManager.instance.getVehiclePool();
 
+        //TODO move some of this somewhere else? its not intuitive that its here
         GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
         GameManager.instance.GetCheckPointManager().enabled = false;
         GameManager.instance.GetObstacleSpawner().enabled = false;
+        GameManager.instance.GetMedianSpawner().enabled = false;
         GameManager.instance.GetPrayerMeter().enabled = false;
         GameManager.instance.enabled = false;
 
@@ -100,6 +103,9 @@ class CarnageViewer : MonoBehaviour
 
         deadPeople.Sort((m, n) => m.transform.position.y.CompareTo(n.transform.position.y));
 
+        System.Random rnd = new System.Random();
+        string[] shuffleDobituaries = obituaries.OrderBy(x => rnd.Next()).ToArray();
+
         for (int i = deadPeople.Count - 1; i >= 0; i--)
         {
             float bounds;
@@ -126,7 +132,7 @@ class CarnageViewer : MonoBehaviour
             deadPeople[i].GetComponent<Rigidbody2D>().velocity = new Vector2(0, LevelManager.instance.scrollSpeed * scrollMod);
 
             GameObject oText = Instantiate(ResourceLoader.instance.obituaryText) as GameObject;
-            oText.GetComponent<TextMeshPro>().SetText(obituaries[Random.Range(0, obituaries.Length)]);
+            oText.GetComponent<TextMeshPro>().SetText(shuffleDobituaries[i % shuffleDobituaries.Length]);
             oText.GetComponent<TextMeshPro>().alignment = TextAlignmentOptions.Center;
             oText.transform.position = deadPeople[i].transform.position + Vector3.up * bounds * 1.5f + Vector3.back;
             if (oText.transform.position.x > 4.5f) {

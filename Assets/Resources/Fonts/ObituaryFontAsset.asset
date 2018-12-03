@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Humanistic SDF
+  m_Name: ObituaryFontAsset
   m_EditorClassIdentifier: 
   hashCode: 1353247018
   material: {fileID: 21479035011737812}
@@ -883,12 +883,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.261
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
     - _ScaleRatioB: 0.6770833
-    - _ScaleRatioC: 0.6770833
+    - _ScaleRatioC: 0.4457428
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -900,9 +900,9 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 512
     - _TextureWidth: 512
-    - _UnderlayDilate: -0.04
-    - _UnderlayOffsetX: 0.192
-    - _UnderlayOffsetY: 0.086
+    - _UnderlayDilate: 0.817
+    - _UnderlayOffsetX: 0.702
+    - _UnderlayOffsetY: -0.274
     - _UnderlaySoftness: 0
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
