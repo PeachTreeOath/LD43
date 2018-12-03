@@ -80,6 +80,7 @@ MonoBehaviour:
   bottomRightBound: {x: 6.25, y: -4.75}
   defaultDeltaFromTopForWarnings: 0.3
   defaultDeltaFromRightForWarnings: 1
+  isGameOver: 0
   lightShaftsFab: {fileID: 1784035439255130, guid: f1ed7857eeef752448a0535314680dbe,
     type: 2}
   startingCheckpoint: {fileID: 0}
@@ -92,7 +93,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1438342812020930}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 930eedbbfa3b9624baab23c8545b9226, type: 3}
   m_Name: 
@@ -127,6 +128,7 @@ MonoBehaviour:
   captionBubble2: {fileID: 0}
   captionBubble3: {fileID: 0}
   burningFireFab: {fileID: 0}
+  prayerHandsFab: {fileID: 0}
   vehicleWobble: {fileID: 0}
 --- !u!114 &114727451593951148
 MonoBehaviour:
