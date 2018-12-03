@@ -1395,7 +1395,7 @@ Prefab:
     - target: {fileID: 114104659247143996, guid: 979f68a900fcfb443b64f6caf5d79e6c,
         type: 2}
       propertyPath: m_text
-      value: 'Jesus has run out of power, He can no longer take wheels until the next
+      value: 'Jesus has run out of power, he can no longer take wheels until the next
         checkpoint
 
         Tip: More vehicles = more prayers = more control time'
@@ -1434,7 +1434,7 @@ Prefab:
         type: 2}
       propertyPath: m_subTextObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1817866498}
     - target: {fileID: 114104659247143996, guid: 979f68a900fcfb443b64f6caf5d79e6c,
         type: 2}
       propertyPath: m_firstOverflowCharacterIndex
