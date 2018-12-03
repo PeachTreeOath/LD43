@@ -76,6 +76,20 @@ public class ObstacleController : MonoBehaviour
 	}
 
     public void Update() {
+        if (obstacleStats.obstacleType == ObstacleTypeEnum.PEDESTRIAN && obstacleState != ObstacleStateEnum.DEAD) {
+            var index = (Time.frameCount / 10) % 2;
+            switch (index) {
+                case 0:
+                    spr.flipY = true;
+                    break;
+                case 1:
+                    spr.flipY = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         if (!GameManager.instance.isPaused()) {
             UpdatePos();
         }
