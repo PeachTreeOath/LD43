@@ -16,7 +16,7 @@ public class VolumeListener : MonoBehaviour {
 	public void VolumeChanged()
 	{
 		volumeLevel = gameObject.GetComponent<Slider>().value;
-		AudioManager.instance.UpdateMusicVolume();
+		AudioManager.instance.UpdateOverallVolume();
         Debug.Log("Volume changed: " + (volumeLevel * 100f).ToString("00") + "%");
 	}
 }

@@ -24,6 +24,7 @@ public class PrayerHands : MonoBehaviour {
     delegate void action_t();
     List<action_t> actions;
     Vector3 finalPos;
+    float startXOffset;
 
     // Use this for initialization
     void Start () {
@@ -34,7 +35,7 @@ public class PrayerHands : MonoBehaviour {
         finalPos = new Vector3(finalPos.x * Camera.main.orthographicSize * aspectRatio, finalPos.y * Camera.main.orthographicSize, -1);
 
         delayTime = Random.Range(0, .25f);
-        startPos = gameObject.transform.position;
+        startXOffset = gameObject.transform.parent.position.x - gameObject.transform.position.x;
         actions = new List<action_t>();
         actions.Add(FlairTimer);
         actions.Add(ExitTimer);
@@ -48,6 +49,7 @@ public class PrayerHands : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         lerpScale();
+        startPos = gameObject.transform.parent.position + Vector3.right * startXOffset;
         actions[(int)phState]();
     }
 

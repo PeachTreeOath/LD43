@@ -117,7 +117,7 @@ public class VehiclePool : MonoBehaviour
             MiracleAnimator myMiracle = vehicleGO.AddComponent<MiracleAnimator>();
             float startX = Random.Range(-6, 6);
             float duration = Random.Range(2.75f, 4.25f);
-            myMiracle.beginMiracles(new Vector2(startX, 4), vehicleGO.transform.position, duration);
+            myMiracle.beginMiracles(new Vector2(startX, -Camera.main.orthographicSize), vehicleGO.transform.position, duration);
         }
 
         vehicles.Add(vehicleController);
