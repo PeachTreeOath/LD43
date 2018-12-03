@@ -556,7 +556,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Checkpoint Reached :'
+  m_Text: Checkpoint Reached
 --- !u!114 &114785328079898694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -634,7 +634,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Highway to Heaven
+  m_Text: 
 --- !u!114 &114998938626384814
 MonoBehaviour:
   m_ObjectHideFlags: 1
