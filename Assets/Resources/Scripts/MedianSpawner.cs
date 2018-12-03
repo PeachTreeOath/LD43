@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MedianSpawner : ProgrammableSpawner {
 
-    private const float Y_POSITION_OF_TELEGRAPHS = 3.75f;
+    private const float Y_POSITION_OF_TELEGRAPHS = 3.7f;
 
     protected override void Spawn() {
         float screensTall = Mathf.Max(medianLengthDistribution.Draw(), 0.5f);

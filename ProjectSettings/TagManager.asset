@@ -65,3 +65,9 @@ TagManager:
   - name: Jesus
     uniqueID: 2075757779
     locked: 0
+  - name: PedestrianWarning
+    uniqueID: 622312179
+    locked: 0
+  - name: TerrainWarning
+    uniqueID: 2191980689
+    locked: 0
