@@ -73,7 +73,7 @@ public class AudioManager : Singleton<AudioManager>
 	public void UpdateOverallVolume()
 	{
         //musicVolume = VolumeListener.volumeLevel;
-        musicChannel.volume = VolumeListener.volumeLevel * soundMixer["dance"];
+        musicChannel.volume = VolumeListener.volumeLevel * soundMixer["praise_song"];
         soundChannel.volume = VolumeListener.volumeLevel;
     }
 
