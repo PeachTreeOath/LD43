@@ -31,7 +31,7 @@ public class VehiclePool : MonoBehaviour
         */
     }
 
-    public void AddNewVehicle(VehicleTypeEnum vehicleType, MiracleAnimator entryMiracle)
+    public void AddNewVehicle(VehicleTypeEnum vehicleType)
     {
         Debug.Log("Add vehicle: " + vehicleType);
         GameObject prefab = null;
@@ -77,22 +77,33 @@ public class VehiclePool : MonoBehaviour
                 Debug.Log("You done fukt up a-a-ron");
                 break;
         }
-        AddNewVehicle(vehicleType, prefab, pos, entryMiracle);
+        AddNewVehicle(vehicleType, prefab, pos);
     }
 
-    public void AddNewVehicle(VehicleTypeEnum vehicleType, GameObject vehiclePrefab, float xPosition,
-        MiracleAnimator entryMiracle)
-    {
-        // Get vehicle stats - if possible.
+    public void AddNewVehicle(VehicleTypeEnum vehicleType, GameObject vehiclePrefab, float xPosition) {
+        float startX = Random.Range(-6, 6);
+        float duration = Random.Range(2.75f, 4.25f);
+
+        Vector2 position = new Vector2(xPosition, finalSpawnYPosition);
+
+        SpawnVehicleWithAnimation(vehicleType, vehiclePrefab, position, startX, duration);
+
+        if(vehicleType == VehicleTypeEnum.MOTORCYLE) {
+            var offset1 = new Vector2(-0.3f, -0.3f);
+            var offset2 = new Vector2(0.3f, -0.3f);
+            SpawnVehicleWithAnimation(vehicleType, vehiclePrefab, position + offset1, startX, duration);
+            SpawnVehicleWithAnimation(vehicleType, vehiclePrefab, position + offset2, startX, duration);
+        }
+    }
+
+    private void SpawnVehicleWithAnimation(VehicleTypeEnum vehicleType, GameObject vehiclePrefab, Vector2 position, float startX, float duration) {
         VehicleStats[] vehicleStats = LevelManager.instance.GetComponents<VehicleStats>();
         List<VehicleStats> matchingStat = (from stat in vehicleStats where stat.vehicleType == vehicleType select stat).ToList();
-        if (matchingStat.Count != 1)
-        {
+        if (matchingStat.Count != 1) {
             Debug.LogWarning("Couldn't find matching vehicle stat for " + vehicleType + " or found multiple.");
-            return;
         }
 
-        GameObject vehicleGO = Instantiate(vehiclePrefab, new Vector3(xPosition, finalSpawnYPosition, 0), Quaternion.identity);
+        var vehicleGO = Instantiate(vehiclePrefab, position, Quaternion.identity);
         vehicleGO.transform.SetParent(transform);
         VehicleStats vs = vehicleGO.AddComponent<VehicleStats>();
         vs.awakeGracePeriod = matchingStat[0].awakeGracePeriod;
@@ -105,22 +116,17 @@ public class VehiclePool : MonoBehaviour
         vs.sleepSeverity = matchingStat[0].sleepSeverity;
 
 
-        VehicleController vehicleController = vehicleGO.GetComponent<VehicleController>();
-        vehicleController.vehicleStats = matchingStat[0];
+        var vehicle = vehicleGO.GetComponent<VehicleController>();
+        vehicle.vehicleStats = matchingStat[0];
 
         Rigidbody2D rb2d = vehicleGO.GetComponent<Rigidbody2D>();
         rb2d.mass = matchingStat[0].weight * 50;
         rb2d.drag = matchingStat[0].weight * 10f;
 
-        if (entryMiracle != null)
-        {
-            MiracleAnimator myMiracle = vehicleGO.AddComponent<MiracleAnimator>();
-            float startX = Random.Range(-6, 6);
-            float duration = Random.Range(2.75f, 4.25f);
-            myMiracle.beginMiracles(new Vector2(startX, -Camera.main.orthographicSize), vehicleGO.transform.position, duration);
-        }
+        MiracleAnimator myMiracle = vehicle.gameObject.AddComponent<MiracleAnimator>();
+        myMiracle.beginMiracles(new Vector2(startX, -Camera.main.orthographicSize), vehicle.transform.position, duration);
 
-        vehicles.Add(vehicleController);
+        vehicles.Add(vehicle);
     }
 
     public void UnselectAllVehicles()

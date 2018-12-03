@@ -46,8 +46,6 @@ public class MiracleAnimator : MonoBehaviour {
 	}
 
     public void beginMiracles(Vector2 start, Vector2 end, float duration) {
-        Debug.Log("Beginning a miraculous entry for " + gameObject.name + " starting:" + start
-            + ", ending:" + end + ", duration:" + duration);
         startTime = Time.time;
         endTime = startTime + duration;
         this.duration = duration;
@@ -72,7 +70,6 @@ public class MiracleAnimator : MonoBehaviour {
     /// Call this externally to  terminate this miracle before it would normally complete
     /// </summary>
     public void endMiracle() {
-        Debug.Log("Early termination of a miracle");
         finish();
         Destroy(this, 0.25f); //remove this script, it is done
         //we aren't setting t=1 cuz we want to keep the current position of whatever is incoming
@@ -105,7 +102,6 @@ public class MiracleAnimator : MonoBehaviour {
             sr.color = startColor;
         }
         if (col != null) {
-            Debug.Log("Restoring original layer " + startingLayer + " on car " + col.gameObject.name);
             col.gameObject.layer = startingLayer;
         }
     }
