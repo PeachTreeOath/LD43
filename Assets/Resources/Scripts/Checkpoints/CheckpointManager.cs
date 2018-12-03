@@ -191,6 +191,13 @@ public class CheckpointManager : MonoBehaviour
         Debug.Log("Hit checkpoint " + cp);
 
         //TODO pause gameplay
+
+        //Only play checkpoint success sound when it is the 2nd or later checkpoint
+        if (cp > 1)
+        {
+            AudioManager.instance.PlaySound("checkpoint");
+        }
+
         if (cp > 0)
         {
             showCheckpointUi();
