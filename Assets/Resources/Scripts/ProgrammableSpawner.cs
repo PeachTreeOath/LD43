@@ -126,6 +126,8 @@ public abstract class ProgrammableSpawner : MonoBehaviour {
         var chosenRule = ruleUrn.Draw();
         if(chosenRule != null) {
             SetupRule(chosenRule);
+        } else {
+            isSpawningMedians = false;
         }
     }
 
