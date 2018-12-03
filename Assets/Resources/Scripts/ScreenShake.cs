@@ -10,6 +10,8 @@ public class ScreenShake : MonoBehaviour {
     [SerializeField] Transform cameraTransform;
     [SerializeField] private float shakeDuration;
     [SerializeField] private float shakeMagnitude;
+    [SerializeField] private float smallShakeMagnitude;
+    [SerializeField] private float largeShakeMagnitude;
     private Vector3 initialPosition;
     private Stopwatch shakeTimer;
 
@@ -35,8 +37,17 @@ public class ScreenShake : MonoBehaviour {
     }
 
     public void TriggerShake(float duration) 
+    { 
+        shakeDuration = duration;
+        shakeMagnitude = largeShakeMagnitude;
+        shakeTimer.Reset();
+        shakeTimer.Start();
+    }
+
+    public void TriggerSmallShake(float duration)
     {
         shakeDuration = duration;
+        shakeMagnitude = smallShakeMagnitude;
         shakeTimer.Reset();
         shakeTimer.Start();
     }
