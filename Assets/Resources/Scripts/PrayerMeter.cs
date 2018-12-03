@@ -17,6 +17,7 @@ public class PrayerMeter : MonoBehaviour
     public float pulseScale;
     public float pulseSpeed;
     public RectTransform prayerMeter;
+    public GameObject lowPrayersText;
 
     //Prayer constants set in level manager
 
@@ -92,6 +93,8 @@ public class PrayerMeter : MonoBehaviour
 
         //Initialize and start the Prayer Meter Decay Timer
         _prayerMeterDecayTimer = Time.time;
+
+        lowPrayersText.GetComponent<Renderer>().enabled = false;
     }
 
     // Update is called once per frame
@@ -123,11 +126,16 @@ public class PrayerMeter : MonoBehaviour
         if (!pulsing &&
                 _prayerCount / maxPrayers <= lowThreshold)
         {
+            lowPrayersText.GetComponent<Renderer>().enabled = true;
             pulsing = true;
             pulseTimer = Time.time;
             pulseUp = true;
         }else if (_prayerCount / maxPrayers > lowThreshold)
         {
+            if(pulsing)
+            {
+                lowPrayersText.GetComponent<Renderer>().enabled = false;
+            }
             pulsing = false;
             prayerMeter.localScale = startScale;
             prayerMeter.ForceUpdateRectTransforms();
