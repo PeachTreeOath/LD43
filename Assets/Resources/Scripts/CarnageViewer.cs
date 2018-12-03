@@ -61,9 +61,11 @@ class CarnageViewer : MonoBehaviour
         Canvas canv = GameManager.instance.GetCheckPointManager().transform.Find("CheckpointSignCanvas").GetComponent<Canvas>();
         vp = GameManager.instance.getVehiclePool();
 
+        //TODO move some of this somewhere else? its not intuitive that its here
         GameManager.instance.GetScroller().scrollSpeed = -GameManager.instance.GetScroller().scrollSpeed * scrollMod;
         GameManager.instance.GetCheckPointManager().enabled = false;
         GameManager.instance.GetObstacleSpawner().enabled = false;
+        GameManager.instance.GetMedianSpawner().enabled = false;
         GameManager.instance.GetPrayerMeter().enabled = false;
         GameManager.instance.enabled = false;
 
