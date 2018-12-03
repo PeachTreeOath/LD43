@@ -119,7 +119,8 @@ public class PrayerMeter : MonoBehaviour
         if(pulsing)
         {
             PulseMeter();
-        }else if(!pulsing &&
+        }
+        if (!pulsing &&
                 _prayerCount / maxPrayers <= lowThreshold)
         {
             pulsing = true;
