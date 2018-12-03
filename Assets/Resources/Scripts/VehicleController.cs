@@ -110,7 +110,6 @@ public class VehicleController : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && !GameManager.instance.isPrayerDeath)
         {
-            Debug.Log("Pressed left click, casting ray.");
             CastRay();
         }
         else if (Input.GetMouseButtonUp(0))
