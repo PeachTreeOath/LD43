@@ -223,6 +223,8 @@ MonoBehaviour:
   pulseSpeed: 0.4
   prayerMeter: {fileID: 224755952165119342}
   lowPrayersText: {fileID: 0}
+  emptyPrayersText: {fileID: 0}
+  periodicPrayerFactor: 5
   PrayerLifeTime: 0.75
   ProgressBar: {fileID: 1390050041843164}
   SurgeMeter: {fileID: 1299709514620576}

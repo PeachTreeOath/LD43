@@ -32,7 +32,7 @@ public class JesusFace : MonoBehaviour
             GotoNeutralFace();
         }
 
-        bool isTransparent = isTriggered || GameManager.instance.isPrayerDeath;
+        bool isTransparent = isTriggered || GameManager.instance.isPrayerDeath();
         if (isTransparent)
         {
             spr.color = new Color(1f, 1f, 1f, 0.1f);

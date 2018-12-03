@@ -18,6 +18,8 @@ public class PrayerMeter : MonoBehaviour
     public float pulseSpeed;
     public RectTransform prayerMeter;
     public GameObject lowPrayersText;
+    public GameObject emptyPrayersText;
+
     public int periodicPrayerFactor;
 
     //Prayer constants set in level manager
@@ -34,7 +36,7 @@ public class PrayerMeter : MonoBehaviour
     private float SurgeTimeMs = 400f;
 
     //Prayer Meter Private Variables
-    private float maxPrayers;
+    public float maxPrayers;
     private float decayPerTick;
     private float decayTick;
     private float incomePerTick;
@@ -60,9 +62,11 @@ public class PrayerMeter : MonoBehaviour
         return ProgressBar;
     }
 
-    void Awake() {
+    void Awake()
+    {
         levelManager = FindObjectOfType<LevelManager>();
-        if (levelManager == null) {
+        if (levelManager == null)
+        {
             Debug.LogError("Couldn't find object with level manager");
         }
     }
@@ -96,6 +100,10 @@ public class PrayerMeter : MonoBehaviour
         _prayerMeterDecayTimer = Time.time;
 
         lowPrayersText.GetComponent<Renderer>().enabled = false;
+        foreach (Renderer rend in emptyPrayersText.GetComponentsInChildren<Renderer>())
+        {
+            rend.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -103,13 +111,15 @@ public class PrayerMeter : MonoBehaviour
     {
         //Decrement the prayer meter based on decay timer.
         float decayDiff = Time.time - _prayerMeterDecayTimer;
-        if (decayDiff >= decayTick) {
+        if (decayDiff >= decayTick)
+        {
             //Decrement the prayer meter.
             RemovePrayer(decayPerTick * (decayDiff / decayTick)); //scale with how far expired the tick was
         }
 
         float incomeDiff = Time.time - _prayerMeterIncomeTimer;
-        if (incomeDiff >= incomeTick) {
+        if (incomeDiff >= incomeTick)
+        {
             int numCars = GameManager.instance.getVehiclePool().getNumWorkingCars();
             int amt = (int)(numCars * incomePerTick * (incomeDiff / incomeTick));
             //Round amt up to nearest periodicPrayerFactor
@@ -124,23 +134,43 @@ public class PrayerMeter : MonoBehaviour
         UpdateAnimations();
         remainingSurgeTime -= Time.deltaTime;
         remainingSurgeTime = Mathf.Max(remainingSurgeTime, 0);
-        
-        if(pulsing)
+
+        if (pulsing)
         {
             PulseMeter();
         }
-        if (!pulsing &&
-                _prayerCount / maxPrayers <= lowThreshold)
+        if (_prayerCount == 0)
         {
-            lowPrayersText.GetComponent<Renderer>().enabled = true;
+            lowPrayersText.GetComponent<Renderer>().enabled = false;
+            foreach (Renderer rend in emptyPrayersText.GetComponentsInChildren<Renderer>())
+            {
+                rend.enabled = true;
+            }
             pulsing = true;
             pulseTimer = Time.time;
             pulseUp = true;
-        }else if (_prayerCount / maxPrayers > lowThreshold)
+        }
+        else if (!pulsing &&
+                _prayerCount / maxPrayers <= lowThreshold)
         {
-            if(pulsing)
+            lowPrayersText.GetComponent<Renderer>().enabled = true;
+            foreach (Renderer rend in emptyPrayersText.GetComponentsInChildren<Renderer>())
+            {
+                rend.enabled = false;
+            }
+            pulsing = true;
+            pulseTimer = Time.time;
+            pulseUp = true;
+        }
+        else if (_prayerCount / maxPrayers > lowThreshold)
+        {
+            if (pulsing)
             {
                 lowPrayersText.GetComponent<Renderer>().enabled = false;
+                foreach (Renderer rend in emptyPrayersText.GetComponentsInChildren<Renderer>())
+                {
+                    rend.enabled = false;
+                }
             }
             pulsing = false;
             prayerMeter.localScale = startScale;
@@ -170,27 +200,33 @@ public class PrayerMeter : MonoBehaviour
         }
     }
 
-    private void UpdateAnimations() {
+    private void UpdateAnimations()
+    {
         //update assuming current prayer calculations are correct
         float target = surgeMeterProgressRect.sizeDelta.x;
         float current = _prayerMeterProgressRect.sizeDelta.x;
         Vector2 newDisplaySize;
-        if (target > current) {
+        if (target > current)
+        {
             //lerp
             float t = (SurgeTimeMs - remainingSurgeTime) / SurgeTimeMs; //0 on start, 1 on finish
             float newX = Mathf.Lerp(current, target, t);
             newDisplaySize = new Vector2(newX, _prayerMeterProgressRect.sizeDelta.y);
-        } else {
+        }
+        else
+        {
             //match surge on the way down
             newDisplaySize = new Vector2(target, _prayerMeterProgressRect.sizeDelta.y);
         }
         _prayerMeterProgressRect.sizeDelta = newDisplaySize;
     }
 
-    public void RemovePrayer(float deltaAmt) {
+    public void RemovePrayer(float deltaAmt)
+    {
         _prayerCount -= deltaAmt;
         //Set a bottom threshold for prayer meter count. Game over on running out of prayer power.
-        if (_prayerCount <= 0) {
+        if (_prayerCount <= 0)
+        {
             _prayerCount = 0;
             GameManager.instance.GameOverPrayerPowerDeath();
         }
@@ -202,9 +238,9 @@ public class PrayerMeter : MonoBehaviour
     }
 
     public void AddTimedPrayer(int prayerValue) {
-        if(GameManager.instance.isPrayerDeath)
+        if(GameManager.instance.isPrayerDeath())
             return;
-            
+
         prayerValue /= periodicPrayerFactor;
 
         VehiclePool vp = GameManager.instance.getVehiclePool();
@@ -251,11 +287,16 @@ public class PrayerMeter : MonoBehaviour
         float dispBarSize = getDisplayBarSize();
         float surgeSize = surgeBarSize - dispBarSize;
 
-        if (remainingSurgeTime < 1) { //don't make it take longer if the bar is already increasing
+        if (remainingSurgeTime < 1)
+        { //don't make it take longer if the bar is already increasing
             remainingSurgeTime = SurgeTimeMs;
         }
 
         TriggerUiUpdate();
+    }
+
+    public float GetPrayer() {
+        return _prayerCount;
     }
 
     /// <summary>
@@ -263,7 +304,8 @@ public class PrayerMeter : MonoBehaviour
     /// account animation delay.  This is the real amount of health the player currently has.
     /// </summary>
     /// <returns></returns>
-    private float getRealBarSize() {
+    private float getRealBarSize()
+    {
         float progressUpdate = (_prayerCount / maxPrayers) * _maxPrayerMeterProgressSize;
         return progressUpdate;
     }
@@ -273,16 +315,17 @@ public class PrayerMeter : MonoBehaviour
     /// may or may not be the actual amount of health the player has due to animation delay.
     /// </summary>
     /// <returns></returns>
-    private float getDisplayBarSize() {
+    private float getDisplayBarSize()
+    {
         return _prayerMeterProgressRect.sizeDelta.x;
     }
 
-   // private void UpdateUi()
-   // {
-   //     //Update the Ui.
-   //     var progressUpdate = (_prayerCount / MaximumPrayers) * _maxPrayerMeterProgressSize;
-   //     _prayerMeterProgressRect.sizeDelta = new Vector2(progressUpdate, _prayerMeterProgressRect.sizeDelta.y);
-   // }
+    // private void UpdateUi()
+    // {
+    //     //Update the Ui.
+    //     var progressUpdate = (_prayerCount / MaximumPrayers) * _maxPrayerMeterProgressSize;
+    //     _prayerMeterProgressRect.sizeDelta = new Vector2(progressUpdate, _prayerMeterProgressRect.sizeDelta.y);
+    // }
 
     private void TriggerUiUpdate()
     {

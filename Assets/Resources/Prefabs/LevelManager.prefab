@@ -249,6 +249,7 @@ MonoBehaviour:
   prayerIncomeTickRate: 5
   prayerDecayPerSec: 22
   prayersPerSecondPerCar: 8
+  prayerCheckpointMultiplier: 2
   maxPrayers: 800
   startingAmtOfPrayers: 600
   headOnCrashThreshold: 0.25
