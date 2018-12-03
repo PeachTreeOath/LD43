@@ -37,6 +37,7 @@ public class ObstacleController : MonoBehaviour
 	public GameObject telegraph;
 
     private bool penalized = false;
+    public GameObject deathImage;
 
 	public void SetEndLocation(Vector2 endPosition)
 	{
@@ -183,8 +184,9 @@ public class ObstacleController : MonoBehaviour
             penalized = true;
             switch (tag) {
                 case "ObPed":
-                    GameManager.instance.GetPrayerMeter().RemovePrayer(LevelManager.instance.prayerPenaltyPerPed);
                     AudioManager.instance.PlaySound("ped_death");
+                    GameObject deathObj = Instantiate(deathImage);
+                    deathObj.GetComponent<PedestrianDeath>().SetPosition(transform.position);
                     break;
 
                 case "ObCycle":
