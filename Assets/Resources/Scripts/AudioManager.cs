@@ -38,7 +38,7 @@ public class AudioManager : Singleton<AudioManager>
             { "car_slide", .9f },
             { "car_bump", .7f },
             { "car_honk", .6f },
-            { "checkpoint", 1f },
+            { "checkpoint", .5f },
             { "explosion", .5f },
             { "ped_death", .8f },
             { "possession", 1f }
