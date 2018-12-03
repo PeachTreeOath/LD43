@@ -103,8 +103,6 @@ class CarnageViewer : MonoBehaviour
         for (int i = deadPeople.Count - 1; i >= 0; i--)
         {
             float bounds;
-            Debug.Log("Person " + i.ToString());
-            Debug.Log(deadPeople[i].transform.position.x);
             if(deadPeople[i].transform.childCount > 0) {
                 bounds = Mathf.Max(deadPeople[i].transform.GetChild(0).GetComponent<Renderer>().bounds.extents.x, deadPeople[i].transform.GetChild(0).GetComponent<Renderer>().bounds.extents.y);
             } else {
@@ -137,7 +135,6 @@ class CarnageViewer : MonoBehaviour
                 oText.transform.position = oText.transform.position = new Vector3(-5.9f, oText.transform.position.y, oText.transform.position.z);
             }
             oText.AddComponent<ObjectFollower>().target = deadPeople[i].transform;
-
         }
     }
 }
