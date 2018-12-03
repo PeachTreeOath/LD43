@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 public class VehicleController : MonoBehaviour
@@ -52,6 +53,7 @@ public class VehicleController : MonoBehaviour
     GameObject lightShaft;
 
     GameObject caption;
+    CaptionTimer captionTimer;
     List<Sprite> captionBubbles = new List<Sprite>();
 
     private JesusFace face;
@@ -169,6 +171,14 @@ public class VehicleController : MonoBehaviour
             {
                 onDriverWake();
             }
+        }
+
+        if(captionTimer != null)
+        {
+            if(isSelected)
+                captionTimer.SetImageRatio(timeElapsed / nextWakeTime);
+            else
+                captionTimer.SetImageRatio(0);
         }
 
         float hInput = 0;
@@ -462,6 +472,7 @@ public class VehicleController : MonoBehaviour
         //TODO crash sound
         ScreenShake();
 
+        captionTimer = null;
         Destroy(caption);
     }
 
@@ -518,6 +529,7 @@ public class VehicleController : MonoBehaviour
     private void onDriverWake()
     {
         isSleeping = false;
+        captionTimer = null;
         Destroy(caption);
         resetSleepTime();
         sleepVector = Vector2.zero;
@@ -631,6 +643,7 @@ public class VehicleController : MonoBehaviour
 
         //Render Sleep Caption
         caption = Instantiate(sleepCaption, vehicleBody.transform.position, Quaternion.identity, vehicleBody.transform);
-        caption.GetComponentInChildren<SpriteRenderer>().sprite = captionBubbles.ElementAt(randomIndex);
+        caption.GetComponentInChildren<Image>().sprite = captionBubbles.ElementAt(randomIndex);
+        captionTimer = caption.GetComponent<CaptionTimer>();
     }
 }
