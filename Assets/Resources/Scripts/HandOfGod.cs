@@ -12,7 +12,6 @@ public class HandOfGod : MonoBehaviour
     public State currState;
     public VehicleController vehicleToGuide;
 
-    private static float PLANE_OF_GOD = 0; // on z axis
     private static float NEUTRAL_HAND_ANGLE = 45;
     private static float HIGH_HAND_ANGLE = 70;
     private static float LOW_HAND_ANGLE = 20;
@@ -141,15 +140,15 @@ public class HandOfGod : MonoBehaviour
 
     protected bool UpdateMovingToPosition(Vector3 targetPosition)
     {
-        transform.position = Vector2.SmoothDamp(transform.position, targetPosition, ref velocity, timeToSnap, maxSpeed);
+        Vector2 position = Vector2.SmoothDamp(transform.position, targetPosition, ref velocity, timeToSnap, maxSpeed);
+        transform.position = new Vector3(position.x, position.y, transform.position.z);
 
         return Vector2.Distance(transform.position, targetPosition) <= epsilon;
     }
 
     protected void LockOnPosition(Vector3 position)
     {
-        position.z = PLANE_OF_GOD; // fix bug for jesus hands going into z = -10
-        transform.position = position;
+        transform.position = new Vector3(position.x, position.y, transform.position.z);
     }
 
     protected Vector3 GetMousePosition()
