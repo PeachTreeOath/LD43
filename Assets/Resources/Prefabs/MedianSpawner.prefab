@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4170335325738024}
   - component: {fileID: 114260786124810796}
+  - component: {fileID: 114462845443542858}
+  - component: {fileID: 114422130474605140}
   m_Layer: 0
   m_Name: MedianSpawner
   m_TagString: Untagged
@@ -46,7 +48,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581632159215740}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9167e543bad77b047b3a8f3dfe69d035, type: 3}
   m_Name: 
@@ -63,3 +65,51 @@ MonoBehaviour:
   elapsedTime: 0
   timeLeftInEpoch: 0
   timeUntilNextSpawn: 0
+--- !u!114 &114422130474605140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581632159215740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c471df16dc7fcfd43869463b35d56364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleType: 1
+  allowSpawn: 1
+  firstSpawnTime: 45
+  spawnInterval: 5
+  spawnTelegraph: {fileID: 1535891220004270, guid: 557e8964e6ed08e439d64c780d5b79b0,
+    type: 2}
+  verticalSpeed: 5
+  verticalRange: 1
+  horizontalSpeed: 1
+  moveWaitTime: 1
+  directionObstacleComingFrom: 6
+  spawnTimer: 0
+  obstacleHeight: 0.6
+--- !u!114 &114462845443542858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581632159215740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a3015ff8d7edd4681bd790cc8d07c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawningBehaviors: {fileID: 114644701438284880, guid: b94ee069d88cda340adcfec253aadb58,
+    type: 2}
+  spawnTelegraph: {fileID: 1535891220004270, guid: 557e8964e6ed08e439d64c780d5b79b0,
+    type: 2}
+  isSpawningMedians: 0
+  allowNeighboringMedians: 0
+  minMedianInterval: 0
+  maxMedianInterval: 0
+  moveWaitTime: 0
+  elapsedTime: 0
+  timeLeftInEpoch: 0
+  timeUntilNextSpawn: 0
+  obstacleStats: {fileID: 114422130474605140}
