@@ -8,10 +8,16 @@ public class PrayerHands : MonoBehaviour {
     public float exitTime;
     public float flairHeight;
     public float flairSpeed;
+    public float finalScale;
+
+    private float startScale;
 
     float delayTime;
     float timer;
+    private float startTime;
     Vector3 startPos;
+
+    float totalTime;
 
     enum PHStateEnum { FLAIR, EXIT }
     PHStateEnum phState;
@@ -33,11 +39,22 @@ public class PrayerHands : MonoBehaviour {
         actions.Add(FlairTimer);
         actions.Add(ExitTimer);
         timer = Time.time;
+
+        totalTime = flairTime + exitTime;
+        startScale = gameObject.transform.localScale.x;
+        startTime = Time.time;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        lerpScale();
         actions[(int)phState]();
+    }
+
+    private void lerpScale() {
+        float t = (Time.time - startTime) / totalTime;
+        float s = Mathf.Lerp(startScale, finalScale, t);
+        gameObject.transform.localScale = new Vector3(s, s, s);
     }
 
     void FlairTimer()

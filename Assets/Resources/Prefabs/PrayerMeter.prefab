@@ -219,14 +219,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecayTimer: 0.5
-  DecayValue: 5
-  MaximumPrayers: 1000
+  DecayValue: 15
+  MaximumPrayers: 450
   PrayerLifeTime: 0.75
   ProgressBar: {fileID: 1390050041843164}
   SurgeMeter: {fileID: 1299709514620576}
   PrayerPrefab: {fileID: 1760781999118266, guid: 1be4171e61cb8b24a999e7ed87eda9f5,
     type: 2}
-  SurgeTimeMs: 400
+  SurgeTimeMs: 280
 --- !u!114 &114386577894233514
 MonoBehaviour:
   m_ObjectHideFlags: 1
