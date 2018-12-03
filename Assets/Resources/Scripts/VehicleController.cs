@@ -34,7 +34,7 @@ public class VehicleController : MonoBehaviour
 
     private float bumpScreenShakeMs = 150;
     private float spinScreenShakeMs = 250;
-    private float screenShakeCoolDown = 250;
+    private float screenShakeCoolDown = 300;
     private Stopwatch screenShakeTimer = new Stopwatch();
 
     //Cap on how fast the car can move on the x-axis per update
