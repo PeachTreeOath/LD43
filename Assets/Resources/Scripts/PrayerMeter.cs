@@ -34,7 +34,7 @@ public class PrayerMeter : MonoBehaviour
     private float SurgeTimeMs = 400f;
 
     //Prayer Meter Private Variables
-    private float maxPrayers;
+    public float maxPrayers;
     private float decayPerTick;
     private float decayTick;
     private float incomePerTick;
@@ -202,7 +202,7 @@ public class PrayerMeter : MonoBehaviour
     }
 
     public void AddTimedPrayer(int prayerValue) {
-        if(GameManager.instance.isPrayerDeath)
+        if(GameManager.instance.isPrayerDeath())
             return;
             
         prayerValue /= periodicPrayerFactor;
@@ -256,6 +256,10 @@ public class PrayerMeter : MonoBehaviour
         }
 
         TriggerUiUpdate();
+    }
+
+    public float GetPrayer() {
+        return _prayerCount;
     }
 
     /// <summary>

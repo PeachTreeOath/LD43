@@ -31,7 +31,9 @@ public class GameManager : Singleton<GameManager>
     private float nextCheckpointPos = 0; //TODO relocate to Level object
     private bool isPausedForCheckpoint = false;
 
-    public bool isPrayerDeath;
+    public bool isPrayerDeath() {
+        return GameManager.instance.GetPrayerMeter().GetPrayer() < 0.1f;
+    }
 
     //private int dbgCount = 0;
 
@@ -245,7 +247,6 @@ public class GameManager : Singleton<GameManager>
     public void GameOverPrayerPowerDeath()
     {
         GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
-        isPrayerDeath = true;
     }
 
     private void GameOver()
@@ -260,7 +261,6 @@ public class GameManager : Singleton<GameManager>
 
     public void PrayerPowerRevive()
     {
-        GameManager.instance.GetPrayerMeter().AddPrayer(10f);
-        isPrayerDeath = false;
+        GameManager.instance.GetPrayerMeter().AddPrayer(0.2f * GameManager.instance.GetPrayerMeter().maxPrayers);
     }
 }

@@ -108,7 +108,7 @@ public class VehicleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0) && !GameManager.instance.isPrayerDeath)
+        if (Input.GetMouseButton(0) && !GameManager.instance.isPrayerDeath())
         {
             CastRay();
         }
