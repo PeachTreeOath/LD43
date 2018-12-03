@@ -1176,7 +1176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 0}
   shakeDuration: 750
-  shakeMagnitude: 0.5
+  smallShakeMagnitude: 0.1
+  largeShakeMagnitude: 0.5
 --- !u!1 &1817866497
 GameObject:
   m_ObjectHideFlags: 0

@@ -530,11 +530,21 @@ public class VehicleController : MonoBehaviour
     private void ScreenShake(bool fatal, float shakeDuration)
     {
         //If Fatal, big shake.
-        if (fatal) GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(shakeDuration);
-        if (screenShakeTimer.ElapsedMilliseconds < screenShakeCoolDown) return;
-        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(shakeDuration);
-        screenShakeTimer.Reset();
-        screenShakeTimer.Start();
+        if (fatal)
+        {
+            GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(shakeDuration);
+        }
+        if (screenShakeTimer.ElapsedMilliseconds < screenShakeCoolDown)
+        {
+            return;
+        }
+        if (!fatal)
+        {
+            GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerSmallShake(shakeDuration);
+            screenShakeTimer.Reset();
+            screenShakeTimer.Start();
+        }
+        
     }
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)
