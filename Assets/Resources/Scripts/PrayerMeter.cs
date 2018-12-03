@@ -14,10 +14,11 @@ using UnityEngine;
 public class PrayerMeter : MonoBehaviour
 {
 
+    //Prayer constants set in level manager
+
     //Prayer Meter Serialized Fields
-    [SerializeField] private float DecayTimer = .5f;
-    [SerializeField] private int DecayValue = 10;
-    [SerializeField] private int MaximumPrayers = 1000;
+    //[SerializeField] private int DecayValue = 10;
+    //[SerializeField] private int MaximumPrayers = 1000;
     [SerializeField] private float PrayerLifeTime = .75F;
     [SerializeField] private GameObject ProgressBar;
     [SerializeField]
@@ -27,7 +28,13 @@ public class PrayerMeter : MonoBehaviour
     private float SurgeTimeMs = 400f;
 
     //Prayer Meter Private Variables
+    private float maxPrayers;
+    private float decayPerTick;
+    private float decayTick;
+    private float incomePerTick;
+    private float incomeTick;
     private float _prayerMeterDecayTimer;
+    private float _prayerMeterIncomeTimer;
     private float _maxPrayerMeterProgressSize = 0; //constant, based on orig size of bar
     private RectTransform _prayerMeterProgressRect;
     private RectTransform surgeMeterProgressRect;
@@ -36,9 +43,18 @@ public class PrayerMeter : MonoBehaviour
 
     private float remainingSurgeTime; //should max at surgeTimeMs
 
+    private LevelManager levelManager;
+
     public GameObject GetProgressBar()
     {
         return ProgressBar;
+    }
+
+    void Awake() {
+        levelManager = FindObjectOfType<LevelManager>();
+        if (levelManager == null) {
+            Debug.LogError("Couldn't find object with level manager");
+        }
     }
 
     // Use this for initialization
@@ -46,7 +62,15 @@ public class PrayerMeter : MonoBehaviour
     {
 
         //Initialize Prayer Meter Count
-        _prayerCount = MaximumPrayers;
+        maxPrayers = levelManager.maxPrayers;
+        //_prayerCount = levelManager.maxPrayers;
+        _prayerCount = levelManager.startingAmtOfPrayers;
+
+        decayTick = levelManager.prayerDecayTickRate;
+        decayPerTick = levelManager.prayerDecayPerSec * decayTick;
+
+        incomeTick = levelManager.prayerIncomeTickRate;
+        incomePerTick = levelManager.prayersPerSecondPerCar * incomeTick;
 
         //Initialize Prayer Meter Progress Size Based on Ui
         _prayerMeterProgressRect = ProgressBar.GetComponent<RectTransform>();
@@ -66,9 +90,18 @@ public class PrayerMeter : MonoBehaviour
     {
 
         //Decrement the prayer meter based on decay timer.
-        if (Time.time - _prayerMeterDecayTimer >= DecayTimer) {
+        float decayDiff = Time.time - _prayerMeterDecayTimer;
+        if (decayDiff >= decayTick) {
             //Decrement the prayer meter.
-            RemovePrayer(DecayValue);
+            RemovePrayer(decayPerTick * (decayDiff / decayTick)); //scale with how far expired the tick was
+        }
+
+        float incomeDiff = Time.time - _prayerMeterIncomeTimer;
+        if (incomeDiff >= incomeTick) {
+            int numCars = GameManager.instance.getVehiclePool().getNumWorkingCars();
+            float amt = numCars * incomePerTick * (incomeDiff / incomeTick);
+            Debug.Log("Adding timed prayer income for numCars:" + numCars + ", amt=" + amt);
+            AddTimedPrayer(amt);
         }
 
         UpdateAnimations();
@@ -107,13 +140,18 @@ public class PrayerMeter : MonoBehaviour
         TriggerUiUpdate();
     }
 
+    public void AddTimedPrayer(float prayerValue) {
+        AddPrayer(prayerValue);
+        _prayerMeterIncomeTimer = Time.time;
+    }
+
     public void AddPrayer(float prayerValue)
     {
         //Increment the prayer count.
         _prayerCount += prayerValue;
-        if (_prayerCount > MaximumPrayers)
+        if (_prayerCount > maxPrayers)
         {
-            _prayerCount = MaximumPrayers;
+            _prayerCount = maxPrayers;
         }
 
         float surgeBarSize = getRealBarSize();
@@ -133,7 +171,7 @@ public class PrayerMeter : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     private float getRealBarSize() {
-        float progressUpdate = (_prayerCount / MaximumPrayers) * _maxPrayerMeterProgressSize;
+        float progressUpdate = (_prayerCount / maxPrayers) * _maxPrayerMeterProgressSize;
         return progressUpdate;
     }
 
