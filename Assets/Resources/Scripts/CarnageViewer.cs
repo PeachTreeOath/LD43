@@ -127,7 +127,7 @@ class CarnageViewer : MonoBehaviour
             GameObject oText = Instantiate(ResourceLoader.instance.obituaryText) as GameObject;
             oText.GetComponent<TextMeshPro>().SetText(shuffleDobituaries[i % shuffleDobituaries.Length]);
             oText.GetComponent<TextMeshPro>().alignment = TextAlignmentOptions.Center;
-            oText.GetComponent<TextMeshPro>().color = Color.white;
+            oText.GetComponent<TextMeshPro>().color = Color.black;
             oText.transform.position = deadPeople[i].transform.position + Vector3.up * bounds * 1.5f + Vector3.back;
             if (oText.transform.position.x > 4.5f) {
                 oText.transform.position = oText.transform.position = new Vector3(4.5f, oText.transform.position.y, oText.transform.position.z);
@@ -135,20 +135,8 @@ class CarnageViewer : MonoBehaviour
             if (oText.transform.position.x < -5.9f) {
                 oText.transform.position = oText.transform.position = new Vector3(-5.9f, oText.transform.position.y, oText.transform.position.z);
             }
-
-            GameObject uText = GetUnderlayText(oText);
-            uText.AddComponent<ObjectFollower>().target = deadPeople[i].transform;
             oText.AddComponent<ObjectFollower>().target = deadPeople[i].transform;
         }
-    }
-
-    private GameObject GetUnderlayText(GameObject overlayText) {
-        GameObject uText = Instantiate(ResourceLoader.instance.obituaryText) as GameObject;
-        uText.GetComponent<TextMeshPro>().SetText(overlayText.GetComponent<TextMeshPro>().text);
-        uText.GetComponent<TextMeshPro>().alignment = overlayText.GetComponent<TextMeshPro>().alignment;
-        uText.GetComponent<TextMeshPro>().color = Color.black;
-        uText.transform.position = new Vector2(overlayText.transform.position.x - 0.02f, overlayText.transform.position.y - 0.02f);
-        return uText;
     }
 }
 
