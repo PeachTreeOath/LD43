@@ -293,7 +293,7 @@ public class CheckpointManager : MonoBehaviour
         {
             prayerCount += vp.vehicles[i].gameObject.GetComponent<VehicleStats>().prayerValue;
         }
-        prayerMeter.AddPrayer(prayerCount * 2);
+        prayerMeter.AddPrayer(prayerCount * LevelManager.instance.prayerCheckpointMultiplier);
     }
 
 

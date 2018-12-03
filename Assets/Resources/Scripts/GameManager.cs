@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     public Vector2 bottomRightBound;
     public float defaultDeltaFromTopForWarnings = 5f;
     public float defaultDeltaFromRightForWarnings = 1;
-
+    public bool isGameOver;
     public GameObject lightShaftsFab;
 
     [SerializeField]
@@ -38,7 +38,7 @@ public class GameManager : Singleton<GameManager>
     //Note this will only start once ever because of the singleton dontdestroyonload
     void Start()
     {
-
+        isGameOver = false;
         //Loading managers, spawners, and UIElements
         vehiclePool = FindObjectOfType<VehiclePool>();
         Debug.Log("Loaded VehiclePool: " + vehiclePool.gameObject.name);
@@ -193,7 +193,7 @@ public class GameManager : Singleton<GameManager>
         nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
         GameManager.instance.PrayerPowerRevive();
 
-        AudioManager.instance.PlaySound("car_start");
+        AudioManager.instance.PlaySound("car_honk");
     }
 
     public bool isPaused()
@@ -239,12 +239,23 @@ public class GameManager : Singleton<GameManager>
         cGroup.blocksRaycasts = true;
         GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
         GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
+        GameOver();
     }
 
     public void GameOverPrayerPowerDeath()
     {
         GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
         isPrayerDeath = true;
+    }
+
+    private void GameOver()
+    {
+        GameManager.instance.GetCheckPointManager().enabled = false;
+        GameManager.instance.GetObstacleSpawner().enabled = false;
+        GameManager.instance.GetMedianSpawner().enabled = false;
+        GameManager.instance.GetPrayerMeter().enabled = false;
+        GameManager.instance.enabled = false;
+        isGameOver = true;
     }
 
     public void PrayerPowerRevive()
