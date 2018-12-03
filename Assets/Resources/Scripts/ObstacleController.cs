@@ -45,13 +45,14 @@ public class ObstacleController : MonoBehaviour
 
 	public void Start () 
 	{
-        if (transform.position.x < 0) {
+        if (transform.position.x > 0) {
             rotation = UnityEngine.Random.Range(0, -90);
         } else {
             rotation = UnityEngine.Random.Range(-90, -180);
         }
         rbody = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
+        spr.flipX = true;
         spr.color = new Color(1f, 1f, 1f, 1f);
         vehicleSpriteList = new List<string>(vehicleSpriteArr);
         obstacleState = ObstacleStateEnum.WAITING;
@@ -129,7 +130,7 @@ public class ObstacleController : MonoBehaviour
 				{
 					Destroy(telegraph);
 				}
-                rbody.velocity = (Vector2)(Quaternion.Euler(0, 0, rotation) * Vector2.right);
+                rbody.velocity = (Vector2)(Quaternion.Euler(0, 0, rotation) * Vector2.left);
                 rbody.rotation = rotation;
                 //transform.right = endPosition.normalized - transform.position;
                 transform.position = new Vector3(transform.position.x, transform.position.y - ((obstacleStats.verticalSpeed + speedModifier) * Time.deltaTime), transform.position.z);
@@ -137,7 +138,7 @@ public class ObstacleController : MonoBehaviour
                 if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y) {
                     Destroy(gameObject);
                 }
-                if (transform.position.x <= GameManager.instance.upperLeftBound.x || transform.position.x >= GameManager.instance.bottomRightBound.x) {
+                if (transform.position.x <= GameManager.instance.upperLeftBound.x - spr.bounds.size.x || transform.position.x >= GameManager.instance.bottomRightBound.x + spr.bounds.size.x) {
                     Destroy(gameObject);
                 }
                 break;
