@@ -9,6 +9,7 @@ using UnityEngine;
 public class AudioManager : Singleton<AudioManager>
 {
 
+    public Dictionary<string, float> soundMixer;
     // Use this to mute game during production
     public bool mute;
     public float musicVolume;
@@ -20,6 +21,8 @@ public class AudioManager : Singleton<AudioManager>
     //Tracks whether intro in coroutine has finished playing or not.
     private bool introCompleted = true;
 
+
+
     //Holds a reference to a coroutine when one starts
     private Coroutine introCoroutine = null;
 
@@ -27,6 +30,16 @@ public class AudioManager : Singleton<AudioManager>
     void Start()
     {
         soundMap = new Dictionary<string, AudioClip>();
+        soundMixer = new Dictionary<string, float>
+        {
+            { "dance", .1f },
+            { "obstacle_warning", .6f },
+            { "car_start", .9f },
+            { "car_slide", 1f },
+            { "explosion", 1f },
+            { "possession", 1f }
+        };
+
 
         musicChannel = new GameObject().AddComponent<AudioSource>();
         musicChannel.transform.SetParent(transform);
@@ -52,10 +65,10 @@ public class AudioManager : Singleton<AudioManager>
         PlayMusic("dance");
     }
 
-	public void UpdateMusicVolume()
+	public void UpdateOverallVolume()
 	{
-        musicVolume = VolumeListener.volumeLevel;
-        musicChannel.volume = VolumeListener.volumeLevel;
+        //musicVolume = VolumeListener.volumeLevel;
+        musicChannel.volume = VolumeListener.volumeLevel * soundMixer["dance"];
         soundChannel.volume = VolumeListener.volumeLevel;
     }
 
@@ -67,7 +80,7 @@ public class AudioManager : Singleton<AudioManager>
     public void PlayMusic(string name)
     {
         musicChannel.clip = soundMap[name];
-        musicChannel.volume = musicVolume;
+        musicChannel.volume = soundMixer.ContainsKey(name) ? soundMixer[name] : 1;
         musicChannel.loop = true;
         musicChannel.Play();
     }
@@ -184,7 +197,7 @@ public class AudioManager : Singleton<AudioManager>
     public void PlaySound(string name)
     {
         AudioClip clip = soundMap[name];
-        soundChannel.PlayOneShot(soundMap[name]);
+        soundChannel.PlayOneShot(soundMap[name], soundMixer.ContainsKey(name) ? soundMixer[name] : 1f);
     }
 
     public void PlaySound(string name, float volume)

@@ -33,6 +33,15 @@ public class GameManager : Singleton<GameManager>
 
     //private int dbgCount = 0;
 
+    public void GameOver()
+    {
+        GameManager.instance.GetCheckPointManager().enabled = false;
+        GameManager.instance.GetObstacleSpawner().enabled = false;
+        GameManager.instance.GetMedianSpawner().enabled = false;
+        GameManager.instance.GetPrayerMeter().enabled = false;
+        GameManager.instance.enabled = false;
+    }
+
         //Note this will only start once ever because of the singleton dontdestroyonload
     void Start()
     {
@@ -47,6 +56,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Loaded Scroller: " + scroller.gameObject.name);
         obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
         Debug.Log("Loaded Obstacle Spawner: " + obstacleSpawner);
+
 
         scroller.scrollSpeed = LevelManager.instance.scrollSpeed * scrollSpeedMultiplier;
 
@@ -183,6 +193,8 @@ public class GameManager : Singleton<GameManager>
         isPausedForCheckpoint = false;
         obstacleSpawner.resume();
         nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
+
+        AudioManager.instance.PlaySound("car_start");
     }
 
     public bool isPaused()
@@ -215,14 +227,18 @@ public class GameManager : Singleton<GameManager>
         return obstacleSpawner;
     }
 
+    public MedianSpawner GetMedianSpawner() {
+        return GameObject.FindObjectOfType<MedianSpawner>();
+    }
+
     public void GameOverVehicleDeath()
     {
         CanvasGroup cGroup = GameObject.Find("GameOverCanvasGroup").GetComponent<CanvasGroup>();
         cGroup.alpha = 1;
         cGroup.interactable = true;
         cGroup.blocksRaycasts = true;
-        GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
-        GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
+        //GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
+        //GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
     }
 
     

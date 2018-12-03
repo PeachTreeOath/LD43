@@ -12,11 +12,11 @@ public class HandOfGod : MonoBehaviour
     public State currState;
     public VehicleController vehicleToGuide;
 
-    private static float PLANE_OF_GOD = 0; // on z axis
     private static float NEUTRAL_HAND_ANGLE = 45;
     private static float HIGH_HAND_ANGLE = 70;
     private static float LOW_HAND_ANGLE = 20;
     private static float MIN_ANGLE_THRESHOLD = 5; // in degrees
+    private static float FINGER_LENGTH = 0.6f;
 
     private SpriteRenderer spriteRenderer;
 
@@ -141,15 +141,17 @@ public class HandOfGod : MonoBehaviour
 
     protected bool UpdateMovingToPosition(Vector3 targetPosition)
     {
-        transform.position = Vector2.SmoothDamp(transform.position, targetPosition, ref velocity, timeToSnap, maxSpeed);
+        Vector3 translatedTargetPosition = TranslatePoint(targetPosition, transform.rotation.eulerAngles, -1f * FINGER_LENGTH);
+        Vector2 position = Vector2.SmoothDamp(transform.position, translatedTargetPosition, ref velocity, timeToSnap, maxSpeed);
+        transform.position = new Vector3(position.x, position.y, transform.position.z);
 
-        return Vector2.Distance(transform.position, targetPosition) <= epsilon;
+        return Vector2.Distance(transform.position, translatedTargetPosition) <= epsilon;
     }
 
     protected void LockOnPosition(Vector3 position)
     {
-        position.z = PLANE_OF_GOD; // fix bug for jesus hands going into z = -10
-        transform.position = position;
+        Vector3 newPosition = new Vector3(position.x, position.y, transform.position.z);
+        transform.position = TranslatePoint(newPosition, transform.rotation.eulerAngles, -1f * FINGER_LENGTH);
     }
 
     protected Vector3 GetMousePosition()
@@ -205,5 +207,13 @@ public class HandOfGod : MonoBehaviour
     public void SetHandTransparency(bool isTransparent)
     {
         spriteRenderer.color = isTransparent ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);
+    }
+
+    private Vector3 TranslatePoint(Vector3 originPoint, Vector3 eulerAngles, float distance)
+    {
+        float angleRadians = eulerAngles.z * Mathf.Deg2Rad; // 0 is north, counterclockwise
+        float dx = -1f * distance * Mathf.Sin(angleRadians);
+        float dy = distance * Mathf.Cos(angleRadians);
+        return new Vector3(originPoint.x + dx, originPoint.y + dy, originPoint.z);
     }
 }

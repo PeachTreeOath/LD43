@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 using Random = System.Random;
 
 public class VehicleController : MonoBehaviour
@@ -29,6 +32,11 @@ public class VehicleController : MonoBehaviour
     public ParticleSystem sparkEmitter;
     public ParticleSystem fireballEmitter;
 
+    private float bumpScreenShakeMs = 150;
+    private float spinScreenShakeMs = 250;
+    private float screenShakeCoolDown = 300;
+    private Stopwatch screenShakeTimer = new Stopwatch();
+
     //Cap on how fast the car can move on the x-axis per update
     private bool initialized = false;
     private float maxHSpeedConst = 0.17f;
@@ -52,6 +60,7 @@ public class VehicleController : MonoBehaviour
     GameObject lightShaft;
 
     GameObject caption;
+    CaptionTimer captionTimer;
     List<Sprite> captionBubbles = new List<Sprite>();
 
     private JesusFace face;
@@ -71,7 +80,8 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    void Awake() {
+    void Awake()
+    {
         currState = State.DRIVING;  // this is temporary...
     }
 
@@ -85,6 +95,7 @@ public class VehicleController : MonoBehaviour
         vehiclePool = GameManager.instance.getVehiclePool();
         face = GameObject.Find("JesusBody").GetComponent<JesusFace>();
         isHoldingMouse = false;
+        screenShakeTimer.Start();
 
         captionBubbles.AddRange(new List<Sprite>
         {
@@ -97,6 +108,16 @@ public class VehicleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            Debug.Log("Pressed left click, casting ray.");
+            CastRay();
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            UncastRay();
+        }
+
         switch (currState)
         {
             case State.DRIVING:
@@ -148,7 +169,8 @@ public class VehicleController : MonoBehaviour
     void UpdateDriving()
     {
         var vehicleLength = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.bounds.size.y;
-        if (gameObject.transform.position.y < GameManager.instance.bottomRightBound.y - vehicleLength / 2 || gameObject.transform.position.y > GameManager.instance.upperLeftBound.y + vehicleLength / 2) {
+        if (gameObject.transform.position.y < GameManager.instance.bottomRightBound.y - vehicleLength / 2 || gameObject.transform.position.y > GameManager.instance.upperLeftBound.y + vehicleLength / 2)
+        {
             currState = State.CRASHING;
         }
 
@@ -171,13 +193,22 @@ public class VehicleController : MonoBehaviour
             }
         }
 
+        if (captionTimer != null)
+        {
+            if (isSelected)
+                captionTimer.SetImageRatio(timeElapsed / nextWakeTime);
+            else
+                captionTimer.SetImageRatio(0);
+        }
+
         float hInput = 0;
         float vInput = 0;
         if (isSelected) // Only apply input if vehicle is selected, otherwise just continue with drift logic alone
         {
             float horzAxisInput = 0;
             float vertAxisInput = 0;
-            if (isHoldingMouse) {
+            if (isHoldingMouse)
+            {
                 //get axis values from relative mouse position (i.e. drag dir)
                 horzAxisInput = getMouseHorzInput();
                 vertAxisInput = getMouseVertInput();
@@ -189,7 +220,8 @@ public class VehicleController : MonoBehaviour
             bool hasKeyboardInput = !Mathf.Approximately(mouseHorzAxisInput, 0) || !Mathf.Approximately(mouseVertAxisInput, 0);
 
             //note keyboard controls will override mouse drag if they are being used at the same time
-            if (hasKeyboardInput) {
+            if (hasKeyboardInput)
+            {
                 horzAxisInput = mouseHorzAxisInput;
                 vertAxisInput = mouseVertAxisInput;
                 //Debug.Log("keyboardInput x=" + horzAxisInput + ", y=" + vertAxisInput);
@@ -234,10 +266,12 @@ public class VehicleController : MonoBehaviour
             vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
         }
 
-        if(Math.Abs(swerve) > 0) {
+        if (Math.Abs(swerve) > 0)
+        {
             var oldSign = Mathf.Sign(swerve);
             swerve -= LevelManager.instance.SwerveDecayPerWeight * vehicleStats.weight * Time.deltaTime * oldSign;
-            if(Mathf.Sign(swerve) != oldSign) {
+            if (Mathf.Sign(swerve) != oldSign)
+            {
                 swerve = 0f;
             }
         }
@@ -254,12 +288,14 @@ public class VehicleController : MonoBehaviour
     }
 
     //Get a 'digital' x read of the mouse position
-    private float getMouseHorzInput() {
+    private float getMouseHorzInput()
+    {
         return getMouseBinaryAxis(true);
     }
 
     //Get a 'digital' y read of the mouse position
-    private float getMouseVertInput() {
+    private float getMouseVertInput()
+    {
         return getMouseBinaryAxis(false);
     }
 
@@ -269,23 +305,31 @@ public class VehicleController : MonoBehaviour
     //Respects a small deadzone area for zero
     //if isHorz == true the reading is for horizontal position (x)
     //otherwise it is for vertical position (y)
-    private float getMouseBinaryAxis(bool isHorz) {
+    private float getMouseBinaryAxis(bool isHorz)
+    {
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //Debug.Log("mousePos=" + pos + ", myPos=" + gameObject.transform.position);
         float diff;
-        if (isHorz) {
+        if (isHorz)
+        {
             diff = (pos - (Vector2)gameObject.transform.position).x;
-        } else {
+        }
+        else
+        {
             diff = (pos - (Vector2)gameObject.transform.position).y;
         }
 
-        if (diff < mouseDragDeadZone && diff > -mouseDragDeadZone) {
+        if (diff < mouseDragDeadZone && diff > -mouseDragDeadZone)
+        {
             diff = 0;
         }
         float result = 0;
-        if (diff < 0) {
+        if (diff < 0)
+        {
             result = -1;
-        } else if (diff > 0) {
+        }
+        else if (diff > 0)
+        {
             result = 1;
         }
         return result;
@@ -352,7 +396,8 @@ public class VehicleController : MonoBehaviour
 
     }
 
-    public void OnCollideWithVehicle(CollisionInfo info, VehicleController otherVehicle) {
+    public void OnCollideWithVehicle(CollisionInfo info, VehicleController otherVehicle)
+    {
         if (!initialized) return;
 
         switch (currState)
@@ -363,10 +408,16 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    private void Bump(CollisionInfo collisionInfo, VehicleController otherVehicle) {
-        if( IsHeadOnCrashWithVehicle(collisionInfo.normal, otherVehicle) ) {
+    private void Bump(CollisionInfo collisionInfo, VehicleController otherVehicle)
+    {
+        if (IsHeadOnCrashWithVehicle(collisionInfo.normal, otherVehicle))
+        {
+            ScreenShake(false, bumpScreenShakeMs);
             StartSpinningCrash(collisionInfo);
-        } else {
+        }
+        else
+        {
+            ScreenShake(false, spinScreenShakeMs);
             // fake one-dimensional elastic collision?
             var u1 = currVelocity.x;
             var u2 = otherVehicle.currVelocity.x;
@@ -387,12 +438,13 @@ public class VehicleController : MonoBehaviour
         return (1 - headOnCrashPercentage) <= LevelManager.instance.headOnCrashThreshold;
     }
 
-    private bool IsHeadOnCrashWithVehicle(Vector2 normal, VehicleController otherVehicle) 
+    private bool IsHeadOnCrashWithVehicle(Vector2 normal, VehicleController otherVehicle)
     {
         if (!IsHeadOnCrash(normal)) return false;
-      
+
         var goingFrowardPercentage = Math.Abs(Vector2.Dot(normal, Vector2.up));
-        if( (1 - goingFrowardPercentage) <= LevelManager.instance.headOnCrashThreshold) {
+        if ((1 - goingFrowardPercentage) <= LevelManager.instance.headOnCrashThreshold)
+        {
 
             /*
             if(otherVehicle.vehicleStats.weight - vehicleStats.weight > vehicleStats.weight || vehicleStats.weight <= 1.5f) {
@@ -403,7 +455,9 @@ public class VehicleController : MonoBehaviour
             //TODO this should probably not just be copy pasta
             var maxControllableSpeed = vehicleStats.weight * LevelManager.instance.SpeedToWeightCrashingRatio * 0.333f;
             return currVelocity.magnitude > maxControllableSpeed;
-        } else {
+        }
+        else
+        {
             return true;
         }
     }
@@ -459,19 +513,27 @@ public class VehicleController : MonoBehaviour
         fireballEmitter.gameObject.AddComponent<ObjectFollower>().target = gameObject.transform;
         fireballEmitter.Play();
 
+        AudioManager.instance.PlaySound("explosion");
         //TODO crash sound
-        ScreenShake();
+        ScreenShake(true, GameManager.instance.screenShakeDurationMs);
 
+        captionTimer = null;
         Destroy(caption);
     }
 
-    private void showCrashedSprite() {
+    private void showCrashedSprite()
+    {
         vehicleBody.showCrashedSprite();
     }
 
-    private void ScreenShake()
+    private void ScreenShake(bool fatal, float shakeDuration)
     {
-        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(GameManager.instance.screenShakeDurationMs);
+        //If Fatal, big shake.
+        if (fatal) GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(shakeDuration);
+        if (screenShakeTimer.ElapsedMilliseconds < screenShakeCoolDown) return;
+        GameObject.Find("Main Camera").GetComponent<ScreenShake>().TriggerShake(shakeDuration);
+        screenShakeTimer.Reset();
+        screenShakeTimer.Start();
     }
 
     private void StartSpinningCrash(CollisionInfo collisionInfo)
@@ -491,11 +553,14 @@ public class VehicleController : MonoBehaviour
         fireballEmitter.Play();
         //rbody.velocity = new Vector2(0, -LevelManager.instance.scrollSpeed);
         //Debug.Log("Set crash velocity for " + gameObject.name + " enabled: " + enabled);
+        AudioManager.instance.PlaySound("car_slide");
+
     }
 
     private void StartSideSwipeSwerve(CollisionInfo collisionInfo)
     {
         sparkEmitter.Play();
+        ScreenShake(false, bumpScreenShakeMs);
 
         var percentOfMaxSwerve = 1 - Mathf.Clamp(vehicleStats.weight / LevelManager.instance.WeightForZeroSwerve, 0, 1f);
         swerve = Mathf.Sign(collisionInfo.normal.x) * (LevelManager.instance.MinSwerve + (LevelManager.instance.MaxSwerve - LevelManager.instance.MinSwerve) * percentOfMaxSwerve);
@@ -518,6 +583,7 @@ public class VehicleController : MonoBehaviour
     private void onDriverWake()
     {
         isSleeping = false;
+        captionTimer = null;
         Destroy(caption);
         resetSleepTime();
         sleepVector = Vector2.zero;
@@ -542,7 +608,8 @@ public class VehicleController : MonoBehaviour
 
     public void SetSelected(bool selected)
     {
-        if (selected && currState == State.ENTERING_STAGE) {
+        if (selected && currState == State.ENTERING_STAGE)
+        {
             setEnteringStage(false);
             RemoveMiracles();
         }
@@ -553,6 +620,7 @@ public class VehicleController : MonoBehaviour
         if (isSelected)
         {
             AddLight();
+            AudioManager.instance.PlaySound("possession");
         }
         else
         {
@@ -560,9 +628,11 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    private void RemoveMiracles() {
+    private void RemoveMiracles()
+    {
         MiracleAnimator ma = GetComponentInChildren<MiracleAnimator>();
-        if (ma != null) {
+        if (ma != null)
+        {
             ma.endMiracle();
         }
     }
@@ -584,21 +654,25 @@ public class VehicleController : MonoBehaviour
         }
     }
 
-    public void OnMouseDown()
+    public void CastRay()
     {
         if (!IsCrashed)
         {
-            isHoldingMouse = true;
-            vehiclePool.SelectVehicle(this);
-            resetWakeTime();
-            //Debug.Log(Time.time  + " reset timeElapsed nextSleepTime " + nextWakeTime);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, LayerMask.GetMask(new string[] { "Cars", "EnteringCars" }));
+            if (hit.collider != null && hit.transform == transform)
+            {
+                isHoldingMouse = true;
+                vehiclePool.SelectVehicle(this);
+                resetWakeTime();
+                //Debug.Log(Time.time  + " reset timeElapsed nextSleepTime " + nextWakeTime);
+            }
         }
     }
 
-    public void OnMouseUp() {
-        if (isHoldingMouse) {
-            isHoldingMouse = false;
-        }
+    public void UncastRay()
+    {
+        isHoldingMouse = false;
     }
 
     private float GetHorizontalDeltaFromRotation(float eulerAngle)
@@ -631,6 +705,7 @@ public class VehicleController : MonoBehaviour
 
         //Render Sleep Caption
         caption = Instantiate(sleepCaption, vehicleBody.transform.position, Quaternion.identity, vehicleBody.transform);
-        caption.GetComponentInChildren<SpriteRenderer>().sprite = captionBubbles.ElementAt(randomIndex);
+        caption.GetComponentInChildren<Image>().sprite = captionBubbles.ElementAt(randomIndex);
+        captionTimer = caption.GetComponent<CaptionTimer>();
     }
 }

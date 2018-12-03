@@ -91,7 +91,7 @@ MonoBehaviour:
   weight: 8
   control: 9
   speed: 7
-  prayerValue: 20
+  prayerValue: 40
   sleepChance: 2
   sleepSeverity: 7
   awakeGracePeriod: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 4
-  allowSpawn: 1
+  allowSpawn: 0
   firstSpawnTime: 10
   spawnInterval: 12
   spawnTelegraph: {fileID: 1777406086461410, guid: bc5eb552320119c44b4b6a16f941e02c,
@@ -182,7 +182,7 @@ MonoBehaviour:
   weight: 5
   control: 14
   speed: 7
-  prayerValue: 10
+  prayerValue: 20
   sleepChance: 2
   sleepSeverity: 3
   awakeGracePeriod: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   weight: 8
   control: 11
   speed: 5
-  prayerValue: 20
+  prayerValue: 40
   sleepChance: 1
   sleepSeverity: 8
   awakeGracePeriod: 0
@@ -243,7 +243,12 @@ MonoBehaviour:
   distanceBetweenCheckpoints: 100
   scrollSpeed: 10
   spawnRateInSeconds: 5
-  rateOfPrayerDecay: 100
+  prayerDecayTickRate: 0.35
+  prayerIncomeTickRate: 5
+  prayerDecayPerSec: 22
+  prayersPerSecondPerCar: 8
+  maxPrayers: 800
+  startingAmtOfPrayers: 600
   headOnCrashThreshold: 0.25
   CrashingLinearDrag: 1
   CrashingAngularDrag: 0.1
@@ -269,7 +274,7 @@ MonoBehaviour:
   weight: 11
   control: 8
   speed: 4
-  prayerValue: 20
+  prayerValue: 40
   sleepChance: 3
   sleepSeverity: 11
   awakeGracePeriod: 0
@@ -288,7 +293,7 @@ MonoBehaviour:
   weight: 11
   control: 10
   speed: 6
-  prayerValue: 20
+  prayerValue: 40
   sleepChance: 1
   sleepSeverity: 6
   awakeGracePeriod: 0
@@ -307,7 +312,7 @@ MonoBehaviour:
   weight: 4
   control: 15
   speed: 11
-  prayerValue: 30
+  prayerValue: 60
   sleepChance: 3
   sleepSeverity: 11
   awakeGracePeriod: 0
@@ -326,7 +331,7 @@ MonoBehaviour:
   weight: 2
   control: 15
   speed: 11
-  prayerValue: 30
+  prayerValue: 60
   sleepChance: 2
   sleepSeverity: 5
   awakeGracePeriod: 0

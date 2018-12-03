@@ -10,13 +10,13 @@ public class VolumeListener : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         // gameObject.GetComponent<Slider>().value = AudioManager.instance.GetMusicVolume(); 
-        VolumeChanged();
+        // VolumeChanged();
     }
 	
 	public void VolumeChanged()
 	{
 		volumeLevel = gameObject.GetComponent<Slider>().value;
-		AudioManager.instance.UpdateMusicVolume();
+		AudioManager.instance.UpdateOverallVolume();
         Debug.Log("Volume changed: " + (volumeLevel * 100f).ToString("00") + "%");
 	}
 }

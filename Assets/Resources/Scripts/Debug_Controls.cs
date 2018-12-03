@@ -10,6 +10,12 @@ public class Debug_Controls : MonoBehaviour {
     [SerializeField]
     private KeyCode restartSceneKey;
 
+    [SerializeField]
+    private KeyCode removePrayers;
+
+    [SerializeField]
+    private KeyCode addPrayers;
+
 	// Use this for initialization
 	void Start () {
         //remove this script in prod
@@ -25,6 +31,12 @@ public class Debug_Controls : MonoBehaviour {
         if (Input.GetKeyDown(restartSceneKey)) {
             restartScene();
         }
+        if (Input.GetKeyDown(removePrayers)) {
+            deltaPrayers(-150);
+        }
+        if (Input.GetKeyDown(addPrayers)) {
+            deltaPrayers(100);
+        }
 	}
 
     private void jumpToNextCheckpoint() {
@@ -38,5 +50,21 @@ public class Debug_Controls : MonoBehaviour {
         } else {
             Debug.LogError("Couldn't find the GameOver script to run");
         }
+    }
+
+    private void deltaPrayers(float amt) {
+        PrayerMeter pm = GameManager.instance.GetPrayerMeter();
+        if (pm != null) {
+            if (amt > 0) {
+                Debug.Log("Adding " + amt + " prayers (debug)");
+                pm.AddPrayer(amt);
+            } else {
+                Debug.Log("Removing " + amt + " prayers (debug)");
+                pm.RemovePrayer(-amt);
+            }
+        } else {
+            Debug.LogError("No prayer meter to change");
+        }
+
     }
 }
