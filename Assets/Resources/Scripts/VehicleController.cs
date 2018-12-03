@@ -612,8 +612,8 @@ public class VehicleController : MonoBehaviour
 
     private float GetNextSleepOrWakeTime()
     {
-        float ret = 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
-        ret += 4;
+        float ret = 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 6-12 seconds
+        ret += 5;
         //Debug.Log("GetNextSleepOrWakeTime: " + ret);
         return ret;
     }
