@@ -7,7 +7,14 @@ public class LevelManager : Singleton<LevelManager>
     public float distanceBetweenCheckpoints;
     public float scrollSpeed;
     public float spawnRateInSeconds;
-    public float rateOfPrayerDecay;
+
+    public float prayerDecayTickRate; //how often the update is in sec
+    public float prayerIncomeTickRate; //how often the update is in sec
+    public float prayerDecayPerSec;    //how many are lost after 1 second, approx
+    public float prayersPerSecondPerCar; //number per car added every IncomeTickRate
+    public float maxPrayers;            //max amount you can have
+    public float startingAmtOfPrayers;  //when the game starts you get this many
+
     public float headOnCrashThreshold;
 
     public float CrashingLinearDrag = 1;
