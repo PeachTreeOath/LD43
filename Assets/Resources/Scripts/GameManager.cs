@@ -251,7 +251,7 @@ public class GameManager : Singleton<GameManager>
         cGroup.interactable = true;
         cGroup.blocksRaycasts = true;
        // GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
-        GameObject.Find("GameOverTip").GetComponent<Text>().text = "Total Distance Traveled:\n" + (totalDistanceTraveled * displayDistanceMultiplier).ToString("0.00");
+        GameObject.Find("GameOverTip").GetComponent<Text>().text = "Total Distance Traveled:\n" + (totalDistanceTraveled * displayDistanceMultiplier).ToString("0.00") + " MI";
         GameOver();
     }
 
