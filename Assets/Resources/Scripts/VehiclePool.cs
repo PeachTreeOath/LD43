@@ -172,4 +172,8 @@ public class VehiclePool : MonoBehaviour
             GameManager.instance.GameOverVehicleDeath();
         }
     }
+
+    public int getNumWorkingCars() {
+        return vehicles.Count;
+    }
 }
