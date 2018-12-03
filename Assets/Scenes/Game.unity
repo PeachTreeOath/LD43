@@ -883,30 +883,6 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 24557932}
-    - target: {fileID: 1065713652187374, guid: a69ff8f9da8a3f844abc6834b9e7c123, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 225013327718249550, guid: a69ff8f9da8a3f844abc6834b9e7c123,
-        type: 2}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372293455093314, guid: a69ff8f9da8a3f844abc6834b9e7c123,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224565065784291000, guid: a69ff8f9da8a3f844abc6834b9e7c123,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 37
-      objectReference: {fileID: 0}
-    - target: {fileID: 224611436919035326, guid: a69ff8f9da8a3f844abc6834b9e7c123,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -37
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a69ff8f9da8a3f844abc6834b9e7c123, type: 2}
   m_IsPrefabAsset: 0
@@ -1176,6 +1152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 0}
   shakeDuration: 750
+  shakeMagnitude: 0
   smallShakeMagnitude: 0.1
   largeShakeMagnitude: 0.5
 --- !u!1 &1817866497
