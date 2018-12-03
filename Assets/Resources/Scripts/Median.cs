@@ -60,6 +60,8 @@ public class Median : MonoBehaviour {
             Instantiate(telegraphPrefab, position, Quaternion.identity, transform);
             position.x += stride;
         }
+
+        AudioManager.instance.PlaySound("obstacle_warning");
     }
 
     void DestroyAllTelegraphs() {
@@ -88,5 +90,9 @@ public class Median : MonoBehaviour {
                 }
                 break;
         }
-	}
+        var medianHeight = renderer.bounds.size.y;
+        if (gameObject.transform.position.y < GameManager.instance.bottomRightBound.y - medianHeight * 2) {
+            Destroy(gameObject);
+        }
+    }
 }
