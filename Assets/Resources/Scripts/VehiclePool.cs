@@ -89,10 +89,10 @@ public class VehiclePool : MonoBehaviour
         SpawnVehicleWithAnimation(vehicleType, vehiclePrefab, position, startX, duration);
 
         if(vehicleType == VehicleTypeEnum.MOTORCYLE) {
-            var offset1 = new Vector2(-0.3f, -0.3f);
-            var offset2 = new Vector2(0.3f, -0.3f);
-            SpawnVehicleWithAnimation(vehicleType, vehiclePrefab, position + offset1, startX, duration);
-            SpawnVehicleWithAnimation(vehicleType, vehiclePrefab, position + offset2, startX, duration);
+            var offset1 = new Vector2(-0.35f, -0.3f);
+            var offset2 = new Vector2(0.35f, -0.3f);
+            SpawnVehicleWithAnimation(vehicleType, vehiclePrefab, position + offset1, startX + offset1.x, duration);
+            SpawnVehicleWithAnimation(vehicleType, vehiclePrefab, position + offset2, startX + offset2.x, duration);
         }
     }
 
