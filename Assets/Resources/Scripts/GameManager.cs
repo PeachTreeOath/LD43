@@ -237,8 +237,8 @@ public class GameManager : Singleton<GameManager>
         cGroup.alpha = 1;
         cGroup.interactable = true;
         cGroup.blocksRaycasts = true;
-        GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
-        GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
+       // GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
+      //  GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
         GameOver();
     }
 
