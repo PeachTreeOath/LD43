@@ -193,7 +193,7 @@ public class GameManager : Singleton<GameManager>
         nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
         GameManager.instance.PrayerPowerRevive();
 
-        AudioManager.instance.PlaySound("car_start");
+        AudioManager.instance.PlaySound("car_honk");
     }
 
     public bool isPaused()
