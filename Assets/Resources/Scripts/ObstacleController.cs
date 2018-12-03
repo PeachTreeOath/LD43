@@ -29,6 +29,10 @@ public class ObstacleController : MonoBehaviour
 
     private SpriteRenderer spr;
 
+    private Rigidbody2D rbody;
+
+    private float rotation;
+
     [Tooltip("Warning indicator object, show display while obstacle is waiting to move into the map.")]
 	public GameObject telegraph;
 
@@ -41,6 +45,12 @@ public class ObstacleController : MonoBehaviour
 
 	public void Start () 
 	{
+        if (transform.position.x < 0) {
+            rotation = UnityEngine.Random.Range(-30, -90);
+        } else {
+            rotation = UnityEngine.Random.Range(-90, -150);
+        }
+        rbody = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
         spr.color = new Color(1f, 1f, 1f, 1f);
         vehicleSpriteList = new List<string>(vehicleSpriteArr);
@@ -110,7 +120,8 @@ public class ObstacleController : MonoBehaviour
 		switch (obstacleState)
 		{
 			case ObstacleStateEnum.WAITING:
-				moveTimer -= Time.deltaTime;
+                rbody.velocity = new Vector2(0f, 0f);
+                moveTimer -= Time.deltaTime;
 				break;
 			case ObstacleStateEnum.MOVING:
 				// Delete telegraph.
@@ -118,8 +129,10 @@ public class ObstacleController : MonoBehaviour
 				{
 					Destroy(telegraph);
 				}
-				
-				transform.position = new Vector3(transform.position.x + (obstacleStats.horizontalSpeed * Time.deltaTime), transform.position.y - ((obstacleStats.verticalSpeed + speedModifier) * Time.deltaTime), transform.position.z);
+                rbody.velocity = (Vector2)(Quaternion.Euler(0, 0, rotation) * Vector2.right);
+                rbody.rotation = rotation;
+                //transform.right = endPosition.normalized - transform.position;
+                // transform.position = new Vector3(transform.position.x + (obstacleStats.horizontalSpeed * Time.deltaTime), transform.position.y - ((obstacleStats.verticalSpeed + speedModifier) * Time.deltaTime), transform.position.z);
 
                 if (transform.position.y <= GameManager.instance.bottomRightBound.y - GetComponent<SpriteRenderer>().sprite.bounds.size.y) {
                     Destroy(gameObject);
@@ -130,11 +143,13 @@ public class ObstacleController : MonoBehaviour
                 break;
 
 			case ObstacleStateEnum.PLACED:
-				// Continue moving - potentially in a different way (or add logic to pause depending on obstacle?)
-				transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
+                // Continue moving - potentially in a different way (or add logic to pause depending on obstacle?)
+                rbody.velocity = new Vector2(0f, 0f);
+                transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
 				break;
             case ObstacleStateEnum.DEAD:
                 spr.color = new Color(1f, 0f, 0f, 1f);
+                rbody.velocity = new Vector2(0f, 0f);
                 transform.position = new Vector3(transform.position.x, transform.position.y - ((LevelManager.instance.scrollSpeed + speedModifier) * Time.deltaTime), transform.position.z);
                 doDeathPenalty();
                 break;
