@@ -41,7 +41,7 @@ public class VehicleController : MonoBehaviour
     private bool initialized = false;
     private float maxHSpeedConst = 0.17f;
     private static float WAKE_CONTROL_LOWER_BOUND = 5;
-    private static float LANE_CORRECTION_ANGLE_DELTA = 2;
+    private static float LANE_CORRECTION_ANGLE_DELTA = .2f;
     private static float WAKE_TIME = 1f; // 1 second before waking
     private static float mouseDragDeadZone = 0.3f; // values < this are in the mouse movement deadzone
 
@@ -257,12 +257,12 @@ public class VehicleController : MonoBehaviour
             { // angle > 180
                 rotateDelta = LANE_CORRECTION_ANGLE_DELTA;
             }
-            vehicleBody.transform.Rotate(Vector3.forward, rotateDelta);
+            vehicleBody.transform.Rotate(Vector3.forward, rotateDelta * Time.deltaTime);
         }
         else
         {
-            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity * .2f) + swerve) * Time.deltaTime;
-            vehicleBody.transform.Rotate(Vector3.back, rotateDelta);
+            rotateDelta = (hInput + (sleepVector.x * vehicleStats.sleepSeverity) + swerve) * Time.deltaTime;
+            vehicleBody.transform.Rotate(Vector3.back, rotateDelta * driftPower);
         }
 
         if (Math.Abs(swerve) > 0)
@@ -603,6 +603,7 @@ public class VehicleController : MonoBehaviour
     private float GetNextSleepOrWakeTime()
     {
         float ret = 8 - vehicleStats.sleepChance * 2 + UnityEngine.Random.Range(-1, 2); // Choose to sleep randomly from 1-7 seconds
+        ret += 4;
         //Debug.Log("GetNextSleepOrWakeTime: " + ret);
         return ret;
     }
