@@ -235,9 +235,15 @@ public class GameManager : Singleton<GameManager>
     
     public void GameOverPrayerPowerDeath()
     {
-        CanvasGroup cGroup = GameObject.Find("GameOverCanvasGroup").GetComponent<CanvasGroup>();
-        cGroup.alpha = 1;
-        cGroup.interactable = true;
-        cGroup.blocksRaycasts = true;
+        public void GameOverPrayerPowerDeath()
+        {
+            GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
+            isPrayerDeath = true;
+        }
+
+        public void PrayerPowerRevive()
+        {
+            isPrayerDeath = false;
+        }
     }
 }
