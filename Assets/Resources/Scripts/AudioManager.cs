@@ -33,7 +33,8 @@ public class AudioManager : Singleton<AudioManager>
         soundMixer = new Dictionary<string, float>
         {
             { "dance", .1f },
-            { "obstacle_warning", .8f },
+            { "obstacle_warning", .6f },
+            { "car_start", .9f },
             { "possession", 1f }
         };
 
@@ -194,7 +195,7 @@ public class AudioManager : Singleton<AudioManager>
     public void PlaySound(string name)
     {
         AudioClip clip = soundMap[name];
-        soundChannel.PlayOneShot(soundMap[name]);
+        soundChannel.PlayOneShot(soundMap[name], soundMixer.ContainsKey(name) ? soundMixer[name] : 1f);
     }
 
     public void PlaySound(string name, float volume)

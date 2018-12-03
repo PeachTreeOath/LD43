@@ -183,6 +183,8 @@ public class GameManager : Singleton<GameManager>
         isPausedForCheckpoint = false;
         obstacleSpawner.resume();
         nextCheckpointPos += LevelManager.instance.distanceBetweenCheckpoints;
+
+        AudioManager.instance.PlaySound("car_start");
     }
 
     public bool isPaused()
