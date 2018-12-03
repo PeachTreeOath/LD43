@@ -9,57 +9,60 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1581632159215740}
+  m_RootGameObject: {fileID: 1552966757504160}
   m_IsPrefabAsset: 1
---- !u!1 &1581632159215740
+--- !u!1 &1552966757504160
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4170335325738024}
-  - component: {fileID: 114260786124810796}
+  - component: {fileID: 4838376646990234}
+  - component: {fileID: 114956917061790028}
   m_Layer: 0
-  m_Name: MedianSpawner
+  m_Name: Median Spawning Rules
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4170335325738024
+--- !u!4 &4838376646990234
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1581632159215740}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1552966757504160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.568008, y: 6.715954, z: -0.1875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114260786124810796
+--- !u!114 &114956917061790028
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1581632159215740}
+  m_GameObject: {fileID: 1552966757504160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9167e543bad77b047b3a8f3dfe69d035, type: 3}
+  m_Script: {fileID: 11500000, guid: 32ad0ae3958768e4e81ca1d3384ac4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawningBehaviors: {fileID: 114956917061790028, guid: f5b4179f7b71fa04499ac88bd0b5ce38,
-    type: 2}
-  spawnTelegraph: {fileID: 1777406086461410, guid: bc5eb552320119c44b4b6a16f941e02c,
-    type: 2}
-  isSpawningMedians: 0
-  allowNeighboringMedians: 1
-  minMedianInterval: 0
-  maxMedianInterval: 0
-  moveWaitTime: 3.5
-  elapsedTime: 0
-  timeLeftInEpoch: 0
-  timeUntilNextSpawn: 0
+  rules:
+  - startUsingAfter: 0
+    stopUsingAfter: 0
+    lengthOfBehavior: 30
+    weight: 1
+    neverStopUsing: 1
+    spawnAnything: 1
+    laneSizeDistribution: []
+    lengthDistribution: []
+    numberOfLanesDistribution:
+    - value: 3
+      weight: 1
+    allowNeighboringSpawn: 1
+    minSpawnInterval: 10
+    maxSpawnInterval: 10
