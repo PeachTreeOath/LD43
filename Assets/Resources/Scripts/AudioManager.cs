@@ -32,7 +32,7 @@ public class AudioManager : Singleton<AudioManager>
         soundMap = new Dictionary<string, AudioClip>();
         soundMixer = new Dictionary<string, float>
         {
-            { "dance", .1f },
+            { "praise_song", .5f },
             { "obstacle_warning", .3f },
             { "car_start", .9f },
             { "car_slide", .9f },
@@ -67,7 +67,7 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         ToggleMute(mute);
-        PlayMusic("dance");
+        PlayMusic("praise_song");
     }
 
 	public void UpdateOverallVolume()
