@@ -260,6 +260,7 @@ public class GameManager : Singleton<GameManager>
 
     public void PrayerPowerRevive()
     {
+        GameManager.instance.GetPrayerMeter().AddPrayer(10f);
         isPrayerDeath = false;
     }
 }
