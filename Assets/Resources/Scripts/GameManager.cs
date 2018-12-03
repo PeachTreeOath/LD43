@@ -26,7 +26,6 @@ public class GameManager : Singleton<GameManager>
     private CheckpointManager checkpointManager;
     private VehiclePool vehiclePool;
     PrayerMeter prayerMeter;
-    public bool isPrayerDeath;
 
     private float curPos = 0;
     private float nextCheckpointPos = 0; //TODO relocate to Level object
@@ -34,16 +33,7 @@ public class GameManager : Singleton<GameManager>
 
     //private int dbgCount = 0;
 
-    public void GameOver()
-    {
-        GameManager.instance.GetCheckPointManager().enabled = false;
-        GameManager.instance.GetObstacleSpawner().enabled = false;
-        GameManager.instance.GetMedianSpawner().enabled = false;
-        GameManager.instance.GetPrayerMeter().enabled = false;
-        GameManager.instance.enabled = false;
-    }
-
-    //Note this will only start once ever because of the singleton dontdestroyonload
+        //Note this will only start once ever because of the singleton dontdestroyonload
     void Start()
     {
 
@@ -64,8 +54,7 @@ public class GameManager : Singleton<GameManager>
         StartSceneThings();
     }
 
-    public void StartSceneThings()
-    {
+    public void StartSceneThings() {
         //start'er up
         //hitCheckpoint();
         //resumeForCheckpoint();
@@ -109,23 +98,19 @@ public class GameManager : Singleton<GameManager>
     /// If a full reload of all objects is needed, destroyTheUndestroyables must be set to true,
     /// otherwise objects marked as DontDestroyOnLoad will not be reinitialized.
     /// </summary>
-    public void loadScene(string sceneName, bool destroyTheUndestroyables)
-    {
-        if (destroyTheUndestroyables)
-        {
+    public void loadScene(string sceneName, bool destroyTheUndestroyables) {
+        if (destroyTheUndestroyables) {
             //this is kind of slow :<
             targetAllSingletonsForDestruction();
         }
         SceneManager.LoadScene(sceneName);
     }
 
-    private void targetAllSingletonsForDestruction()
-    {
+    private void targetAllSingletonsForDestruction() {
         GameObject[] ss = GameObject.FindGameObjectsWithTag("singleton");
         //https://answers.unity.com/questions/18217/undoing-dontdestroyonload-without-immediately-dest.html
         //reparent the objects to force them to unload
-        foreach (GameObject go in ss)
-        {
+        foreach(GameObject go in ss) {
             Debug.Log("Resetting DontDestroyOnLoad for " + go.name);
             GameObject tmpParent = new GameObject();
             go.transform.parent = tmpParent.transform;
@@ -234,8 +219,7 @@ public class GameManager : Singleton<GameManager>
         return obstacleSpawner;
     }
 
-    public MedianSpawner GetMedianSpawner()
-    {
+    public MedianSpawner GetMedianSpawner() {
         return GameObject.FindObjectOfType<MedianSpawner>();
     }
 
@@ -245,18 +229,22 @@ public class GameManager : Singleton<GameManager>
         cGroup.alpha = 1;
         cGroup.interactable = true;
         cGroup.blocksRaycasts = true;
-        //GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
-        //GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
+        GameObject.Find("GameOverHeader").GetComponent<Text>().text = "Everyone died!";
+        GameObject.Find("GameOverTip").GetComponent<Text>().text = "Tip: Save vehicles that are easier to control";
     }
 
+    
     public void GameOverPrayerPowerDeath()
     {
-        GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
-        isPrayerDeath = true;
-    }
+        public void GameOverPrayerPowerDeath()
+        {
+            GameObject.Find("VehiclePool").GetComponent<VehiclePool>().UnselectAllVehicles();
+            isPrayerDeath = true;
+        }
 
-    public void PrayerPowerRevive()
-    {
-        isPrayerDeath = false;
+        public void PrayerPowerRevive()
+        {
+            isPrayerDeath = false;
+        }
     }
 }
