@@ -484,6 +484,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e76ee8463d84fb942a324b1ce88bca79, type: 2}
   m_IsPrefabAsset: 0
+--- !u!224 &604814856 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224755952165119342, guid: a96303b67fe033c47a42de8471afe551,
+    type: 2}
+  m_PrefabInternal: {fileID: 823826819}
 --- !u!1001 &633012939
 Prefab:
   m_ObjectHideFlags: 0
@@ -626,6 +631,26 @@ Prefab:
     - target: {fileID: 4663330968114750, guid: a96303b67fe033c47a42de8471afe551, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
+        type: 2}
+      propertyPath: prayerMeter
+      value: 
+      objectReference: {fileID: 604814856}
+    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
+        type: 2}
+      propertyPath: lowThreshold
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
+        type: 2}
+      propertyPath: pulseScale
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114347356730819698, guid: a96303b67fe033c47a42de8471afe551,
+        type: 2}
+      propertyPath: pulseSpeed
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a96303b67fe033c47a42de8471afe551, type: 2}
