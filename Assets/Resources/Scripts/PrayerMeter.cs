@@ -17,6 +17,7 @@ public class PrayerMeter : MonoBehaviour
     public float pulseScale;
     public float pulseSpeed;
     public RectTransform prayerMeter;
+    public GameObject lowPrayersText;
 
     //Prayer Meter Serialized Fields
     [SerializeField] private float DecayTimer = .5f;
@@ -69,6 +70,8 @@ public class PrayerMeter : MonoBehaviour
 
         //Initialize and start the Prayer Meter Decay Timer
         _prayerMeterDecayTimer = Time.time;
+
+        lowPrayersText.GetComponent<Renderer>().enabled = false;
     }
 
     // Update is called once per frame
@@ -90,11 +93,16 @@ public class PrayerMeter : MonoBehaviour
         }else if(!pulsing &&
                 _prayerCount / MaximumPrayers <= lowThreshold)
         {
+            lowPrayersText.GetComponent<Renderer>().enabled = true;
             pulsing = true;
             pulseTimer = Time.time;
             pulseUp = true;
         }else if (_prayerCount / MaximumPrayers > lowThreshold)
         {
+            if(pulsing)
+            {
+                lowPrayersText.GetComponent<Renderer>().enabled = false;
+            }
             pulsing = false;
             prayerMeter.localScale = startScale;
             prayerMeter.ForceUpdateRectTransforms();
