@@ -247,7 +247,7 @@ MonoBehaviour:
   prayerPenaltyPerPed: 120
   prayerDecayTickRate: 0.35
   prayerIncomeTickRate: 5
-  prayerDecayPerSec: 26
+  prayerDecayPerSec: 22
   prayersPerSecondPerCar: 8
   prayerCheckpointMultiplier: 2
   maxPrayers: 800
