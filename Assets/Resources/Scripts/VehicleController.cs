@@ -717,7 +717,19 @@ public class VehicleController : MonoBehaviour
 
         //Render Sleep Caption
         caption = Instantiate(sleepCaption, vehicleBody.transform.position, Quaternion.identity, vehicleBody.transform);
+        //Set foreground
         caption.GetComponentInChildren<Image>().sprite = captionBubbles.ElementAt(randomIndex);
+        Material fgMat = caption.GetComponentInChildren<Image>().material;
+        Debug.Log("fgMat : " + caption.GetComponentInChildren<Image>().gameObject.name);
+        fgMat.color = new Color(fgMat.color.r, fgMat.color.g, fgMat.color.b, .65f);
+
+        //Set background
+        GameObject bg = caption.transform.Find("Canvas").Find("BgOutline").gameObject;
+        bg.GetComponent<Image>().sprite = captionBubbles.ElementAt(randomIndex);
+        Material bgMat = bg.GetComponent<Image>().material;
+        Debug.Log("bgMat : " + bg.name);
+        bgMat.color = new Color(bgMat.color.r, bgMat.color.g, bgMat.color.b, .15f);
+
         captionTimer = caption.GetComponent<CaptionTimer>();
     }
 }
