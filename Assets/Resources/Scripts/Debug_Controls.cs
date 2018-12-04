@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Debug_Controls : MonoBehaviour {
-
+#if UNITY_EDITOR
     [SerializeField]
     private KeyCode jumpToNextCheckpointKey;
 
@@ -67,4 +67,5 @@ public class Debug_Controls : MonoBehaviour {
         }
 
     }
+#endif
 }

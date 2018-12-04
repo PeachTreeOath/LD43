@@ -268,6 +268,8 @@ public class GameManager : Singleton<GameManager>
         GameManager.instance.GetMedianSpawner().enabled = false;
         GameManager.instance.GetPrayerMeter().enabled = false;
         GameManager.instance.enabled = false;
+        GameObject.Find("EmptyPrayersText").SetActive(false);
+        GameObject.Find("LowPrayersText").SetActive(false);
         isGameOver = true;
     }
 
