@@ -30,7 +30,7 @@ public class MedianSpawner : ProgrammableSpawner {
         var position = new Vector3(
             lanes[lane] + ((Median.WIDTH_PER_LANE * lanesWide) / 2f),
             6f + (screensTall * Median.HEIGHT_PER_SCREEN) /2f, //TODO this isn't quite right
-            0f
+            2f
         );
 
         var median = Instantiate(prefab, position, Quaternion.identity).GetComponent<Median>();
