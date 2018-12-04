@@ -244,7 +244,7 @@ MonoBehaviour:
   scrollSpeed: 10
   spawnRateInSeconds: 5
   prayerPenaltyPerCycle: 40
-  prayerPenaltyPerPed: 80
+  prayerPenaltyPerPed: 120
   prayerDecayTickRate: 0.35
   prayerIncomeTickRate: 5
   prayerDecayPerSec: 22
